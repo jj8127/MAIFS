@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.env
+.venv
+venv/
+ENV/
+.envrc
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs and outputs
+logs/
+outputs/
+test_results/
+*.log
+
+# Model weights / checkpoints
+OmniGuard-main/checkpoint/
+*.pth
+*.pt
+*.ckpt
+*.bin
+
+# Notebooks
+.ipynb_checkpoints/
