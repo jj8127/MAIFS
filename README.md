@@ -56,6 +56,8 @@ print(f"신뢰도: {result.confidence:.1%}")
 | [CHECKPOINT_VALIDATION_REPORT.md](CHECKPOINT_VALIDATION_REPORT.md) | 체크포인트 검증 보고서 | 개발자 |
 | [CHANGES_SUMMARY.md](CHANGES_SUMMARY.md) | 변경 사항 정리 | 개발자 |
 | [MAIFS_IMPLEMENTATION_PLAN.md](MAIFS_IMPLEMENTATION_PLAN.md) | 구현 계획 및 진행 상황 | 관리자 |
+| [docs/CONDA_ENV_SNAPSHOTS.md](docs/CONDA_ENV_SNAPSHOTS.md) | conda 환경 스냅샷 및 smoke test | 개발자 |
+| [docs/DATASETS.md](docs/DATASETS.md) | 데이터셋 다운로드/배치/실행/출력 위치 | 개발자/연구자 |
 | [docs/README.md](docs/README.md) | 상세 소개 (Features/Architecture) | 모두 |
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | 시스템 아키텍처 | 개발자 |
 | [docs/API_REFERENCE.md](docs/API_REFERENCE.md) | API 문서 | 개발자 |

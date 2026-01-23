@@ -35,6 +35,26 @@ OmniGuard-main/checkpoint/
 *.pt
 *.ckpt
 *.bin
+*.pth.tar
 
 # Notebooks
 .ipynb_checkpoints/
+
+# Local datasets and run artifacts
+datasets/
+CAT-Net-main/datasets/
+CAT-Net-main/input/
+MVSS-Net-master/data/
+MVSS-Net-master/input/
+MVSS-Net-master/output_real/
+MVSS-Net-master/output_smoke/
+MVSS-Net-master/outputs/
+OmniGuard-main/data/
+OmniGuard-main/output_real/
+OmniGuard-main/output_smoke/
+HiNet-main/data/
+HiNet-main/image/
+TruFor-main/TruFor_train_test/datasets/
+TruFor-main/TruFor_weights.zip
+TruFor-main/TruFor_train_test/pretrained_models/
+*.npz
