@@ -600,6 +600,354 @@ def analyze_image(
 
 ---
 
+## LLM Integration
+
+### QwenClient (NEW - v0.6.0)
+
+vLLM 서버와 통신하는 Qwen 클라이언트입니다.
+
+```python
+class QwenClient:
+    """Qwen vLLM 클라이언트"""
+
+    def __init__(
+        self,
+        base_url: str = "http://localhost:8000",
+        timeout: float = 60.0,
+        max_retries: int = 3
+    ) -> None:
+        """
+        Args:
+            base_url: vLLM 서버 URL
+            timeout: 요청 타임아웃 (초)
+            max_retries: 최대 재시도 횟수
+        """
+
+    async def health_check(self) -> bool:
+        """서버 상태 확인"""
+
+    async def infer(
+        self,
+        role: AgentRole,
+        tool_results: Dict[str, Any],
+        use_guided_json: bool = True,
+        context: Optional[Dict] = None
+    ) -> InferenceResult:
+        """
+        단일 에이전트 추론
+
+        Args:
+            role: 에이전트 역할 (AgentRole enum)
+            tool_results: Tool 분석 결과
+            use_guided_json: JSON 스키마 강제 여부
+            context: 추가 컨텍스트
+
+        Returns:
+            InferenceResult: 추론 결과
+        """
+
+    async def batch_infer(
+        self,
+        tool_results_map: Dict[AgentRole, Dict[str, Any]],
+        use_guided_json: bool = True
+    ) -> Dict[AgentRole, InferenceResult]:
+        """
+        배치 추론 (4개 에이전트 동시 처리)
+
+        Args:
+            tool_results_map: {AgentRole: tool_results} 매핑
+            use_guided_json: JSON 스키마 강제 여부
+
+        Returns:
+            Dict[AgentRole, InferenceResult]: 각 에이전트별 결과
+        """
+
+    async def debate_respond(
+        self,
+        role: AgentRole,
+        my_verdict: str,
+        my_confidence: float,
+        my_evidence: Dict[str, Any],
+        challenger_name: str,
+        challenge: str
+    ) -> InferenceResult:
+        """
+        토론 응답 생성
+
+        Args:
+            role: 응답하는 에이전트 역할
+            my_verdict: 내 판정
+            my_confidence: 내 신뢰도
+            my_evidence: 내 증거
+            challenger_name: 반론 제기자 이름
+            challenge: 반론 내용
+
+        Returns:
+            InferenceResult: 토론 응답
+        """
+
+    async def close(self) -> None:
+        """세션 종료"""
+```
+
+### InferenceResult
+
+추론 결과 데이터입니다.
+
+```python
+@dataclass
+class InferenceResult:
+    """추론 결과"""
+
+    role: AgentRole
+    """에이전트 역할"""
+
+    content: str
+    """응답 텍스트"""
+
+    parsed_json: Optional[Dict]
+    """파싱된 JSON (있는 경우)"""
+
+    raw_response: Optional[Dict]
+    """원시 API 응답"""
+
+    latency_ms: float
+    """지연 시간 (밀리초)"""
+
+    success: bool
+    """성공 여부"""
+
+    error: Optional[str]
+    """에러 메시지 (실패 시)"""
+```
+
+### QwenMAIFSAdapter (NEW - v0.6.0)
+
+MAIFS 시스템과 Qwen을 연결하는 어댑터입니다.
+
+```python
+class QwenMAIFSAdapter:
+    """Qwen MAIFS 어댑터"""
+
+    def __init__(
+        self,
+        base_url: str = "http://localhost:8000",
+        enable_debate: bool = True,
+        max_debate_rounds: int = 3,
+        consensus_threshold: float = 0.7
+    ) -> None:
+        """
+        Args:
+            base_url: vLLM 서버 URL
+            enable_debate: 토론 활성화 여부
+            max_debate_rounds: 최대 토론 라운드
+            consensus_threshold: 합의 임계값
+        """
+
+    async def analyze_with_qwen(
+        self,
+        tool_results_map: Dict[str, Dict[str, Any]]
+    ) -> Dict[str, QwenAnalysisResult]:
+        """
+        Tool 결과를 Qwen으로 분석
+
+        Args:
+            tool_results_map: {"frequency": {...}, "noise": {...}, ...}
+
+        Returns:
+            Dict[str, QwenAnalysisResult]: 에이전트별 분석 결과
+        """
+
+    async def analyze_single(
+        self,
+        agent_name: str,
+        tool_results: Dict[str, Any]
+    ) -> QwenAnalysisResult:
+        """
+        단일 에이전트 분석
+
+        Args:
+            agent_name: 에이전트 이름
+            tool_results: Tool 분석 결과
+
+        Returns:
+            QwenAnalysisResult: 분석 결과
+        """
+
+    async def conduct_debate(
+        self,
+        analysis_results: Dict[str, QwenAnalysisResult]
+    ) -> Dict[str, Any]:
+        """
+        토론 수행
+
+        Args:
+            analysis_results: 에이전트별 분석 결과
+
+        Returns:
+            Dict: 토론 결과
+                - debate_conducted: bool
+                - rounds: int
+                - consensus_reached: bool
+                - final_verdicts: Dict[str, str]
+                - history: List[Dict]
+                - updated_results: Dict[str, QwenAnalysisResult]
+        """
+
+    async def close(self) -> None:
+        """리소스 정리"""
+```
+
+### QwenAnalysisResult
+
+Qwen 분석 결과입니다.
+
+```python
+@dataclass
+class QwenAnalysisResult:
+    """Qwen 분석 결과"""
+
+    verdict: Verdict
+    """판정 결과"""
+
+    confidence: float
+    """신뢰도 (0.0 ~ 1.0)"""
+
+    reasoning: str
+    """추론 근거"""
+
+    key_evidence: List[str]
+    """핵심 증거 목록"""
+
+    uncertainties: List[str]
+    """불확실한 점 목록"""
+
+    raw_result: Optional[InferenceResult]
+    """원시 추론 결과"""
+
+    def to_dict(self) -> Dict[str, Any]:
+        """딕셔너리로 변환"""
+```
+
+### JSON Output Schemas
+
+Guided Decoding에 사용되는 JSON 스키마입니다.
+
+```python
+# 에이전트 분석 결과 스키마
+AGENT_OUTPUT_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "verdict": {
+            "type": "string",
+            "enum": ["AUTHENTIC", "MANIPULATED", "AI_GENERATED", "UNCERTAIN"]
+        },
+        "confidence": {
+            "type": "number",
+            "minimum": 0.0,
+            "maximum": 1.0
+        },
+        "reasoning": {
+            "type": "string",
+            "description": "판정에 대한 논리적 근거"
+        },
+        "key_evidence": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "핵심 증거 목록"
+        },
+        "uncertainties": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "불확실한 점 목록"
+        }
+    },
+    "required": ["verdict", "confidence", "reasoning"]
+}
+
+# 토론 응답 스키마
+DEBATE_RESPONSE_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "response_type": {
+            "type": "string",
+            "enum": ["defense", "concession", "counter", "clarification"]
+        },
+        "content": {
+            "type": "string",
+            "description": "응답 내용"
+        },
+        "verdict_changed": {
+            "type": "boolean"
+        },
+        "new_verdict": {
+            "type": ["string", "null"],
+            "enum": ["AUTHENTIC", "MANIPULATED", "AI_GENERATED", "UNCERTAIN"]
+        },
+        "new_confidence": {
+            "type": "number",
+            "minimum": 0.0,
+            "maximum": 1.0
+        },
+        "reasoning": {
+            "type": "string"
+        }
+    },
+    "required": ["response_type", "content", "verdict_changed"]
+}
+```
+
+### 사용 예시
+
+```python
+import asyncio
+from src.llm import QwenMAIFSAdapter
+from src.tools import (
+    FrequencyAnalysisTool,
+    NoiseAnalysisTool,
+    WatermarkTool,
+    SpatialAnalysisTool
+)
+
+async def analyze_image(image):
+    # 1. Tool 분석 수행
+    tools = {
+        "frequency": FrequencyAnalysisTool(),
+        "noise": NoiseAnalysisTool(),
+        "watermark": WatermarkTool(),
+        "spatial": SpatialAnalysisTool()
+    }
+
+    tool_results = {}
+    for name, tool in tools.items():
+        result = tool.analyze(image)
+        tool_results[name] = result.evidence
+
+    # 2. Qwen LLM으로 해석
+    adapter = QwenMAIFSAdapter(base_url="http://localhost:8000")
+
+    analysis_results = await adapter.analyze_with_qwen(tool_results)
+
+    # 3. 토론 수행 (불일치 시)
+    debate_result = await adapter.conduct_debate(analysis_results)
+
+    # 4. 결과 출력
+    for name, result in analysis_results.items():
+        print(f"{name}: {result.verdict.value} ({result.confidence:.1%})")
+
+    if debate_result.get("debate_conducted"):
+        print(f"토론 결과: {debate_result['final_verdicts']}")
+
+    await adapter.close()
+
+# 실행
+import numpy as np
+image = np.random.randint(0, 255, (512, 512, 3), dtype=np.uint8)
+asyncio.run(analyze_image(image))
+```
+
+---
+
 ## Error Handling
 
 ### 예외 클래스
