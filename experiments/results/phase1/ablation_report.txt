@@ -1,0 +1,324 @@
+======================================================================
+DAAC Phase 1 Ablation Summary
+======================================================================
+
+Ablation                        Dim Best Model                Macro-F1
+----------------------------------------------------------------------
+A1_confidence_only                4 gradient_boosting           0.6521
+A2_verdict_only                  16 logistic_regression         0.9343
+A3_disagreement_only             23 gradient_boosting           0.6407
+A4_verdict_confidence            20 gradient_boosting           0.9959
+A5_full                          43 gradient_boosting           0.9949
+A6_remove_fatformer              43 gradient_boosting           0.9938
+A6_remove_frequency              43 gradient_boosting           0.9899
+A6_remove_noise                  43 gradient_boosting           0.9877
+A6_remove_spatial                43 mlp                         0.9879
+
+
+--- A1_confidence_only (dim=4) ---
+=== logistic_regression ===
+  Macro-F1:          0.5717
+  Balanced Accuracy: 0.5724
+  AUROC (OvR):       0.7133
+  ECE:               0.0660
+  Brier Score:       0.5750
+  Per-class F1:
+    authentic      : 0.6018
+    manipulated    : 0.5518
+    ai_generated   : 0.5615
+=== gradient_boosting ===
+  Macro-F1:          0.6521
+  Balanced Accuracy: 0.6521
+  AUROC (OvR):       0.8194
+  ECE:               0.0389
+  Brier Score:       0.4702
+  Per-class F1:
+    authentic      : 0.6534
+    manipulated    : 0.6286
+    ai_generated   : 0.6743
+=== mlp ===
+  Macro-F1:          0.6233
+  Balanced Accuracy: 0.6240
+  AUROC (OvR):       0.7880
+  ECE:               0.0343
+  Brier Score:       0.5069
+  Per-class F1:
+    authentic      : 0.6192
+    manipulated    : 0.6022
+    ai_generated   : 0.6486
+
+--- A2_verdict_only (dim=16) ---
+=== logistic_regression ===
+  Macro-F1:          0.9343
+  Balanced Accuracy: 0.9343
+  AUROC (OvR):       0.9892
+  ECE:               0.0159
+  Brier Score:       0.1021
+  Per-class F1:
+    authentic      : 0.9520
+    manipulated    : 0.9304
+    ai_generated   : 0.9206
+=== gradient_boosting ===
+  Macro-F1:          0.9291
+  Balanced Accuracy: 0.9290
+  AUROC (OvR):       0.9890
+  ECE:               0.0150
+  Brier Score:       0.1069
+  Per-class F1:
+    authentic      : 0.9506
+    manipulated    : 0.9247
+    ai_generated   : 0.9121
+=== mlp ===
+  Macro-F1:          0.9301
+  Balanced Accuracy: 0.9301
+  AUROC (OvR):       0.9897
+  ECE:               0.0116
+  Brier Score:       0.1033
+  Per-class F1:
+    authentic      : 0.9520
+    manipulated    : 0.9258
+    ai_generated   : 0.9126
+
+--- A3_disagreement_only (dim=23) ---
+=== logistic_regression ===
+  Macro-F1:          0.5705
+  Balanced Accuracy: 0.5706
+  AUROC (OvR):       0.7263
+  ECE:               0.0380
+  Brier Score:       0.5643
+  Per-class F1:
+    authentic      : 0.6040
+    manipulated    : 0.5951
+    ai_generated   : 0.5123
+=== gradient_boosting ===
+  Macro-F1:          0.6407
+  Balanced Accuracy: 0.6396
+  AUROC (OvR):       0.8213
+  ECE:               0.0417
+  Brier Score:       0.4691
+  Per-class F1:
+    authentic      : 0.6490
+    manipulated    : 0.6566
+    ai_generated   : 0.6164
+=== mlp ===
+  Macro-F1:          0.6217
+  Balanced Accuracy: 0.6213
+  AUROC (OvR):       0.7839
+  ECE:               0.0399
+  Brier Score:       0.5106
+  Per-class F1:
+    authentic      : 0.6373
+    manipulated    : 0.6304
+    ai_generated   : 0.5974
+
+--- A4_verdict_confidence (dim=20) ---
+=== logistic_regression ===
+  Macro-F1:          0.9465
+  Balanced Accuracy: 0.9469
+  AUROC (OvR):       0.9914
+  ECE:               0.0169
+  Brier Score:       0.0796
+  Per-class F1:
+    authentic      : 0.9670
+    manipulated    : 0.9365
+    ai_generated   : 0.9361
+=== gradient_boosting ===
+  Macro-F1:          0.9959
+  Balanced Accuracy: 0.9959
+  AUROC (OvR):       1.0000
+  ECE:               0.0045
+  Brier Score:       0.0061
+  Per-class F1:
+    authentic      : 0.9986
+    manipulated    : 0.9956
+    ai_generated   : 0.9935
+=== mlp ===
+  Macro-F1:          0.9928
+  Balanced Accuracy: 0.9926
+  AUROC (OvR):       0.9998
+  ECE:               0.0077
+  Brier Score:       0.0114
+  Per-class F1:
+    authentic      : 0.9986
+    manipulated    : 0.9913
+    ai_generated   : 0.9886
+
+--- A5_full (dim=43) ---
+=== logistic_regression ===
+  Macro-F1:          0.9595
+  Balanced Accuracy: 0.9595
+  AUROC (OvR):       0.9940
+  ECE:               0.0181
+  Brier Score:       0.0592
+  Per-class F1:
+    authentic      : 0.9727
+    manipulated    : 0.9592
+    ai_generated   : 0.9465
+=== gradient_boosting ===
+  Macro-F1:          0.9949
+  Balanced Accuracy: 0.9950
+  AUROC (OvR):       1.0000
+  ECE:               0.0036
+  Brier Score:       0.0057
+  Per-class F1:
+    authentic      : 0.9971
+    manipulated    : 0.9942
+    ai_generated   : 0.9935
+=== mlp ===
+  Macro-F1:          0.9908
+  Balanced Accuracy: 0.9909
+  AUROC (OvR):       0.9996
+  ECE:               0.0046
+  Brier Score:       0.0149
+  Per-class F1:
+    authentic      : 0.9971
+    manipulated    : 0.9883
+    ai_generated   : 0.9871
+
+--- A6_remove_fatformer (dim=43) ---
+=== logistic_regression ===
+  Macro-F1:          0.9221
+  Balanced Accuracy: 0.9220
+  AUROC (OvR):       0.9855
+  ECE:               0.0165
+  Brier Score:       0.1159
+  Per-class F1:
+    authentic      : 0.9534
+    manipulated    : 0.9182
+    ai_generated   : 0.8947
+=== gradient_boosting ===
+  Macro-F1:          0.9938
+  Balanced Accuracy: 0.9939
+  AUROC (OvR):       0.9999
+  ECE:               0.0035
+  Brier Score:       0.0091
+  Per-class F1:
+    authentic      : 0.9986
+    manipulated    : 0.9927
+    ai_generated   : 0.9903
+=== mlp ===
+  Macro-F1:          0.9918
+  Balanced Accuracy: 0.9918
+  AUROC (OvR):       0.9997
+  ECE:               0.0091
+  Brier Score:       0.0153
+  Per-class F1:
+    authentic      : 0.9986
+    manipulated    : 0.9898
+    ai_generated   : 0.9871
+
+--- A6_remove_frequency (dim=43) ---
+=== logistic_regression ===
+  Macro-F1:          0.9392
+  Balanced Accuracy: 0.9392
+  AUROC (OvR):       0.9887
+  ECE:               0.0208
+  Brier Score:       0.0900
+  Per-class F1:
+    authentic      : 0.9610
+    manipulated    : 0.9403
+    ai_generated   : 0.9161
+=== gradient_boosting ===
+  Macro-F1:          0.9899
+  Balanced Accuracy: 0.9898
+  AUROC (OvR):       0.9998
+  ECE:               0.0057
+  Brier Score:       0.0150
+  Per-class F1:
+    authentic      : 0.9957
+    manipulated    : 0.9855
+    ai_generated   : 0.9886
+=== mlp ===
+  Macro-F1:          0.9828
+  Balanced Accuracy: 0.9827
+  AUROC (OvR):       0.9990
+  ECE:               0.0112
+  Brier Score:       0.0238
+  Per-class F1:
+    authentic      : 0.9928
+    manipulated    : 0.9782
+    ai_generated   : 0.9773
+
+--- A6_remove_noise (dim=43) ---
+=== logistic_regression ===
+  Macro-F1:          0.9327
+  Balanced Accuracy: 0.9324
+  AUROC (OvR):       0.9857
+  ECE:               0.0229
+  Brier Score:       0.1048
+  Per-class F1:
+    authentic      : 0.9418
+    manipulated    : 0.9296
+    ai_generated   : 0.9266
+=== gradient_boosting ===
+  Macro-F1:          0.9877
+  Balanced Accuracy: 0.9878
+  AUROC (OvR):       0.9997
+  ECE:               0.0065
+  Brier Score:       0.0173
+  Per-class F1:
+    authentic      : 0.9971
+    manipulated    : 0.9838
+    ai_generated   : 0.9822
+=== mlp ===
+  Macro-F1:          0.9838
+  Balanced Accuracy: 0.9838
+  AUROC (OvR):       0.9996
+  ECE:               0.0073
+  Brier Score:       0.0209
+  Per-class F1:
+    authentic      : 0.9943
+    manipulated    : 0.9780
+    ai_generated   : 0.9790
+
+--- A6_remove_spatial (dim=43) ---
+=== logistic_regression ===
+  Macro-F1:          0.9415
+  Balanced Accuracy: 0.9416
+  AUROC (OvR):       0.9854
+  ECE:               0.0166
+  Brier Score:       0.0937
+  Per-class F1:
+    authentic      : 0.9623
+    manipulated    : 0.9360
+    ai_generated   : 0.9260
+=== gradient_boosting ===
+  Macro-F1:          0.9877
+  Balanced Accuracy: 0.9877
+  AUROC (OvR):       0.9998
+  ECE:               0.0066
+  Brier Score:       0.0171
+  Per-class F1:
+    authentic      : 0.9986
+    manipulated    : 0.9825
+    ai_generated   : 0.9822
+=== mlp ===
+  Macro-F1:          0.9879
+  Balanced Accuracy: 0.9877
+  AUROC (OvR):       0.9995
+  ECE:               0.0062
+  Brier Score:       0.0186
+  Per-class F1:
+    authentic      : 0.9957
+    manipulated    : 0.9826
+    ai_generated   : 0.9854
+
+======================================================================
+Comparisons
+======================================================================
+--- A3_disagreement_only(gradient_boosting) vs A5_full(gradient_boosting) ---
+  F1 diff (A5_full(gradient_boosting) - A3_disagreement_only(gradient_boosting)): +0.3543  [+0.0000, +0.0000]
+  McNemar: χ²=0.00, p=1.0000 (n.s.)
+--- A4_verdict_confidence(gradient_boosting) vs A5_full(gradient_boosting) ---
+  F1 diff (A5_full(gradient_boosting) - A4_verdict_confidence(gradient_boosting)): -0.0010  [+0.0000, +0.0000]
+  McNemar: χ²=0.00, p=1.0000 (n.s.)
+
+======================================================================
+Go/No-Go Criteria
+======================================================================
+  [PASS   ] A3 (disagreement only) > random baseline
+           value=0.6407, threshold=0.3833, margin=0.3073
+  [PENDING] A5 (Full) > COBRA (McNemar p < 0.05)
+           note: run_phase1에서 별도 평가
+  [PENDING] 교차 데이터셋 Macro-F1 하락 < 5%p
+           note: run_phase1에서 별도 평가

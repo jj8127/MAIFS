@@ -256,17 +256,75 @@ experiments/
 | R4 (Security) | 적대적 강건성 미검증 | 다중 에이전트 동시 공격 어려움 실험적 증명 |
 | R5 (Industry) | 실제 데이터 검증 없음 | 경로 A 실데이터 + 교차 데이터셋 검증 |
 
-## 8. 타임라인
+## 8. Phase 1-B 실험 결과 (2026-02-12)
 
-| 단계 | 내용 | 조건 |
+### 8.1 실험 환경
+
+- 시뮬레이션 데이터: Gaussian copula 기반 합성 에이전트 출력
+- Train: 8000, Val: 1000, Test: 1000 (균등 레이블 분포)
+- 생성기 교차 split 적용 (train/test 서브타입 분포 상이)
+
+### 8.2 베이스라인 vs 메타 분류기
+
+| 방법 | Macro-F1 | Balanced Acc | AUROC | ECE |
+|------|----------|-------------|-------|-----|
+| Majority Vote | 0.9467 | 0.9465 | — | — |
+| COBRA (DRWA) | 0.9787 | 0.9791 | 0.9937 | 0.0649 |
+| LogReg (43-dim) | 0.9595 | 0.9595 | 0.9940 | 0.0181 |
+| **GBM (43-dim)** | **0.9949** | **0.9950** | **1.0000** | **0.0036** |
+| MLP (43-dim) | 0.9908 | 0.9909 | 0.9996 | 0.0046 |
+
+### 8.3 Ablation 결과 (best model 기준)
+
+| ID | Feature Set | Dim | Best F1 | Best Model |
+|----|------------|-----|---------|------------|
+| A1 | confidence only | 4 | 0.6521 | GBM |
+| A2 | verdict only | 16 | 0.9343 | LogReg |
+| A3 | **disagreement only** | 23 | **0.6407** | GBM |
+| A4 | verdict + confidence | 20 | 0.9959 | GBM |
+| A5 | Full (V+C+D) | 43 | 0.9949 | GBM |
+
+에이전트 제거 ablation (A6, GBM 기준):
+| 제거 에이전트 | Macro-F1 | 하락폭 |
+|-------------|----------|--------|
+| − FatFormer | 0.9938 | −0.0011 |
+| − Frequency | 0.9899 | −0.0050 |
+| − Noise | 0.9877 | −0.0072 |
+| − Spatial | 0.9879 | −0.0070 |
+
+### 8.4 Go/No-Go 판정: **GO**
+
+| 조건 | 결과 | 상세 |
 |------|------|------|
-| Phase 1-B | 시뮬레이션 기반 가설 검증 | 즉시 착수 |
-| Phase 1-A | 실데이터 검증 | 체크포인트 확보 시 |
-| Go/No-Go | 3개 조건 판정 | Phase 1 완료 후 |
-| Phase 2 | Adaptive Routing | Go 판정 시 |
+| C1: A5 > COBRA | **PASS** | F1 +0.0162, McNemar p=0.0004 |
+| C2: 교차 데이터셋 | **PASS** | F1 drop 0.51%p < 5%p |
+| C3: A3 > random | **PASS** | F1 0.641 >> 0.383 |
+
+### 8.5 주요 발견 및 해석
+
+1. **A4 ≈ A5**: verdict+confidence(20-dim)만으로 full(43-dim)과 동등한 성능. 시뮬레이션의 한계로, 에이전트 오류 상관 구조가 단순하여 disagreement 특징의 추가 정보량이 제한적. 실데이터(Path A)에서 재검증 필요.
+
+2. **A3 유의미성**: disagreement만으로 random 대비 +30.7%p 개선. 불일치 패턴 자체가 탐지 신호임을 확인. 다만 verdict 정보 없이는 한계 존재.
+
+3. **특징 중요도**: GBM 기준 `fatformer_verdict_ai_generated`(0.185), `spatial_verdict_manipulated`(0.154), `fatformer_confidence`(0.144) — 각 에이전트의 전문성이 반영됨.
+
+4. **에이전트 기여도**: Noise와 Spatial 제거 시 가장 큰 성능 하락 → 독립적 신호 원천의 가치 확인.
+
+### 8.6 다음 단계
+
+- **Phase 1-A**: 실제 에이전트 출력으로 재실행 (체크포인트 확보 시)
+- **Phase 2**: Adaptive Routing — 이미지 특성 기반 동적 가중치 생성
+
+## 9. 타임라인
+
+| 단계 | 내용 | 상태 |
+|------|------|------|
+| Phase 1-B | 시뮬레이션 기반 가설 검증 | ✅ 완료 (GO) |
+| Phase 1-A | 실데이터 검증 | 대기 (체크포인트 필요) |
+| Phase 2 | Adaptive Routing | 착수 가능 |
 | Phase 3 | 벤치마크 + 논문 | Phase 2 완료 후 |
 
-## 9. 참고 문헌
+## 10. 참고 문헌
 
 - Liu et al., "Forgery-aware Adaptive Transformer for Generalizable Synthetic Image Detection," CVPR 2024 (FatFormer)
 - Durall et al., "Watch your Up-Convolution: CNN Based Generative Deep Neural Networks are Failing to Reproduce Spectral Distributions," CVPR 2020
