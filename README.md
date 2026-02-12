@@ -46,23 +46,16 @@ print(f"판정: {result.verdict}")
 print(f"신뢰도: {result.confidence:.1%}")
 ```
 
-## 📚 문서
+## 문서
 
-### 시작하기
-- **[PROGRESS_REPORT.md](PROGRESS_REPORT.md)** - 현재 진행 상황 (최신)
-- **[DOCUMENTATION.md](DOCUMENTATION.md)** - 전체 문서 가이드
-- **[docs/guides/QUICK_START.md](docs/guides/QUICK_START.md)** - 빠른 시작
+> **전체 문서 목록**: [docs/README.md](docs/README.md)
 
-### 핵심 문서
-- **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** - 시스템 아키텍처
-- **[docs/API_REFERENCE.md](docs/API_REFERENCE.md)** - API 레퍼런스
-- **[docs/guides/RESEARCH_ROADMAP.md](docs/guides/RESEARCH_ROADMAP.md)** - 연구 로드맵
-
-### 설계 문서
-- [docs/design/DEBATE_SYSTEM_DESIGN.md](docs/design/DEBATE_SYSTEM_DESIGN.md) - 토론 시스템
-- [docs/design/AGENT_REASONING_IMPROVEMENT.md](docs/design/AGENT_REASONING_IMPROVEMENT.md) - Agent 추론 개선
-
-> 📖 **전체 문서 목록**: [DOCUMENTATION.md](DOCUMENTATION.md) 참조
+| 문서 | 설명 |
+|------|------|
+| [PROGRESS_REPORT.md](PROGRESS_REPORT.md) | 현재 진행 상황 (최신) |
+| [docs/guides/QUICK_START.md](docs/guides/QUICK_START.md) | 빠른 시작 가이드 |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | 시스템 아키텍처 |
+| [docs/API_REFERENCE.md](docs/API_REFERENCE.md) | API 레퍼런스 |
 
 ## 체크포인트 안내
 
@@ -84,8 +77,9 @@ MAIFS/
 │   └── maifs.py     # 메인 시스템
 ├── docs/
 │   ├── design/      # 설계 문서
-│   ├── reports/     # 보고서
-│   └── guides/      # 가이드
+│   ├── guides/      # 가이드
+│   ├── research/    # 연구 자료
+│   └── reports/     # 보고서
 ├── tests/           # 107 테스트
 ├── examples/        # 예제 코드
 └── main.py          # CLI 진입점

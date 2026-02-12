@@ -687,3 +687,28 @@ def specialized_consensus(tool_results, weights):
 
 **Report ID**: TOOL-THEORY-20260126
 **Next Action**: Conservative thresholding 적용 및 테스트
+
+---
+
+## 툴 전문화 전략 요약
+
+### 현재 상호보완성 분석 (측정 기준: Frequency + Noise 기반)
+
+| 케이스 | 비율 | 의미 |
+|--------|------|------|
+| Both Correct | 22% | 두 툴 합의, 신뢰도 높음 |
+| Freq Only Correct | 22% | Frequency 전문 영역 |
+| Noise Only Correct | 23% | Noise 전문 영역 |
+| Both Wrong | 18% | 시스템 취약점 |
+| **Complementary Benefit** | **45%** | 멀티에이전트 구조의 가치 |
+
+**핵심 원칙**: Generalist → Specialist 전환. 확실한 영역만 판정하고 불확실하면 `UNCERTAIN`으로 위임.
+
+### 전략별 기대 효과
+
+| 전략 | 설명 | 기대 효과 |
+|------|------|-----------|
+| **Conservative Thresholding** | 임계값 높여 확실할 때만 판정 | Wrong 41% → 15% |
+| **UNCERTAIN 적극 활용** | 불확실하면 다른 툴에 위임 | Uncertain 12% → 25-30% |
+| **Domain Router** | PNG→Frequency/Noise 강화, JPEG→EXIF/Spatial 강화 | Union Coverage 67% → 80%+ |
+| **Two-Stage Filtering** | 1차 도구 필터링 → 2차 LLM 판단 | High Confidence Precision 90%+ |

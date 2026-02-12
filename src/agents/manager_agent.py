@@ -13,7 +13,7 @@ from .base_agent import BaseAgent, AgentRole, AgentResponse
 from .specialist_agents import (
     FrequencyAgent,
     NoiseAgent,
-    WatermarkAgent,
+    FatFormerAgent,
     SpatialAgent
 )
 from ..tools.base_tool import Verdict
@@ -74,7 +74,7 @@ class ManagerAgent(BaseAgent):
 전문가 팀:
 1. 주파수 분석 전문가: FFT 기반 GAN 아티팩트 탐지
 2. 노이즈 분석 전문가: PRNU/SRM 기반 센서 노이즈 분석
-3. 워터마크 분석 전문가: HiNet 기반 워터마크 탐지
+3. AI 생성 탐지 전문가: FatFormer (CLIP ViT-L/14 + DWT) 기반 AI 이미지 탐지
 4. 공간 분석 전문가: ViT 기반 조작 영역 탐지
 
 판단 기준:
@@ -107,7 +107,7 @@ class ManagerAgent(BaseAgent):
         self.specialists: Dict[str, BaseAgent] = {
             "frequency": FrequencyAgent(),
             "noise": NoiseAgent(),
-            "watermark": WatermarkAgent(),
+            "fatformer": FatFormerAgent(),
             "spatial": SpatialAgent(),
         }
 
@@ -115,7 +115,7 @@ class ManagerAgent(BaseAgent):
         self.agent_trust: Dict[str, float] = {
             "frequency": 0.85,
             "noise": 0.80,
-            "watermark": 0.90,
+            "fatformer": 0.85,
             "spatial": 0.85,
         }
 
@@ -511,7 +511,7 @@ class ManagerAgent(BaseAgent):
                 agent_name = {
                     "frequency": "주파수 분석",
                     "noise": "노이즈 분석",
-                    "watermark": "워터마크 분석",
+                    "fatformer": "AI 생성 탐지 (FatFormer)",
                     "spatial": "공간 분석"
                 }.get(name, name)
 

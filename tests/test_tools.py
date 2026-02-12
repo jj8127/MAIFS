@@ -15,7 +15,7 @@ from configs.settings import config
 from src.tools.base_tool import Verdict, ToolResult
 from src.tools.frequency_tool import FrequencyAnalysisTool
 from src.tools.noise_tool import NoiseAnalysisTool
-from src.tools.watermark_tool import WatermarkTool
+from src.tools.fatformer_tool import FatFormerTool
 from src.tools.spatial_tool import SpatialAnalysisTool
 
 
@@ -179,18 +179,17 @@ class TestNoiseTool:
         assert 0.0 <= ai_detection["ai_generation_score"] <= 1.0
 
 
-class TestWatermarkTool:
-    """워터마크 분석 도구 테스트"""
+class TestFatFormerTool:
+    """FatFormer AI 생성 탐지 도구 테스트"""
 
     def setup_method(self):
         """테스트 전 설정"""
-        self.tool = WatermarkTool()
+        self.tool = FatFormerTool()
 
     def test_tool_initialization(self):
         """도구 초기화 테스트"""
-        assert self.tool.name == "watermark_analyzer"
-        assert self.tool.watermark_bits == 100
-        assert self.tool.image_size == (256, 256)
+        assert self.tool.name == "fatformer_analyzer"
+        assert self.tool.input_resolution == 224
 
     def test_fallback_mode(self):
         """Fallback 모드 테스트 (모델 없을 때)"""
@@ -201,7 +200,7 @@ class TestWatermarkTool:
         result = self.tool.analyze(image)
 
         assert isinstance(result, ToolResult)
-        assert result.tool_name == "watermark_analyzer"
+        assert result.tool_name == "fatformer_analyzer"
 
         # 모델이 없으면 fallback 모드
         if self.tool._model is None:
@@ -262,7 +261,7 @@ class TestToolConsistency:
         self.tools = [
             FrequencyAnalysisTool(),
             NoiseAnalysisTool(),
-            WatermarkTool(),
+            FatFormerTool(),
             SpatialAnalysisTool(),
         ]
 

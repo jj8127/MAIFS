@@ -52,7 +52,7 @@ class TestMAIFSInitialization:
 
         assert "frequency" in maifs.agents
         assert "noise" in maifs.agents
-        assert "watermark" in maifs.agents
+        assert "fatformer" in maifs.agents
         assert "spatial" in maifs.agents
 
 
@@ -185,7 +185,7 @@ class TestMAIFSResult:
         assert len(result.agent_responses) == 4
         assert "frequency" in result.agent_responses
         assert "noise" in result.agent_responses
-        assert "watermark" in result.agent_responses
+        assert "fatformer" in result.agent_responses
         assert "spatial" in result.agent_responses
 
 

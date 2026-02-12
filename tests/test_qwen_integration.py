@@ -28,7 +28,7 @@ class TestAgentRole:
     def test_all_roles_exist(self):
         assert AgentRole.FREQUENCY.value == "frequency"
         assert AgentRole.NOISE.value == "noise"
-        assert AgentRole.WATERMARK.value == "watermark"
+        assert AgentRole.FATFORMER.value == "fatformer"
         assert AgentRole.SPATIAL.value == "spatial"
         assert AgentRole.MANAGER.value == "manager"
 
@@ -60,7 +60,7 @@ class TestQwenClientInitialization:
         # 모든 역할에 대해 지식이 로드되어야 함
         assert AgentRole.FREQUENCY in client._knowledge_cache
         assert AgentRole.NOISE in client._knowledge_cache
-        assert AgentRole.WATERMARK in client._knowledge_cache
+        assert AgentRole.FATFORMER in client._knowledge_cache
         assert AgentRole.SPATIAL in client._knowledge_cache
 
 
@@ -69,7 +69,7 @@ class TestSystemPrompts:
 
     def test_all_roles_have_prompts(self):
         for role in [AgentRole.FREQUENCY, AgentRole.NOISE,
-                     AgentRole.WATERMARK, AgentRole.SPATIAL, AgentRole.MANAGER]:
+                     AgentRole.FATFORMER, AgentRole.SPATIAL, AgentRole.MANAGER]:
             assert role in QwenClient.SYSTEM_PROMPTS
             assert len(QwenClient.SYSTEM_PROMPTS[role]) > 100
 
@@ -82,9 +82,9 @@ class TestSystemPrompts:
         prompt = QwenClient.SYSTEM_PROMPTS[AgentRole.NOISE]
         assert "PRNU" in prompt or "노이즈" in prompt
 
-    def test_watermark_prompt_content(self):
-        prompt = QwenClient.SYSTEM_PROMPTS[AgentRole.WATERMARK]
-        assert "워터마크" in prompt
+    def test_fatformer_prompt_content(self):
+        prompt = QwenClient.SYSTEM_PROMPTS[AgentRole.FATFORMER]
+        assert "FatFormer" in prompt or "AI 생성" in prompt
 
     def test_spatial_prompt_content(self):
         prompt = QwenClient.SYSTEM_PROMPTS[AgentRole.SPATIAL]
@@ -254,7 +254,7 @@ class TestQwenMAIFSAdapter:
 
         assert adapter._name_to_role("frequency") == AgentRole.FREQUENCY
         assert adapter._name_to_role("noise") == AgentRole.NOISE
-        assert adapter._name_to_role("watermark") == AgentRole.WATERMARK
+        assert adapter._name_to_role("fatformer") == AgentRole.FATFORMER
         assert adapter._name_to_role("spatial") == AgentRole.SPATIAL
         assert adapter._name_to_role("unknown") is None
 
@@ -301,7 +301,7 @@ class TestQwenMAIFSAdapter:
         results = {
             "frequency": QwenAnalysisResult(Verdict.AI_GENERATED, 0.8, ""),
             "noise": QwenAnalysisResult(Verdict.AI_GENERATED, 0.7, ""),
-            "watermark": QwenAnalysisResult(Verdict.AUTHENTIC, 0.6, ""),
+            "fatformer": QwenAnalysisResult(Verdict.AUTHENTIC, 0.6, ""),
             "spatial": QwenAnalysisResult(Verdict.AI_GENERATED, 0.9, "")
         }
 

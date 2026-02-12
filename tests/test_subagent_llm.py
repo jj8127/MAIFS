@@ -17,7 +17,7 @@ from src.knowledge import KnowledgeBase
 from src.agents.specialist_agents import (
     FrequencyAgent,
     NoiseAgent,
-    WatermarkAgent,
+    FatFormerAgent,
     SpatialAgent
 )
 from src.tools.base_tool import Verdict
@@ -30,7 +30,7 @@ class TestAgentDomain:
         """모든 도메인이 정의되어 있는지 확인"""
         assert AgentDomain.FREQUENCY.value == "frequency"
         assert AgentDomain.NOISE.value == "noise"
-        assert AgentDomain.WATERMARK.value == "watermark"
+        assert AgentDomain.FATFORMER.value == "fatformer"
         assert AgentDomain.SPATIAL.value == "spatial"
 
     def test_domain_count(self):
@@ -125,15 +125,15 @@ class TestSubAgentLLMFallback:
         assert isinstance(result, ReasoningResult)
         assert len(result.key_findings) > 0
 
-    def test_fallback_interpret_watermark(self):
-        """워터마크 도메인 폴백 해석"""
-        llm = SubAgentLLM(AgentDomain.WATERMARK)
+    def test_fallback_interpret_fatformer(self):
+        """FatFormer 도메인 폴백 해석"""
+        llm = SubAgentLLM(AgentDomain.FATFORMER)
 
-        tool_results = {"has_watermark": True}
+        tool_results = {"fake_probability": 0.85}
         result = llm._fallback_interpret(tool_results)
 
         assert isinstance(result, ReasoningResult)
-        assert "유효한 워터마크 탐지" in result.key_findings
+        assert len(result.key_findings) > 0
 
     def test_fallback_interpret_spatial(self):
         """공간 도메인 폴백 해석"""
@@ -205,9 +205,9 @@ class TestSpecialistAgentsWithLLM:
 
         assert result.verdict in [v for v in Verdict]
 
-    def test_watermark_agent_llm_integration(self, test_image):
-        """WatermarkAgent LLM 통합"""
-        agent = WatermarkAgent(use_llm=True)
+    def test_fatformer_agent_llm_integration(self, test_image):
+        """FatFormerAgent LLM 통합"""
+        agent = FatFormerAgent(use_llm=True)
         result = agent.analyze(test_image)
 
         assert result.verdict in [v for v in Verdict]
@@ -315,7 +315,7 @@ class TestKnowledgeBaseIntegration:
 
     def test_knowledge_base_loads_for_all_domains(self):
         """모든 도메인의 지식 로드 확인"""
-        for domain in ["frequency", "noise", "watermark", "spatial"]:
+        for domain in ["frequency", "noise", "fatformer", "spatial"]:
             knowledge = KnowledgeBase.load(domain)
             assert len(knowledge) > 0
 

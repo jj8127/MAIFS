@@ -530,3 +530,54 @@ class ManagerAgent(BaseAgent):
 ---
 
 이 설계로 구현을 진행할까요?
+
+---
+
+## 토론 종료 조건
+
+### 5가지 종료 메커니즘 (우선순위 순)
+
+| 순위 | 조건 | 트리거 | Manager 처리 |
+|------|------|--------|-------------|
+| 1 | **CONSENSUS_REACHED** | `disagreement < 0.3` | 합의 판정, 높은 신뢰도 유지 |
+| 2 | **STALEMATE** | N 라운드 동안 판정 변화 없음 (기본 N=2) | Manager 직접 판정, 신뢰도 0.60 |
+| 3 | **HIGH_CONFIDENCE_DEADLOCK** | 대립 그룹 각각 평균 신뢰도 > 0.85 | MANIPULATED 추정, 신뢰도 0.70 |
+| 4 | **MAX_ROUNDS_REACHED** | `current_round > max_rounds` (기본 3) | 다수결, 신뢰도 0.55 |
+| 5 | **NO_PROGRESS** | 판정 변화 전혀 없음 | STALEMATE 동일 처리 |
+
+### 설정 파라미터
+
+```python
+DebateProtocol(
+    max_rounds=3,                    # 최대 라운드 (빠른:2 / 기본:3 / 정밀:5)
+    consensus_threshold=0.3,         # 합의 기준 (낮을수록 엄격)
+    stalemate_threshold=2,           # 교착 판정 라운드 수
+    high_confidence_threshold=0.85   # 높은 신뢰도 기준
+)
+```
+
+---
+
+## 예외 처리 & 최적화
+
+### 주요 예외 상황
+
+| 예외 | 원인 | 해결책 |
+|------|------|--------|
+| **Flip-Flopping** | LLM 불안정 추론 | 최근 3회 중 2회 이상 변경 시 다수결로 고정 |
+| **All UNCERTAIN** | 증거 불충분 | `disagreement=0` 이라도 합의 아님, 신뢰도 0.3으로 반환 |
+| **Confidence Collapse** | 연속 반박으로 신뢰도 폭락 | 평균 신뢰도 < 0.4 시 `INSUFFICIENT_EVIDENCE`로 종료 |
+| **LLM API 실패** | 네트워크/서버 오류 | Exponential backoff 재시도 (최대 2회), 이후 판정 유지 |
+| **Circular Reasoning** | 타 에이전트 의견을 근거로 사용 | 프롬프트에서 타 에이전트 참조 금지 명시 |
+| **동점 (Tie)** | 짝수 에이전트 2:2 | 신뢰도 가중 평균으로 해소, 또는 trust_score 반영 |
+
+### 효율화 전략 (비용 절감)
+
+| 전략 | 절감 효과 | 조건 |
+|------|-----------|------|
+| **선택적 토론** | LLM 호출 60% 감소 | disagreement < 0.2 이거나 avg_confidence < 0.5이면 토론 스킵 |
+| **조기 종료** | 평균 라운드 단축 | avg_confidence ≥ 0.85 & disagreement ≤ 0.35이면 즉시 종료 |
+| **모델 선택** | 비용 46% 절감 | 단순=Haiku, 보통=Sonnet, 복잡=Opus |
+| **병렬 토론** | 속도 3배 향상 | 독립 쌍 asyncio.gather() 병렬 실행 |
+| **히스토리 요약** | 토큰 68% 절감 | 이전 라운드는 요약, 최근 2 라운드만 상세 유지 |
+| **캐싱** | 토론 20% 감소 | 동일 증거 패턴 해시 캐시 |

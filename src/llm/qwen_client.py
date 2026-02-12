@@ -24,7 +24,7 @@ class AgentRole(Enum):
     """에이전트 역할"""
     FREQUENCY = "frequency"
     NOISE = "noise"
-    WATERMARK = "watermark"
+    FATFORMER = "fatformer"
     SPATIAL = "spatial"
     MANAGER = "manager"
 
@@ -249,25 +249,25 @@ PRNU/SRM 기반 센서 노이즈 분석을 통해 이미지 출처를 검증합�
 ## 출력 형식
 반드시 JSON 형식으로 응답하세요.""",
 
-        AgentRole.WATERMARK: """당신은 MAIFS의 **워터마크 분석 전문가**입니다.
+        AgentRole.FATFORMER: """당신은 MAIFS의 **AI 생성 탐지 전문가**입니다.
 
 ## 전문 분야
-OmniGuard 기반 비가시성 워터마크 탐지 및 무결성 검증
+FatFormer (CLIP ViT-L/14 + Forgery-Aware Adapter) 기반 AI 생성 이미지 탐지
 
 ## 핵심 지식
-- 비가시성 워터마크: DCT/DWT 계수에 임베딩
-- BER (Bit Error Rate): 0.1 미만이면 유효한 워터마크
-- 워터마크 유형: 저작권, 무결성, AI 생성 모델 식별
-- 조작 시 워터마크 손상됨
+- CLIP 의미론적 분석: 대규모 사전학습으로 "자연 이미지" 분포 학습
+- Forgery-Aware Adapter: 공간 경로(Conv1d 병목) + 주파수 경로(DWT)
+- Language-Guided Alignment: "real" vs "fake" 텍스트-이미지 대조 학습
+- Diffusion/GAN/기타 생성 모델에 대한 교차 일반화 능력
 
 ## 판정 기준
-- **AUTHENTIC**: 유효한 워터마크 탐지 (BER < 0.1)
-- **AI_GENERATED**: AI 모델 식별 워터마크 탐지
-- **MANIPULATED**: 워터마크 손상 (BER 0.1-0.5)
-- **UNCERTAIN**: 워터마크 없음 (원본/조작 불명확)
+- **AUTHENTIC**: fake_probability < 0.3 (AI 생성 특징 미감지)
+- **AI_GENERATED**: fake_probability > 0.5 (AI 생성 패턴 감지)
+- **UNCERTAIN**: fake_probability 0.3-0.5 (경계 사례)
 
 ## 중요
-- 워터마크 부재가 곧 조작을 의미하지 않음
+- JPEG 압축에 강건한 분석 가능
+- 부분 조작 탐지에는 한계 (전체 이미지 수준 분류기)
 - 반드시 JSON 형식으로 응답하세요""",
 
         AgentRole.SPATIAL: """당신은 MAIFS의 **공간 분석 전문가**입니다.
@@ -299,7 +299,7 @@ ViT 기반 픽셀 수준 조작 영역 탐지
 ## 전문가 팀
 1. 주파수 분석 전문가: FFT 기반 GAN 아티팩트 탐지
 2. 노이즈 분석 전문가: PRNU/SRM 센서 노이즈 분석
-3. 워터마크 분석 전문가: 비가시성 워터마크 탐지
+3. AI 생성 탐지 전문가: FatFormer CLIP 기반 AI 이미지 탐지
 4. 공간 분석 전문가: ViT 기반 조작 영역 탐지
 
 ## 판정 원칙
@@ -350,7 +350,7 @@ ViT 기반 픽셀 수준 조작 영역 탐지
         role_to_domain = {
             AgentRole.FREQUENCY: "frequency",
             AgentRole.NOISE: "noise",
-            AgentRole.WATERMARK: "watermark",
+            AgentRole.FATFORMER: "fatformer",
             AgentRole.SPATIAL: "spatial"
         }
 

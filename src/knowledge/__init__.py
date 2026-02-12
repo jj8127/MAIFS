@@ -14,7 +14,7 @@ class KnowledgeBase:
     KNOWLEDGE_FILES = {
         "frequency": "frequency_domain_knowledge.md",
         "noise": "noise_domain_knowledge.md",
-        "watermark": "watermark_domain_knowledge.md",
+        "fatformer": "fatformer_domain_knowledge.md",
         "spatial": "spatial_domain_knowledge.md",
     }
 

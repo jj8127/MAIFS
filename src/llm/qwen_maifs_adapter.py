@@ -60,7 +60,7 @@ class QwenMAIFSAdapter:
     ROLE_NAME_MAP = {
         AgentRole.FREQUENCY: "frequency",
         AgentRole.NOISE: "noise",
-        AgentRole.WATERMARK: "watermark",
+        AgentRole.FATFORMER: "fatformer",
         AgentRole.SPATIAL: "spatial"
     }
 
@@ -139,7 +139,7 @@ class QwenMAIFSAdapter:
         단일 에이전트 분석
 
         Args:
-            agent_name: 에이전트 이름 (frequency, noise, watermark, spatial)
+            agent_name: 에이전트 이름 (frequency, noise, fatformer, spatial)
             tool_results: Tool 분석 결과
 
         Returns:

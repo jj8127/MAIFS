@@ -12,7 +12,7 @@ from .base_agent import BaseAgent, AgentRole, AgentResponse
 from ..tools.base_tool import ToolResult, Verdict
 from ..tools.frequency_tool import FrequencyAnalysisTool
 from ..tools.noise_tool import NoiseAnalysisTool
-from ..tools.watermark_tool import WatermarkTool
+from ..tools.fatformer_tool import FatFormerTool
 from ..tools.spatial_tool import SpatialAnalysisTool
 from ..llm.subagent_llm import SubAgentLLM, AgentDomain, DebateResponse
 
@@ -466,33 +466,33 @@ class NoiseAgent(BaseAgent):
         )
 
 
-class WatermarkAgent(BaseAgent):
+class FatFormerAgent(BaseAgent):
     """
-    워터마크 분석 전문가 에이전트
+    AI 생성 탐지 전문가 에이전트 (FatFormer)
 
-    HiNet/OmniGuard 기반 역변환 신경망을 사용하여
-    비가시성 워터마크를 탐지하고 무결성을 검증합니다.
+    CLIP ViT-L/14 + Forgery-Aware Adapter를 사용하여
+    AI 생성 이미지를 탐지합니다.
 
     LLM 통합: 도메인 지식 기반 추론 및 토론 기능 지원
     """
 
     def __init__(self, llm_model: Optional[str] = None, use_llm: bool = True):
         super().__init__(
-            name="워터마크 분석 전문가 (Watermark Expert)",
-            role=AgentRole.WATERMARK,
-            description="OmniGuard 기반 워터마크 탐지 전문가. "
-                       "비가시성 워터마크를 추출하고 이미지 무결성을 검증합니다.",
+            name="AI 생성 탐지 전문가 (FatFormer Expert)",
+            role=AgentRole.FATFORMER,
+            description="FatFormer (CLIP+DWT) 기반 AI 생성 이미지 탐지 전문가. "
+                       "의미론적 특징과 주파수 특징을 결합하여 AI 생성 여부를 판별합니다.",
             llm_model=llm_model
         )
-        self._tool = WatermarkTool()
+        self._tool = FatFormerTool()
         self.register_tool(self._tool)
 
         # LLM 통합
         self._use_llm = use_llm
-        self._llm = SubAgentLLM(AgentDomain.WATERMARK, model=llm_model) if use_llm else None
+        self._llm = SubAgentLLM(AgentDomain.FATFORMER, model=llm_model) if use_llm else None
 
     def analyze(self, image: np.ndarray, context: Optional[Dict] = None) -> AgentResponse:
-        """워터마크 분석 수행"""
+        """AI 생성 탐지 분석 수행"""
         start_time = time.time()
 
         tool_result = self._tool(image)
@@ -531,7 +531,7 @@ class WatermarkAgent(BaseAgent):
                 reasoning_result = self._llm.interpret_results(evidence, context)
                 return self._format_llm_reasoning(result, reasoning_result)
             except Exception as e:
-                print(f"[WatermarkAgent] LLM 추론 실패, 규칙 기반 사용: {e}")
+                print(f"[FatFormerAgent] LLM 추론 실패, 규칙 기반 사용: {e}")
 
         # 규칙 기반 추론 (폴백)
         return self._generate_rule_based_reasoning(result, evidence)
@@ -539,7 +539,7 @@ class WatermarkAgent(BaseAgent):
     def _format_llm_reasoning(self, result: ToolResult, reasoning_result) -> str:
         """LLM 추론 결과 포맷팅"""
         parts = [
-            f"[워터마크 분석 결과 - LLM 해석]",
+            f"[AI 생성 탐지 결과 - LLM 해석]",
             f"판정: {result.verdict.value}",
             f"신뢰도: {result.confidence:.2%}",
             "",
@@ -568,32 +568,45 @@ class WatermarkAgent(BaseAgent):
     def _generate_rule_based_reasoning(self, result: ToolResult, evidence: Dict) -> str:
         """규칙 기반 추론 생성 (LLM 폴백)"""
         reasoning_parts = [
-            f"[워터마크 분석 결과]",
+            f"[AI 생성 탐지 결과 (FatFormer)]",
             f"판정: {result.verdict.value}",
             f"신뢰도: {result.confidence:.2%}",
             "",
             "근거:"
         ]
 
-        if "has_watermark" in evidence:
-            has_wm = evidence["has_watermark"]
-            ber = evidence.get("bit_error_rate", 1.0)
+        fake_prob = evidence.get("fake_probability")
+        real_prob = evidence.get("real_probability")
 
+        if fake_prob is not None:
             reasoning_parts.append(
-                f"- 워터마크 존재: {'예' if has_wm else '아니오'}"
+                f"- AI 생성 확률: {fake_prob:.2%}"
             )
             reasoning_parts.append(
-                f"- 비트 오류율 (BER): {ber:.2%}"
+                f"- 실제 이미지 확률: {real_prob:.2%}"
             )
 
-            if has_wm:
+            if fake_prob > 0.7:
                 reasoning_parts.append(
-                    "  → 유효한 워터마크가 복원되어 원본 무결성이 확인됨"
+                    "  → CLIP 의미론적 분석과 DWT 주파수 분석 모두에서 AI 생성 특징 감지"
+                )
+            elif fake_prob > 0.5:
+                reasoning_parts.append(
+                    "  → AI 생성 가능성이 높으나 경계 사례로 추가 검증 권장"
+                )
+            elif fake_prob > 0.3:
+                reasoning_parts.append(
+                    "  → AI 생성 여부 불확실, 다른 분석 결과와의 교차 검증 필요"
                 )
             else:
                 reasoning_parts.append(
-                    "  → 워터마크가 없거나 손상됨 (조작 또는 비보호 이미지)"
+                    "  → AI 생성 특징이 감지되지 않음, 실제 이미지로 판단"
                 )
+
+        if evidence.get("fallback_mode"):
+            reasoning_parts.append(
+                "- ⚠ Fallback 모드: 모델 미로드로 기본 분석만 수행됨"
+            )
 
         return "\n".join(reasoning_parts)
 
@@ -602,17 +615,24 @@ class WatermarkAgent(BaseAgent):
         arguments = []
         evidence = tool_result.evidence
 
-        if evidence.get("has_watermark"):
+        fake_prob = evidence.get("fake_probability", 0)
+
+        if fake_prob > 0.7:
             arguments.append(
-                "유효한 워터마크가 탐지되어 이미지의 원본 무결성이 확인됩니다."
+                f"CLIP ViT-L/14 의미론적 분석과 DWT 주파수 경로 분석 모두에서 "
+                f"AI 생성 특징이 명확히 감지되었습니다 (AI 생성 확률: {fake_prob:.2%})."
             )
-        else:
-            ber = evidence.get("bit_error_rate", 1.0)
-            if ber > 0.5:
-                arguments.append(
-                    f"워터마크가 탐지되지 않았습니다 (BER: {ber:.2%}). "
-                    "워터마크가 없는 원본이거나 조작으로 워터마크가 손상되었을 수 있습니다."
-                )
+        elif fake_prob > 0.5:
+            arguments.append(
+                f"FatFormer가 AI 생성 이미지로 분류했으나 경계 사례입니다 "
+                f"(AI 생성 확률: {fake_prob:.2%}). "
+                f"Forgery-Aware Adapter의 주파수 경로에서 약한 위조 신호가 감지되었습니다."
+            )
+        elif fake_prob > 0:
+            arguments.append(
+                f"FatFormer의 CLIP 기반 의미론적 분석에서 AI 생성 특징이 "
+                f"감지되지 않았습니다 (AI 생성 확률: {fake_prob:.2%})."
+            )
 
         return arguments
 
@@ -637,8 +657,8 @@ class WatermarkAgent(BaseAgent):
             response_type="defense",
             content=(
                 f"[{self.name}] {challenger_name}의 지적에 대해:\n"
-                f"워터마크 분석 결과 {my_response.verdict.value}은 "
-                f"BER {my_response.evidence.get('bit_error_rate', 'N/A')}에 기반합니다."
+                f"FatFormer 분석 결과 {my_response.verdict.value}은 "
+                f"AI 생성 확률 {my_response.evidence.get('fake_probability', 'N/A'):.2%}에 기반합니다."
             ),
             verdict_changed=False,
             reasoning="규칙 기반 방어 응답"
@@ -663,8 +683,8 @@ class WatermarkAgent(BaseAgent):
             )
 
         return (
-            f"워터마크 분석 관점에서 {target_response.verdict.value} 판정에 대해 "
-            f"질문드립니다. 이미지에 포함된 워터마크의 무결성은 검증되었습니까?"
+            f"CLIP 기반 의미론적 분석 관점에서 {target_response.verdict.value} 판정에 대해 "
+            f"질문드립니다. 이미지의 의미론적 특징과 주파수 특징에서 AI 생성 흔적이 확인되었습니까?"
         )
 
 

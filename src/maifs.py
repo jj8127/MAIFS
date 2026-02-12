@@ -15,7 +15,7 @@ from .agents.manager_agent import ManagerAgent, ForensicReport
 from .agents.specialist_agents import (
     FrequencyAgent,
     NoiseAgent,
-    WatermarkAgent,
+    FatFormerAgent,
     SpatialAgent
 )
 from .agents.base_agent import AgentResponse
@@ -82,7 +82,7 @@ class MAIFS:
     다중 에이전트 기반 이미지 포렌식 시스템
 
     Features:
-    - 4개 전문가 에이전트 (주파수, 노이즈, 워터마크, 공간)
+    - 4개 전문가 에이전트 (주파수, 노이즈, FatFormer, 공간)
     - COBRA 기반 합의 알고리즘
     - 불일치 시 자동 토론 진행
     - 종합적인 분석 보고서 생성
@@ -118,7 +118,7 @@ class MAIFS:
         self.agents: Dict[str, Any] = {
             "frequency": FrequencyAgent(),
             "noise": NoiseAgent(),
-            "watermark": WatermarkAgent(),
+            "fatformer": FatFormerAgent(),
             "spatial": SpatialAgent(),
         }
 
@@ -126,7 +126,7 @@ class MAIFS:
         self.trust_scores: Dict[str, float] = {
             "frequency": 0.85,
             "noise": 0.80,
-            "watermark": 0.90,
+            "fatformer": 0.85,
             "spatial": 0.85,
         }
 

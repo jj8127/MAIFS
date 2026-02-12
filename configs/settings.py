@@ -35,8 +35,11 @@ def get_omniguard_path() -> Path:
         Path("E:/Downloads/OmniGuard-main/OmniGuard-main"),
     ]
     for path in possible_paths:
-        if path.exists():
-            return path
+        try:
+            if path.exists():
+                return path
+        except (PermissionError, OSError):
+            continue
     return BASE_DIR / "OmniGuard-main"
 
 
@@ -53,8 +56,11 @@ def get_hinet_path() -> Path:
         Path("e:/HiNet_root/HiNet/logging/finetuned_log"),
     ]
     for path in possible_paths:
-        if path.exists():
-            return path
+        try:
+            if path.exists():
+                return path
+        except (PermissionError, OSError):
+            continue
     return BASE_DIR / "HiNet_root" / "HiNet" / "logging" / "finetuned_log"
 
 
@@ -98,6 +104,9 @@ class ModelConfig:
 
     # UNet 탐지 모델 (대체 모델)
     unet_checkpoint: Path = field(default_factory=lambda: OMNIGUARD_DIR / "checkpoint" / "model_checkpoint_00540.pt")
+
+    # FatFormer 체크포인트
+    fatformer_checkpoint: Path = field(default_factory=lambda: BASE_DIR / "Integrated Submodules" / "FatFormer" / "checkpoint" / "fatformer.pth")
 
     # 디바이스 설정
     device: str = field(default_factory=lambda: "cuda" if os.environ.get("CUDA_VISIBLE_DEVICES") else "cpu")
@@ -166,7 +175,7 @@ class COBRAConfig:
     initial_trust: Dict[str, float] = field(default_factory=lambda: {
         "frequency": 0.85,
         "noise": 0.80,
-        "watermark": 0.90,
+        "fatformer": 0.85,
         "spatial": 0.85,
         "semantic": 0.75
     })

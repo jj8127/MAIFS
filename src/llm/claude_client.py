@@ -44,7 +44,7 @@ class ClaudeClient:
 ## 전문가 팀
 1. **주파수 분석 전문가 (Frequency Agent)**: FFT 기반 GAN 아티팩트 탐지, 주파수 도메인에서 AI 생성 패턴 분석
 2. **노이즈 분석 전문가 (Noise Agent)**: PRNU/SRM 기반 센서 노이즈 분석, 카메라 고유 패턴 검증
-3. **워터마크 분석 전문가 (Watermark Agent)**: HiNet 기반 워터마크 탐지, 숨겨진 정보 추출
+3. **AI 생성 탐지 전문가 (FatFormer Agent)**: FatFormer (CLIP ViT-L/14 + DWT) 기반 AI 생성 이미지 탐지
 4. **공간 분석 전문가 (Spatial Agent)**: ViT 기반 조작 영역 탐지, 픽셀 수준 이상 탐지
 
 ## 판정 기준

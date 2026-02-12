@@ -2,7 +2,7 @@ from .base_agent import BaseAgent, AgentResponse
 from .specialist_agents import (
     FrequencyAgent,
     NoiseAgent,
-    WatermarkAgent,
+    FatFormerAgent,
     SpatialAgent,
 )
 from .manager_agent import ManagerAgent
@@ -12,7 +12,7 @@ __all__ = [
     "AgentResponse",
     "FrequencyAgent",
     "NoiseAgent",
-    "WatermarkAgent",
+    "FatFormerAgent",
     "SpatialAgent",
     "ManagerAgent",
 ]

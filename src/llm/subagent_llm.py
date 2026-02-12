@@ -18,7 +18,7 @@ class AgentDomain(Enum):
     """에이전트 도메인"""
     FREQUENCY = "frequency"
     NOISE = "noise"
-    WATERMARK = "watermark"
+    FATFORMER = "fatformer"
     SPATIAL = "spatial"
 
 
@@ -69,10 +69,10 @@ class SubAgentLLM:
             "expertise": "PRNU/SRM 기반 센서 노이즈 분석",
             "focus": "카메라 센서 지문, 노이즈 일관성, AI 생성 노이즈 패턴"
         },
-        AgentDomain.WATERMARK: {
-            "name": "워터마크 분석 전문가",
-            "expertise": "OmniGuard 기반 워터마크 탐지",
-            "focus": "비가시성 워터마크, 무결성 검증, AI 모델 식별"
+        AgentDomain.FATFORMER: {
+            "name": "AI 생성 탐지 전문가",
+            "expertise": "FatFormer (CLIP ViT-L/14 + Forgery-Aware Adapter) 기반 AI 생성 이미지 탐지",
+            "focus": "AI 생성 이미지 분류, Diffusion 모델 탐지, JPEG 강건 탐지, 교차 생성기 일반화"
         },
         AgentDomain.SPATIAL: {
             "name": "공간 분석 전문가",
@@ -93,7 +93,7 @@ class SubAgentLLM:
         SubAgentLLM 초기화
 
         Args:
-            domain: 에이전트 도메인 (FREQUENCY, NOISE, WATERMARK, SPATIAL)
+            domain: 에이전트 도메인 (FREQUENCY, NOISE, FATFORMER, SPATIAL)
             api_key: Anthropic API 키
             model: 사용할 Claude 모델
             max_tokens: 최대 응답 토큰
@@ -300,11 +300,16 @@ class SubAgentLLM:
             if ai_score > 0.6:
                 key_findings.append("센서 노이즈 부재로 AI 생성 의심")
 
-        elif self.domain == AgentDomain.WATERMARK:
-            if tool_results.get("has_watermark"):
-                key_findings.append("유효한 워터마크 탐지")
+        elif self.domain == AgentDomain.FATFORMER:
+            fake_prob = tool_results.get("fake_probability", 0)
+            if fake_prob > 0.7:
+                key_findings.append(f"FatFormer AI 생성 확률 높음 ({fake_prob:.0%})")
+            elif fake_prob > 0.5:
+                key_findings.append(f"FatFormer AI 생성 가능성 ({fake_prob:.0%})")
+            elif fake_prob > 0.3:
+                uncertainties.append(f"FatFormer 판단 경계 ({fake_prob:.0%})")
             else:
-                uncertainties.append("워터마크 없음 - 원본인지 조작인지 불명확")
+                key_findings.append("FatFormer: AI 생성 특징 미감지")
 
         elif self.domain == AgentDomain.SPATIAL:
             ratio = tool_results.get("manipulation_ratio", 0)

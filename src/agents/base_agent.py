@@ -17,7 +17,7 @@ class AgentRole(Enum):
     MANAGER = "manager"           # 총괄 관리자
     FREQUENCY = "frequency"       # 주파수 분석 전문가
     NOISE = "noise"               # 노이즈 분석 전문가
-    WATERMARK = "watermark"       # 워터마크 분석 전문가
+    FATFORMER = "fatformer"       # AI 생성 탐지 전문가 (FatFormer)
     SPATIAL = "spatial"           # 공간 분석 전문가
     SEMANTIC = "semantic"         # 의미론적 분석 전문가
 
@@ -189,7 +189,7 @@ class BaseAgent(ABC):
         expertise_map = {
             AgentRole.FREQUENCY: "FFT 기반 주파수 스펙트럼 분석, GAN 아티팩트 탐지",
             AgentRole.NOISE: "SRM 필터, PRNU 센서 노이즈 패턴 분석",
-            AgentRole.WATERMARK: "HiNet 기반 워터마크 탐지 및 추출",
+            AgentRole.FATFORMER: "CLIP ViT-L/14 + DWT 기반 AI 생성 이미지 탐지",
             AgentRole.SPATIAL: "ViT 기반 픽셀 수준 조작 영역 탐지",
             AgentRole.SEMANTIC: "VLM 기반 의미론적 불일치 탐지",
             AgentRole.MANAGER: "다중 에이전트 조율 및 최종 판단"

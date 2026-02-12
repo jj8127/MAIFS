@@ -1,0 +1,9 @@
+# Qwen vLLM inference stack for MAIFS
+# Install with:
+#   pip install -r envs/requirements-qwen-vllm.txt
+
+vllm==0.14.0
+aiohttp>=3.9.0
+huggingface-hub>=0.28.0
+transformers>=4.48.0
+openai>=1.59.0

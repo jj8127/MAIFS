@@ -92,15 +92,15 @@ class TestConfigurationPaths:
 class TestToolInitialization:
     """Tool 초기화 테스트 (체크포인트 포함)"""
 
-    def test_watermark_tool_initialization(self):
-        """WatermarkTool 초기화"""
-        from src.tools.watermark_tool import WatermarkTool
+    def test_fatformer_tool_initialization(self):
+        """FatFormerTool 초기화"""
+        from src.tools.fatformer_tool import FatFormerTool
         import sys
         sys.path.insert(0, str(Path(__file__).parent.parent))
 
-        tool = WatermarkTool()
+        tool = FatFormerTool()
 
-        print(f"\n✅ WatermarkTool initialized:")
+        print(f"\n✅ FatFormerTool initialized:")
         print(f"   Name: {tool.name}")
         print(f"   Device: {tool.device}")
         print(f"   Checkpoint path: {tool.checkpoint_path}")
@@ -141,17 +141,17 @@ class TestToolInitialization:
 class TestModelLoading:
     """모델 로드 테스트"""
 
-    def test_watermark_model_load_attempt(self):
-        """WatermarkTool 모델 로드 시도"""
-        from src.tools.watermark_tool import WatermarkTool
+    def test_fatformer_model_load_attempt(self):
+        """FatFormerTool 모델 로드 시도"""
+        from src.tools.fatformer_tool import FatFormerTool
         import numpy as np
 
-        tool = WatermarkTool()
+        tool = FatFormerTool()
 
         # 모델 로드 시도
         tool.load_model()
 
-        print(f"\n✅ WatermarkTool model load attempt completed")
+        print(f"\n✅ FatFormerTool model load attempt completed")
         print(f"   Model loaded: {tool._is_loaded}")
         print(f"   Model available: {tool._model is not None}")
 
