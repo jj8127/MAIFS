@@ -17,14 +17,16 @@ docs/
 ├── design/                      ← 설계 결정사항
 │   ├── DEBATE_SYSTEM_DESIGN.md  ← 토론 시스템 전체 (종료조건·예외처리 포함)
 │   ├── AGENT_REASONING_IMPROVEMENT.md
-│   └── GPU_ALLOCATION.md
+│   └── GPU_ALLOCATION.md        ← GPU 3+1 할당 전략
 │
 ├── guides/                      ← 사용 가이드
 │   ├── QUICK_START.md
+│   ├── QWEN_INFERENCE_SETUP.md  ← Qwen vLLM 셋업
 │   ├── RESEARCH_ROADMAP.md      ← 연구 방향 + 프레임워크 비교
 │   └── CONTRIBUTING.md
 │
 ├── research/                    ← 연구 자료
+│   ├── DAAC_RESEARCH_PLAN.md    ← DAAC 연구 계획 + Phase 1 결과
 │   ├── TOOLS_AND_PAPERS.md      ← 툴별 관련 논문
 │   ├── TOOL_THEORETICAL_FOUNDATIONS.md  ← 이론 기반 + 전문화 전략
 │   ├── RESEARCH_REPORT_Frequency_Tool_Improvement.md
@@ -42,7 +44,7 @@ docs/
 | 역할 | 추천 순서 |
 |------|-----------|
 | **신규 개발자** | README → ARCHITECTURE → API_REFERENCE → guides/QUICK_START |
-| **연구자** | PROGRESS_REPORT → guides/RESEARCH_ROADMAP → research/ |
+| **연구자** | PROGRESS_REPORT → research/DAAC_RESEARCH_PLAN → guides/RESEARCH_ROADMAP |
 | **설계 검토** | ARCHITECTURE → design/DEBATE_SYSTEM_DESIGN → design/GPU_ALLOCATION |
 | **기여자** | guides/QUICK_START → guides/CONTRIBUTING |
 
@@ -57,7 +59,7 @@ docs/
 ### 설계 (design/)
 - [DEBATE_SYSTEM_DESIGN.md](design/DEBATE_SYSTEM_DESIGN.md) — 토론 프로토콜 + 종료 조건(5가지) + 예외처리·최적화 전략
 - [AGENT_REASONING_IMPROVEMENT.md](design/AGENT_REASONING_IMPROVEMENT.md) — 에이전트 추론 개선 방안
-- [GPU_ALLOCATION.md](design/GPU_ALLOCATION.md) — GPU 2+2 할당 전략
+- [GPU_ALLOCATION.md](design/GPU_ALLOCATION.md) — GPU 3+1 할당 전략
 
 ### 가이드 (guides/)
 - [QUICK_START.md](guides/QUICK_START.md) — 설치 및 빠른 시작
@@ -66,6 +68,7 @@ docs/
 - [CONTRIBUTING.md](guides/CONTRIBUTING.md) — 기여 가이드
 
 ### 연구 (research/)
+- [DAAC_RESEARCH_PLAN.md](research/DAAC_RESEARCH_PLAN.md) — DAAC 연구 계획 + Phase 1 실험 결과
 - [TOOLS_AND_PAPERS.md](research/TOOLS_AND_PAPERS.md) — 툴별 관련 논문 목록
 - [TOOL_THEORETICAL_FOUNDATIONS.md](research/TOOL_THEORETICAL_FOUNDATIONS.md) — 각 툴의 이론적 기반 + 전문화 전략
 - [RESEARCH_REPORT_Frequency_Tool_Improvement.md](research/RESEARCH_REPORT_Frequency_Tool_Improvement.md) — 주파수 툴 개선 연구

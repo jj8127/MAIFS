@@ -37,12 +37,13 @@ pre-commit install
 
 ```
 MAIFS/
+├── CLAUDE.md            # AI agent 프로젝트 가이드
 ├── src/
 │   ├── tools/           # 분석 도구 (BaseTool 상속)
 │   │   ├── base_tool.py       # 도구 기본 클래스
 │   │   ├── frequency_tool.py  # FFT 분석
 │   │   ├── noise_tool.py      # 노이즈 분석
-│   │   ├── fatformer_tool.py  # AI 생성 탐지
+│   │   ├── fatformer_tool.py  # FatFormer AI 생성 탐지
 │   │   └── spatial_tool.py    # 공간 분석
 │   │
 │   ├── agents/          # 에이전트 (BaseAgent 상속)
@@ -57,8 +58,19 @@ MAIFS/
 │   │   ├── protocols.py       # 토론 프로토콜
 │   │   └── debate_chamber.py  # 토론 관리
 │   │
+│   ├── meta/            # DAAC 메타 분류기
+│   │   ├── simulator.py       # 합성 에이전트 출력 생성
+│   │   ├── features.py        # 43-dim 메타 특징 추출
+│   │   ├── baselines.py       # Majority Vote, COBRA 래퍼
+│   │   ├── trainer.py         # LogReg, GBM, MLP
+│   │   ├── evaluate.py        # 평가 지표 + 통계 검정
+│   │   └── ablation.py        # Ablation runner
+│   │
 │   └── maifs.py         # 메인 시스템
 │
+├── experiments/         # 실험 스크립트
+│   ├── configs/phase1.yaml    # Phase 1 실험 설정
+│   └── run_phase1.py          # Phase 1 파이프라인
 ├── configs/             # 설정
 ├── docs/                # 문서
 ├── tests/               # 테스트
@@ -509,14 +521,14 @@ main           # 프로덕션 브랜치
 
 ```
 tests/
-├── unit/
-│   ├── test_tools.py
-│   ├── test_agents.py
-│   └── test_consensus.py
-├── integration/
-│   └── test_maifs.py
-└── fixtures/
-    └── sample_images/
+├── test_tools.py            # Tool 단위 테스트
+├── test_agents.py           # Agent 단위 테스트
+├── test_cobra.py            # COBRA 합의 테스트
+├── test_debate.py           # 토론 시스템 테스트
+├── test_llm_integration.py  # LLM 통합 테스트
+├── test_qwen_integration.py # Qwen 통합 테스트
+├── test_subagent_llm.py     # SubAgentLLM 테스트
+└── test_checkpoint_loading.py # 체크포인트 로드 테스트
 ```
 
 ### 테스트 작성
@@ -560,18 +572,18 @@ class TestFrequencyTool:
 ### 테스트 실행
 
 ```bash
-# 전체 테스트
-pytest
+# 전체 테스트 (반드시 .venv-qwen 가상환경 사용)
+.venv-qwen/bin/python -m pytest tests/ -v --tb=short
 
 # 특정 파일
-pytest tests/unit/test_tools.py
+.venv-qwen/bin/python -m pytest tests/test_tools.py -v
 
 # 커버리지 포함
-pytest --cov=src --cov-report=html
-
-# 마커로 필터링
-pytest -m "not slow"
+.venv-qwen/bin/python -m pytest tests/ --cov=src --cov-report=html
 ```
+
+> **참고**: 시스템 `python`/`python3`에는 pytest가 없습니다. 반드시 `.venv-qwen/bin/python`을 사용하세요.
+> `test_checkpoint_loading.py`의 3개 테스트는 OmniGuard 체크포인트 부재로 항상 실패합니다 (환경 의존).
 
 ---
 

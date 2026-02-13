@@ -33,6 +33,12 @@ MAIFS는 다층 구조의 다중 에이전트 시스템으로, 각 계층이 명
         └───────────────────────┴───────────────────────┘
                                 │
 ┌───────────────────────────────▼─────────────────────────────────┐
+│                      Meta Layer (DAAC)                            │
+│          (MetaFeatureExtractor, MetaTrainer, AblationRunner)     │
+│          - 43-dim 메타 특징 추출 + 메타 분류기 기반 합의          │
+└───────────────────────────────┬─────────────────────────────────┘
+                                │
+┌───────────────────────────────▼─────────────────────────────────┐
 │                         Tool Layer                               │
 │        (FrequencyTool, NoiseTool, FatFormerTool, SpatialTool)   │
 │                    - 실제 분석 로직 수행                          │
@@ -40,7 +46,7 @@ MAIFS는 다층 구조의 다중 에이전트 시스템으로, 각 계층이 명
                                 │
 ┌───────────────────────────────▼─────────────────────────────────┐
 │                       External Models                            │
-│              (OmniGuard: HiNet, ViT, UNet)                       │
+│        (FatFormer: CLIP ViT-L/14 + DWT, OmniGuard: HiNet, ViT) │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -377,9 +383,34 @@ class ConsensusAlgorithm(ABC):
 
 ---
 
+### 5. Meta Layer (DAAC)
+
+에이전트 간 불일치 패턴을 메타 특징으로 활용하여 합의 성능을 개선합니다.
+
+```
+AgentSimulator → MetaFeatureExtractor → MetaTrainer → MetaEvaluator
+                        │                     │
+                        │ 43-dim features      │ LogReg/GBM/MLP
+                        │                     │
+                        └─ AblationRunner ────┘
+
+모듈 (src/meta/):
+├── simulator.py    # Gaussian copula 기반 합성 에이전트 출력
+├── features.py     # 43-dim: verdict(16) + confidence(4) + pairwise(18) + aggregate(5)
+├── baselines.py    # Majority Vote, COBRA 래퍼
+├── trainer.py      # LogReg, GradientBoosting, MLP
+├── evaluate.py     # Macro-F1, AUROC, ECE, McNemar, Bootstrap CI
+└── ablation.py     # A1~A6 feature set ablation
+```
+
+상세 연구 계획: `docs/research/DAAC_RESEARCH_PLAN.md`
+
+---
+
 ## 참고 문헌
 
 1. AIFo: Agent-based Image Forensics Framework
 2. COBRA: Consensus-Based Reward Aggregation
 3. MAD-Sherlock: Multi-Agent Debate for Misinformation Detection
 4. OmniGuard: Hybrid Manipulation Localization
+5. Liu et al., "Forgery-aware Adaptive Transformer for Generalizable Synthetic Image Detection," CVPR 2024 (FatFormer)

@@ -1023,6 +1023,159 @@ def validate_result(result: QwenAnalysisResult) -> bool:
 
 ---
 
+## Meta Module (DAAC)
+
+DAAC (Disagreement-Aware Adaptive Consensus) 메타 분류기 모듈입니다.
+
+### AgentSimulator
+
+Gaussian copula 기반 합성 에이전트 출력 생성기입니다.
+
+```python
+class AgentSimulator:
+    """Gaussian copula 기반 에이전트 시뮬레이터"""
+
+    def __init__(
+        self,
+        profiles: Optional[Dict[str, AgentProfile]] = None,
+        correlation: Optional[np.ndarray] = None,
+        label_distribution: Optional[Dict[str, float]] = None,
+        seed: int = 42
+    ) -> None:
+        """
+        Args:
+            profiles: 에이전트별 성능 프로파일 (None이면 문헌 기반 기본값)
+            correlation: 에이전트 간 상관 행렬 (4×4)
+            label_distribution: 레이블 비율 (None이면 균등)
+            seed: 난수 시드
+        """
+
+    def generate(
+        self,
+        n_samples: int = 10000,
+        sub_type_distribution: Optional[Dict] = None
+    ) -> List[SimulatedOutput]:
+        """합성 에이전트 출력 생성"""
+
+    def generate_split(
+        self,
+        n_train: int = 8000,
+        n_val: int = 1000,
+        n_test: int = 1000,
+        sub_type_split: bool = True
+    ) -> Tuple[List[SimulatedOutput], List[SimulatedOutput], List[SimulatedOutput]]:
+        """학습/검증/테스트 분할 생성"""
+```
+
+### MetaFeatureExtractor
+
+43-dim 메타 특징 추출기입니다.
+
+```python
+class MetaFeatureExtractor:
+    """43-dim 메타 특징 추출기"""
+
+    def __init__(self, config: Optional[FeatureConfig] = None) -> None:
+        """
+        Args:
+            config: 특징 추출 설정 (포함/제외할 특징 그룹)
+        """
+
+    def extract_single(self, sample: SimulatedOutput) -> np.ndarray:
+        """단일 샘플에서 메타 특징 추출 → (D,) ndarray"""
+
+    def extract_dataset(
+        self,
+        samples: List[SimulatedOutput]
+    ) -> Tuple[np.ndarray, np.ndarray]:
+        """
+        데이터셋 전체 특징 + 레이블 추출
+
+        Returns:
+            X: (N, D) feature matrix
+            y: (N,) label indices (0=auth, 1=manip, 2=ai_gen)
+        """
+```
+
+### MetaTrainer
+
+메타 분류기 학습/추론 관리자입니다.
+
+```python
+class MetaTrainer:
+    """LogReg, GradientBoosting, MLP 메타 분류기"""
+
+    def train_all(
+        self,
+        X_train: np.ndarray,
+        y_train: np.ndarray,
+        X_val: Optional[np.ndarray] = None,
+        y_val: Optional[np.ndarray] = None
+    ) -> Dict[str, TrainResult]:
+        """모든 모델 학습"""
+
+    def predict(self, model_name: str, X: np.ndarray) -> np.ndarray:
+        """예측"""
+
+    def predict_proba(self, model_name: str, X: np.ndarray) -> np.ndarray:
+        """확률 예측 (N, 3)"""
+```
+
+### MetaEvaluator
+
+평가 지표 및 통계 검정입니다.
+
+```python
+class MetaEvaluator:
+    """Macro-F1, AUROC, ECE, McNemar, Bootstrap CI"""
+
+    def evaluate(
+        self,
+        y_true: np.ndarray,
+        y_pred: np.ndarray,
+        y_proba: Optional[np.ndarray] = None,
+        model_name: str = "unknown"
+    ) -> EvalResult:
+        """전체 평가 지표 계산"""
+
+    def compare(
+        self,
+        y_true: np.ndarray,
+        y_pred_a: np.ndarray,
+        y_pred_b: np.ndarray,
+        model_a: str = "model_a",
+        model_b: str = "model_b"
+    ) -> ComparisonResult:
+        """McNemar 검정 + Bootstrap CI 비교"""
+```
+
+### 실행 예시
+
+```python
+from src.meta import AgentSimulator, MetaFeatureExtractor, MetaTrainer, MetaEvaluator
+
+# 1. 합성 데이터 생성
+sim = AgentSimulator(seed=42)
+train, val, test = sim.generate_split(n_train=8000)
+
+# 2. 메타 특징 추출
+extractor = MetaFeatureExtractor()
+X_train, y_train = extractor.extract_dataset(train)
+X_test, y_test = extractor.extract_dataset(test)
+
+# 3. 메타 분류기 학습
+trainer = MetaTrainer()
+trainer.train_all(X_train, y_train)
+
+# 4. 평가
+evaluator = MetaEvaluator()
+y_pred = trainer.predict("gradient_boosting", X_test)
+result = evaluator.evaluate(y_test, y_pred)
+print(f"Macro-F1: {result.macro_f1:.4f}")
+```
+
+---
+
 ## Error Handling
 
 ### 예외 클래스

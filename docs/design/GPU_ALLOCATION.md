@@ -8,7 +8,7 @@ MAIFS는 4-GPU 시스템에서 효율적으로 동작하도록 GPU 자원을 분
 
 ```
 GPU 0,1,2: Qwen LLM (Tensor Parallel)
-GPU 3:     Vision Tools (Frequency/Noise/Watermark/Spatial)
+GPU 3:     Vision Tools (Frequency/Noise/FatFormer/Spatial)
 ```
 
 이 분할 전략은 **GPU 자원 충돌을 방지**하고 **병렬 처리**를 가능하게 합니다.
@@ -124,13 +124,13 @@ CUDA_VISIBLE_DEVICES=3 python scripts/example_qwen_analysis.py --image test.jpg
 
 **터미널 1 - vLLM 서버**:
 ```bash
-cd /root/Desktop/MAIFS
+cd MAIFS
 ./scripts/start_vllm_server.sh
 ```
 
 **터미널 2 - 이미지 분석**:
 ```bash
-cd /root/Desktop/MAIFS
+cd MAIFS
 python scripts/example_qwen_analysis.py --demo
 ```
 
