@@ -156,14 +156,26 @@ class CATNetAnalysisTool(BaseTool):
             return
 
         try:
+            # Legacy CAT-Net code uses removed numpy aliases on modern numpy.
+            if not hasattr(np, "float"):
+                np.float = float  # type: ignore[attr-defined]
+
             cat_models = importlib.import_module("lib.models")
             cat_config_module = importlib.import_module("lib.config")
             cat_config = cat_config_module.config
             update_config = cat_config_module.update_config
 
+            pretrained_rgb = CATNET_DIR / "pretrained_models" / "hrnetv2_w48_imagenet_pretrained.pth"
+            pretrained_dct = CATNET_DIR / "pretrained_models" / "DCT_djpeg.pth.tar"
             args = argparse.Namespace(
                 cfg=str(self.config_path),
-                opts=["TEST.MODEL_FILE", str(self.checkpoint_path), "TEST.FLIP_TEST", "False", "TEST.NUM_SAMPLES", "0"],
+                opts=[
+                    "TEST.MODEL_FILE", str(self.checkpoint_path),
+                    "TEST.FLIP_TEST", "False",
+                    "TEST.NUM_SAMPLES", "0",
+                    "MODEL.PRETRAINED_RGB", str(pretrained_rgb),
+                    "MODEL.PRETRAINED_DCT", str(pretrained_dct),
+                ],
             )
             update_config(cat_config, args)
 

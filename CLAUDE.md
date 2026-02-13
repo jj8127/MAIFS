@@ -348,16 +348,71 @@ Go/No-Go: **3개 조건 모두 PASS → Phase 2 착수 가능**
   - 임계값 확장: `configs/tool_thresholds.json`에 `compression` 섹션 추가
 - 현재 상태:
   - 런타임 의존성 설치 완료: `torch-dct`, `jpegio`
-  - CAT-Net 체크포인트 미확보로 현재는 `frequency_fallback`(기존 FFT)로 자동 폴백 동작
+  - CAT-Net 체크포인트/사전학습 가중치 확보 완료:
+    - `CAT-Net-main/output/splicing_dataset/CAT_full/CAT_full_v2.pth.tar`
+    - `CAT-Net-main/pretrained_models/hrnetv2_w48_imagenet_pretrained.pth`
+    - `CAT-Net-main/pretrained_models/DCT_djpeg.pth.tar`
+  - `src/tools/catnet_tool.py`의 numpy 호환(`np.float`) 이슈 패치 완료
+  - 현재는 CAT-Net 실추론 경로로 동작 (`frequency_fallback` 아님)
   - 체크포인트 경로:
     - `CAT-Net-main/output/splicing_dataset/CAT_full/CAT_full_v2.pth.tar`
   - 환경변수 오버라이드:
     - `MAIFS_CATNET_DIR`, `MAIFS_CATNET_CONFIG`, `MAIFS_CATNET_CHECKPOINT`
 
+### 7.7 2026-02-13 에이전트 준비 완료 상태 + 다음 단계
+- 최종 튜닝 반영 (`configs/tool_thresholds.json`):
+  - `compression.mask_threshold = 0.35`
+  - `compression.authentic_ratio_threshold = 0.0048`
+  - `compression.manipulated_ratio_threshold = 0.0048`
+- 대규모 통합 재평가:
+  - `outputs/tool_reeval_catnet_ready_300.json`
+  - 핵심 지표(300 샘플 기준):
+    - `frequency(CAT-Net)` F1 `0.6970` / Acc `0.7333`
+    - `noise(MVSS)` F1 `0.7621`
+    - `fatformer` F1 `0.8810`
+    - `spatial_imd2020` mean_f1 `0.2047`
+    - `spatial_casia2` mean_f1 `0.5667`
+- 추가 튜닝 근거 파일:
+  - `outputs/catnet_feature_cache_300.json`
+  - `outputs/catnet_rule_sweep_300.json`
+  - `outputs/catnet_train_val_200x2.json`
+  - `outputs/catnet_ratio_trainval_sweep_300.json`
+- 운영 해석:
+  - 4개 에이전트(Compression/Noise/FatFormer/Spatial) 모두 실사용 가능 상태
+  - Spatial(IMD)은 도메인 미스매치로 별도 개선 트랙 유지 필요
+- 다음 단계(Phase 2 착수):
+  - DAAC 메타 라우팅/가중치 학습을 CAT-Net 포함 4축 기준으로 재학습
+  - 단일 도구 F1보다 “불일치 패턴 기반 최종 판정 F1”을 1차 목표로 설정
+  - 산출물: CAT-Net 통합 후 DAAC 비교 리포트(기준: tuned4 vs catnet-ready)
+
+### 7.8 2026-02-13 Spatial Mesorch 백엔드 통합 + A/B
+- 통합 내용:
+  - `src/tools/spatial_tool.py`에 `backend="mesorch"` 로딩/추론 경로 추가
+  - `configs/settings.py`에 `MESORCH_DIR`, `model.mesorch_checkpoint` 추가
+  - `scripts/evaluate_tools.py`에 Spatial A/B 실행 옵션 추가:
+    - `--spatial-backend-a` (기본 `omniguard`)
+    - `--spatial-backend-b` (기본 `mesorch`)
+    - 결과 키: `spatial_imd2020`, `spatial_casia2`, `spatial_ab_imd2020`, `spatial_ab_casia2`, `spatial_ab`
+- 체크포인트 경로:
+  - `Mesorch-main/mesorch/mesorch-98.pth`
+  - `Mesorch-main/mesorch/mesorch_p-118.pth`
+- 재평가 결과:
+  - `outputs/tool_reeval_spatial_ab_mesorch_20.json`
+    - IMD2020 mean_f1: `0.2196 -> 0.7337` (Δ `+0.5142`)
+    - CASIA2 mean_f1: `0.6888 -> 0.9132` (Δ `+0.2244`)
+  - `outputs/tool_reeval_spatial_ab_mesorch_100.json`
+    - IMD2020 mean_f1: `0.2286 -> 0.7495` (Δ `+0.5210`)
+    - CASIA2 mean_f1: `0.5519 -> 0.8373` (Δ `+0.2853`)
+- 해석:
+  - 현재 데이터셋 기준 Spatial은 Mesorch 백엔드를 기본값으로 채택하는 것이 타당
+  - OmniGuard는 fallback/비교군으로 유지 권장
+
 ## 8. 변경 이력
 
 | 날짜 | 변경 내용 | 영향 범위 |
 |------|----------|----------|
+| 2026-02-13 | Spatial Mesorch 백엔드 통합 + evaluate_tools Spatial A/B + 20/100샘플 재평가 | src/tools/spatial_tool.py, scripts/evaluate_tools.py, configs/settings.py, outputs/, CLAUDE.md |
+| 2026-02-13 | CAT-Net 가중치 3종 확보 + 판정 임계값 대규모 튜닝 + 300샘플 통합 재평가 | CAT-Net-main/, src/tools/catnet_tool.py, configs/tool_thresholds.json, outputs/, CLAUDE.md |
 | 2026-02-13 | CAT-Net 통합 브랜치 시작: CATNetAnalysisTool 추가, Frequency 슬롯 CAT-Net 경로로 전환(체크포인트 미존재 시 fallback) | src/tools/, src/agents/, scripts/, configs/, CLAUDE.md |
 | 2026-02-13 | 임계값 재튜닝(tuned4): Noise/FatFormer 개선, Spatial(IMD) 소폭 개선 | configs/tool_thresholds.json, outputs/ |
 | 2026-02-13 | Path A 실데이터 스테이징 + 체크포인트 확보 + GPU/Threshold/Spatial 융합 튜닝 | configs/, scripts/, src/tools/, outputs/, datasets/ |

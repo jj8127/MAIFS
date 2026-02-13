@@ -64,9 +64,9 @@
     }
   },
   "compression": {
-    "mask_threshold": 0.4,
-    "authentic_ratio_threshold": 0.03,
-    "manipulated_ratio_threshold": 0.1
+    "mask_threshold": 0.35,
+    "authentic_ratio_threshold": 0.0048,
+    "manipulated_ratio_threshold": 0.0048
   },
   "spatial": {
     "mask_threshold": 0.4,

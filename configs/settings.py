@@ -101,6 +101,24 @@ def get_catnet_path() -> Path:
     return BASE_DIR / "CAT-Net-main"
 
 
+def get_mesorch_path() -> Path:
+    """Mesorch 경로 자동 감지"""
+    env_path = get_env_path("MAIFS_MESORCH_DIR")
+    if env_path:
+        return env_path
+    possible_paths = [
+        BASE_DIR / "Mesorch-main",
+        BASE_DIR.parent / "Mesorch-main",
+    ]
+    for path in possible_paths:
+        try:
+            if path.exists():
+                return path
+        except (PermissionError, OSError):
+            continue
+    return BASE_DIR / "Mesorch-main"
+
+
 def get_test_image_dir() -> Path:
     """테스트 이미지 디렉토리 자동 감지"""
     env_path = get_env_path("MAIFS_TEST_IMAGE_DIR")
@@ -120,6 +138,7 @@ def get_sample_image() -> Path:
 OMNIGUARD_DIR = get_omniguard_path()
 HINET_DIR = get_hinet_path()
 CATNET_DIR = get_catnet_path()
+MESORCH_DIR = get_mesorch_path()
 
 
 @dataclass
@@ -149,6 +168,9 @@ class ModelConfig:
     # CAT-Net 설정/체크포인트
     catnet_config: Path = field(default_factory=lambda: CATNET_DIR / "experiments" / "CAT_full.yaml")
     catnet_checkpoint: Path = field(default_factory=lambda: CATNET_DIR / "output" / "splicing_dataset" / "CAT_full" / "CAT_full_v2.pth.tar")
+
+    # Mesorch 체크포인트
+    mesorch_checkpoint: Path = field(default_factory=lambda: MESORCH_DIR / "mesorch" / "mesorch-98.pth")
 
     # 디바이스 설정
     device: str = field(default_factory=detect_default_device)

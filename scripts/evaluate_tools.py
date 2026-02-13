@@ -12,7 +12,7 @@ import time
 import os
 import multiprocessing as mp
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Callable, Dict, Iterable, List, Optional, Tuple
 
@@ -314,12 +314,70 @@ def clear_cuda_cache() -> None:
         torch.cuda.empty_cache()
 
 
+def evaluate_spatial_backend(
+    backend: str,
+    paths: Dict[str, Path],
+    max_samples: int,
+) -> Dict[str, object]:
+    """Spatial 백엔드 하나에 대한 동일 평가 세트를 실행"""
+    spatial_tool = SpatialAnalysisTool(backend=backend)
+    imd_images = paths["imd2020"] / "images"
+    imd_masks = paths["imd2020"] / "masks"
+    casia_tp_dir = paths["casia2"] / "Tp"
+    casia_gt_dir = paths["casia2"] / "GT"
+
+    imd_metrics = evaluate_spatial_masks(
+        spatial_tool,
+        imd_images,
+        imd_masks,
+        mask_suffix="_mask.jpg",
+        mask_threshold=float(getattr(spatial_tool, "mask_threshold", 0.5)),
+        max_samples=max_samples,
+    )
+    clear_cuda_cache()
+
+    casia_metrics = evaluate_spatial_masks(
+        spatial_tool,
+        casia_tp_dir,
+        casia_gt_dir,
+        mask_suffix="_gt.png",
+        mask_threshold=float(getattr(spatial_tool, "mask_threshold", 0.5)),
+        max_samples=max_samples,
+    )
+    clear_cuda_cache()
+
+    return {
+        "imd2020": {
+            "dataset": "IMD2020_subset (inpainting masks)",
+            "backend": backend,
+            "metrics": imd_metrics,
+        },
+        "casia2": {
+            "dataset": "CASIA2_subset (GT masks)",
+            "backend": backend,
+            "metrics": casia_metrics,
+        },
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Re-evaluate MAIFS tools on available datasets")
     parser.add_argument("--max-samples", type=int, default=0, help="max samples per dataset (0 = all)")
     parser.add_argument("--out", type=str, default="", help="output JSON path")
     parser.add_argument("--noise-backend", type=str, default="mvss", help="noise backend: prnu|mvss")
     parser.add_argument("--noise-workers", type=int, default=1, help="noise eval workers (use >1 for multi-GPU)")
+    parser.add_argument(
+        "--spatial-backend-a",
+        type=str,
+        default=os.environ.get("MAIFS_SPATIAL_BACKEND", "mesorch"),
+        help="spatial backend A (baseline)"
+    )
+    parser.add_argument(
+        "--spatial-backend-b",
+        type=str,
+        default="mesorch",
+        help="spatial backend B (A/B candidate, empty string to disable)"
+    )
     args = parser.parse_args()
 
     datasets_dir = REPO_ROOT / "datasets"
@@ -332,7 +390,7 @@ def main() -> None:
     }
 
     results: Dict[str, Dict[str, object]] = {
-        "run_at": datetime.utcnow().isoformat() + "Z",
+        "run_at": datetime.now(timezone.utc).isoformat(),
         "max_samples": args.max_samples,
         "paths": {k: str(v) for k, v in paths.items()},
         "tools": {},
@@ -407,39 +465,28 @@ def main() -> None:
 
     clear_cuda_cache()
 
-    # Spatial tool -> IMD2020 masks
-    spatial_tool = SpatialAnalysisTool()
-    imd_images = paths["imd2020"] / "images"
-    imd_masks = paths["imd2020"] / "masks"
+    # Spatial A/B evaluation
+    spatial_backend_a = (args.spatial_backend_a or "omniguard").strip().lower()
+    spatial_backend_b = (args.spatial_backend_b or "").strip().lower()
 
-    results["tools"]["spatial_imd2020"] = {
-        "dataset": "IMD2020_subset (inpainting masks)",
-        "metrics": evaluate_spatial_masks(
-            spatial_tool,
-            imd_images,
-            imd_masks,
-            mask_suffix="_mask.jpg",
-            mask_threshold=float(getattr(spatial_tool, "mask_threshold", 0.5)),
-            max_samples=args.max_samples,
-        ),
-    }
+    spatial_a = evaluate_spatial_backend(spatial_backend_a, paths, args.max_samples)
+    results["tools"]["spatial_imd2020"] = spatial_a["imd2020"]
+    results["tools"]["spatial_casia2"] = spatial_a["casia2"]
 
-    clear_cuda_cache()
-
-    # Spatial tool -> CASIA2 GT masks
-    casia_tp_dir = paths["casia2"] / "Tp"
-    casia_gt_dir = paths["casia2"] / "GT"
-    results["tools"]["spatial_casia2"] = {
-        "dataset": "CASIA2_subset (GT masks)",
-        "metrics": evaluate_spatial_masks(
-            spatial_tool,
-            casia_tp_dir,
-            casia_gt_dir,
-            mask_suffix="_gt.png",
-            mask_threshold=float(getattr(spatial_tool, "mask_threshold", 0.5)),
-            max_samples=args.max_samples,
-        ),
-    }
+    if spatial_backend_b and spatial_backend_b != spatial_backend_a:
+        spatial_b = evaluate_spatial_backend(spatial_backend_b, paths, args.max_samples)
+        results["tools"]["spatial_ab_imd2020"] = spatial_b["imd2020"]
+        results["tools"]["spatial_ab_casia2"] = spatial_b["casia2"]
+        results["spatial_ab"] = {
+            "a_backend": spatial_backend_a,
+            "b_backend": spatial_backend_b,
+            "imd2020_f1_delta_b_minus_a": float(
+                spatial_b["imd2020"]["metrics"]["mean_f1"] - spatial_a["imd2020"]["metrics"]["mean_f1"]
+            ),
+            "casia2_f1_delta_b_minus_a": float(
+                spatial_b["casia2"]["metrics"]["mean_f1"] - spatial_a["casia2"]["metrics"]["mean_f1"]
+            ),
+        }
 
     out_path = Path(args.out) if args.out else REPO_ROOT / "outputs" / f"tool_reeval_{int(time.time())}.json"
     out_path.parent.mkdir(parents=True, exist_ok=True)
