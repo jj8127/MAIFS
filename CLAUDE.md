@@ -359,7 +359,7 @@ Go/No-Go: **3개 조건 모두 PASS → Phase 2 착수 가능**
   - 환경변수 오버라이드:
     - `MAIFS_CATNET_DIR`, `MAIFS_CATNET_CONFIG`, `MAIFS_CATNET_CHECKPOINT`
 
-### 7.7 2026-02-13 에이전트 준비 완료 상태 + 다음 단계
+### 7.7 2026-02-13 에이전트 준비 완료 상태 + 다음 단계 (Mesorch 적용 전 스냅샷)
 - 최종 튜닝 반영 (`configs/tool_thresholds.json`):
   - `compression.mask_threshold = 0.35`
   - `compression.authentic_ratio_threshold = 0.0048`
@@ -390,7 +390,7 @@ Go/No-Go: **3개 조건 모두 PASS → Phase 2 착수 가능**
   - `src/tools/spatial_tool.py`에 `backend="mesorch"` 로딩/추론 경로 추가
   - `configs/settings.py`에 `MESORCH_DIR`, `model.mesorch_checkpoint` 추가
   - `scripts/evaluate_tools.py`에 Spatial A/B 실행 옵션 추가:
-    - `--spatial-backend-a` (기본 `omniguard`)
+    - `--spatial-backend-a` (기본 `mesorch`)
     - `--spatial-backend-b` (기본 `mesorch`)
     - 결과 키: `spatial_imd2020`, `spatial_casia2`, `spatial_ab_imd2020`, `spatial_ab_casia2`, `spatial_ab`
 - 체크포인트 경로:
@@ -407,10 +407,30 @@ Go/No-Go: **3개 조건 모두 PASS → Phase 2 착수 가능**
   - 현재 데이터셋 기준 Spatial은 Mesorch 백엔드를 기본값으로 채택하는 것이 타당
   - OmniGuard는 fallback/비교군으로 유지 권장
 
+### 7.9 2026-02-13 메타 분류기 GPU 재학습 완료
+- GPU 경로 활성화:
+  - `src/meta/trainer.py`에서
+    - `mlp`: PyTorch backend (`torch/cuda`)
+    - `gradient_boosting`: XGBoost backend (`xgboost/cuda`) 자동 선택
+  - `experiments/configs/phase1.yaml`: `mlp.backend=torch`, `mlp.device=cuda`
+- 실험:
+  - 설정: `experiments/configs/phase1_mesorch_retrain.yaml`
+  - 결과: `experiments/results/phase1_mesorch_retrain/phase1_results_20260213_161739.json`
+  - 총 시간: 약 `104.4초`
+  - 런타임 확인:
+    - `logistic_regression [sklearn/cpu]`
+    - `gradient_boosting [xgboost/cuda]`
+    - `mlp [torch/cuda]`
+- 핵심 성능:
+  - A5_full best: `gradient_boosting`, Macro-F1 `0.9947`
+  - COBRA 대비: F1 diff `+0.1343`, McNemar p `1.81e-43` (유의)
+  - Go/No-Go: `overall = true` (C1/C2/C3 모두 PASS)
+
 ## 8. 변경 이력
 
 | 날짜 | 변경 내용 | 영향 범위 |
 |------|----------|----------|
+| 2026-02-13 | 메타 분류기 GPU 경로 도입(torch/xgboost) + profile 보정 재학습(Go) | src/meta/trainer.py, experiments/run_phase1.py, experiments/configs/, experiments/results/, CLAUDE.md |
 | 2026-02-13 | Spatial Mesorch 백엔드 통합 + evaluate_tools Spatial A/B + 20/100샘플 재평가 | src/tools/spatial_tool.py, scripts/evaluate_tools.py, configs/settings.py, outputs/, CLAUDE.md |
 | 2026-02-13 | CAT-Net 가중치 3종 확보 + 판정 임계값 대규모 튜닝 + 300샘플 통합 재평가 | CAT-Net-main/, src/tools/catnet_tool.py, configs/tool_thresholds.json, outputs/, CLAUDE.md |
 | 2026-02-13 | CAT-Net 통합 브랜치 시작: CATNetAnalysisTool 추가, Frequency 슬롯 CAT-Net 경로로 전환(체크포인트 미존재 시 fallback) | src/tools/, src/agents/, scripts/, configs/, CLAUDE.md |
@@ -462,6 +482,21 @@ ls -lh /home/dsu/Desktop/MAIFS/MVSS-Net-master/ckpt/mvssnet_casia.pt
 - 현재 `FrequencyAnalysisTool`은 GenImage BigGAN 기준으로 분리력이 낮아 성능 상한이 존재
 - 단독 판정 도구보다 보조 evidence로 사용 권장
 
+### 9.8 메타 분류기 GPU 학습
+- `src/meta/trainer.py`는 GPU 가능 시 다음 경로를 자동 사용
+  - `gradient_boosting`: `xgboost/cuda` (xgboost 설치 시)
+  - `mlp`: `torch/cuda`
+  - 기본: `MAIFS_META_USE_GPU=1` (자동)
+  - 강제 CPU: `MAIFS_META_USE_GPU=0`
+- `experiments/configs/phase1.yaml`의 MLP 설정 기본값:
+  - `backend: torch`
+  - `device: cuda`
+- 실행 예시:
+```bash
+MAIFS_META_USE_GPU=1 /home/dsu/Desktop/MAIFS/.venv-qwen/bin/python experiments/run_phase1.py
+```
+- 로그에서 `[xgboost/cuda]`, `[torch/cuda]`가 출력되면 GPU 학습 경로 활성화 상태
+
 ## 10. 핵심 참조 파일 (빠른 탐색용)
 
 | 목적 | 파일 |
@@ -478,4 +513,5 @@ ls -lh /home/dsu/Desktop/MAIFS/MVSS-Net-master/ckpt/mvssnet_casia.pt
 | Phase 1 실험 | `experiments/run_phase1.py` |
 | Phase 1 설정 | `experiments/configs/phase1.yaml` |
 | Phase 1 결과 | `experiments/results/phase1/` |
+| Phase 1 최신 결과 | `experiments/results/phase1_mesorch_retrain/` |
 | 테스트 | `tests/test_*.py` |

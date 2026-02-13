@@ -1,0 +1,534 @@
+{
+  "timestamp": "2026-02-13T16:15:55.001070",
+  "config": {
+    "simulation": {
+      "seed": 42,
+      "n_train": 12000,
+      "n_val": 1500,
+      "n_test": 1500,
+      "label_distribution": {
+        "authentic": 0.333,
+        "manipulated": 0.333,
+        "ai_generated": 0.334
+      },
+      "sub_type_distribution": {
+        "ai_generated": {
+          "gan": 0.5,
+          "diffusion": 0.5
+        },
+        "manipulated": {
+          "splicing": 0.4,
+          "copy_move": 0.3,
+          "inpainting": 0.3
+        }
+      },
+      "cross_generator_split": true,
+      "agent_profiles": {
+        "frequency": {
+          "confusion_matrices": {
+            "authentic": [
+              0.875,
+              0.125,
+              0.0,
+              0.0
+            ],
+            "manipulated": [
+              0.2875,
+              0.7125,
+              0.0,
+              0.0
+            ],
+            "ai_generated": [
+              0.0875,
+              0.9125,
+              0.0,
+              0.0
+            ]
+          },
+          "confidence_correct": [
+            8.0,
+            2.0
+          ],
+          "confidence_wrong": [
+            2.0,
+            5.0
+          ],
+          "confidence_uncertain": [
+            3.0,
+            3.0
+          ]
+        },
+        "noise": {
+          "confusion_matrices": {
+            "authentic": [
+              0.35625,
+              0.15,
+              0.0,
+              0.49375
+            ],
+            "manipulated": [
+              0.15,
+              0.7125,
+              0.0,
+              0.1375
+            ],
+            "ai_generated": [
+              0.6,
+              0.4,
+              0.0,
+              0.0
+            ]
+          },
+          "confidence_correct": [
+            8.0,
+            2.0
+          ],
+          "confidence_wrong": [
+            2.0,
+            5.0
+          ],
+          "confidence_uncertain": [
+            3.0,
+            3.0
+          ]
+        },
+        "fatformer": {
+          "confusion_matrices": {
+            "authentic": [
+              0.84375,
+              0.0,
+              0.15625,
+              0.0
+            ],
+            "manipulated": [
+              0.3625,
+              0.0,
+              0.6375,
+              0.0
+            ],
+            "ai_generated": [
+              0.0625,
+              0.0,
+              0.9375,
+              0.0
+            ]
+          },
+          "confidence_correct": [
+            8.0,
+            2.0
+          ],
+          "confidence_wrong": [
+            2.0,
+            5.0
+          ],
+          "confidence_uncertain": [
+            3.0,
+            3.0
+          ]
+        },
+        "spatial": {
+          "confusion_matrices": {
+            "authentic": [
+              0.78125,
+              0.21875,
+              0.0,
+              0.0
+            ],
+            "manipulated": [
+              0.3875,
+              0.6,
+              0.0125,
+              0.0
+            ],
+            "ai_generated": [
+              0.2875,
+              0.7125,
+              0.0,
+              0.0
+            ]
+          },
+          "confidence_correct": [
+            8.0,
+            2.0
+          ],
+          "confidence_wrong": [
+            2.0,
+            5.0
+          ],
+          "confidence_uncertain": [
+            3.0,
+            3.0
+          ]
+        }
+      }
+    },
+    "correlation_matrix": [
+      [
+        1.0,
+        0.1,
+        0.4,
+        0.15
+      ],
+      [
+        0.1,
+        1.0,
+        0.1,
+        0.15
+      ],
+      [
+        0.4,
+        0.1,
+        1.0,
+        0.12
+      ],
+      [
+        0.15,
+        0.15,
+        0.12,
+        1.0
+      ]
+    ],
+    "cobra": {
+      "trust_scores": {
+        "frequency": 0.85,
+        "noise": 0.8,
+        "fatformer": 0.85,
+        "spatial": 0.85
+      },
+      "algorithm": "drwa"
+    },
+    "models": {
+      "logistic_regression": {
+        "C": 1.0,
+        "max_iter": 1000,
+        "solver": "lbfgs"
+      },
+      "gradient_boosting": {
+        "n_estimators": 200,
+        "max_depth": 4,
+        "learning_rate": 0.1,
+        "subsample": 0.8
+      },
+      "mlp": {
+        "backend": "torch",
+        "device": "cuda",
+        "hidden_layer_sizes": [
+          32,
+          16
+        ],
+        "activation": "relu",
+        "max_iter": 500,
+        "early_stopping": true,
+        "learning_rate_init": 0.001
+      }
+    },
+    "evaluation": {
+      "n_bootstrap": 1000,
+      "ci_level": 0.95,
+      "mcnemar_alpha": 0.05
+    },
+    "ablation": {
+      "run_a6_agent_removal": true,
+      "models": [
+        "logistic_regression",
+        "gradient_boosting",
+        "mlp"
+      ]
+    },
+    "go_no_go": {
+      "c1_mcnemar_alpha": 0.05,
+      "c2_cross_dataset_drop_threshold": 0.05,
+      "c3_disagreement_margin": 0.05
+    },
+    "output": {
+      "save_dir": "experiments/results/phase1_mesorch_retrain",
+      "save_predictions": true,
+      "save_features": true,
+      "save_plots": true
+    }
+  },
+  "agent_profiles": {
+    "frequency": {
+      "authentic": 0.875,
+      "manipulated": 0.7125,
+      "ai_generated": 0.0,
+      "overall": 0.5291666666666667
+    },
+    "noise": {
+      "authentic": 0.35625,
+      "manipulated": 0.7125,
+      "ai_generated": 0.0,
+      "overall": 0.35625
+    },
+    "fatformer": {
+      "authentic": 0.84375,
+      "manipulated": 0.0,
+      "ai_generated": 0.9375,
+      "overall": 0.59375
+    },
+    "spatial": {
+      "authentic": 0.78125,
+      "manipulated": 0.6,
+      "ai_generated": 0.0,
+      "overall": 0.4604166666666667
+    }
+  },
+  "baselines": {
+    "majority_vote": {
+      "macro_f1": 0.49131308564425363,
+      "balanced_accuracy": 0.5903956357629421,
+      "per_class_f1": {
+        "authentic": 0.8112724167378309,
+        "manipulated": 0.5915057915057915,
+        "ai_generated": 0.07116104868913857
+      }
+    },
+    "cobra": {
+      "macro_f1": 0.860412623953425,
+      "balanced_accuracy": 0.8654256833885788,
+      "auroc": 0.9624700623505645,
+      "ece": 0.12225959043405174,
+      "per_class_f1": {
+        "authentic": 0.972809667673716,
+        "manipulated": 0.8346186803770351,
+        "ai_generated": 0.7738095238095238
+      }
+    }
+  },
+  "meta_classifiers": {
+    "logistic_regression": {
+      "macro_f1": 0.962444998464763,
+      "balanced_accuracy": 0.9623155143810718,
+      "auroc": 0.9933407086483576,
+      "ece": 0.015495765441827344,
+      "brier": 0.059205939200493864,
+      "per_class_f1": {
+        "authentic": 0.9541666666666667,
+        "manipulated": 0.9497536945812808,
+        "ai_generated": 0.9834146341463414
+      }
+    },
+    "gradient_boosting": {
+      "macro_f1": 0.9947042045174715,
+      "balanced_accuracy": 0.9947042045174715,
+      "auroc": 0.9999111156733029,
+      "ece": 0.0034001942475637157,
+      "brier": 0.00749373710198992,
+      "per_class_f1": {
+        "authentic": 0.9979591836734694,
+        "manipulated": 0.9940119760479041,
+        "ai_generated": 0.9921414538310412
+      }
+    },
+    "mlp": {
+      "macro_f1": 0.992731027116088,
+      "balanced_accuracy": 0.9927395679752319,
+      "auroc": 0.9997140169772187,
+      "ece": 0.006672840197881115,
+      "brier": 0.012251531327915198,
+      "per_class_f1": {
+        "authentic": 0.9989785495403473,
+        "manipulated": 0.9890764647467726,
+        "ai_generated": 0.9901380670611439
+      }
+    }
+  },
+  "cobra_vs_best": {
+    "model_a": "cobra",
+    "model_b": "gradient_boosting",
+    "f1_diff": 0.13429158056404655,
+    "mcnemar_pvalue": 1.806788441309434e-43,
+    "significant": true,
+    "ci_lower": 0.11704612169003795,
+    "ci_upper": 0.15325957494860307
+  },
+  "ablation": {
+    "A1_confidence_only": {
+      "feature_dim": 4,
+      "best_model": "gradient_boosting",
+      "best_f1": 0.9276351678105229,
+      "models": {
+        "logistic_regression": {
+          "macro_f1": 0.853247342189746,
+          "balanced_accuracy": 0.8533639722412891
+        },
+        "gradient_boosting": {
+          "macro_f1": 0.9276351678105229,
+          "balanced_accuracy": 0.9277001454637203
+        },
+        "mlp": {
+          "macro_f1": 0.9208419991176656,
+          "balanced_accuracy": 0.9210213922555167
+        }
+      }
+    },
+    "A2_verdict_only": {
+      "feature_dim": 16,
+      "best_model": "gradient_boosting",
+      "best_f1": 0.7504351102752197,
+      "models": {
+        "logistic_regression": {
+          "macro_f1": 0.7486325334867093,
+          "balanced_accuracy": 0.7557053301813571
+        },
+        "gradient_boosting": {
+          "macro_f1": 0.7504351102752197,
+          "balanced_accuracy": 0.7576699667235968
+        },
+        "mlp": {
+          "macro_f1": 0.7492335052791632,
+          "balanced_accuracy": 0.7563602090287702
+        }
+      }
+    },
+    "A3_disagreement_only": {
+      "feature_dim": 23,
+      "best_model": "mlp",
+      "best_f1": 0.9323832605971053,
+      "models": {
+        "logistic_regression": {
+          "macro_f1": 0.7964551221801374,
+          "balanced_accuracy": 0.7966260681262337
+        },
+        "gradient_boosting": {
+          "macro_f1": 0.9288732911214281,
+          "balanced_accuracy": 0.9287284645122437
+        },
+        "mlp": {
+          "macro_f1": 0.9323832605971053,
+          "balanced_accuracy": 0.9324814653066933
+        }
+      }
+    },
+    "A4_verdict_confidence": {
+      "feature_dim": 20,
+      "best_model": "gradient_boosting",
+      "best_f1": 0.995369872957395,
+      "models": {
+        "logistic_regression": {
+          "macro_f1": 0.943002578329093,
+          "balanced_accuracy": 0.9428445355923546
+        },
+        "gradient_boosting": {
+          "macro_f1": 0.995369872957395,
+          "balanced_accuracy": 0.9953844766263152
+        },
+        "mlp": {
+          "macro_f1": 0.9907428423757287,
+          "balanced_accuracy": 0.9907689532526304
+        }
+      }
+    },
+    "A5_full": {
+      "feature_dim": 43,
+      "best_model": "gradient_boosting",
+      "best_f1": 0.9947042045174715,
+      "models": {
+        "logistic_regression": {
+          "macro_f1": 0.962444998464763,
+          "balanced_accuracy": 0.9623155143810718
+        },
+        "gradient_boosting": {
+          "macro_f1": 0.9947042045174715,
+          "balanced_accuracy": 0.9947042045174715
+        },
+        "mlp": {
+          "macro_f1": 0.992731027116088,
+          "balanced_accuracy": 0.9927395679752319
+        }
+      }
+    },
+    "A6_remove_frequency": {
+      "feature_dim": 43,
+      "best_model": "mlp",
+      "best_f1": 0.9920422261253831,
+      "models": {
+        "logistic_regression": {
+          "macro_f1": 0.9240178331825234,
+          "balanced_accuracy": 0.924031415404493
+        },
+        "gradient_boosting": {
+          "macro_f1": 0.9894094841482438,
+          "balanced_accuracy": 0.9893262510702904
+        },
+        "mlp": {
+          "macro_f1": 0.9920422261253831,
+          "balanced_accuracy": 0.9920234454576939
+        }
+      }
+    },
+    "A6_remove_noise": {
+      "feature_dim": 43,
+      "best_model": "gradient_boosting",
+      "best_f1": 0.9933900914709386,
+      "models": {
+        "logistic_regression": {
+          "macro_f1": 0.9378879860722296,
+          "balanced_accuracy": 0.9376697282366159
+        },
+        "gradient_boosting": {
+          "macro_f1": 0.9933900914709386,
+          "balanced_accuracy": 0.9933481392666866
+        },
+        "mlp": {
+          "macro_f1": 0.9887330873524313,
+          "balanced_accuracy": 0.9887281369260997
+        }
+      }
+    },
+    "A6_remove_fatformer": {
+      "feature_dim": 43,
+      "best_model": "gradient_boosting",
+      "best_f1": 0.98873830313327,
+      "models": {
+        "logistic_regression": {
+          "macro_f1": 0.9183388183777601,
+          "balanced_accuracy": 0.9181345073508544
+        },
+        "gradient_boosting": {
+          "macro_f1": 0.98873830313327,
+          "balanced_accuracy": 0.9887132008119334
+        },
+        "mlp": {
+          "macro_f1": 0.9854392579100435,
+          "balanced_accuracy": 0.985417892280339
+        }
+      }
+    },
+    "A6_remove_spatial": {
+      "feature_dim": 43,
+      "best_model": "gradient_boosting",
+      "best_f1": 0.9940273789342257,
+      "models": {
+        "logistic_regression": {
+          "macro_f1": 0.9558182756703989,
+          "balanced_accuracy": 0.955660673894316
+        },
+        "gradient_boosting": {
+          "macro_f1": 0.9940273789342257,
+          "balanced_accuracy": 0.994013475261364
+        },
+        "mlp": {
+          "macro_f1": 0.9887419734420768,
+          "balanced_accuracy": 0.9887281369260997
+        }
+      }
+    }
+  },
+  "go_no_go": {
+    "c1_full_vs_cobra": {
+      "passed": true,
+      "f1_diff": 0.13429158056404655,
+      "p": 1.806788441309434e-43
+    },
+    "c2_cross_dataset": {
+      "passed": true
+    },
+    "c3_disagreement": {
+      "passed": true,
+      "a3_f1": 0.9323832605971053
+    },
+    "overall": true
+  },
+  "elapsed_seconds": 104.35737872123718
+}

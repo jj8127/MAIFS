@@ -139,7 +139,7 @@ DAAC (제안):
 | COBRA (현재) | RoT/DRWA/AVGA 고정 가중 합의 |
 | Logistic Regression | 43-dim → verdict (linear meta-classifier) |
 | XGBoost | 비선형 메타 분류기 |
-| MLP (소형) | 43 → 32 → 16 → 4 (비선형, 과적합 모니터링) |
+| MLP (소형) | 43 → 32 → 16 → 3 (비선형, 과적합 모니터링) |
 
 ### 3.6 Ablation 설계
 
@@ -256,7 +256,7 @@ experiments/
 | R4 (Security) | 적대적 강건성 미검증 | 다중 에이전트 동시 공격 어려움 실험적 증명 |
 | R5 (Industry) | 실제 데이터 검증 없음 | 경로 A 실데이터 + 교차 데이터셋 검증 |
 
-## 8. Phase 1-B 실험 결과 (2026-02-12)
+## 8. Phase 1-B 실험 결과 (2026-02-12, Historical Baseline)
 
 ### 8.1 실험 환경
 
@@ -312,16 +312,55 @@ experiments/
 
 ### 8.6 다음 단계
 
-- **Phase 1-A**: 실제 에이전트 출력으로 재실행 (체크포인트 확보 시)
+- **Phase 1-A**: 실제 에이전트 collector(`src/meta/collector.py`) 연동 후 실데이터 재실행
 - **Phase 2**: Adaptive Routing — 이미지 특성 기반 동적 가중치 생성
+
+### 8.7 Phase 1-C 재학습 결과 (2026-02-13, Latest)
+
+> CAT-Net + Mesorch 반영 후, 실제 에이전트 출력 분포로 보정한 시뮬레이터 프로파일(`agent_profiles`)을 사용해 재학습.
+> 학습 실행은 GPU 경로(`xgboost/cuda`, `torch/cuda`)로 수행.
+
+- 설정 파일: `experiments/configs/phase1_mesorch_retrain.yaml`
+- 결과 파일: `experiments/results/phase1_mesorch_retrain/phase1_results_20260213_161739.json`
+- 런타임 확인:
+  - `logistic_regression [sklearn/cpu]`
+  - `gradient_boosting [xgboost/cuda]`
+  - `mlp [torch/cuda]`
+
+#### 8.7.1 베이스라인 vs 메타 분류기
+
+| 방법 | Macro-F1 | Balanced Acc | AUROC | ECE |
+|------|----------|-------------|-------|-----|
+| Majority Vote | 0.4913 | 0.5904 | — | — |
+| COBRA (DRWA) | 0.8604 | 0.8654 | 0.9625 | 0.1223 |
+| LogReg (43-dim) | 0.9624 | 0.9623 | 0.9933 | 0.0155 |
+| **GBM/XGBoost (43-dim)** | **0.9947** | **0.9947** | **0.9999** | **0.0034** |
+| MLP (43-dim) | 0.9927 | 0.9927 | 0.9997 | 0.0067 |
+
+#### 8.7.2 핵심 판정
+
+| 항목 | 결과 |
+|------|------|
+| COBRA 대비 A5(full) 성능 차이 | +0.1343 |
+| McNemar p-value | 1.81e-43 (유의) |
+| A3(disagreement-only) best F1 | 0.9324 |
+| Go/No-Go | **GO (C1/C2/C3 모두 PASS)** |
+
+#### 8.7.3 해석
+
+1. 최신 세팅에서 메타 분류기 성능은 매우 높고, COBRA 대비 통계적으로 유의한 개선을 재확인.
+2. disagreement-only(A3) 성능이 여전히 높아 핵심 가설(불일치 패턴 자체의 정보성)을 지지.
+3. A4(verdict+confidence)와 A5(full)의 간극이 작아, disagreement 특징은 "보조 강화" 역할이 강함.
+4. Phase 2 착수 조건은 최신 런 기준으로 충족.
 
 ## 9. 타임라인
 
 | 단계 | 내용 | 상태 |
 |------|------|------|
-| Phase 1-B | 시뮬레이션 기반 가설 검증 | ✅ 완료 (GO) |
-| Phase 1-A | 실데이터 검증 | 대기 (체크포인트 필요) |
-| Phase 2 | Adaptive Routing | 착수 가능 |
+| Phase 1-B | 시뮬레이션 기반 가설 검증 (초기 baseline) | ✅ 완료 (GO, 2026-02-12) |
+| Phase 1-C | 프로파일 보정 + GPU 재학습 (latest) | ✅ 완료 (GO, 2026-02-13) |
+| Phase 1-A | 실데이터 collector 기반 검증 | 진행중 (체크포인트 확보 완료, collector 연동 필요) |
+| Phase 2 | Adaptive Routing | 착수 가능 (최신 결과 기준) |
 | Phase 3 | 벤치마크 + 논문 | Phase 2 완료 후 |
 
 ## 10. 데이터셋 (Phase 1-A용)
