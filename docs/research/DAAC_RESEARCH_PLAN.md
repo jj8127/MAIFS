@@ -324,7 +324,18 @@ experiments/
 | Phase 2 | Adaptive Routing | 착수 가능 |
 | Phase 3 | 벤치마크 + 논문 | Phase 2 완료 후 |
 
-## 10. 참고 문헌
+## 10. 데이터셋 (Phase 1-A용)
+
+| 데이터셋 | 용도 | 소스 |
+|----------|------|------|
+| CASIA v2.0 | Manipulation (Tp/Au/GT) | Kaggle: `divg07/casia-20-image-tampering-detection-dataset` |
+| DIV2K | Authentic (HR) | Kaggle: `soumikrakshit/div2k-high-resolution-images` |
+| IMD2020 | Inpainting | `https://staff.utia.cas.cz/novozada/db/` |
+| GenImage (BigGAN) | AI Generated | `https://github.com/GenImage-Dataset/GenImage` |
+
+모든 데이터셋은 `datasets/` 디렉토리에 위치 (git 미추적).
+
+## 11. 참고 문헌
 
 - Liu et al., "Forgery-aware Adaptive Transformer for Generalizable Synthetic Image Detection," CVPR 2024 (FatFormer)
 - Durall et al., "Watch your Up-Convolution: CNN Based Generative Deep Neural Networks are Failing to Reproduce Spectral Distributions," CVPR 2020
