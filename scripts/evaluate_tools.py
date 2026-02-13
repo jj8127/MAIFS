@@ -24,7 +24,7 @@ import numpy as np
 from PIL import Image
 
 from src.tools.base_tool import Verdict
-from src.tools.frequency_tool import FrequencyAnalysisTool
+from src.tools.catnet_tool import CATNetAnalysisTool
 from src.tools.spatial_tool import SpatialAnalysisTool
 from src.tools.fatformer_tool import FatFormerTool
 
@@ -246,6 +246,7 @@ def evaluate_spatial_masks(
     images_dir: Path,
     masks_dir: Path,
     mask_suffix: str,
+    mask_threshold: float = 0.5,
     max_samples: int = 0,
 ) -> Dict[str, float]:
     image_paths = iter_images(images_dir, max_samples=max_samples)
@@ -273,7 +274,7 @@ def evaluate_spatial_masks(
                 skipped += 1
                 continue
 
-            pred_mask = (result.manipulation_mask >= 0.5).astype(np.uint8)
+            pred_mask = (result.manipulation_mask >= mask_threshold).astype(np.uint8)
             gt_mask = load_mask(mask_path)
             gt_mask, pred_mask = align_mask(gt_mask, pred_mask)
 
@@ -304,6 +305,7 @@ def evaluate_spatial_masks(
         "skipped": skipped,
         "errors": errors,
         "avg_seconds": float(np.mean(times)) if times else 0.0,
+        "mask_threshold": float(mask_threshold),
     }
 
 
@@ -316,7 +318,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Re-evaluate MAIFS tools on available datasets")
     parser.add_argument("--max-samples", type=int, default=0, help="max samples per dataset (0 = all)")
     parser.add_argument("--out", type=str, default="", help="output JSON path")
-    parser.add_argument("--noise-backend", type=str, default="prnu", help="noise backend: prnu|mvss")
+    parser.add_argument("--noise-backend", type=str, default="mvss", help="noise backend: prnu|mvss")
     parser.add_argument("--noise-workers", type=int, default=1, help="noise eval workers (use >1 for multi-GPU)")
     args = parser.parse_args()
 
@@ -336,30 +338,29 @@ def main() -> None:
         "tools": {},
     }
 
-    # Frequency tool -> GenImage (AI vs real)
-    freq_tool = FrequencyAnalysisTool()
+    # Frequency slot -> CAT-Net compression tool on CASIA2 (Tp vs Au)
+    freq_tool = CATNetAnalysisTool()
     ai_paths = iter_images(paths["genimage"] / "ai", args.max_samples)
     real_paths = iter_images(paths["genimage"] / "nature", args.max_samples)
+    tp_paths = iter_images(paths["casia2"] / "Tp", args.max_samples)
+    au_paths = iter_images(paths["casia2"] / "Au", args.max_samples)
 
     def freq_pred(result):
-        pred = int(result.verdict in {Verdict.AI_GENERATED, Verdict.MANIPULATED})
+        pred = int(result.verdict in {Verdict.MANIPULATED, Verdict.AI_GENERATED})
         return pred, result.verdict == Verdict.UNCERTAIN
 
     results["tools"]["frequency"] = {
-        "dataset": "GenImage_subset/BigGAN/val (ai vs nature)",
+        "dataset": "CASIA2_subset (Tp vs Au) [CAT-Net compression]",
         "counts": {
-            "ai": len(ai_paths),
-            "nature": len(real_paths),
+            "tp": len(tp_paths),
+            "au": len(au_paths),
         },
-        "metrics": evaluate_binary_tool(freq_tool, ai_paths, real_paths, freq_pred, args.max_samples),
+        "metrics": evaluate_binary_tool(freq_tool, tp_paths, au_paths, freq_pred, args.max_samples),
     }
 
     clear_cuda_cache()
 
     # Noise tool -> CASIA2 (Tp vs Au)
-    tp_paths = iter_images(paths["casia2"] / "Tp", args.max_samples)
-    au_paths = iter_images(paths["casia2"] / "Au", args.max_samples)
-
     results["tools"]["noise"] = {
         "dataset": "CASIA2_subset (Tp vs Au)",
         "backend": args.noise_backend,
@@ -382,17 +383,26 @@ def main() -> None:
     steg_paths = iter_images(paths["hinet"] / "steg", args.max_samples)
     cover_paths = iter_images(paths["hinet"] / "cover", args.max_samples)
 
+    fat_dataset_name = "HiNet-main/image (steg vs cover)"
+    fat_pos_paths = steg_paths
+    fat_neg_paths = cover_paths
+
+    # HiNet 샘플이 없으면 GenImage(BigGAN)로 폴백
+    if len(fat_pos_paths) == 0 and len(fat_neg_paths) == 0:
+        fat_dataset_name = "GenImage_subset/BigGAN/val (ai vs nature)"
+        fat_pos_paths = ai_paths
+        fat_neg_paths = real_paths
+
     def fat_pred(result):
-        fake_prob = float(result.evidence.get("fake_probability", 0.0))
-        return int(fake_prob > 0.5), result.verdict == Verdict.UNCERTAIN
+        return int(result.verdict == Verdict.AI_GENERATED), result.verdict == Verdict.UNCERTAIN
 
     results["tools"]["fatformer"] = {
-        "dataset": "HiNet-main/image (steg vs cover)",
+        "dataset": fat_dataset_name,
         "counts": {
-            "steg": len(steg_paths),
-            "cover": len(cover_paths),
+            "positive": len(fat_pos_paths),
+            "negative": len(fat_neg_paths),
         },
-        "metrics": evaluate_binary_tool(fat_tool, steg_paths, cover_paths, fat_pred, args.max_samples),
+        "metrics": evaluate_binary_tool(fat_tool, fat_pos_paths, fat_neg_paths, fat_pred, args.max_samples),
     }
 
     clear_cuda_cache()
@@ -409,6 +419,7 @@ def main() -> None:
             imd_images,
             imd_masks,
             mask_suffix="_mask.jpg",
+            mask_threshold=float(getattr(spatial_tool, "mask_threshold", 0.5)),
             max_samples=args.max_samples,
         ),
     }
@@ -425,6 +436,7 @@ def main() -> None:
             casia_tp_dir,
             casia_gt_dir,
             mask_suffix="_gt.png",
+            mask_threshold=float(getattr(spatial_tool, "mask_threshold", 0.5)),
             max_samples=args.max_samples,
         ),
     }

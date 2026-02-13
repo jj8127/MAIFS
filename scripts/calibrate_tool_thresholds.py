@@ -24,6 +24,7 @@ sys.path.insert(0, str(REPO_ROOT))
 
 from src.tools.frequency_tool import FrequencyAnalysisTool
 from src.tools.noise_tool import NoiseAnalysisTool
+from src.tools.fatformer_tool import FatFormerTool
 from src.tools.base_tool import Verdict
 
 
@@ -111,11 +112,15 @@ def calibrate_frequency(max_samples: int) -> dict:
     best_penalty = 0.0
     best_threshold = 0.5
     best_metrics = Metrics(0.0, 0.0, 0.0, 0.0, 0.0, 0, 0, 0, 0)
+    best_score = -1.0
 
     for penalty in np.linspace(0.0, 0.3, 31):
         adjusted = [max(0.0, s - penalty) if is_jpeg else s for s, is_jpeg in zip(scores, jpeg_flags)]
         t, metrics = find_best_threshold(adjusted, labels)
-        if metrics.balanced_accuracy > best_metrics.balanced_accuracy:
+        # 단일 지표 과적합 방지를 위해 accuracy/F1/balanced_accuracy를 함께 최적화
+        composite_score = (metrics.accuracy + metrics.f1 + metrics.balanced_accuracy) / 3.0
+        if composite_score > best_score:
+            best_score = composite_score
             best_penalty = float(penalty)
             best_threshold = float(t)
             best_metrics = metrics
@@ -235,6 +240,67 @@ def calibrate_noise(max_samples: int, backend: str) -> dict:
     }
 
 
+def calibrate_fatformer(max_samples: int) -> dict:
+    """Calibrate FatFormer fake_probability threshold on GenImage BigGAN."""
+    tool = FatFormerTool(device="cuda")
+    ai_dir = REPO_ROOT / "datasets" / "GenImage_subset" / "BigGAN" / "val" / "ai"
+    real_dir = REPO_ROOT / "datasets" / "GenImage_subset" / "BigGAN" / "val" / "nature"
+
+    ai_paths = iter_images(ai_dir, max_samples)
+    real_paths = iter_images(real_dir, max_samples)
+
+    scores = []
+    labels = []
+
+    for path in ai_paths:
+        result = tool(load_image(path))
+        scores.append(float(result.evidence.get("fake_probability", 0.0)))
+        labels.append(1)
+
+    for path in real_paths:
+        result = tool(load_image(path))
+        scores.append(float(result.evidence.get("fake_probability", 0.0)))
+        labels.append(0)
+
+    best_t = 0.5
+    best_metrics = Metrics(0.0, 0.0, 0.0, 0.0, 0.0, 0, 0, 0, 0)
+    for t in np.linspace(0.0, 1.0, 2001):
+        preds = [1 if s >= t else 0 for s in scores]
+        m = compute_metrics(labels, preds)
+        if (m.f1 > best_metrics.f1) or (
+            m.f1 == best_metrics.f1 and m.balanced_accuracy > best_metrics.balanced_accuracy
+        ):
+            best_t = float(t)
+            best_metrics = m
+
+    return {
+        "ai_threshold": best_t,
+        "auth_threshold": best_t,
+        "counts": {"ai": len(ai_paths), "nature": len(real_paths)},
+        "metrics": {
+            "f1": best_metrics.f1,
+            "precision": best_metrics.precision,
+            "recall": best_metrics.recall,
+            "accuracy": best_metrics.accuracy,
+            "balanced_accuracy": best_metrics.balanced_accuracy,
+            "tp": best_metrics.tp,
+            "fp": best_metrics.fp,
+            "tn": best_metrics.tn,
+            "fn": best_metrics.fn,
+        },
+    }
+
+
+def default_spatial_params() -> dict:
+    """Spatial defaults from local grid-search (CASIA + IMD trade-off)."""
+    return {
+        "mask_threshold": 0.4,
+        "mvss_weight": 0.5,
+        "authentic_ratio_threshold": 0.05,
+        "ai_ratio_threshold": 0.8,
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Calibrate tool thresholds using local datasets")
     parser.add_argument("--max-samples", type=int, default=0, help="max samples per dataset (0 = all)")
@@ -247,6 +313,8 @@ def main() -> None:
         "max_samples": args.max_samples,
         "frequency": calibrate_frequency(args.max_samples),
         "noise": calibrate_noise(args.max_samples, args.noise_backend),
+        "fatformer": calibrate_fatformer(args.max_samples),
+        "spatial": default_spatial_params(),
     }
 
     out_path = Path(args.out)

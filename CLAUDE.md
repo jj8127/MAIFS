@@ -310,10 +310,57 @@ Go/No-Go: **3개 조건 모두 PASS → Phase 2 착수 가능**
 - Phase 1-A: 실데이터 검증 (FatFormer/Spatial 체크포인트 확보 시)
 - Phase 3: 벤치마크 + 논문 작성
 
+### 7.5 2026-02-13 실데이터 튜닝 상태 (Path A 준비)
+- 체크포인트 확보 완료:
+  - `Integrated Submodules/FatFormer/checkpoint/fatformer.pth`
+  - `OmniGuard-main/checkpoint/model_checkpoint_01500.pt` (+ `iml_vit.pth` 링크)
+  - `MVSS-Net-master/ckpt/mvssnet_casia.pt`
+- 데이터셋 스테이징 완료:
+  - `datasets/CASIA2_subset/{Tp,Au,GT}`
+  - `datasets/GenImage_subset/BigGAN/val/{ai,nature}`
+  - `datasets/IMD2020_subset/IMD2020_Generative_Image_Inpainting_yu2018_01/{images,masks}`
+- 코드/설정 튜닝 반영:
+  - `configs/settings.py`: GPU 자동 감지 로직(`torch.cuda.is_available()`) 반영
+  - `src/tools/fatformer_tool.py`: 임계값 설정 파일 로드 + `models` 모듈 충돌 방지
+  - `src/tools/spatial_tool.py`: `mask_threshold`/MVSS 융합 파라미터 설정화 + MVSS score 기반 동적 융합
+  - `scripts/evaluate_tools.py`: FatFormer 평가셋 폴백(HiNet→GenImage), Spatial threshold 반영
+  - `scripts/calibrate_tool_thresholds.py`: `fatformer`, `spatial` 캘리브레이션 포함
+- 최신 리포트:
+  - `outputs/tool_reeval_tuned3_20.json`
+  - `outputs/tool_reeval_tuned4_20.json` (추가 튜닝)
+- tuned4 임계값 반영:
+  - `noise.mvss_threshold = 0.655`
+  - `fatformer.ai_threshold/auth_threshold = 1e-5`
+  - `spatial.mvss_weight = 0.5`
+- 현재 운영 해석:
+  - `Noise/FatFormer/Spatial(CASIA)`는 성능 회복 및 개선 확인
+  - `Spatial(IMD)`는 개선 폭 제한적(도메인 미스매치 영향)
+  - `Frequency`는 구조적 분리력 한계로 주 에이전트보다는 보조 신호로 운영 권장
+
+### 7.6 2026-02-13 CAT-Net 통합 시작 (feat/catnet-integration)
+- 브랜치: `feat/catnet-integration`
+- 통합 범위:
+  - 신규 도구: `src/tools/catnet_tool.py` (`CATNetAnalysisTool`)
+  - `FrequencyAgent` 내부 도구를 CAT-Net으로 교체 (role/key는 `frequency` 유지)
+  - 도구 평가 스크립트(`scripts/evaluate_tools.py`)에서 frequency 슬롯을
+    CASIA2 Tp/Au 기반 CAT-Net 압축 탐지 평가로 전환
+  - 설정 확장: `configs/settings.py`에 `CATNET_DIR`, `catnet_config`, `catnet_checkpoint` 추가
+  - 임계값 확장: `configs/tool_thresholds.json`에 `compression` 섹션 추가
+- 현재 상태:
+  - 런타임 의존성 설치 완료: `torch-dct`, `jpegio`
+  - CAT-Net 체크포인트 미확보로 현재는 `frequency_fallback`(기존 FFT)로 자동 폴백 동작
+  - 체크포인트 경로:
+    - `CAT-Net-main/output/splicing_dataset/CAT_full/CAT_full_v2.pth.tar`
+  - 환경변수 오버라이드:
+    - `MAIFS_CATNET_DIR`, `MAIFS_CATNET_CONFIG`, `MAIFS_CATNET_CHECKPOINT`
+
 ## 8. 변경 이력
 
 | 날짜 | 변경 내용 | 영향 범위 |
 |------|----------|----------|
+| 2026-02-13 | CAT-Net 통합 브랜치 시작: CATNetAnalysisTool 추가, Frequency 슬롯 CAT-Net 경로로 전환(체크포인트 미존재 시 fallback) | src/tools/, src/agents/, scripts/, configs/, CLAUDE.md |
+| 2026-02-13 | 임계값 재튜닝(tuned4): Noise/FatFormer 개선, Spatial(IMD) 소폭 개선 | configs/tool_thresholds.json, outputs/ |
+| 2026-02-13 | Path A 실데이터 스테이징 + 체크포인트 확보 + GPU/Threshold/Spatial 융합 튜닝 | configs/, scripts/, src/tools/, outputs/, datasets/ |
 | 2026-02-13 | docs/ 정리: 16개 문서 삭제, CLAUDE.md + DAAC_RESEARCH_PLAN.md 2개만 유지 | docs/, CLAUDE.md |
 | 2026-02-12 | DAAC Phase 1 구현 + 실험 완료 (Path B) | src/meta/, experiments/, CLAUDE.md |
 | 2026-02-12 | 코드베이스 클린업 (watermark 잔여 참조 제거, exif_tool 삭제) | scripts/, examples/, tests/, docs/ |
@@ -347,6 +394,18 @@ Edit 도구 사용 전에 반드시 Read로 파일을 읽어야 합니다.
 - `AgentRole` (Qwen용): `src/llm/qwen_client.py` (FREQUENCY, NOISE, **FATFORMER**, SPATIAL, MANAGER)
 
 모두 `WATERMARK`가 아닌 `FATFORMER`여야 함.
+
+### 9.6 MVSS 체크포인트 누락 시 Noise 성능 급락
+- `NoiseAnalysisTool(backend=mvss)`는 `MVSS-Net-master/ckpt/mvssnet_casia.pt`가 없으면 PRNU 폴백으로 전환됨
+- CASIA 기반 실험에서는 PRNU 폴백 시 탐지 성능이 크게 저하될 수 있음
+- 실험 전 체크:
+```bash
+ls -lh /home/dsu/Desktop/MAIFS/MVSS-Net-master/ckpt/mvssnet_casia.pt
+```
+
+### 9.7 Frequency 결과 해석 주의
+- 현재 `FrequencyAnalysisTool`은 GenImage BigGAN 기준으로 분리력이 낮아 성능 상한이 존재
+- 단독 판정 도구보다 보조 evidence로 사용 권장
 
 ## 10. 핵심 참조 파일 (빠른 탐색용)
 
