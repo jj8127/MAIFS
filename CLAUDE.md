@@ -220,12 +220,13 @@ from configs.settings import config
 
 ### 6.1 문서 체계
 
-프로젝트 문서는 2개만 유지:
+프로젝트 핵심 문서는 아래 3개를 유지:
 
 | 문서 | 역할 |
 |------|------|
 | **`CLAUDE.md`** (이 파일) | 프로젝트 전체 SSOT — 아키텍처, 규칙, 진행 상황 |
 | **`docs/research/DAAC_RESEARCH_PLAN.md`** | DAAC 연구 상세 — 방법론, 실험 결과, 데이터셋 |
+| **`docs/research/MAIFS_TECHNICAL_THEORY.md`** | 이론 백서 — 도구/합의/토론/메타학습의 기술적 원리와 수식 |
 
 > `src/knowledge/*.md`는 런타임 자산 (LLM 도메인 지식 주입용)이므로 문서가 아님.
 
@@ -240,6 +241,7 @@ from configs.settings import config
 |----------|-------------|
 | Tool/Agent 추가·삭제·이름변경 | `CLAUDE.md` Section 2.1, 3, 9.5, 10 |
 | 합의 알고리즘 변경 | `CLAUDE.md` Section 2.2 + `configs/settings.py` |
+| 핵심 이론/수식/임계값 해석 변경 | `docs/research/MAIFS_TECHNICAL_THEORY.md` + 관련 코드 |
 | 새 모듈 디렉토리 추가 | `CLAUDE.md` Section 3 |
 | 실험 결과 생성 | `CLAUDE.md` Section 7 + `docs/research/DAAC_RESEARCH_PLAN.md` |
 | 중요 아키텍처 변경 | `CLAUDE.md` Section 8 (변경 이력) |
@@ -430,6 +432,7 @@ Go/No-Go: **3개 조건 모두 PASS → Phase 2 착수 가능**
 
 | 날짜 | 변경 내용 | 영향 범위 |
 |------|----------|----------|
+| 2026-02-14 | README 전면 최신화 + 기술 이론 백서(`MAIFS_TECHNICAL_THEORY.md`) 추가 | README.md, docs/research/, CLAUDE.md |
 | 2026-02-13 | 메타 분류기 GPU 경로 도입(torch/xgboost) + profile 보정 재학습(Go) | src/meta/trainer.py, experiments/run_phase1.py, experiments/configs/, experiments/results/, CLAUDE.md |
 | 2026-02-13 | Spatial Mesorch 백엔드 통합 + evaluate_tools Spatial A/B + 20/100샘플 재평가 | src/tools/spatial_tool.py, scripts/evaluate_tools.py, configs/settings.py, outputs/, CLAUDE.md |
 | 2026-02-13 | CAT-Net 가중치 3종 확보 + 판정 임계값 대규모 튜닝 + 300샘플 통합 재평가 | CAT-Net-main/, src/tools/catnet_tool.py, configs/tool_thresholds.json, outputs/, CLAUDE.md |
