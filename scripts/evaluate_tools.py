@@ -12,7 +12,7 @@ import time
 import os
 import multiprocessing as mp
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Callable, Dict, Iterable, List, Optional, Tuple
 
@@ -24,7 +24,7 @@ import numpy as np
 from PIL import Image
 
 from src.tools.base_tool import Verdict
-from src.tools.frequency_tool import FrequencyAnalysisTool
+from src.tools.catnet_tool import CATNetAnalysisTool
 from src.tools.spatial_tool import SpatialAnalysisTool
 from src.tools.fatformer_tool import FatFormerTool
 
@@ -246,6 +246,7 @@ def evaluate_spatial_masks(
     images_dir: Path,
     masks_dir: Path,
     mask_suffix: str,
+    mask_threshold: float = 0.5,
     max_samples: int = 0,
 ) -> Dict[str, float]:
     image_paths = iter_images(images_dir, max_samples=max_samples)
@@ -273,7 +274,7 @@ def evaluate_spatial_masks(
                 skipped += 1
                 continue
 
-            pred_mask = (result.manipulation_mask >= 0.5).astype(np.uint8)
+            pred_mask = (result.manipulation_mask >= mask_threshold).astype(np.uint8)
             gt_mask = load_mask(mask_path)
             gt_mask, pred_mask = align_mask(gt_mask, pred_mask)
 
@@ -304,6 +305,7 @@ def evaluate_spatial_masks(
         "skipped": skipped,
         "errors": errors,
         "avg_seconds": float(np.mean(times)) if times else 0.0,
+        "mask_threshold": float(mask_threshold),
     }
 
 
@@ -312,12 +314,70 @@ def clear_cuda_cache() -> None:
         torch.cuda.empty_cache()
 
 
+def evaluate_spatial_backend(
+    backend: str,
+    paths: Dict[str, Path],
+    max_samples: int,
+) -> Dict[str, object]:
+    """Spatial 백엔드 하나에 대한 동일 평가 세트를 실행"""
+    spatial_tool = SpatialAnalysisTool(backend=backend)
+    imd_images = paths["imd2020"] / "images"
+    imd_masks = paths["imd2020"] / "masks"
+    casia_tp_dir = paths["casia2"] / "Tp"
+    casia_gt_dir = paths["casia2"] / "GT"
+
+    imd_metrics = evaluate_spatial_masks(
+        spatial_tool,
+        imd_images,
+        imd_masks,
+        mask_suffix="_mask.jpg",
+        mask_threshold=float(getattr(spatial_tool, "mask_threshold", 0.5)),
+        max_samples=max_samples,
+    )
+    clear_cuda_cache()
+
+    casia_metrics = evaluate_spatial_masks(
+        spatial_tool,
+        casia_tp_dir,
+        casia_gt_dir,
+        mask_suffix="_gt.png",
+        mask_threshold=float(getattr(spatial_tool, "mask_threshold", 0.5)),
+        max_samples=max_samples,
+    )
+    clear_cuda_cache()
+
+    return {
+        "imd2020": {
+            "dataset": "IMD2020_subset (inpainting masks)",
+            "backend": backend,
+            "metrics": imd_metrics,
+        },
+        "casia2": {
+            "dataset": "CASIA2_subset (GT masks)",
+            "backend": backend,
+            "metrics": casia_metrics,
+        },
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Re-evaluate MAIFS tools on available datasets")
     parser.add_argument("--max-samples", type=int, default=0, help="max samples per dataset (0 = all)")
     parser.add_argument("--out", type=str, default="", help="output JSON path")
-    parser.add_argument("--noise-backend", type=str, default="prnu", help="noise backend: prnu|mvss")
+    parser.add_argument("--noise-backend", type=str, default="mvss", help="noise backend: prnu|mvss")
     parser.add_argument("--noise-workers", type=int, default=1, help="noise eval workers (use >1 for multi-GPU)")
+    parser.add_argument(
+        "--spatial-backend-a",
+        type=str,
+        default=os.environ.get("MAIFS_SPATIAL_BACKEND", "mesorch"),
+        help="spatial backend A (baseline)"
+    )
+    parser.add_argument(
+        "--spatial-backend-b",
+        type=str,
+        default="mesorch",
+        help="spatial backend B (A/B candidate, empty string to disable)"
+    )
     args = parser.parse_args()
 
     datasets_dir = REPO_ROOT / "datasets"
@@ -330,36 +390,35 @@ def main() -> None:
     }
 
     results: Dict[str, Dict[str, object]] = {
-        "run_at": datetime.utcnow().isoformat() + "Z",
+        "run_at": datetime.now(timezone.utc).isoformat(),
         "max_samples": args.max_samples,
         "paths": {k: str(v) for k, v in paths.items()},
         "tools": {},
     }
 
-    # Frequency tool -> GenImage (AI vs real)
-    freq_tool = FrequencyAnalysisTool()
+    # Frequency slot -> CAT-Net compression tool on CASIA2 (Tp vs Au)
+    freq_tool = CATNetAnalysisTool()
     ai_paths = iter_images(paths["genimage"] / "ai", args.max_samples)
     real_paths = iter_images(paths["genimage"] / "nature", args.max_samples)
+    tp_paths = iter_images(paths["casia2"] / "Tp", args.max_samples)
+    au_paths = iter_images(paths["casia2"] / "Au", args.max_samples)
 
     def freq_pred(result):
-        pred = int(result.verdict in {Verdict.AI_GENERATED, Verdict.MANIPULATED})
+        pred = int(result.verdict in {Verdict.MANIPULATED, Verdict.AI_GENERATED})
         return pred, result.verdict == Verdict.UNCERTAIN
 
     results["tools"]["frequency"] = {
-        "dataset": "GenImage_subset/BigGAN/val (ai vs nature)",
+        "dataset": "CASIA2_subset (Tp vs Au) [CAT-Net compression]",
         "counts": {
-            "ai": len(ai_paths),
-            "nature": len(real_paths),
+            "tp": len(tp_paths),
+            "au": len(au_paths),
         },
-        "metrics": evaluate_binary_tool(freq_tool, ai_paths, real_paths, freq_pred, args.max_samples),
+        "metrics": evaluate_binary_tool(freq_tool, tp_paths, au_paths, freq_pred, args.max_samples),
     }
 
     clear_cuda_cache()
 
     # Noise tool -> CASIA2 (Tp vs Au)
-    tp_paths = iter_images(paths["casia2"] / "Tp", args.max_samples)
-    au_paths = iter_images(paths["casia2"] / "Au", args.max_samples)
-
     results["tools"]["noise"] = {
         "dataset": "CASIA2_subset (Tp vs Au)",
         "backend": args.noise_backend,
@@ -382,52 +441,52 @@ def main() -> None:
     steg_paths = iter_images(paths["hinet"] / "steg", args.max_samples)
     cover_paths = iter_images(paths["hinet"] / "cover", args.max_samples)
 
+    fat_dataset_name = "HiNet-main/image (steg vs cover)"
+    fat_pos_paths = steg_paths
+    fat_neg_paths = cover_paths
+
+    # HiNet 샘플이 없으면 GenImage(BigGAN)로 폴백
+    if len(fat_pos_paths) == 0 and len(fat_neg_paths) == 0:
+        fat_dataset_name = "GenImage_subset/BigGAN/val (ai vs nature)"
+        fat_pos_paths = ai_paths
+        fat_neg_paths = real_paths
+
     def fat_pred(result):
-        fake_prob = float(result.evidence.get("fake_probability", 0.0))
-        return int(fake_prob > 0.5), result.verdict == Verdict.UNCERTAIN
+        return int(result.verdict == Verdict.AI_GENERATED), result.verdict == Verdict.UNCERTAIN
 
     results["tools"]["fatformer"] = {
-        "dataset": "HiNet-main/image (steg vs cover)",
+        "dataset": fat_dataset_name,
         "counts": {
-            "steg": len(steg_paths),
-            "cover": len(cover_paths),
+            "positive": len(fat_pos_paths),
+            "negative": len(fat_neg_paths),
         },
-        "metrics": evaluate_binary_tool(fat_tool, steg_paths, cover_paths, fat_pred, args.max_samples),
+        "metrics": evaluate_binary_tool(fat_tool, fat_pos_paths, fat_neg_paths, fat_pred, args.max_samples),
     }
 
     clear_cuda_cache()
 
-    # Spatial tool -> IMD2020 masks
-    spatial_tool = SpatialAnalysisTool()
-    imd_images = paths["imd2020"] / "images"
-    imd_masks = paths["imd2020"] / "masks"
+    # Spatial A/B evaluation
+    spatial_backend_a = (args.spatial_backend_a or "omniguard").strip().lower()
+    spatial_backend_b = (args.spatial_backend_b or "").strip().lower()
 
-    results["tools"]["spatial_imd2020"] = {
-        "dataset": "IMD2020_subset (inpainting masks)",
-        "metrics": evaluate_spatial_masks(
-            spatial_tool,
-            imd_images,
-            imd_masks,
-            mask_suffix="_mask.jpg",
-            max_samples=args.max_samples,
-        ),
-    }
+    spatial_a = evaluate_spatial_backend(spatial_backend_a, paths, args.max_samples)
+    results["tools"]["spatial_imd2020"] = spatial_a["imd2020"]
+    results["tools"]["spatial_casia2"] = spatial_a["casia2"]
 
-    clear_cuda_cache()
-
-    # Spatial tool -> CASIA2 GT masks
-    casia_tp_dir = paths["casia2"] / "Tp"
-    casia_gt_dir = paths["casia2"] / "GT"
-    results["tools"]["spatial_casia2"] = {
-        "dataset": "CASIA2_subset (GT masks)",
-        "metrics": evaluate_spatial_masks(
-            spatial_tool,
-            casia_tp_dir,
-            casia_gt_dir,
-            mask_suffix="_gt.png",
-            max_samples=args.max_samples,
-        ),
-    }
+    if spatial_backend_b and spatial_backend_b != spatial_backend_a:
+        spatial_b = evaluate_spatial_backend(spatial_backend_b, paths, args.max_samples)
+        results["tools"]["spatial_ab_imd2020"] = spatial_b["imd2020"]
+        results["tools"]["spatial_ab_casia2"] = spatial_b["casia2"]
+        results["spatial_ab"] = {
+            "a_backend": spatial_backend_a,
+            "b_backend": spatial_backend_b,
+            "imd2020_f1_delta_b_minus_a": float(
+                spatial_b["imd2020"]["metrics"]["mean_f1"] - spatial_a["imd2020"]["metrics"]["mean_f1"]
+            ),
+            "casia2_f1_delta_b_minus_a": float(
+                spatial_b["casia2"]["metrics"]["mean_f1"] - spatial_a["casia2"]["metrics"]["mean_f1"]
+            ),
+        }
 
     out_path = Path(args.out) if args.out else REPO_ROOT / "outputs" / f"tool_reeval_{int(time.time())}.json"
     out_path.parent.mkdir(parents=True, exist_ok=True)

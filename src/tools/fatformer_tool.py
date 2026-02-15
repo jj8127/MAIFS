@@ -4,6 +4,8 @@ CLIP ViT-L/14 + Forgery-Aware Adapter를 사용하여 AI 생성 이미지를 분
 """
 import sys
 import time
+import importlib
+import json
 from pathlib import Path
 from typing import Optional
 import numpy as np
@@ -24,7 +26,7 @@ except ImportError:
 
 # 설정에서 경로 로드
 try:
-    from ..configs.settings import config
+    from configs.settings import config
 except ImportError:
     config = None
 
@@ -70,6 +72,10 @@ class FatFormerTool(BaseTool):
         # 모델 설정
         self.input_resolution = 224
         self.img_resolution = 256
+        self._thresholds = self._load_thresholds()
+        fat_cfg = self._thresholds.get("fatformer", {})
+        self.ai_threshold = float(fat_cfg.get("ai_threshold", 0.5))
+        self.auth_threshold = float(fat_cfg.get("auth_threshold", self.ai_threshold))
 
         # 전처리 파이프라인 (CLIP 표준)
         self._transform = Compose([
@@ -81,6 +87,19 @@ class FatFormerTool(BaseTool):
                 std=(0.26862954, 0.26130258, 0.27577711)
             ),
         ])
+
+    def _load_thresholds(self) -> dict:
+        """Load calibrated thresholds from configs/tool_thresholds.json if present."""
+        threshold_path = Path(__file__).resolve().parents[2] / "configs" / "tool_thresholds.json"
+        if threshold_path.exists():
+            try:
+                with threshold_path.open("r", encoding="utf-8") as f:
+                    data = json.load(f)
+                if isinstance(data, dict):
+                    return data
+            except (OSError, json.JSONDecodeError):
+                return {}
+        return {}
 
     def _get_model_args(self) -> Namespace:
         """FatFormer 모델 생성에 필요한 인자"""
@@ -118,7 +137,14 @@ class FatFormerTool(BaseTool):
             return
 
         try:
-            from models import build_model
+            # 다른 서브모듈(MVSS 등)의 `models`와 이름 충돌 방지
+            loaded_models = sys.modules.get("models")
+            if loaded_models is not None:
+                loaded_file = getattr(loaded_models, "__file__", "") or ""
+                if str(FATFORMER_ROOT) not in loaded_file:
+                    sys.modules.pop("models", None)
+
+            build_model = importlib.import_module("models").build_model
 
             args = self._get_model_args()
             self._model = build_model(args)
@@ -203,7 +229,7 @@ class FatFormerTool(BaseTool):
             fake_prob = probs[0, 1].item()
 
             # 판정
-            if fake_prob > 0.7:
+            if fake_prob >= self.ai_threshold:
                 verdict = Verdict.AI_GENERATED
                 confidence = fake_prob
                 explanation = (
@@ -212,15 +238,7 @@ class FatFormerTool(BaseTool):
                     f"CLIP 의미론적 특징과 DWT 주파수 특징 모두에서 "
                     f"AI 생성 패턴이 감지되었습니다."
                 )
-            elif fake_prob > 0.5:
-                verdict = Verdict.AI_GENERATED
-                confidence = fake_prob * 0.8  # 약간 낮은 신뢰도
-                explanation = (
-                    f"FatFormer가 AI 생성 이미지로 판별했습니다 (경계 사례). "
-                    f"AI 생성 확률: {fake_prob:.2%}. "
-                    f"추가 분석을 통한 교차 검증이 권장됩니다."
-                )
-            elif fake_prob > 0.3:
+            elif fake_prob > self.auth_threshold:
                 verdict = Verdict.UNCERTAIN
                 confidence = 0.5
                 explanation = (

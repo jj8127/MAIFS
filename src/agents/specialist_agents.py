@@ -10,7 +10,7 @@ import time
 
 from .base_agent import BaseAgent, AgentRole, AgentResponse
 from ..tools.base_tool import ToolResult, Verdict
-from ..tools.frequency_tool import FrequencyAnalysisTool
+from ..tools.catnet_tool import CATNetAnalysisTool
 from ..tools.noise_tool import NoiseAnalysisTool
 from ..tools.fatformer_tool import FatFormerTool
 from ..tools.spatial_tool import SpatialAnalysisTool
@@ -19,23 +19,23 @@ from ..llm.subagent_llm import SubAgentLLM, AgentDomain, DebateResponse
 
 class FrequencyAgent(BaseAgent):
     """
-    주파수 분석 전문가 에이전트
+    압축/주파수 분석 전문가 에이전트
 
-    FFT 기반 주파수 스펙트럼을 분석하여
-    GAN/Diffusion 생성 이미지의 특징적 패턴을 탐지합니다.
+    CAT-Net 압축 아티팩트 분석을 우선 사용하고,
+    필요 시 주파수 기반 fallback으로 조작 신호를 탐지합니다.
 
     LLM 통합: 도메인 지식 기반 추론 및 토론 기능 지원
     """
 
     def __init__(self, llm_model: Optional[str] = None, use_llm: bool = True):
         super().__init__(
-            name="주파수 분석 전문가 (Frequency Expert)",
+            name="압축 아티팩트 분석 전문가 (Compression Expert)",
             role=AgentRole.FREQUENCY,
-            description="FFT 기반 주파수 스펙트럼 분석 전문가. "
-                       "AI 생성 이미지의 격자 아티팩트와 비정상적 주파수 패턴을 탐지합니다.",
+            description="CAT-Net 기반 압축 아티팩트 분석 전문가. "
+                       "JPEG 이중 압축/압축 흔적 기반 조작 영역을 탐지합니다.",
             llm_model=llm_model
         )
-        self._tool = FrequencyAnalysisTool()
+        self._tool = CATNetAnalysisTool()
         self.register_tool(self._tool)
 
         # LLM 통합
@@ -43,7 +43,7 @@ class FrequencyAgent(BaseAgent):
         self._llm = SubAgentLLM(AgentDomain.FREQUENCY, model=llm_model) if use_llm else None
 
     def analyze(self, image: np.ndarray, context: Optional[Dict] = None) -> AgentResponse:
-        """주파수 분석 수행"""
+        """압축/주파수 분석 수행"""
         start_time = time.time()
 
         # Tool 실행
@@ -95,7 +95,7 @@ class FrequencyAgent(BaseAgent):
     def _format_llm_reasoning(self, result: ToolResult, reasoning_result) -> str:
         """LLM 추론 결과 포맷팅"""
         parts = [
-            f"[주파수 분석 결과 - LLM 해석]",
+            f"[압축 아티팩트 분석 결과 - LLM 해석]",
             f"판정: {result.verdict.value}",
             f"신뢰도: {result.confidence:.2%}",
             "",
@@ -124,12 +124,25 @@ class FrequencyAgent(BaseAgent):
     def _generate_rule_based_reasoning(self, result: ToolResult, evidence: Dict) -> str:
         """규칙 기반 추론 생성 (LLM 폴백)"""
         reasoning_parts = [
-            f"[주파수 분석 결과]",
+            f"[압축 아티팩트 분석 결과]",
             f"판정: {result.verdict.value}",
             f"신뢰도: {result.confidence:.2%}",
             "",
             "근거:"
         ]
+
+        if "compression_artifact_score" in evidence:
+            reasoning_parts.append(
+                f"- 압축 아티팩트 점수: {evidence.get('compression_artifact_score', 0):.3f}"
+            )
+            reasoning_parts.append(
+                f"- 추정 조작 비율: {evidence.get('manipulation_ratio', 0):.2%}"
+            )
+
+        if evidence.get("backend") == "frequency_fallback":
+            reasoning_parts.append(
+                f"- CAT-Net 비가용으로 fallback 사용: {evidence.get('catnet_error', 'unknown')}"
+            )
 
         # 격자 아티팩트 분석
         if "grid_analysis" in evidence:
@@ -227,14 +240,24 @@ class FrequencyAgent(BaseAgent):
             )
 
         return (
-            f"주파수 분석 관점에서 {target_response.verdict.value} 판정에 대해 "
-            f"질문드립니다. 해당 결론에 도달한 주파수 도메인 증거가 있습니까?"
+            f"압축 아티팩트 분석 관점에서 {target_response.verdict.value} 판정에 대해 "
+            f"질문드립니다. JPEG/압축 도메인 증거를 제시해주실 수 있습니까?"
         )
 
     def _extract_arguments(self, tool_result: ToolResult) -> List[str]:
         """토론용 논거 추출"""
         arguments = []
         evidence = tool_result.evidence
+
+        if evidence.get("compression_artifact_score", 0) > 0.12:
+            arguments.append(
+                "압축 아티팩트 점수가 높아 조작 영역이 존재할 가능성이 큽니다."
+            )
+
+        if evidence.get("backend") == "frequency_fallback":
+            arguments.append(
+                "현재 CAT-Net 체크포인트/환경 이슈로 fallback 분석을 사용했습니다."
+            )
 
         if evidence.get("ai_generation_score", 0) > 0.6:
             arguments.append(

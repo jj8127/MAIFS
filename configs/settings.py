@@ -11,6 +11,25 @@ import os
 BASE_DIR = Path(__file__).parent.parent
 
 
+def detect_default_device() -> str:
+    """기본 디바이스 자동 감지 (CUDA 우선)"""
+    forced_device = os.environ.get("MAIFS_DEVICE")
+    if forced_device:
+        return forced_device
+
+    try:
+        import torch
+        if torch.cuda.is_available():
+            return "cuda"
+    except Exception:
+        pass
+
+    if os.environ.get("CUDA_VISIBLE_DEVICES"):
+        return "cuda"
+
+    return "cpu"
+
+
 def get_env_path(var_name: str) -> Optional[Path]:
     """환경 변수에서 경로를 읽어옵니다."""
     value = os.environ.get(var_name)
@@ -64,6 +83,42 @@ def get_hinet_path() -> Path:
     return BASE_DIR / "HiNet_root" / "HiNet" / "logging" / "finetuned_log"
 
 
+def get_catnet_path() -> Path:
+    """CAT-Net 경로 자동 감지"""
+    env_path = get_env_path("MAIFS_CATNET_DIR")
+    if env_path:
+        return env_path
+    possible_paths = [
+        BASE_DIR / "CAT-Net-main",
+        BASE_DIR.parent / "CAT-Net-main",
+    ]
+    for path in possible_paths:
+        try:
+            if path.exists():
+                return path
+        except (PermissionError, OSError):
+            continue
+    return BASE_DIR / "CAT-Net-main"
+
+
+def get_mesorch_path() -> Path:
+    """Mesorch 경로 자동 감지"""
+    env_path = get_env_path("MAIFS_MESORCH_DIR")
+    if env_path:
+        return env_path
+    possible_paths = [
+        BASE_DIR / "Mesorch-main",
+        BASE_DIR.parent / "Mesorch-main",
+    ]
+    for path in possible_paths:
+        try:
+            if path.exists():
+                return path
+        except (PermissionError, OSError):
+            continue
+    return BASE_DIR / "Mesorch-main"
+
+
 def get_test_image_dir() -> Path:
     """테스트 이미지 디렉토리 자동 감지"""
     env_path = get_env_path("MAIFS_TEST_IMAGE_DIR")
@@ -82,6 +137,8 @@ def get_sample_image() -> Path:
 
 OMNIGUARD_DIR = get_omniguard_path()
 HINET_DIR = get_hinet_path()
+CATNET_DIR = get_catnet_path()
+MESORCH_DIR = get_mesorch_path()
 
 
 @dataclass
@@ -108,8 +165,15 @@ class ModelConfig:
     # FatFormer 체크포인트
     fatformer_checkpoint: Path = field(default_factory=lambda: BASE_DIR / "Integrated Submodules" / "FatFormer" / "checkpoint" / "fatformer.pth")
 
+    # CAT-Net 설정/체크포인트
+    catnet_config: Path = field(default_factory=lambda: CATNET_DIR / "experiments" / "CAT_full.yaml")
+    catnet_checkpoint: Path = field(default_factory=lambda: CATNET_DIR / "output" / "splicing_dataset" / "CAT_full" / "CAT_full_v2.pth.tar")
+
+    # Mesorch 체크포인트
+    mesorch_checkpoint: Path = field(default_factory=lambda: MESORCH_DIR / "mesorch" / "mesorch-98.pth")
+
     # 디바이스 설정
-    device: str = field(default_factory=lambda: "cuda" if os.environ.get("CUDA_VISIBLE_DEVICES") else "cpu")
+    device: str = field(default_factory=detect_default_device)
 
     def get_available_checkpoints(self) -> Dict[str, bool]:
         """사용 가능한 체크포인트 확인"""
@@ -258,6 +322,7 @@ class MAIFSConfig:
         print("=" * 50)
         print(f"OmniGuard Path: {OMNIGUARD_DIR}")
         print(f"HiNet Path: {HINET_DIR}")
+        print(f"CAT-Net Path: {CATNET_DIR}")
         print(f"Device: {self.model.device}")
         print(f"Checkpoints: {self.model.get_available_checkpoints()}")
         print(f"Consensus Algorithm: {self.cobra.consensus_algorithm}")

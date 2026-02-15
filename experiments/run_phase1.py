@@ -32,7 +32,14 @@ _project_root = Path(__file__).resolve().parent.parent
 if str(_project_root) not in sys.path:
     sys.path.insert(0, str(_project_root))
 
-from src.meta.simulator import AgentSimulator
+from src.meta.simulator import (
+    AgentSimulator,
+    AgentProfile,
+    AGENT_NAMES,
+    TRUE_LABELS,
+    VERDICTS,
+    _build_default_profiles,
+)
 from src.meta.features import MetaFeatureExtractor, ABLATION_CONFIGS
 from src.meta.baselines import MajorityVoteBaseline, COBRABaseline
 from src.meta.trainer import MetaTrainer
@@ -46,6 +53,104 @@ def load_config(config_path: str = None) -> dict:
         config_path = _project_root / "experiments" / "configs" / "phase1.yaml"
     with open(config_path, "r") as f:
         return yaml.safe_load(f)
+
+
+def _normalize_cm_row(row: list) -> np.ndarray:
+    """confusion matrix 한 행을 안전하게 정규화"""
+    arr = np.array(row, dtype=float).reshape(-1)
+    if arr.size != len(VERDICTS):
+        raise ValueError(f"confusion row size must be {len(VERDICTS)}")
+    arr = np.clip(arr, 0.0, None)
+    if float(arr.sum()) <= 0.0:
+        raise ValueError("confusion row sum must be > 0")
+    arr /= arr.sum()
+    return arr
+
+
+def _to_beta_pair(value, default_pair):
+    """Beta 분포 파라미터를 (a, b) 튜플로 보정"""
+    if value is None:
+        return default_pair
+    try:
+        if isinstance(value, (list, tuple)) and len(value) == 2:
+            a = float(value[0])
+            b = float(value[1])
+            if a > 0 and b > 0:
+                return (a, b)
+    except (TypeError, ValueError):
+        pass
+    return default_pair
+
+
+def build_simulator_from_config(config: dict) -> AgentSimulator:
+    """설정 기반으로 AgentSimulator 생성 (프로파일/상관/레이블 분포 반영)"""
+    sim_cfg = config["simulation"]
+
+    default_profiles = _build_default_profiles()
+    profile_overrides = sim_cfg.get("agent_profiles", {}) or {}
+    applied_profile_overrides = 0
+
+    for agent_name, override in profile_overrides.items():
+        if agent_name not in default_profiles:
+            print(f"[WARN] Unknown agent profile override ignored: {agent_name}")
+            continue
+
+        base = default_profiles[agent_name]
+        merged_cm = {
+            label: base.confusion_matrices[label].copy()
+            for label in TRUE_LABELS
+        }
+
+        cm_override = override.get("confusion_matrices", {}) or {}
+        for label, row in cm_override.items():
+            if label not in TRUE_LABELS:
+                print(f"[WARN] Unknown true label in profile override: {agent_name}.{label}")
+                continue
+            try:
+                merged_cm[label] = _normalize_cm_row(row)
+            except ValueError as e:
+                print(f"[WARN] Invalid confusion row ignored ({agent_name}.{label}): {e}")
+
+        default_profiles[agent_name] = AgentProfile(
+            name=agent_name,
+            confusion_matrices=merged_cm,
+            confidence_correct=_to_beta_pair(
+                override.get("confidence_correct"), base.confidence_correct
+            ),
+            confidence_wrong=_to_beta_pair(
+                override.get("confidence_wrong"), base.confidence_wrong
+            ),
+            confidence_uncertain=_to_beta_pair(
+                override.get("confidence_uncertain"), base.confidence_uncertain
+            ),
+        )
+        applied_profile_overrides += 1
+
+    corr_cfg = config.get("correlation_matrix")
+    correlation = None
+    if corr_cfg is not None:
+        correlation = np.array(corr_cfg, dtype=float)
+        if correlation.shape != (len(AGENT_NAMES), len(AGENT_NAMES)):
+            raise ValueError(
+                f"correlation_matrix shape must be {(len(AGENT_NAMES), len(AGENT_NAMES))}, "
+                f"got {correlation.shape}"
+            )
+
+    label_distribution = sim_cfg.get("label_distribution")
+
+    if applied_profile_overrides > 0:
+        print(f"  적용된 agent profile override 수: {applied_profile_overrides}")
+    if correlation is not None:
+        print("  correlation_matrix 설정 반영")
+    if label_distribution:
+        print(f"  label_distribution 설정 반영: {label_distribution}")
+
+    return AgentSimulator(
+        profiles=default_profiles,
+        correlation=correlation,
+        label_distribution=label_distribution,
+        seed=sim_cfg["seed"],
+    )
 
 
 def run_phase1(config: dict = None) -> dict:
@@ -72,7 +177,7 @@ def run_phase1(config: dict = None) -> dict:
     # Step 1: 합성 데이터 생성
     # ---------------------------------------------------------------
     print("\n[Step 1] 합성 에이전트 출력 생성...")
-    simulator = AgentSimulator(seed=sim_cfg["seed"])
+    simulator = build_simulator_from_config(config)
 
     train_data, val_data, test_data = simulator.generate_split(
         n_train=sim_cfg["n_train"],
@@ -165,7 +270,12 @@ def run_phase1(config: dict = None) -> dict:
     train_results = trainer.train_all(X_train, y_train, X_val, y_val)
 
     for name, tr in train_results.items():
-        print(f"  {name:25s}: train_acc={tr.train_accuracy:.4f}, val_acc={tr.val_accuracy:.4f}")
+        runtime_backend = tr.best_params.get("runtime_backend", "unknown")
+        runtime_device = tr.best_params.get("runtime_device", "unknown")
+        print(
+            f"  {name:25s}: train_acc={tr.train_accuracy:.4f}, val_acc={tr.val_accuracy:.4f} "
+            f"[{runtime_backend}/{runtime_device}]"
+        )
 
     # 테스트 평가
     print("\n[Step 4b] 메타 분류기 테스트 평가...")

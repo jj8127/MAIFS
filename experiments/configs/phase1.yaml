@@ -54,6 +54,8 @@ models:
     subsample: 0.8
 
   mlp:
+    backend: torch
+    device: cuda
     hidden_layer_sizes: [32, 16]
     activation: relu
     max_iter: 500

@@ -1,47 +1,79 @@
 {
-  "calibrated_at": "2026-01-26T06:03:21.379279Z",
-  "max_samples": 50,
+  "calibrated_at": "2026-02-13T12:43:35.513100Z",
+  "max_samples": 300,
   "frequency": {
-    "ai_threshold": 0.48,
-    "auth_threshold": 0.40,
-    "jpeg_penalty": 0.0,
+    "ai_threshold": 0.47000000000000003,
+    "auth_threshold": 0.47000000000000003,
+    "jpeg_penalty": 0.01,
     "uncertain_margin": 0.0,
     "counts": {
-      "ai": 50,
-      "nature": 50,
-      "jpeg_detected": 84
+      "ai": 300,
+      "nature": 300,
+      "jpeg_detected": 563
     },
     "metrics": {
-      "f1": 0.42424242424242425,
-      "precision": 0.875,
-      "recall": 0.28,
-      "accuracy": 0.62,
-      "balanced_accuracy": 0.62,
-      "tp": 14,
-      "fp": 2,
-      "tn": 48,
-      "fn": 36
+      "f1": 0.19498607242339833,
+      "precision": 0.5932203389830508,
+      "recall": 0.11666666666666667,
+      "accuracy": 0.5183333333333333,
+      "balanced_accuracy": 0.5183333333333333,
+      "tp": 35,
+      "fp": 24,
+      "tn": 276,
+      "fn": 265
     }
   },
   "noise": {
     "backend": "mvss",
-    "mvss_threshold": 0.84,
-    "mvss_auth_threshold": 0.84,
+    "mvss_threshold": 0.655,
+    "mvss_auth_threshold": 0.655,
     "mvss_uncertain_margin": 0.0,
     "counts": {
-      "tp": 50,
-      "au": 50
+      "tp": 300,
+      "au": 300
     },
     "metrics": {
-      "f1": 0.7608695652173915,
-      "precision": 0.8333333333333334,
-      "recall": 0.7,
-      "accuracy": 0.78,
-      "balanced_accuracy": 0.78,
-      "tp": 35,
-      "fp": 7,
-      "tn": 43,
-      "fn": 15
+      "f1": 0.7723132969034608,
+      "precision": 0.8514056224899599,
+      "recall": 0.7066666666666667,
+      "accuracy": 0.7916666666666666,
+      "balanced_accuracy": 0.7916666666666667,
+      "tp": 212,
+      "fp": 37,
+      "tn": 263,
+      "fn": 88
     }
+  },
+  "fatformer": {
+    "ai_threshold": 1e-05,
+    "auth_threshold": 1e-05,
+    "counts": {
+      "ai": 300,
+      "nature": 300
+    },
+    "metrics": {
+      "f1": 0.728813559322034,
+      "precision": 1.0,
+      "recall": 0.5733333333333334,
+      "accuracy": 0.7866666666666666,
+      "balanced_accuracy": 0.7866666666666666,
+      "tp": 172,
+      "fp": 0,
+      "tn": 300,
+      "fn": 128
+    }
+  },
+  "compression": {
+    "mask_threshold": 0.35,
+    "authentic_ratio_threshold": 0.0048,
+    "manipulated_ratio_threshold": 0.0048
+  },
+  "spatial": {
+    "mask_threshold": 0.4,
+    "mvss_weight": 0.5,
+    "mvss_score_low": 0.15,
+    "mvss_score_high": 0.75,
+    "authentic_ratio_threshold": 0.05,
+    "ai_ratio_threshold": 0.8
   }
 }
