@@ -60,218 +60,230 @@ class TrainResult:
     feature_dim: int = 0
 
 
-class _TorchMLPNet(nn.Module):
-    """소형 MLP 분류기 네트워크"""
+if TORCH_AVAILABLE:
 
-    def __init__(
-        self,
-        input_dim: int,
-        hidden_layer_sizes: Tuple[int, ...],
-        output_dim: int,
-        activation: str = "relu",
-    ):
-        super().__init__()
-        act_map = {
-            "relu": nn.ReLU,
-            "tanh": nn.Tanh,
-            "gelu": nn.GELU,
-            "identity": nn.Identity,
-            "logistic": nn.Sigmoid,
-        }
-        if activation not in act_map:
-            raise ValueError(f"Unsupported activation for TorchMLP: {activation}")
+    class _TorchMLPNet(nn.Module):
+        """소형 MLP 분류기 네트워크"""
 
-        layers = []
-        prev_dim = input_dim
-        for h in hidden_layer_sizes:
-            layers.append(nn.Linear(prev_dim, int(h)))
-            layers.append(act_map[activation]())
-            prev_dim = int(h)
-        layers.append(nn.Linear(prev_dim, output_dim))
-        self.net = nn.Sequential(*layers)
+        def __init__(
+            self,
+            input_dim: int,
+            hidden_layer_sizes: Tuple[int, ...],
+            output_dim: int,
+            activation: str = "relu",
+        ):
+            super().__init__()
+            act_map = {
+                "relu": nn.ReLU,
+                "tanh": nn.Tanh,
+                "gelu": nn.GELU,
+                "identity": nn.Identity,
+                "logistic": nn.Sigmoid,
+            }
+            if activation not in act_map:
+                raise ValueError(f"Unsupported activation for TorchMLP: {activation}")
 
-    def forward(self, x: torch.Tensor) -> torch.Tensor:
-        return self.net(x)
+            layers = []
+            prev_dim = input_dim
+            for h in hidden_layer_sizes:
+                layers.append(nn.Linear(prev_dim, int(h)))
+                layers.append(act_map[activation]())
+                prev_dim = int(h)
+            layers.append(nn.Linear(prev_dim, output_dim))
+            self.net = nn.Sequential(*layers)
+
+        def forward(self, x: torch.Tensor) -> torch.Tensor:
+            return self.net(x)
 
 
-class TorchMLPClassifier(BaseEstimator, ClassifierMixin):
-    """
-    sklearn 호환 PyTorch MLP 분류기
+    class TorchMLPClassifier(BaseEstimator, ClassifierMixin):
+        """
+        sklearn 호환 PyTorch MLP 분류기
 
-    NOTE:
-        `Pipeline` 내부에서 동작하도록 `fit/predict/predict_proba` 인터페이스 유지.
-    """
+        NOTE:
+            `Pipeline` 내부에서 동작하도록 `fit/predict/predict_proba` 인터페이스 유지.
+        """
 
-    def __init__(
-        self,
-        hidden_layer_sizes: Tuple[int, ...] = (32, 16),
-        activation: str = "relu",
-        max_iter: int = 500,
-        learning_rate_init: float = 0.001,
-        batch_size: int = 256,
-        early_stopping: bool = True,
-        validation_fraction: float = 0.15,
-        random_state: int = 42,
-        patience: int = 30,
-        weight_decay: float = 0.0,
-        verbose: bool = False,
-        device: str = "cuda",
-    ):
-        self.hidden_layer_sizes = hidden_layer_sizes
-        self.activation = activation
-        self.max_iter = max_iter
-        self.learning_rate_init = learning_rate_init
-        self.batch_size = batch_size
-        self.early_stopping = early_stopping
-        self.validation_fraction = validation_fraction
-        self.random_state = random_state
-        self.patience = patience
-        self.weight_decay = weight_decay
-        self.verbose = verbose
-        self.device = device
+        def __init__(
+            self,
+            hidden_layer_sizes: Tuple[int, ...] = (32, 16),
+            activation: str = "relu",
+            max_iter: int = 500,
+            learning_rate_init: float = 0.001,
+            batch_size: int = 256,
+            early_stopping: bool = True,
+            validation_fraction: float = 0.15,
+            random_state: int = 42,
+            patience: int = 30,
+            weight_decay: float = 0.0,
+            verbose: bool = False,
+            device: str = "cuda",
+        ):
+            self.hidden_layer_sizes = hidden_layer_sizes
+            self.activation = activation
+            self.max_iter = max_iter
+            self.learning_rate_init = learning_rate_init
+            self.batch_size = batch_size
+            self.early_stopping = early_stopping
+            self.validation_fraction = validation_fraction
+            self.random_state = random_state
+            self.patience = patience
+            self.weight_decay = weight_decay
+            self.verbose = verbose
+            self.device = device
 
-    def _resolve_device(self) -> str:
-        requested = (self.device or "cpu").lower()
-        if requested in {"cuda", "gpu"}:
-            if TORCH_AVAILABLE and torch.cuda.is_available():
-                return "cuda"
+        def _resolve_device(self) -> str:
+            requested = (self.device or "cpu").lower()
+            if requested in {"cuda", "gpu"}:
+                if TORCH_AVAILABLE and torch.cuda.is_available():
+                    return "cuda"
+                return "cpu"
+            if requested == "auto":
+                if TORCH_AVAILABLE and torch.cuda.is_available():
+                    return "cuda"
+                return "cpu"
             return "cpu"
-        if requested == "auto":
-            if TORCH_AVAILABLE and torch.cuda.is_available():
-                return "cuda"
-            return "cpu"
-        return "cpu"
 
-    def fit(self, X: np.ndarray, y: np.ndarray):
-        if not TORCH_AVAILABLE:
-            raise RuntimeError("TorchMLPClassifier requires PyTorch")
+        def fit(self, X: np.ndarray, y: np.ndarray):
+            X = np.asarray(X, dtype=np.float32)
+            y_raw = np.asarray(y)
+            self.classes_, y_encoded = np.unique(y_raw, return_inverse=True)
+            y_encoded = y_encoded.astype(np.int64)
 
-        X = np.asarray(X, dtype=np.float32)
-        y_raw = np.asarray(y)
-        self.classes_, y_encoded = np.unique(y_raw, return_inverse=True)
-        y_encoded = y_encoded.astype(np.int64)
+            if X.ndim != 2:
+                raise ValueError(f"X must be 2D, got shape={X.shape}")
+            if len(X) != len(y_encoded):
+                raise ValueError("X and y must have same length")
 
-        if X.ndim != 2:
-            raise ValueError(f"X must be 2D, got shape={X.shape}")
-        if len(X) != len(y_encoded):
-            raise ValueError("X and y must have same length")
+            # 재현성
+            torch.manual_seed(int(self.random_state))
+            if torch.cuda.is_available():
+                torch.cuda.manual_seed_all(int(self.random_state))
 
-        # 재현성
-        torch.manual_seed(int(self.random_state))
-        if torch.cuda.is_available():
-            torch.cuda.manual_seed_all(int(self.random_state))
-
-        use_val = (
-            self.early_stopping
-            and 0.0 < float(self.validation_fraction) < 1.0
-            and len(X) >= 20
-            and len(np.unique(y_encoded)) > 1
-        )
-
-        if use_val:
-            X_train, X_val, y_train, y_val = train_test_split(
-                X,
-                y_encoded,
-                test_size=float(self.validation_fraction),
-                random_state=int(self.random_state),
-                stratify=y_encoded,
+            use_val = (
+                self.early_stopping
+                and 0.0 < float(self.validation_fraction) < 1.0
+                and len(X) >= 20
+                and len(np.unique(y_encoded)) > 1
             )
-        else:
-            X_train, y_train = X, y_encoded
-            X_val, y_val = None, None
 
-        self.device_ = self._resolve_device()
-        self.n_features_in_ = X.shape[1]
-        n_classes = len(self.classes_)
-
-        self.model_ = _TorchMLPNet(
-            input_dim=self.n_features_in_,
-            hidden_layer_sizes=tuple(int(v) for v in self.hidden_layer_sizes),
-            output_dim=n_classes,
-            activation=str(self.activation).lower(),
-        ).to(self.device_)
-
-        optimizer = torch.optim.Adam(
-            self.model_.parameters(),
-            lr=float(self.learning_rate_init),
-            weight_decay=float(self.weight_decay),
-        )
-        loss_fn = nn.CrossEntropyLoss()
-
-        ds = TensorDataset(
-            torch.from_numpy(X_train),
-            torch.from_numpy(y_train),
-        )
-        loader = DataLoader(
-            ds,
-            batch_size=max(1, min(int(self.batch_size), len(ds))),
-            shuffle=True,
-        )
-
-        best_state = None
-        best_val = float("inf")
-        patience_left = int(self.patience)
-
-        for epoch in range(int(self.max_iter)):
-            self.model_.train()
-            total_loss = 0.0
-            for xb, yb in loader:
-                xb = xb.to(self.device_)
-                yb = yb.to(self.device_)
-
-                optimizer.zero_grad(set_to_none=True)
-                logits = self.model_(xb)
-                loss = loss_fn(logits, yb)
-                loss.backward()
-                optimizer.step()
-                total_loss += float(loss.item()) * len(xb)
-
-            epoch_loss = total_loss / max(1, len(ds))
-
-            monitor = epoch_loss
-            if X_val is not None and y_val is not None:
-                self.model_.eval()
-                with torch.no_grad():
-                    xv = torch.from_numpy(X_val).to(self.device_)
-                    yv = torch.from_numpy(y_val).to(self.device_)
-                    val_logits = self.model_(xv)
-                    monitor = float(loss_fn(val_logits, yv).item())
-
-            if monitor < best_val - 1e-6:
-                best_val = monitor
-                best_state = copy.deepcopy(self.model_.state_dict())
-                patience_left = int(self.patience)
-            else:
-                patience_left -= 1
-
-            if self.verbose and ((epoch + 1) % 20 == 0 or epoch == 0):
-                print(
-                    f"[TorchMLP] epoch={epoch + 1}/{self.max_iter} "
-                    f"loss={epoch_loss:.5f} monitor={monitor:.5f} device={self.device_}"
+            if use_val:
+                X_train, X_val, y_train, y_val = train_test_split(
+                    X,
+                    y_encoded,
+                    test_size=float(self.validation_fraction),
+                    random_state=int(self.random_state),
+                    stratify=y_encoded,
                 )
+            else:
+                X_train, y_train = X, y_encoded
+                X_val, y_val = None, None
 
-            if self.early_stopping and patience_left <= 0:
-                break
+            self.device_ = self._resolve_device()
+            self.n_features_in_ = X.shape[1]
+            n_classes = len(self.classes_)
 
-        if best_state is not None:
-            self.model_.load_state_dict(best_state)
-        self.model_.eval()
-        return self
+            self.model_ = _TorchMLPNet(
+                input_dim=self.n_features_in_,
+                hidden_layer_sizes=tuple(int(v) for v in self.hidden_layer_sizes),
+                output_dim=n_classes,
+                activation=str(self.activation).lower(),
+            ).to(self.device_)
 
-    def predict_proba(self, X: np.ndarray) -> np.ndarray:
-        if not hasattr(self, "model_"):
-            raise ValueError("Model not fitted yet")
-        X = np.asarray(X, dtype=np.float32)
-        with torch.no_grad():
-            xb = torch.from_numpy(X).to(self.device_)
-            logits = self.model_(xb)
-            probs = torch.softmax(logits, dim=1).cpu().numpy()
-        return probs
+            optimizer = torch.optim.Adam(
+                self.model_.parameters(),
+                lr=float(self.learning_rate_init),
+                weight_decay=float(self.weight_decay),
+            )
+            loss_fn = nn.CrossEntropyLoss()
 
-    def predict(self, X: np.ndarray) -> np.ndarray:
-        probs = self.predict_proba(X)
-        idx = np.argmax(probs, axis=1)
-        return self.classes_[idx]
+            ds = TensorDataset(
+                torch.from_numpy(X_train),
+                torch.from_numpy(y_train),
+            )
+            loader = DataLoader(
+                ds,
+                batch_size=max(1, min(int(self.batch_size), len(ds))),
+                shuffle=True,
+            )
+
+            best_state = None
+            best_val = float("inf")
+            patience_left = int(self.patience)
+
+            for epoch in range(int(self.max_iter)):
+                self.model_.train()
+                total_loss = 0.0
+                for xb, yb in loader:
+                    xb = xb.to(self.device_)
+                    yb = yb.to(self.device_)
+
+                    optimizer.zero_grad(set_to_none=True)
+                    logits = self.model_(xb)
+                    loss = loss_fn(logits, yb)
+                    loss.backward()
+                    optimizer.step()
+                    total_loss += float(loss.item()) * len(xb)
+
+                epoch_loss = total_loss / max(1, len(ds))
+
+                monitor = epoch_loss
+                if X_val is not None and y_val is not None:
+                    self.model_.eval()
+                    with torch.no_grad():
+                        xv = torch.from_numpy(X_val).to(self.device_)
+                        yv = torch.from_numpy(y_val).to(self.device_)
+                        val_logits = self.model_(xv)
+                        monitor = float(loss_fn(val_logits, yv).item())
+
+                if monitor < best_val - 1e-6:
+                    best_val = monitor
+                    best_state = copy.deepcopy(self.model_.state_dict())
+                    patience_left = int(self.patience)
+                else:
+                    patience_left -= 1
+
+                if self.verbose and ((epoch + 1) % 20 == 0 or epoch == 0):
+                    print(
+                        f"[TorchMLP] epoch={epoch + 1}/{self.max_iter} "
+                        f"loss={epoch_loss:.5f} monitor={monitor:.5f} device={self.device_}"
+                    )
+
+                if self.early_stopping and patience_left <= 0:
+                    break
+
+            if best_state is not None:
+                self.model_.load_state_dict(best_state)
+            self.model_.eval()
+            return self
+
+        def predict_proba(self, X: np.ndarray) -> np.ndarray:
+            if not hasattr(self, "model_"):
+                raise ValueError("Model not fitted yet")
+            X = np.asarray(X, dtype=np.float32)
+            with torch.no_grad():
+                xb = torch.from_numpy(X).to(self.device_)
+                logits = self.model_(xb)
+                probs = torch.softmax(logits, dim=1).cpu().numpy()
+            return probs
+
+        def predict(self, X: np.ndarray) -> np.ndarray:
+            probs = self.predict_proba(X)
+            idx = np.argmax(probs, axis=1)
+            return self.classes_[idx]
+
+else:
+
+    class TorchMLPClassifier(BaseEstimator, ClassifierMixin):
+        """PyTorch 미설치 환경에서의 placeholder (import-time crash 방지)."""
+
+        def __init__(self, *args, **kwargs):
+            self.args = args
+            self.kwargs = kwargs
+
+        def fit(self, X: np.ndarray, y: np.ndarray):
+            raise RuntimeError("TorchMLPClassifier requires PyTorch (torch is not installed)")
+
 
 
 # 모델 기본 하이퍼파라미터

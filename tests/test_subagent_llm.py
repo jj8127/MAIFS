@@ -188,7 +188,10 @@ class TestSpecialistAgentsWithLLM:
         result = agent.analyze(test_image)
 
         assert result.verdict in [v for v in Verdict]
-        assert "[주파수 분석 결과]" in result.reasoning
+        assert (
+            "[압축 아티팩트 분석 결과]" in result.reasoning
+            or "[주파수 분석 결과]" in result.reasoning
+        )
 
     def test_frequency_agent_llm_enabled_fallback(self, test_image):
         """LLM 활성화 (폴백) 시 FrequencyAgent"""

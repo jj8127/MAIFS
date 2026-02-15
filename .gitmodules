@@ -7,3 +7,6 @@
 [submodule "documents/agent_debate_references/github/36_M2F2_Det"]
 	path = documents/agent_debate_references/github/36_M2F2_Det
 	url = https://github.com/CHELSEA234/M2F2_Det
+[submodule "Mesorch-main"]
+	path = Mesorch-main
+	url = https://github.com/scu-zjz/Mesorch.git
