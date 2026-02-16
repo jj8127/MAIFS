@@ -52,6 +52,9 @@ class ComparisonResult:
     f1_ci_lower: float
     f1_ci_upper: float
     significant: bool  # p < 0.05
+    n_samples: int = 0
+    discordant_a_correct_b_wrong: int = 0
+    discordant_a_wrong_b_correct: int = 0
 
 
 class MetaEvaluator:
@@ -167,8 +170,8 @@ class MetaEvaluator:
         Returns:
             ComparisonResult: 비교 결과
         """
-        # McNemar test
-        statistic, pvalue = self._mcnemar_test(y_true, y_pred_a, y_pred_b)
+        # McNemar test + discordant count
+        statistic, pvalue, b, c = self._mcnemar_components(y_true, y_pred_a, y_pred_b)
 
         # Bootstrap CI for F1 difference
         f1_a = f1_score(y_true, y_pred_a, average="macro", zero_division=0)
@@ -188,7 +191,40 @@ class MetaEvaluator:
             f1_ci_lower=ci_lower,
             f1_ci_upper=ci_upper,
             significant=pvalue < 0.05,
+            n_samples=int(len(y_true)),
+            discordant_a_correct_b_wrong=int(b),
+            discordant_a_wrong_b_correct=int(c),
         )
+
+    def _mcnemar_components(
+        self,
+        y_true: np.ndarray,
+        y_pred_a: np.ndarray,
+        y_pred_b: np.ndarray,
+    ) -> Tuple[float, float, int, int]:
+        """
+        McNemar 검정 구성요소 반환.
+
+        Returns:
+            statistic, pvalue, b, c
+        """
+        correct_a = (y_pred_a == y_true)
+        correct_b = (y_pred_b == y_true)
+
+        b = int(np.sum(correct_a & ~correct_b))   # A 맞고 B 틀림
+        c = int(np.sum(~correct_a & correct_b))   # A 틀리고 B 맞음
+
+        if b + c == 0:
+            return 0.0, 1.0, b, c
+
+        # 연속성 보정 McNemar
+        statistic = (abs(b - c) - 1) ** 2 / (b + c)
+
+        # chi-squared 분포 (df=1) p-value
+        from scipy.stats import chi2
+
+        pvalue = float(chi2.sf(statistic, df=1))
+        return float(statistic), pvalue, b, c
 
     def _mcnemar_test(
         self,
@@ -203,23 +239,8 @@ class MetaEvaluator:
         c: A 틀리고 B 맞은 횟수
         statistic = (|b - c| - 1)² / (b + c)  [연속성 보정]
         """
-        correct_a = (y_pred_a == y_true)
-        correct_b = (y_pred_b == y_true)
-
-        b = np.sum(correct_a & ~correct_b)   # A 맞고 B 틀림
-        c = np.sum(~correct_a & correct_b)   # A 틀리고 B 맞음
-
-        if b + c == 0:
-            return 0.0, 1.0  # 차이 없음
-
-        # 연속성 보정 McNemar
-        statistic = (abs(b - c) - 1) ** 2 / (b + c)
-
-        # chi-squared 분포 (df=1) p-value
-        from scipy.stats import chi2
-        pvalue = float(chi2.sf(statistic, df=1))
-
-        return float(statistic), pvalue
+        statistic, pvalue, _, _ = self._mcnemar_components(y_true, y_pred_a, y_pred_b)
+        return statistic, pvalue
 
     def _bootstrap_f1_diff_ci(
         self,

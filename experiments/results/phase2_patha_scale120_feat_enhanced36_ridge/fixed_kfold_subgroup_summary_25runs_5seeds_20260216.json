@@ -1,0 +1,90 @@
+{
+  "summary_path": "experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/fixed_kfold_summary_25runs_5seeds_20260216.json",
+  "n_runs_in_summary": 25,
+  "used_runs": 25,
+  "skipped_runs": 0,
+  "phase1_best": {
+    "by_sub_type": {
+      "biggan": {
+        "n_samples_total": 600,
+        "macro_f1_weighted_mean": 0.9756396153953972,
+        "balanced_accuracy_weighted_mean": 0.9533333333333334
+      },
+      "casia_au": {
+        "n_samples_total": 600,
+        "macro_f1_weighted_mean": 0.9047056977559763,
+        "balanced_accuracy_weighted_mean": 0.8283333333333334
+      },
+      "casia_tp": {
+        "n_samples_total": 600,
+        "macro_f1_weighted_mean": 0.8993319964867474,
+        "balanced_accuracy_weighted_mean": 0.82
+      }
+    },
+    "by_true_label": {
+      "ai_generated": {
+        "n_samples_total": 600,
+        "macro_f1_weighted_mean": 0.9756396153953972,
+        "balanced_accuracy_weighted_mean": 0.9533333333333334
+      },
+      "authentic": {
+        "n_samples_total": 600,
+        "macro_f1_weighted_mean": 0.9047056977559763,
+        "balanced_accuracy_weighted_mean": 0.8283333333333334
+      },
+      "manipulated": {
+        "n_samples_total": 600,
+        "macro_f1_weighted_mean": 0.8993319964867474,
+        "balanced_accuracy_weighted_mean": 0.82
+      }
+    }
+  },
+  "phase2_best": {
+    "by_sub_type": {
+      "biggan": {
+        "n_samples_total": 600,
+        "macro_f1_weighted_mean": 0.9693392762032911,
+        "balanced_accuracy_weighted_mean": 0.9416666666666667
+      },
+      "casia_au": {
+        "n_samples_total": 600,
+        "macro_f1_weighted_mean": 0.9055849102186062,
+        "balanced_accuracy_weighted_mean": 0.83
+      },
+      "casia_tp": {
+        "n_samples_total": 600,
+        "macro_f1_weighted_mean": 0.9100295764388033,
+        "balanced_accuracy_weighted_mean": 0.8383333333333334
+      }
+    },
+    "by_true_label": {
+      "ai_generated": {
+        "n_samples_total": 600,
+        "macro_f1_weighted_mean": 0.9693392762032911,
+        "balanced_accuracy_weighted_mean": 0.9416666666666667
+      },
+      "authentic": {
+        "n_samples_total": 600,
+        "macro_f1_weighted_mean": 0.9055849102186062,
+        "balanced_accuracy_weighted_mean": 0.83
+      },
+      "manipulated": {
+        "n_samples_total": 600,
+        "macro_f1_weighted_mean": 0.9100295764388033,
+        "balanced_accuracy_weighted_mean": 0.8383333333333334
+      }
+    }
+  },
+  "delta_phase2_minus_phase1": {
+    "by_sub_type_macro_f1": {
+      "biggan": -0.0063003391921061525,
+      "casia_au": 0.0008792124626298969,
+      "casia_tp": 0.010697579952055891
+    },
+    "by_true_label_macro_f1": {
+      "ai_generated": -0.0063003391921061525,
+      "authentic": 0.0008792124626298969,
+      "manipulated": 0.010697579952055891
+    }
+  }
+}

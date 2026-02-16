@@ -1,0 +1,100 @@
+{
+  "timestamp": "2026-02-16T11:04:32.478775",
+  "config": "experiments/configs/phase2_patha_scale120_oracle_p25_ls005.yaml",
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "n_runs": 5,
+  "runs": [
+    {
+      "seed": 42,
+      "phase1_best": "gradient_boosting",
+      "phase2_best": "gradient_boosting",
+      "phase1_best_f1": 0.8018935660131673,
+      "phase2_best_f1": 0.7897613619091047,
+      "f1_diff": -0.012132204104062572,
+      "mcnemar_pvalue": 1.0,
+      "significant": false,
+      "elapsed_seconds": 67.7773003578186,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_oracle_p25_ls005/patha_agent_outputs_20260216_110023.jsonl",
+        "collector_errors": []
+      }
+    },
+    {
+      "seed": 43,
+      "phase1_best": "gradient_boosting",
+      "phase2_best": "mlp",
+      "phase1_best_f1": 0.9013454270597127,
+      "phase2_best_f1": 0.8860606060606061,
+      "f1_diff": -0.015284820999106552,
+      "mcnemar_pvalue": 1.0,
+      "significant": false,
+      "elapsed_seconds": 61.164241790771484,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_oracle_p25_ls005/patha_agent_outputs_20260216_110124.jsonl",
+        "collector_errors": []
+      }
+    },
+    {
+      "seed": 44,
+      "phase1_best": "gradient_boosting",
+      "phase2_best": "logistic_regression",
+      "phase1_best_f1": 0.8324166546051045,
+      "phase2_best_f1": 0.8465248226950354,
+      "f1_diff": 0.014108168089930873,
+      "mcnemar_pvalue": 1.0,
+      "significant": false,
+      "elapsed_seconds": 61.40012264251709,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_oracle_p25_ls005/patha_agent_outputs_20260216_110225.jsonl",
+        "collector_errors": []
+      }
+    },
+    {
+      "seed": 45,
+      "phase1_best": "gradient_boosting",
+      "phase2_best": "gradient_boosting",
+      "phase1_best_f1": 0.8051937086891493,
+      "phase2_best_f1": 0.8055555555555555,
+      "f1_diff": 0.00036184686640616803,
+      "mcnemar_pvalue": 0.6830913983096086,
+      "significant": false,
+      "elapsed_seconds": 63.73090481758118,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_oracle_p25_ls005/patha_agent_outputs_20260216_110329.jsonl",
+        "collector_errors": []
+      }
+    },
+    {
+      "seed": 46,
+      "phase1_best": "logistic_regression",
+      "phase2_best": "gradient_boosting",
+      "phase1_best_f1": 0.8310028841590302,
+      "phase2_best_f1": 0.8455442783173875,
+      "f1_diff": 0.014541394158357313,
+      "mcnemar_pvalue": 1.0,
+      "significant": false,
+      "elapsed_seconds": 62.86195683479309,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_oracle_p25_ls005/patha_agent_outputs_20260216_110432.jsonl",
+        "collector_errors": []
+      }
+    }
+  ],
+  "aggregate": {
+    "phase1_best_f1_mean": 0.8343704481052328,
+    "phase1_best_f1_std": 0.03579618861080574,
+    "phase2_best_f1_mean": 0.8346893249075379,
+    "phase2_best_f1_std": 0.03395354451175469,
+    "f1_diff_mean": 0.0003188768023050459,
+    "f1_diff_std": 0.01257721114873484,
+    "f1_diff_min": -0.015284820999106552,
+    "f1_diff_max": 0.014541394158357313,
+    "significant_count": 0
+  }
+}

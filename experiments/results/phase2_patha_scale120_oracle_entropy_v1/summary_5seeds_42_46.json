@@ -1,0 +1,105 @@
+{
+  "timestamp": "2026-02-16T11:34:02.282126",
+  "config": "experiments/configs/phase2_patha_scale120_oracle_entropy_v1.yaml",
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "n_runs": 5,
+  "runs": [
+    {
+      "seed": 42,
+      "phase1_best": "logistic_regression",
+      "phase2_best": "gradient_boosting",
+      "phase1_best_f1": 0.8027000124424536,
+      "phase2_best_f1": 0.8043900543900544,
+      "f1_diff": 0.0016900419476008066,
+      "mcnemar_pvalue": 0.6830913983096086,
+      "significant": false,
+      "elapsed_seconds": 69.0420138835907,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_oracle_entropy_v1/patha_agent_outputs_20260216_112953.jsonl",
+        "collector_errors": []
+      },
+      "result_path": "experiments/results/phase2_patha_scale120_oracle_entropy_v1/phase2_patha_results_20260216_112953.json"
+    },
+    {
+      "seed": 43,
+      "phase1_best": "gradient_boosting",
+      "phase2_best": "logistic_regression",
+      "phase1_best_f1": 0.8723809523809524,
+      "phase2_best_f1": 0.854993894993895,
+      "f1_diff": -0.01738705738705737,
+      "mcnemar_pvalue": 1.0,
+      "significant": false,
+      "elapsed_seconds": 62.018863677978516,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_oracle_entropy_v1/patha_agent_outputs_20260216_113055.jsonl",
+        "collector_errors": []
+      },
+      "result_path": "experiments/results/phase2_patha_scale120_oracle_entropy_v1/phase2_patha_results_20260216_113055.json"
+    },
+    {
+      "seed": 44,
+      "phase1_best": "gradient_boosting",
+      "phase2_best": "logistic_regression",
+      "phase1_best_f1": 0.8324166546051045,
+      "phase2_best_f1": 0.8740425531914894,
+      "f1_diff": 0.04162589858638488,
+      "mcnemar_pvalue": 0.37109336952269756,
+      "significant": false,
+      "elapsed_seconds": 61.55895495414734,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_oracle_entropy_v1/patha_agent_outputs_20260216_113157.jsonl",
+        "collector_errors": []
+      },
+      "result_path": "experiments/results/phase2_patha_scale120_oracle_entropy_v1/phase2_patha_results_20260216_113157.json"
+    },
+    {
+      "seed": 45,
+      "phase1_best": "gradient_boosting",
+      "phase2_best": "gradient_boosting",
+      "phase1_best_f1": 0.860396332446022,
+      "phase2_best_f1": 0.8357640783172698,
+      "f1_diff": -0.02463225412875214,
+      "mcnemar_pvalue": 0.6170750774519739,
+      "significant": false,
+      "elapsed_seconds": 63.66040754318237,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_oracle_entropy_v1/patha_agent_outputs_20260216_113300.jsonl",
+        "collector_errors": []
+      },
+      "result_path": "experiments/results/phase2_patha_scale120_oracle_entropy_v1/phase2_patha_results_20260216_113300.json"
+    },
+    {
+      "seed": 46,
+      "phase1_best": "logistic_regression",
+      "phase2_best": "gradient_boosting",
+      "phase1_best_f1": 0.814038185630725,
+      "phase2_best_f1": 0.8191545893719807,
+      "f1_diff": 0.0051164037412556596,
+      "mcnemar_pvalue": 0.6830913983096086,
+      "significant": false,
+      "elapsed_seconds": 61.284281492233276,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_oracle_entropy_v1/patha_agent_outputs_20260216_113402.jsonl",
+        "collector_errors": []
+      },
+      "result_path": "experiments/results/phase2_patha_scale120_oracle_entropy_v1/phase2_patha_results_20260216_113402.json"
+    }
+  ],
+  "aggregate": {
+    "phase1_best_f1_mean": 0.8363864275010515,
+    "phase1_best_f1_std": 0.026540757064697534,
+    "phase2_best_f1_mean": 0.8376690340529379,
+    "phase2_best_f1_std": 0.024807610553004754,
+    "f1_diff_mean": 0.0012826065518863673,
+    "f1_diff_std": 0.02307631501068456,
+    "f1_diff_min": -0.02463225412875214,
+    "f1_diff_max": 0.04162589858638488,
+    "significant_count": 0
+  }
+}

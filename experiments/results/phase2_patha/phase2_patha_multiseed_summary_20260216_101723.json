@@ -1,0 +1,99 @@
+{
+  "timestamp": "2026-02-16T10:17:23.438691",
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "n_runs": 5,
+  "runs": [
+    {
+      "seed": 42,
+      "phase1_best": "gradient_boosting",
+      "phase2_best": "logistic_regression",
+      "phase1_best_f1": 0.8071348940914159,
+      "phase2_best_f1": 0.8071348940914159,
+      "f1_diff": 0.0,
+      "mcnemar_pvalue": 0.47950012218695337,
+      "significant": false,
+      "elapsed_seconds": 42.10369634628296,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha/patha_agent_outputs_20260216_101456.jsonl",
+        "collector_errors": []
+      }
+    },
+    {
+      "seed": 43,
+      "phase1_best": "logistic_regression",
+      "phase2_best": "logistic_regression",
+      "phase1_best_f1": 0.749090909090909,
+      "phase2_best_f1": 0.7218840579710145,
+      "f1_diff": -0.027206851119894515,
+      "mcnemar_pvalue": 1.0,
+      "significant": false,
+      "elapsed_seconds": 35.84654498100281,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha/patha_agent_outputs_20260216_101532.jsonl",
+        "collector_errors": []
+      }
+    },
+    {
+      "seed": 44,
+      "phase1_best": "logistic_regression",
+      "phase2_best": "gradient_boosting",
+      "phase1_best_f1": 0.9165217391304349,
+      "phase2_best_f1": 0.9165217391304349,
+      "f1_diff": 0.0,
+      "mcnemar_pvalue": 0.47950012218695337,
+      "significant": false,
+      "elapsed_seconds": 36.802879095077515,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha/patha_agent_outputs_20260216_101609.jsonl",
+        "collector_errors": []
+      }
+    },
+    {
+      "seed": 45,
+      "phase1_best": "gradient_boosting",
+      "phase2_best": "logistic_regression",
+      "phase1_best_f1": 0.8327759197324415,
+      "phase2_best_f1": 0.8076328502415459,
+      "f1_diff": -0.02514306949089562,
+      "mcnemar_pvalue": 1.0,
+      "significant": false,
+      "elapsed_seconds": 36.745370864868164,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha/patha_agent_outputs_20260216_101646.jsonl",
+        "collector_errors": []
+      }
+    },
+    {
+      "seed": 46,
+      "phase1_best": "logistic_regression",
+      "phase2_best": "mlp",
+      "phase1_best_f1": 0.8011145942180424,
+      "phase2_best_f1": 0.8011145942180424,
+      "f1_diff": 0.0,
+      "mcnemar_pvalue": 1.0,
+      "significant": false,
+      "elapsed_seconds": 37.026182889938354,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha/patha_agent_outputs_20260216_101723.jsonl",
+        "collector_errors": []
+      }
+    }
+  ],
+  "aggregate": {
+    "phase1_best_f1_mean": 0.8213276112526489,
+    "phase1_best_f1_std": 0.05481081310603725,
+    "phase2_best_f1_mean": 0.8108576271304908,
+    "phase2_best_f1_std": 0.06196835513600402,
+    "f1_diff_mean": -0.010469984122158027,
+    "f1_diff_std": 0.012839656176805558,
+    "f1_diff_min": -0.027206851119894515,
+    "f1_diff_max": 0.0,
+    "significant_count": 0
+  }
+}

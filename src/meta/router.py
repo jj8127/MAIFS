@@ -19,7 +19,10 @@ from typing import Dict, List, Optional, Tuple
 
 import numpy as np
 
+from sklearn.ensemble import GradientBoostingRegressor
+from sklearn.linear_model import Ridge
 from sklearn.neural_network import MLPRegressor
+from sklearn.multioutput import MultiOutputRegressor
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
@@ -89,6 +92,11 @@ class OracleWeightConfig:
 
     power: float = 2.0
     eps: float = 1e-6
+    label_smoothing: float = 0.0
+    confidence_power: float = 0.0
+    uncertain_penalty: float = 1.0
+    entropy_power: float = 0.0
+    verdict_power: float = 0.0
 
 
 class OracleWeightComputer:
@@ -101,20 +109,70 @@ class OracleWeightComputer:
         self.simulator = simulator
         self.config = config or OracleWeightConfig()
 
+    @staticmethod
+    def _row_entropy(row: np.ndarray, eps: float = 1e-12) -> float:
+        """정규화 엔트로피 [0, 1] 계산."""
+        p = np.asarray(row, dtype=np.float64)
+        p = np.clip(p, eps, 1.0)
+        p /= float(p.sum())
+        h = -float(np.sum(p * np.log(p)))
+        h_max = float(np.log(len(p)))
+        if h_max <= 0.0:
+            return 0.0
+        return h / h_max
+
     def compute_single(self, sample: SimulatedOutput) -> np.ndarray:
-        # 각 에이전트의 "정답 확률"을 weight로 사용.
-        probs = []
+        # 각 에이전트의 "정답 확률"에 신뢰도/불확실성/엔트로피 보정을 반영.
+        scores = []
+        conf_power = float(self.config.confidence_power)
+        uncertain_penalty = float(np.clip(float(self.config.uncertain_penalty), 0.0, 1.0))
+        entropy_power = float(self.config.entropy_power)
+        verdict_power = float(self.config.verdict_power)
+        true_idx = VERDICT_TO_IDX[sample.true_label]
+
         for agent in AGENT_NAMES:
             profile = self.simulator.profiles[agent]
             cm_row = self.simulator._get_cm_row(profile, sample.true_label, sample.sub_type)  # noqa: SLF001
-            p_correct = float(cm_row[VERDICT_TO_IDX[sample.true_label]])
-            probs.append(max(p_correct, float(self.config.eps)))
+            p_correct = max(float(cm_row[true_idx]), float(self.config.eps))
 
-        w = np.power(np.array(probs, dtype=np.float64), float(self.config.power))
+            # 기존 동작과 호환: 기본 score는 (p_correct ^ power)
+            score = p_correct ** float(self.config.power)
+
+            if entropy_power > 0.0:
+                # confusion row 엔트로피가 높을수록(혼란할수록) 가중치 감쇠
+                norm_entropy = self._row_entropy(cm_row, eps=max(self.config.eps, 1e-12))
+                entropy_factor = max(1.0 - norm_entropy, float(self.config.eps))
+                score *= entropy_factor ** entropy_power
+
+            verdict = sample.agent_verdicts.get(agent, "uncertain")
+            v_idx = VERDICT_TO_IDX.get(verdict, VERDICT_TO_IDX["uncertain"])
+            if verdict_power > 0.0:
+                p_verdict = max(float(cm_row[v_idx]), float(self.config.eps))
+                score *= p_verdict ** verdict_power
+
+            if conf_power > 0.0:
+                conf = float(np.clip(sample.agent_confidences.get(agent, 0.5), self.config.eps, 1.0))
+                score *= conf ** conf_power
+
+            if verdict == "uncertain":
+                score *= uncertain_penalty
+
+            scores.append(max(score, float(self.config.eps)))
+
+        w = np.array(scores, dtype=np.float64)
         s = float(w.sum())
         if s <= 0.0:
             return (np.ones(len(AGENT_NAMES), dtype=np.float64) / len(AGENT_NAMES))
-        return (w / s).astype(np.float64)
+        w = (w / s).astype(np.float64)
+
+        # 라벨 스무딩으로 지나치게 뾰족한 oracle target을 완화한다.
+        smooth = float(np.clip(float(self.config.label_smoothing), 0.0, 1.0))
+        if smooth > 0.0:
+            uniform = 1.0 / len(AGENT_NAMES)
+            w = (1.0 - smooth) * w + smooth * uniform
+            w = w / max(float(w.sum()), float(self.config.eps))
+
+        return w
 
     def compute_dataset(self, samples: List[SimulatedOutput]) -> np.ndarray:
         w = [self.compute_single(s) for s in samples]
@@ -139,6 +197,12 @@ class MetaRouterConfig:
     validation_fraction: float = 0.15
     n_iter_no_change: int = 20
     random_state: int = 42
+    regressor: str = "mlp"  # mlp | ridge | gbrt
+    ridge_alpha: float = 1.0
+    gbr_n_estimators: int = 200
+    gbr_learning_rate: float = 0.05
+    gbr_max_depth: int = 3
+    gbr_subsample: float = 1.0
 
 
 @dataclass
@@ -177,22 +241,38 @@ class MetaRouter:
 
         y_logits = self.weights_to_logits(w, eps=max(self.eps, 1e-12))
 
-        mlp = MLPRegressor(
-            hidden_layer_sizes=tuple(int(v) for v in self.config.hidden_layer_sizes),
-            activation=str(self.config.activation),
-            solver=str(self.config.solver),
-            alpha=float(self.config.alpha),
-            learning_rate_init=float(self.config.learning_rate_init),
-            max_iter=int(self.config.max_iter),
-            early_stopping=bool(self.config.early_stopping),
-            validation_fraction=float(self.config.validation_fraction),
-            n_iter_no_change=int(self.config.n_iter_no_change),
-            random_state=int(self.config.random_state),
-        )
+        regressor_name = str(self.config.regressor).lower()
+        if regressor_name == "mlp":
+            regressor = MLPRegressor(
+                hidden_layer_sizes=tuple(int(v) for v in self.config.hidden_layer_sizes),
+                activation=str(self.config.activation),
+                solver=str(self.config.solver),
+                alpha=float(self.config.alpha),
+                learning_rate_init=float(self.config.learning_rate_init),
+                max_iter=int(self.config.max_iter),
+                early_stopping=bool(self.config.early_stopping),
+                validation_fraction=float(self.config.validation_fraction),
+                n_iter_no_change=int(self.config.n_iter_no_change),
+                random_state=int(self.config.random_state),
+            )
+        elif regressor_name == "ridge":
+            regressor = Ridge(alpha=float(self.config.ridge_alpha))
+        elif regressor_name == "gbrt":
+            base = GradientBoostingRegressor(
+                n_estimators=int(self.config.gbr_n_estimators),
+                learning_rate=float(self.config.gbr_learning_rate),
+                max_depth=int(self.config.gbr_max_depth),
+                subsample=float(self.config.gbr_subsample),
+                random_state=int(self.config.random_state),
+            )
+            regressor = MultiOutputRegressor(base)
+        else:
+            raise ValueError(f"unsupported router regressor: {self.config.regressor}")
+
         self.model = Pipeline(
             [
                 ("scaler", StandardScaler()),
-                ("regressor", mlp),
+                ("regressor", regressor),
             ]
         )
         self.model.fit(X_img, y_logits)
@@ -223,4 +303,3 @@ class MetaRouter:
         top1 = float(np.mean(np.argmax(w_pred, axis=1) == np.argmax(w_true, axis=1)))
 
         return RouterMetrics(mse_weights=mse, kl_weights=kl, top1_match=top1)
-

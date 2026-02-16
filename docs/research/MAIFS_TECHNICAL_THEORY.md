@@ -539,7 +539,9 @@ MAIFS는 캘리브레이션 결과를 JSON으로 외부화해 코드 변경 없�
 2. 데이터셋 디렉터리 구조 확인
 3. Tool re-eval (`scripts/evaluate_tools.py`)로 슬롯별 성능 확인
 4. Phase1 재학습 (`experiments/run_phase1.py`) 실행
-5. 결과 JSON/리포트의 runtime backend/device 확인
+5. Phase2 Path A 실행 (`experiments/run_phase2_patha.py experiments/configs/phase2_patha.yaml`)
+6. Phase2 Path A 멀티시드 실행 (`experiments/run_phase2_patha_multiseed.py ...`)
+7. 결과 JSON/리포트의 runtime backend/device 확인
 
 ---
 
@@ -548,7 +550,7 @@ MAIFS는 캘리브레이션 결과를 JSON으로 외부화해 코드 변경 없�
 1. Path B(시뮬레이션)와 Path A(실데이터) 간 도메인 갭
 2. 일부 지식 문서의 레거시 용어(예: watermark 언급) 정리 필요
 3. adversarial/post-processing 강건성 체계적 벤치마크 필요
-4. Phase 2 Adaptive Routing(동적 가중치) 본격 실장 필요
+4. Phase 2 Path A는 scale120 seed10(2026-02-16) 기준 유의 개선이 미확보(`ΔF1 mean +0.0037`, `significant 0/10`)이며, router regularization 파일럿(`ΔF1 mean -0.0113`) 및 oracle power/smoothing 후보 재검증(`ΔF1 mean +0.0036`)도 baseline을 유의하게 넘지 못했다. 추가 fixed-kfold25 독립 블록 검증에서 `300~304:+0.0032`, `305~309:-0.0036`, `310~314:-0.0028`로 방향 변동이 확인됐고, fixed-kfold75(300~314) 확장에서도 `ΔF1 mean -0.0010`, sign `34/34/7`, sign-test `p=1.0`으로 방향성 미확보 상태가 유지됐다. 운영 게이트는 `scale120_conservative`(sign/pooled 제약 포함)로 유지하고, 다음 반복은 게이트 완화보다 모델 측 개선 후 재튜닝이 필요하다.
 
 ---
 
@@ -564,4 +566,3 @@ MAIFS는 단순 앙상블이 아니라:
 을 결합한 **계층형 포렌식 의사결정 시스템**이다.
 
 이 구조 덕분에 "개별 모델 정확도"뿐 아니라 "불일치의 정보성"을 실험적으로 활용할 수 있다.
-

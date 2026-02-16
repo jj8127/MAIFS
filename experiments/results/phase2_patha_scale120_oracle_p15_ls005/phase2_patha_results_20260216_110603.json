@@ -1,0 +1,243 @@
+{
+  "timestamp": "2026-02-16T11:06:03.638760",
+  "mode": "PathA_real_data_collector",
+  "seed": 42,
+  "config": {
+    "collector": {
+      "seed": 42,
+      "device": "cuda",
+      "noise_backend": "mvss",
+      "spatial_backend": "mesorch",
+      "verbose_every": 30
+    },
+    "datasets": {
+      "classes": {
+        "authentic": {
+          "path": "datasets/CASIA2_subset/Au",
+          "sub_type": "casia_au",
+          "max_samples": 120
+        },
+        "manipulated": {
+          "path": "datasets/CASIA2_subset/Tp",
+          "sub_type": "casia_tp",
+          "max_samples": 120
+        },
+        "ai_generated": {
+          "path": "datasets/GenImage_subset/BigGAN/val/ai",
+          "sub_type": "biggan",
+          "max_samples": 120
+        }
+      }
+    },
+    "split": {
+      "train_ratio": 0.6,
+      "val_ratio": 0.2,
+      "test_ratio": 0.2
+    },
+    "cobra": {
+      "trust_scores": {
+        "frequency": 0.85,
+        "noise": 0.8,
+        "fatformer": 0.85,
+        "spatial": 0.85
+      },
+      "algorithm": "drwa"
+    },
+    "router": {
+      "oracle": {
+        "power": 1.5,
+        "eps": 1e-06,
+        "label_smoothing": 0.05
+      },
+      "model": {
+        "hidden_layer_sizes": [
+          64,
+          64
+        ],
+        "activation": "relu",
+        "solver": "adam",
+        "alpha": 0.0001,
+        "learning_rate_init": 0.001,
+        "max_iter": 500,
+        "early_stopping": true,
+        "validation_fraction": 0.15,
+        "n_iter_no_change": 20,
+        "random_state": 42
+      }
+    },
+    "models": {
+      "logistic_regression": {
+        "C": 1.0,
+        "max_iter": 1000,
+        "solver": "lbfgs"
+      },
+      "gradient_boosting": {
+        "backend": "auto",
+        "n_estimators": 200,
+        "max_depth": 4,
+        "learning_rate": 0.1,
+        "subsample": 0.8
+      },
+      "mlp": {
+        "backend": "auto",
+        "hidden_layer_sizes": [
+          32,
+          16
+        ],
+        "activation": "relu",
+        "solver": "adam",
+        "max_iter": 500,
+        "early_stopping": true,
+        "validation_fraction": 0.15,
+        "learning_rate_init": 0.001,
+        "random_state": 42
+      }
+    },
+    "evaluation": {
+      "n_bootstrap": 200,
+      "ci_level": 0.95
+    },
+    "output": {
+      "save_dir": "experiments/results/phase2_patha_scale120_oracle_p15_ls005"
+    }
+  },
+  "artifacts": {
+    "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_oracle_p15_ls005/patha_agent_outputs_20260216_110603.jsonl",
+    "collector_errors": []
+  },
+  "split_sizes": {
+    "all": 360,
+    "train": 216,
+    "val": 72,
+    "test": 72
+  },
+  "baselines": {
+    "majority_vote": {
+      "macro_f1": 0.36651583710407243,
+      "balanced_accuracy": 0.47222222222222227,
+      "per_class_f1": {
+        "authentic": 0.6764705882352942,
+        "manipulated": 0.4230769230769231,
+        "ai_generated": 0.0
+      }
+    },
+    "cobra": {
+      "macro_f1": 0.3531048069345942,
+      "balanced_accuracy": 0.4444444444444445,
+      "auroc": 0.8025173611111112,
+      "ece": 0.37474850237784063,
+      "brier": 0.8768347010960221,
+      "per_class_f1": {
+        "authentic": 0.6388888888888888,
+        "manipulated": 0.3404255319148936,
+        "ai_generated": 0.08
+      }
+    }
+  },
+  "router": {
+    "proxy_feature_dim": 20,
+    "metrics": {
+      "train": {
+        "mse_weights": 0.010902415504465392,
+        "kl_weights": 0.09773742889023748,
+        "top1_match": 0.9537037037037037
+      },
+      "val": {
+        "mse_weights": 0.013995496112088866,
+        "kl_weights": 0.1306686274328406,
+        "top1_match": 0.875
+      },
+      "test": {
+        "mse_weights": 0.014538533728326648,
+        "kl_weights": 0.13491716951417698,
+        "top1_match": 0.9027777777777778
+      }
+    }
+  },
+  "phase1_meta": {
+    "logistic_regression": {
+      "macro_f1": 0.8007936507936507,
+      "balanced_accuracy": 0.8055555555555555,
+      "auroc": 0.9195601851851852,
+      "ece": 0.05417480760424153,
+      "brier": 0.2872551802538509,
+      "per_class_f1": {
+        "authentic": 0.7,
+        "manipulated": 0.7857142857142857,
+        "ai_generated": 0.9166666666666666
+      }
+    },
+    "gradient_boosting": {
+      "macro_f1": 0.7834343434343434,
+      "balanced_accuracy": 0.7916666666666666,
+      "auroc": 0.9369212962962964,
+      "ece": 0.10080643494923906,
+      "brier": 0.2868275887057999,
+      "per_class_f1": {
+        "authentic": 0.6666666666666666,
+        "manipulated": 0.7636363636363637,
+        "ai_generated": 0.92
+      }
+    },
+    "mlp": {
+      "macro_f1": 0.7738543976348855,
+      "balanced_accuracy": 0.7777777777777778,
+      "auroc": 0.9195601851851851,
+      "ece": 0.06958039394683307,
+      "brier": 0.2986745870450754,
+      "per_class_f1": {
+        "authentic": 0.6829268292682927,
+        "manipulated": 0.7636363636363637,
+        "ai_generated": 0.875
+      }
+    }
+  },
+  "phase2_meta": {
+    "logistic_regression": {
+      "macro_f1": 0.8007936507936507,
+      "balanced_accuracy": 0.8055555555555555,
+      "auroc": 0.9267939814814815,
+      "ece": 0.07469934405661446,
+      "brier": 0.2832591588805611,
+      "per_class_f1": {
+        "authentic": 0.7,
+        "manipulated": 0.7857142857142857,
+        "ai_generated": 0.9166666666666666
+      }
+    },
+    "gradient_boosting": {
+      "macro_f1": 0.7605356608052025,
+      "balanced_accuracy": 0.7638888888888888,
+      "auroc": 0.9241898148148149,
+      "ece": 0.16995902111132938,
+      "brier": 0.33596004732597834,
+      "per_class_f1": {
+        "authentic": 0.6666666666666666,
+        "manipulated": 0.7169811320754716,
+        "ai_generated": 0.8979591836734694
+      }
+    },
+    "mlp": {
+      "macro_f1": 0.7871985157699443,
+      "balanced_accuracy": 0.7916666666666666,
+      "auroc": 0.9276620370370371,
+      "ece": 0.07990330043766233,
+      "brier": 0.27940152675003355,
+      "per_class_f1": {
+        "authentic": 0.7,
+        "manipulated": 0.7636363636363637,
+        "ai_generated": 0.8979591836734694
+      }
+    }
+  },
+  "phase2_vs_phase1_best": {
+    "phase1_best": "logistic_regression",
+    "phase2_best": "logistic_regression",
+    "f1_diff": 0.0,
+    "mcnemar_pvalue": 1.0,
+    "significant": false,
+    "ci_lower": 0.0,
+    "ci_upper": 0.0
+  },
+  "elapsed_seconds": 68.59218001365662
+}

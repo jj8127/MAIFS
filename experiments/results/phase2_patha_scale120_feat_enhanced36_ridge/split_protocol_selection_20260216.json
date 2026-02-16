@@ -1,0 +1,76 @@
+{
+  "timestamp": "2026-02-16T15:05:41.727959",
+  "candidates": [
+    {
+      "label": "random25",
+      "summary_path": "experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/repeated_random_summary_25runs_300_324_20260216.json",
+      "n_runs": 25,
+      "f1_diff_mean": -0.00392831443440734,
+      "f1_diff_std": 0.022428374455179968,
+      "positive_count": 8,
+      "negative_count": 12,
+      "zero_count": 5,
+      "directional_margin": -4,
+      "sign_test_pvalue": 0.5034446716308594,
+      "pooled_mcnemar_pvalue": 0.49964225765235615
+    },
+    {
+      "label": "kfold25",
+      "summary_path": "experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/fixed_kfold_summary_25runs_5seeds_20260216.json",
+      "n_runs": 25,
+      "f1_diff_mean": 0.0032235139835704364,
+      "f1_diff_std": 0.01814479404835927,
+      "positive_count": 14,
+      "negative_count": 8,
+      "zero_count": 3,
+      "directional_margin": 6,
+      "sign_test_pvalue": 0.28627872467041016,
+      "pooled_mcnemar_pvalue": 0.6906192201976447
+    },
+    {
+      "label": "kfold10",
+      "summary_path": "experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/fixed_kfold_summary_10runs_2seeds_20260216.json",
+      "n_runs": 10,
+      "f1_diff_mean": 0.00043146000626093084,
+      "f1_diff_std": 0.0195975058332947,
+      "positive_count": 6,
+      "negative_count": 3,
+      "zero_count": 1,
+      "directional_margin": 3,
+      "sign_test_pvalue": 0.5078125,
+      "pooled_mcnemar_pvalue": 0.8711314915971583
+    }
+  ],
+  "recommendation": {
+    "recommended_label": "kfold25",
+    "recommended_summary_path": "experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/fixed_kfold_summary_25runs_5seeds_20260216.json",
+    "ranking": [
+      "kfold25",
+      "kfold10",
+      "random25"
+    ],
+    "winner_metrics": {
+      "label": "kfold25",
+      "summary_path": "experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/fixed_kfold_summary_25runs_5seeds_20260216.json",
+      "n_runs": 25,
+      "f1_diff_mean": 0.0032235139835704364,
+      "f1_diff_std": 0.01814479404835927,
+      "positive_count": 14,
+      "negative_count": 8,
+      "zero_count": 3,
+      "directional_margin": 6,
+      "sign_test_pvalue": 0.28627872467041016,
+      "pooled_mcnemar_pvalue": 0.6906192201976447
+    },
+    "decision_rule": {
+      "type": "lexicographic",
+      "order": [
+        "max f1_diff_mean",
+        "min sign_test_pvalue",
+        "max directional_margin (positive_count - negative_count)",
+        "min f1_diff_std",
+        "min pooled_mcnemar_pvalue"
+      ]
+    }
+  }
+}

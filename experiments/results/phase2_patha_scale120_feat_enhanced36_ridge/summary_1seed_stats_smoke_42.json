@@ -1,0 +1,50 @@
+{
+  "timestamp": "2026-02-16T12:11:42.822795",
+  "config": "experiments/configs/phase2_patha_scale120_feat_enhanced36_ridge.yaml",
+  "seeds": [
+    42
+  ],
+  "n_runs": 1,
+  "runs": [
+    {
+      "seed": 42,
+      "phase1_best": "logistic_regression",
+      "phase2_best": "gradient_boosting",
+      "phase1_best_f1": 0.8027000124424536,
+      "phase2_best_f1": 0.8302179548026724,
+      "f1_diff": 0.02751794236021876,
+      "mcnemar_statistic": 0.16666666666666666,
+      "mcnemar_pvalue": 0.6830913983096086,
+      "mcnemar_b": 2,
+      "mcnemar_c": 4,
+      "n_test_samples": 72,
+      "significant": false,
+      "elapsed_seconds": 68.40358543395996,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/patha_agent_outputs_20260216_121142.jsonl",
+        "collector_errors": []
+      },
+      "result_path": "experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/phase2_patha_results_20260216_121142.json"
+    }
+  ],
+  "aggregate": {
+    "phase1_best_f1_mean": 0.8027000124424536,
+    "phase1_best_f1_std": 0.0,
+    "phase2_best_f1_mean": 0.8302179548026724,
+    "phase2_best_f1_std": 0.0,
+    "f1_diff_mean": 0.02751794236021876,
+    "f1_diff_std": 0.0,
+    "f1_diff_min": 0.02751794236021876,
+    "f1_diff_max": 0.02751794236021876,
+    "significant_count": 0,
+    "positive_count": 1,
+    "negative_count": 0,
+    "zero_count": 0,
+    "sign_test_pvalue": 1.0,
+    "pooled_mcnemar_b": 2,
+    "pooled_mcnemar_c": 4,
+    "pooled_mcnemar_statistic": 0.16666666666666666,
+    "pooled_mcnemar_pvalue": 0.6830913983096087,
+    "pooled_mcnemar_significant": false
+  }
+}

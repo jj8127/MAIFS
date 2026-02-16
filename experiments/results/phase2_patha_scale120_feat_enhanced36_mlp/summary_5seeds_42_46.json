@@ -1,0 +1,105 @@
+{
+  "timestamp": "2026-02-16T11:41:08.162041",
+  "config": "experiments/configs/phase2_patha_scale120_feat_enhanced36_mlp.yaml",
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "n_runs": 5,
+  "runs": [
+    {
+      "seed": 42,
+      "phase1_best": "gradient_boosting",
+      "phase2_best": "gradient_boosting",
+      "phase1_best_f1": 0.8011721611721612,
+      "phase2_best_f1": 0.7886016628873772,
+      "f1_diff": -0.01257049828478396,
+      "mcnemar_pvalue": 1.0,
+      "significant": false,
+      "elapsed_seconds": 67.54911017417908,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_feat_enhanced36_mlp/patha_agent_outputs_20260216_113659.jsonl",
+        "collector_errors": []
+      },
+      "result_path": "experiments/results/phase2_patha_scale120_feat_enhanced36_mlp/phase2_patha_results_20260216_113659.json"
+    },
+    {
+      "seed": 43,
+      "phase1_best": "gradient_boosting",
+      "phase2_best": "gradient_boosting",
+      "phase1_best_f1": 0.8723809523809524,
+      "phase2_best_f1": 0.8569347319347319,
+      "f1_diff": -0.01544622044622046,
+      "mcnemar_pvalue": 1.0,
+      "significant": false,
+      "elapsed_seconds": 62.393816232681274,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_feat_enhanced36_mlp/patha_agent_outputs_20260216_113801.jsonl",
+        "collector_errors": []
+      },
+      "result_path": "experiments/results/phase2_patha_scale120_feat_enhanced36_mlp/phase2_patha_results_20260216_113801.json"
+    },
+    {
+      "seed": 44,
+      "phase1_best": "gradient_boosting",
+      "phase2_best": "logistic_regression",
+      "phase1_best_f1": 0.8459035788228335,
+      "phase2_best_f1": 0.8590951532128003,
+      "f1_diff": 0.013191574389966765,
+      "mcnemar_pvalue": 1.0,
+      "significant": false,
+      "elapsed_seconds": 62.048829793930054,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_feat_enhanced36_mlp/patha_agent_outputs_20260216_113903.jsonl",
+        "collector_errors": []
+      },
+      "result_path": "experiments/results/phase2_patha_scale120_feat_enhanced36_mlp/phase2_patha_results_20260216_113903.json"
+    },
+    {
+      "seed": 45,
+      "phase1_best": "gradient_boosting",
+      "phase2_best": "gradient_boosting",
+      "phase1_best_f1": 0.8051937086891493,
+      "phase2_best_f1": 0.8215700483091788,
+      "f1_diff": 0.01637633962002949,
+      "mcnemar_pvalue": 1.0,
+      "significant": false,
+      "elapsed_seconds": 62.83055090904236,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_feat_enhanced36_mlp/patha_agent_outputs_20260216_114006.jsonl",
+        "collector_errors": []
+      },
+      "result_path": "experiments/results/phase2_patha_scale120_feat_enhanced36_mlp/phase2_patha_results_20260216_114006.json"
+    },
+    {
+      "seed": 46,
+      "phase1_best": "logistic_regression",
+      "phase2_best": "gradient_boosting",
+      "phase1_best_f1": 0.8132586367880487,
+      "phase2_best_f1": 0.8191545893719807,
+      "f1_diff": 0.0058959525839320515,
+      "mcnemar_pvalue": 0.6170750774519739,
+      "significant": false,
+      "elapsed_seconds": 61.43517518043518,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_feat_enhanced36_mlp/patha_agent_outputs_20260216_114108.jsonl",
+        "collector_errors": []
+      },
+      "result_path": "experiments/results/phase2_patha_scale120_feat_enhanced36_mlp/phase2_patha_results_20260216_114108.json"
+    }
+  ],
+  "aggregate": {
+    "phase1_best_f1_mean": 0.827581807570629,
+    "phase1_best_f1_std": 0.027373345770074987,
+    "phase2_best_f1_mean": 0.8290712371432137,
+    "phase2_best_f1_std": 0.02634465431749582,
+    "f1_diff_mean": 0.0014894295725847773,
+    "f1_diff_std": 0.013133739315603113,
+    "f1_diff_min": -0.01544622044622046,
+    "f1_diff_max": 0.01637633962002949,
+    "significant_count": 0
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "timestamp": "2026-02-16T10:45:17.812930",
+  "config": "experiments/configs/phase2_patha_scale120_router_tuned.yaml",
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "n_runs": 5,
+  "runs": [
+    {
+      "seed": 42,
+      "phase1_best": "gradient_boosting",
+      "phase2_best": "gradient_boosting",
+      "phase1_best_f1": 0.8151713515594917,
+      "phase2_best_f1": 0.8037154255641651,
+      "f1_diff": -0.011455925995326632,
+      "mcnemar_pvalue": 1.0,
+      "significant": false,
+      "elapsed_seconds": 68.41986227035522,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_router_tuned/patha_agent_outputs_20260216_104106.jsonl",
+        "collector_errors": []
+      }
+    },
+    {
+      "seed": 43,
+      "phase1_best": "gradient_boosting",
+      "phase2_best": "gradient_boosting",
+      "phase1_best_f1": 0.8876072167997634,
+      "phase2_best_f1": 0.8720588235294118,
+      "f1_diff": -0.015548393270351624,
+      "mcnemar_pvalue": 1.0,
+      "significant": false,
+      "elapsed_seconds": 62.19485926628113,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_router_tuned/patha_agent_outputs_20260216_104209.jsonl",
+        "collector_errors": []
+      }
+    },
+    {
+      "seed": 44,
+      "phase1_best": "mlp",
+      "phase2_best": "mlp",
+      "phase1_best_f1": 0.8471679451922612,
+      "phase2_best_f1": 0.8611111111111112,
+      "f1_diff": 0.01394316591884992,
+      "mcnemar_pvalue": 1.0,
+      "significant": false,
+      "elapsed_seconds": 64.99456572532654,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_router_tuned/patha_agent_outputs_20260216_104314.jsonl",
+        "collector_errors": []
+      }
+    },
+    {
+      "seed": 45,
+      "phase1_best": "gradient_boosting",
+      "phase2_best": "mlp",
+      "phase1_best_f1": 0.8336601307189543,
+      "phase2_best_f1": 0.7888888888888889,
+      "f1_diff": -0.04477124183006542,
+      "mcnemar_pvalue": 0.6276258050283593,
+      "significant": false,
+      "elapsed_seconds": 63.00918459892273,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_router_tuned/patha_agent_outputs_20260216_104417.jsonl",
+        "collector_errors": []
+      }
+    },
+    {
+      "seed": 46,
+      "phase1_best": "logistic_regression",
+      "phase2_best": "gradient_boosting",
+      "phase1_best_f1": 0.8303785103785103,
+      "phase2_best_f1": 0.8318497611810681,
+      "f1_diff": 0.001471250802557833,
+      "mcnemar_pvalue": 0.6830913983096086,
+      "significant": false,
+      "elapsed_seconds": 60.48636174201965,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_router_tuned/patha_agent_outputs_20260216_104517.jsonl",
+        "collector_errors": []
+      }
+    }
+  ],
+  "aggregate": {
+    "phase1_best_f1_mean": 0.8427970309297962,
+    "phase1_best_f1_std": 0.024608691180179772,
+    "phase2_best_f1_mean": 0.8315248020549291,
+    "phase2_best_f1_std": 0.0319676232810717,
+    "f1_diff_mean": -0.011272228874867184,
+    "f1_diff_std": 0.01969119399342647,
+    "f1_diff_min": -0.04477124183006542,
+    "f1_diff_max": 0.01394316591884992,
+    "significant_count": 0
+  }
+}
