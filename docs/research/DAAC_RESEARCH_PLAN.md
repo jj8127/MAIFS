@@ -241,9 +241,19 @@ src/meta/
 └── ablation.py          # 6가지 feature set ablation runner
 
 experiments/
-├── run_phase1.py        # Phase 1 전체 파이프라인 실행 스크립트
+├── run_phase1.py        # Phase 1 (Path B) 전체 파이프라인
+├── run_phase2.py        # Phase 2 (Path B) adaptive routing
+├── run_phase2_patha.py  # Phase 2 (Path A) real-data collector + proxy router
+├── run_phase2_patha_multiseed.py  # Path A 멀티시드 실행기
 └── configs/
-    └── phase1.yaml      # 데이터셋 경로, 하이퍼파라미터, split 설정
+    ├── phase1.yaml
+    ├── phase2.yaml
+    ├── phase2_patha.yaml
+    ├── phase2_patha_scale120.yaml
+    ├── phase2_patha_scale120_router_tuned.yaml
+    ├── phase2_patha_scale120_oracle_p15_ls005.yaml
+    ├── phase2_patha_scale120_oracle_p20_ls005.yaml
+    └── phase2_patha_scale120_oracle_p25_ls005.yaml
 ```
 
 ## 7. 리뷰어별 대응 전략
@@ -353,14 +363,226 @@ experiments/
 3. A4(verdict+confidence)와 A5(full)의 간극이 작아, disagreement 특징은 "보조 강화" 역할이 강함.
 4. Phase 2 착수 조건은 최신 런 기준으로 충족.
 
+### 8.8 Phase 2-A Path A 통합 및 멀티시드 파일럿 (2026-02-16)
+
+실데이터 collector 기반 Path A 실행 파이프라인을 통합하고, 동일 샘플 플랜(클래스당 60, 총 180)으로 멀티시드(5회) 파일럿을 수행했다.
+
+- 실행 스크립트: `experiments/run_phase2_patha.py`
+- 설정 파일: `experiments/configs/phase2_patha.yaml`
+- 단일 런 예시:
+  - `experiments/results/phase2_patha/phase2_patha_results_20260216_100804.json`
+- 멀티시드 집계:
+  - `experiments/results/phase2_patha/phase2_patha_multiseed_summary_20260216_101723.json`
+  - seeds: `[42, 43, 44, 45, 46]`
+
+집계 요약(best Phase2 vs best Phase1):
+
+| 항목 | 값 |
+|------|----|
+| Phase1 best Macro-F1 (mean ± std) | 0.8213 ± 0.0548 |
+| Phase2 best Macro-F1 (mean ± std) | 0.8109 ± 0.0620 |
+| ΔF1 = Phase2 - Phase1 (mean ± std) | -0.0105 ± 0.0128 |
+| ΔF1 범위 | [-0.0272, 0.0000] |
+| McNemar 유의 런 수 | 0 / 5 |
+
+해석:
+
+1. Path A 소규모 샘플 플랜에서는 Phase2가 Phase1 대비 일관된 유의 개선을 보이지 않았다.
+2. 현재 결과는 "Path A에서 adaptive routing 개선 효과는 추가 검증 필요"로 해석하는 것이 타당하다.
+3. 다음 액션은 sample scale-up 및 multi-seed 반복으로 분산 축소와 신뢰구간 정밀화를 우선한다.
+
+### 8.9 Phase 2-A Path A scale-up 멀티시드 (2026-02-16)
+
+파일럿(60/class) 이후 클래스당 샘플 수를 120으로 확장해 멀티시드(5회)를 재실행했다.
+
+- 실행 스크립트: `experiments/run_phase2_patha_multiseed.py`
+- 설정 파일: `experiments/configs/phase2_patha_scale120.yaml`
+- 실행 명령:
+  - `.venv-qwen/bin/python experiments/run_phase2_patha_multiseed.py experiments/configs/phase2_patha_scale120.yaml --seeds 42,43,44,45,46`
+- 멀티시드 집계:
+  - `experiments/results/phase2_patha_scale120/phase2_patha_multiseed_summary_20260216_102607.json`
+
+집계 요약(best Phase2 vs best Phase1):
+
+| 항목 | 값 |
+|------|----|
+| Phase1 best Macro-F1 (mean ± std) | 0.8368 ± 0.0339 |
+| Phase2 best Macro-F1 (mean ± std) | 0.8399 ± 0.0273 |
+| ΔF1 = Phase2 - Phase1 (mean ± std) | +0.0031 ± 0.0216 |
+| ΔF1 범위 | [-0.0292, +0.0275] |
+| McNemar 유의 런 수 | 0 / 5 |
+
+해석:
+
+1. sample scale-up 후 평균 성능 차이는 음수에서 소폭 양수로 이동했으나 통계적 유의 개선은 아직 확보되지 않았다.
+2. 시드별 편차는 여전히 존재하며, 개선/악화 런이 혼재한다.
+3. 다음 액션은 seed 수 확장(n>=10)과 router 정규화/하이퍼파라미터 튜닝을 병행해 안정성 및 유의성을 재검증하는 것이다.
+
+### 8.10 Phase 2-A Path A scale120 seed 확장 (2026-02-16)
+
+scale120 baseline을 10 seeds(42~51)로 확장해 분산 축소와 평균 추세를 점검했다.
+
+- 실행 스크립트: `experiments/run_phase2_patha_multiseed.py`
+- 설정 파일: `experiments/configs/phase2_patha_scale120.yaml`
+- 실행 명령:
+  - `.venv-qwen/bin/python experiments/run_phase2_patha_multiseed.py experiments/configs/phase2_patha_scale120.yaml --seeds 42,43,44,45,46,47,48,49,50,51 --summary-out experiments/results/phase2_patha_scale120/phase2_patha_multiseed_summary_scale120_10seeds_42_51_20260216.json`
+- 멀티시드 집계:
+  - `experiments/results/phase2_patha_scale120/phase2_patha_multiseed_summary_scale120_10seeds_42_51_20260216.json`
+
+집계 요약(best Phase2 vs best Phase1):
+
+| 항목 | 값 |
+|------|----|
+| Phase1 best Macro-F1 (mean ± std) | 0.8410 ± 0.0375 |
+| Phase2 best Macro-F1 (mean ± std) | 0.8447 ± 0.0373 |
+| ΔF1 = Phase2 - Phase1 (mean ± std) | +0.0037 ± 0.0166 |
+| ΔF1 범위 | [-0.0272, +0.0349] |
+| McNemar 유의 런 수 | 0 / 10 |
+
+해석:
+
+1. seed를 10개로 확장해도 평균 개선은 소폭(+0.0037)에 그치며 통계적 유의 개선은 확보되지 않았다.
+2. 다만 5-seed 대비 ΔF1 분산이 줄어(0.0216 -> 0.0166) 추정 안정성은 개선됐다.
+
+### 8.11 Phase 2-A Router tuned 파일럿 (2026-02-16, Latest)
+
+router 변동성 완화를 목표로 정규화 강화/모델 축소 설정을 파일럿(5 seeds, 42~46)으로 검증했다.
+
+- 설정 파일: `experiments/configs/phase2_patha_scale120_router_tuned.yaml`
+- 핵심 변경:
+  - `hidden_layer_sizes`: `[32, 16]`
+  - `alpha`: `5.0e-3`
+  - `learning_rate_init`: `5.0e-4`
+  - `max_iter`: `700`
+  - `validation_fraction`: `0.2`
+  - `n_iter_no_change`: `30`
+- 실행 명령:
+  - `.venv-qwen/bin/python experiments/run_phase2_patha_multiseed.py experiments/configs/phase2_patha_scale120_router_tuned.yaml --seeds 42,43,44,45,46 --summary-out experiments/results/phase2_patha_scale120_router_tuned/phase2_patha_multiseed_summary_router_tuned_5seeds_42_46_20260216.json`
+- 멀티시드 집계:
+  - `experiments/results/phase2_patha_scale120_router_tuned/phase2_patha_multiseed_summary_router_tuned_5seeds_42_46_20260216.json`
+
+집계 요약(best Phase2 vs best Phase1):
+
+| 항목 | 값 |
+|------|----|
+| Phase1 best Macro-F1 (mean ± std) | 0.8428 ± 0.0246 |
+| Phase2 best Macro-F1 (mean ± std) | 0.8315 ± 0.0320 |
+| ΔF1 = Phase2 - Phase1 (mean ± std) | -0.0113 ± 0.0197 |
+| ΔF1 범위 | [-0.0448, +0.0139] |
+| McNemar 유의 런 수 | 0 / 5 |
+
+해석:
+
+1. 현재 tuned 설정은 baseline 대비 평균 성능이 악화되어 채택하지 않는다.
+2. 특히 seed 45에서 큰 하락(-0.0448)이 관찰돼 안정성 개선 목적에 부합하지 않았다.
+3. 다음 튜닝은 router 구조 단순화보다 oracle target/feature 품질 개선 방향으로 우선 전환한다.
+
+### 8.12 Phase 2-A Oracle power/smoothing 그리드 (2026-02-16)
+
+`oracle power`와 `label smoothing`을 분리 검증하기 위해 `ls=0.05` 고정 하에 power 3개를 먼저 비교했다.
+
+- 코드 반영:
+  - `src/meta/router.py`: `OracleWeightConfig.label_smoothing` 추가
+  - `experiments/run_phase2.py`, `experiments/run_phase2_patha.py`: `router.oracle.label_smoothing` 설정 전달
+- 비교 설정(5 seeds, 42~46):
+  - `experiments/configs/phase2_patha_scale120_oracle_p15_ls005.yaml`
+  - `experiments/configs/phase2_patha_scale120_oracle_p20_ls005.yaml`
+  - `experiments/configs/phase2_patha_scale120_oracle_p25_ls005.yaml`
+
+집계 요약(best Phase2 vs best Phase1):
+
+| 설정 | 요약 파일 | ΔF1 mean ± std | ΔF1 범위 | 유의 run |
+|------|-----------|----------------|----------|----------|
+| baseline (`power=2.0`, `ls=0.0`) | `experiments/results/phase2_patha_scale120/phase2_patha_multiseed_summary_20260216_102607.json` | +0.0031 ± 0.0216 | [-0.0292, +0.0275] | 0/5 |
+| `power=1.5`, `ls=0.05` | `experiments/results/phase2_patha_scale120_oracle_p15_ls005/summary_5seeds_42_46.json` | +0.0142 ± 0.0099 | [-0.0034, +0.0273] | 0/5 |
+| `power=2.0`, `ls=0.05` | `experiments/results/phase2_patha_scale120_oracle_p20_ls005/summary_5seeds_42_46.json` | +0.0078 ± 0.0223 | [-0.0311, +0.0298] | 0/5 |
+| `power=2.5`, `ls=0.05` | `experiments/results/phase2_patha_scale120_oracle_p25_ls005/summary_5seeds_42_46.json` | +0.0003 ± 0.0126 | [-0.0153, +0.0145] | 0/5 |
+
+해석:
+
+1. 5-seed 파일럿에서는 `power=1.5, ls=0.05`가 상대적으로 가장 안정적/우수해 보였다.
+2. 다만 모든 설정에서 통계적 유의 개선(run-level)은 확인되지 않았다.
+
+### 8.13 Phase 2-A Oracle best-candidate seed10 검증 (2026-02-16, Latest)
+
+5-seed 파일럿 우선 후보(`power=1.5`, `ls=0.05`)를 baseline과 동일 시드(42~51)로 확장 검증했다.
+
+- 실행 명령:
+  - `.venv-qwen/bin/python experiments/run_phase2_patha_multiseed.py experiments/configs/phase2_patha_scale120_oracle_p15_ls005.yaml --seeds 42,43,44,45,46,47,48,49,50,51 --summary-out experiments/results/phase2_patha_scale120_oracle_p15_ls005/summary_10seeds_42_51.json`
+- 결과 파일:
+  - `experiments/results/phase2_patha_scale120_oracle_p15_ls005/summary_10seeds_42_51.json`
+
+baseline seed10 대비:
+
+| 설정 | ΔF1 mean ± std | ΔF1 범위 | 유의 run |
+|------|----------------|----------|----------|
+| baseline seed10 (`power=2.0`, `ls=0.0`) | +0.0037 ± 0.0166 | [-0.0272, +0.0349] | 0/10 |
+| `power=1.5`, `ls=0.05` seed10 | +0.0036 ± 0.0216 | [-0.0328, +0.0473] | 0/10 |
+
+해석:
+
+1. 후보 설정은 10-seed 기준 평균 개선이 baseline과 사실상 동급이며(소폭 하회), 분산은 더 컸다.
+2. 따라서 `power/smoothing` 단순 조정만으로는 Path A에서 유의한 안정 개선을 확보하지 못했다.
+3. 다음 단계는 oracle target 스킴(예: per-class/entropy-aware weighting)과 proxy feature 설계 개선으로 전환한다.
+
+### 8.14 Phase 2-A fixed-kfold25 독립 블록 확장 및 운영 게이트 보수화 (2026-02-16, Latest)
+
+`enhanced36+ridge` 후보를 동일 precollected dataset에 대해 fixed-kfold25 블록을 추가(305~309, 310~314) 실행해 독립 재현성을 점검했다.
+
+- 실행 명령(예시):
+  - `.venv-qwen/bin/python experiments/run_phase2_patha_repeated.py experiments/configs/phase2_patha_scale120_feat_enhanced36_ridge.yaml --precollected-jsonl experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/patha_agent_outputs_20260216_141946.jsonl --split-strategy kfold --k-folds 5 --kfold-split-seeds 305,306,307,308,309 --summary-out experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/fixed_kfold_summary_25runs_5seeds_305_309_20260216.json`
+  - `.venv-qwen/bin/python experiments/run_phase2_patha_repeated.py experiments/configs/phase2_patha_scale120_feat_enhanced36_ridge.yaml --precollected-jsonl experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/patha_agent_outputs_20260216_141946.jsonl --split-strategy kfold --k-folds 5 --kfold-split-seeds 310,311,312,313,314 --summary-out experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/fixed_kfold_summary_25runs_5seeds_310_314_20260216.json`
+
+블록별 집계(best Phase2 vs best Phase1):
+
+| 블록 | ΔF1 mean | sign(+/-/0) | sign-test p | pooled McNemar p |
+|------|----------|-------------|-------------|------------------|
+| 300~304 | +0.0032 | 14 / 8 / 3 | 0.2863 | 0.6906 |
+| 305~309 | -0.0036 | 9 / 13 / 3 | 0.5235 | 0.4555 |
+| 310~314 | -0.0028 | 11 / 13 / 1 | 0.8388 | 0.6061 |
+
+게이트 관찰:
+
+1. `strict`, `sign_driven`, `pooled_relaxed`, `scale120_tuned` 모두 305~309 및 310~314 블록에서 fail.
+2. 초기 양성 블록(300~304) 대비 독립 블록에서 방향성 약화/역전이 반복돼 운영상 false pass 방지가 우선 과제로 확인됐다.
+3. 따라서 운영 `active_gate_profile`은 `scale120_conservative`(`min_f1_diff_mean=0.01`, `max_sign_test_pvalue=0.2`, `max_pooled_mcnemar_pvalue=0.1`)로 보수화했다.
+
+### 8.15 Phase 2-A fixed-kfold75 확장 검증 및 분산 진단 (2026-02-16, Latest)
+
+독립 블록 2회 추가(305~309, 310~314) 이후 분산 확인을 위해 split-seed를 300~314 전체로 확장해 75-run(15 seeds x 5 folds) 검증을 수행했다.
+
+- 실행 명령:
+  - `.venv-qwen/bin/python experiments/run_phase2_patha_repeated.py experiments/configs/phase2_patha_scale120_feat_enhanced36_ridge.yaml --precollected-jsonl experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/patha_agent_outputs_20260216_141946.jsonl --split-strategy kfold --k-folds 5 --kfold-split-seeds 300,301,302,303,304,305,306,307,308,309,310,311,312,313,314 --summary-out experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/fixed_kfold_summary_75runs_15seeds_300_314_20260216.json`
+- 결과 파일:
+  - `experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/fixed_kfold_summary_75runs_15seeds_300_314_20260216.json`
+  - `experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/fixed_kfold_gate_profiles_75runs_15seeds_300_314_20260216.json`
+  - `experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/kfold_variance_diagnostics_25x3_plus_75_20260216.json`
+
+75-run 집계(best Phase2 vs best Phase1):
+
+| 항목 | 값 |
+|------|----|
+| ΔF1 mean ± std | -0.0010 ± 0.0225 |
+| ΔF1 범위 | [-0.0400, +0.0574] |
+| sign(+/-/0) | 34 / 34 / 7 |
+| sign-test p-value | 1.0000 |
+| pooled McNemar p-value | 0.6344 |
+| active gate (`scale120_conservative`) | fail |
+
+진단 해석:
+
+1. 표본 수를 75-run까지 늘려도 평균 개선 방향은 0 근처(약간 음수)이며 방향성 일관성이 확인되지 않았다.
+2. `kfold_variance_diagnostics` 기준 split-seed 평균 부호 혼합, test-fold 평균 부호 혼합이 동시에 나타나 특정 블록/fold 편향으로 설명하기 어렵다.
+3. 따라서 다음 단계 우선순위는 게이트 임계치 미세조정이 아니라 router/oracle/feature 설계의 모델 측 개선이다.
+
 ## 9. 타임라인
 
 | 단계 | 내용 | 상태 |
 |------|------|------|
 | Phase 1-B | 시뮬레이션 기반 가설 검증 (초기 baseline) | ✅ 완료 (GO, 2026-02-12) |
 | Phase 1-C | 프로파일 보정 + GPU 재학습 (latest) | ✅ 완료 (GO, 2026-02-13) |
-| Phase 1-A | 실데이터 collector 기반 검증 | 진행중 (체크포인트 확보 완료, collector 연동 필요) |
-| Phase 2 | Adaptive Routing | 착수 가능 (최신 결과 기준) |
+| Phase 1-A | 실데이터 collector 기반 검증 | 진행중 (collector 통합 + scale120 seed10 완료, 유의성 확보 필요) |
+| Phase 2 | Adaptive Routing | 진행중 (Path B 완료, Path A baseline/oracle-grid seed10 비교 완료, 단순 튜닝 유의성 미확보) |
 | Phase 3 | 벤치마크 + 논문 | Phase 2 완료 후 |
 
 ## 10. 데이터셋 (Phase 1-A용)
