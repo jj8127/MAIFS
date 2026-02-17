@@ -45,8 +45,8 @@
     }
   },
   "fatformer": {
-    "ai_threshold": 1e-05,
-    "auth_threshold": 1e-05,
+    "ai_threshold": 0.5,
+    "auth_threshold": 0.1,
     "counts": {
       "ai": 300,
       "nature": 300

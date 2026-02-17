@@ -540,8 +540,10 @@ MAIFS는 캘리브레이션 결과를 JSON으로 외부화해 코드 변경 없�
 3. Tool re-eval (`scripts/evaluate_tools.py`)로 슬롯별 성능 확인
 4. Phase1 재학습 (`experiments/run_phase1.py`) 실행
 5. Phase2 Path A 실행 (`experiments/run_phase2_patha.py experiments/configs/phase2_patha.yaml`)
-6. Phase2 Path A 멀티시드 실행 (`experiments/run_phase2_patha_multiseed.py ...`)
-7. 결과 JSON/리포트의 runtime backend/device 확인
+6. Phase2 Path A repeated-kfold 실행 (`experiments/run_phase2_patha_repeated.py ...`)
+7. 운영 게이트 평가 (`experiments/evaluate_phase2_gate_profiles.py ... --profiles auto`)
+8. guard 민감도 분석 (`experiments/analyze_patha_guard_sensitivity.py ...`)
+9. 결과 JSON/리포트의 runtime backend/device 확인
 
 ---
 
@@ -550,7 +552,8 @@ MAIFS는 캘리브레이션 결과를 JSON으로 외부화해 코드 변경 없�
 1. Path B(시뮬레이션)와 Path A(실데이터) 간 도메인 갭
 2. 일부 지식 문서의 레거시 용어(예: watermark 언급) 정리 필요
 3. adversarial/post-processing 강건성 체계적 벤치마크 필요
-4. Phase 2 Path A는 scale120 seed10(2026-02-16) 기준 유의 개선이 미확보(`ΔF1 mean +0.0037`, `significant 0/10`)이며, router regularization 파일럿(`ΔF1 mean -0.0113`) 및 oracle power/smoothing 후보 재검증(`ΔF1 mean +0.0036`)도 baseline을 유의하게 넘지 못했다. 추가 fixed-kfold25 독립 블록 검증에서 `300~304:+0.0032`, `305~309:-0.0036`, `310~314:-0.0028`로 방향 변동이 확인됐고, fixed-kfold75(300~314) 확장에서도 `ΔF1 mean -0.0010`, sign `34/34/7`, sign-test `p=1.0`으로 방향성 미확보 상태가 유지됐다. 운영 게이트는 `scale120_conservative`(sign/pooled 제약 포함)로 유지하고, 다음 반복은 게이트 완화보다 모델 측 개선 후 재튜닝이 필요하다.
+4. Phase 2 Path A는 평균 개선 관점에서 유의 상승이 여전히 미확보다. 2026-02-17 보완 실험에서 `oracle target=loss_averse` + guard 사전 조건(`min_phase2_val_gain`)을 도입해 10-run에서는 downside를 강하게 억제(`tunec`: `ΔF1 mean +0.0041`, `negative_rate 0.0`)했지만, 30-run 확장에서는 `ΔF1 mean -0.00003`, sign `1/2/27`, `sign-test p=1.0`으로 평균 개선/유의성 기준은 통과하지 못했다.
+5. 운영 관점에서는 손실 회피 프로파일 `loss_averse_sparse_v2`(30-run, `max_negative_rate=0.10`, `max_cvar_downside=0.02`, `max_worst_case_loss=0.03`)를 적용하면 동일 30-run 결과가 pass한다. 따라서 현재 프로젝트의 실질 기여 포인트는 “더 똑똑한 평균 개선”보다 “하방 리스크 제어 가능한 선택 정책”이며, 다음 연구 과제는 외부 시간축 홀드아웃/도메인 전이에서 이 리스크 제어가 유지되는지 검증하는 것이다.
 
 ---
 

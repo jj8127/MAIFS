@@ -64,6 +64,19 @@ def test_proxy_feature_shape_and_range():
     assert (X[:, -1] >= 0.0).all() and (X[:, -1] <= 1.0).all()
 
 
+def test_proxy_feature_risk52_shape_and_finite():
+    samples = [
+        _make_sample("authentic"),
+        _make_sample("manipulated"),
+        _make_sample("ai_generated"),
+    ]
+    X = build_proxy_image_features(samples, feature_set="risk52")
+    assert X.shape == (3, 52)
+    assert np.isfinite(X).all()
+    # risk52 마지막 16개는 리스크 통계: 불확실성 관련 값이 모두 0 이상이어야 한다.
+    assert (X[:, -16:] >= 0.0).all()
+
+
 def test_stratified_split_preserves_label_counts():
     samples = []
     for label in ["authentic", "manipulated", "ai_generated"]:

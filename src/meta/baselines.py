@@ -9,15 +9,11 @@ from collections import Counter
 from typing import Dict, List, Optional
 
 from .simulator import SimulatedOutput, AGENT_NAMES, TRUE_LABELS, VERDICTS
+from configs.trust import DEFAULT_TRUST as _DEFAULT_TRUST
+from configs.trust import resolve_trust
 
-
-# MAIFS 기본 trust scores (configs/settings.py 기준)
-DEFAULT_TRUST_SCORES = {
-    "frequency": 0.85,
-    "noise": 0.80,
-    "fatformer": 0.85,
-    "spatial": 0.85,
-}
+# MAIFS 기본 trust scores — configs/trust.py SSOT에서 가져옴
+DEFAULT_TRUST_SCORES = dict(_DEFAULT_TRUST)
 
 
 class MajorityVoteBaseline:
@@ -84,7 +80,8 @@ class COBRABaseline:
             trust_scores: 에이전트별 고정 trust score
             algorithm: COBRA 알고리즘 ("rot", "drwa", "avga")
         """
-        self.trust_scores = trust_scores or DEFAULT_TRUST_SCORES.copy()
+        # YAML override가 있으면 trust.py의 키 검증/마이그레이션 정책을 적용한다.
+        self.trust_scores = resolve_trust(trust_scores)
         self.algorithm = algorithm
 
     def predict_single(self, sample: SimulatedOutput) -> int:

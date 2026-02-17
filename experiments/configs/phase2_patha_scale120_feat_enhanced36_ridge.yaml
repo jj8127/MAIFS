@@ -19,6 +19,7 @@ datasets:
       sub_type: biggan
       max_samples: 120
 split:
+  seed: 300
   train_ratio: 0.6
   val_ratio: 0.2
   test_ratio: 0.2
@@ -97,7 +98,7 @@ repeated_split_defaults:
   - 304
   val_fold_offset: 1
 protocol:
-  active_gate_profile: scale120_conservative
+  active_gate_profile: loss_averse_v1
   baseline_summary: experiments/results/phase2_patha_scale120/phase2_patha_multiseed_summary_scale120_10seeds_42_51_20260216.json
   gate:
     min_runs: 10
@@ -137,5 +138,16 @@ protocol:
       min_improvement_over_baseline: 0.0
       max_sign_test_pvalue: 0.2
       max_pooled_mcnemar_pvalue: 0.1
+    loss_averse_v1:
+      min_runs: 10
+      min_f1_diff_mean: 0.0
+      min_significant_count: 0
+      min_improvement_over_baseline: -0.005
+      max_pooled_mcnemar_pvalue: 0.8
+      max_negative_rate: 0.4
+      max_downside_mean: 0.008
+      max_cvar_downside: 0.02
+      max_worst_case_loss: 0.04
+      downside_cvar_alpha: 0.1
 output:
   save_dir: experiments/results/phase2_patha_scale120_feat_enhanced36_ridge

@@ -71,6 +71,36 @@ def parse_args() -> argparse.Namespace:
         default="0.1,0.2,0.3,0.5,0.7,1.0",
         help="Comma-separated thresholds for max_pooled_mcnemar_pvalue",
     )
+    p.add_argument(
+        "--max-negative-rate-grid",
+        type=str,
+        default="none",
+        help="Comma-separated thresholds for max_negative_rate (use 'none')",
+    )
+    p.add_argument(
+        "--max-downside-mean-grid",
+        type=str,
+        default="none",
+        help="Comma-separated thresholds for max_downside_mean (use 'none')",
+    )
+    p.add_argument(
+        "--max-cvar-downside-grid",
+        type=str,
+        default="none",
+        help="Comma-separated thresholds for max_cvar_downside (use 'none')",
+    )
+    p.add_argument(
+        "--max-worst-case-loss-grid",
+        type=str,
+        default="none",
+        help="Comma-separated thresholds for max_worst_case_loss (use 'none')",
+    )
+    p.add_argument(
+        "--downside-cvar-alpha",
+        type=float,
+        default=0.1,
+        help="Tail ratio alpha for downside CVaR (0 < alpha <= 1)",
+    )
     p.add_argument("--min-runs", type=int, default=10, help="Fixed min_runs constraint")
     p.add_argument("--out", type=str, default="", help="Optional output json path")
     return p.parse_args()
@@ -127,14 +157,26 @@ def _parse_label_set(raw: str) -> List[str]:
     return [x.strip() for x in raw.split(",") if x.strip()]
 
 
-def _sort_key(row: Dict[str, Any]) -> Tuple[float, float, float, float, float]:
+def _sort_key(row: Dict[str, Any]) -> Tuple[float, ...]:
     max_sign = row["profile"]["max_sign_test_pvalue"]
     max_sign_tie = 1.1 if max_sign is None else float(max_sign)
+    max_neg_rate = row["profile"].get("max_negative_rate")
+    max_neg_rate_tie = 1.1 if max_neg_rate is None else float(max_neg_rate)
+    max_downside_mean = row["profile"].get("max_downside_mean")
+    max_downside_mean_tie = 1.1 if max_downside_mean is None else float(max_downside_mean)
+    max_cvar_downside = row["profile"].get("max_cvar_downside")
+    max_cvar_downside_tie = 1.1 if max_cvar_downside is None else float(max_cvar_downside)
+    max_worst_case_loss = row["profile"].get("max_worst_case_loss")
+    max_worst_case_loss_tie = 1.1 if max_worst_case_loss is None else float(max_worst_case_loss)
     return (
         float(row["score"]),
         float(row["profile"]["min_f1_diff_mean"]),
         -max_sign_tie,
         -float(row["profile"]["max_pooled_mcnemar_pvalue"]),
+        -max_neg_rate_tie,
+        -max_downside_mean_tie,
+        -max_cvar_downside_tie,
+        -max_worst_case_loss_tie,
         float(row["profile"]["min_improvement_over_baseline"]),
     )
 
@@ -175,55 +217,77 @@ def main() -> None:
     min_improve_grid = _parse_float_list(args.min_improve_grid)
     max_sign_grid = _parse_optional_float_list(args.max_sign_grid)
     max_pooled_grid = _parse_float_list(args.max_pooled_grid)
+    max_negative_rate_grid = _parse_optional_float_list(args.max_negative_rate_grid)
+    max_downside_mean_grid = _parse_optional_float_list(args.max_downside_mean_grid)
+    max_cvar_downside_grid = _parse_optional_float_list(args.max_cvar_downside_grid)
+    max_worst_case_loss_grid = _parse_optional_float_list(args.max_worst_case_loss_grid)
 
     rows: List[Dict[str, Any]] = []
     for min_f1 in min_f1_grid:
         for min_improve in min_improve_grid:
             for max_sign in max_sign_grid:
                 for max_pooled in max_pooled_grid:
-                    profile = {
-                        "min_runs": int(args.min_runs),
-                        "min_f1_diff_mean": float(min_f1),
-                        "min_significant_count": 0,
-                        "min_improvement_over_baseline": float(min_improve),
-                        "min_positive_seed_count": 0,
-                        "max_sign_test_pvalue": max_sign,
-                        "require_pooled_mcnemar_significant": False,
-                        "max_pooled_mcnemar_pvalue": float(max_pooled),
-                    }
-                    by_label: Dict[str, Any] = {}
-                    pass_ok = 0
-                    fail_ok = 0
-                    for label, summary in summaries.items():
-                        rep = evaluate_gate(candidate=summary, baseline=baseline, **profile)
-                        gate_pass = bool(rep["gate_pass"])
-                        by_label[label] = {
-                            "gate_pass": gate_pass,
-                            "f1_diff_mean": float(rep["candidate"]["aggregate"].get("f1_diff_mean", 0.0)),
-                            "sign_test_pvalue": float(rep["candidate"]["sign_stats"].get("sign_test_pvalue", 1.0)),
-                            "pooled_mcnemar_pvalue": (
-                                None
-                                if rep["candidate"]["pooled_mcnemar"] is None
-                                else float(rep["candidate"]["pooled_mcnemar"].get("pvalue", 1.0))
-                            ),
-                        }
-                        if label in target_pass and gate_pass:
-                            pass_ok += 1
-                        if label in target_fail and not gate_pass:
-                            fail_ok += 1
+                    for max_neg_rate in max_negative_rate_grid:
+                        for max_downside_mean in max_downside_mean_grid:
+                            for max_cvar_downside in max_cvar_downside_grid:
+                                for max_worst_case_loss in max_worst_case_loss_grid:
+                                    profile = {
+                                        "min_runs": int(args.min_runs),
+                                        "min_f1_diff_mean": float(min_f1),
+                                        "min_significant_count": 0,
+                                        "min_improvement_over_baseline": float(min_improve),
+                                        "min_positive_seed_count": 0,
+                                        "max_sign_test_pvalue": max_sign,
+                                        "require_pooled_mcnemar_significant": False,
+                                        "max_pooled_mcnemar_pvalue": float(max_pooled),
+                                        "max_negative_rate": max_neg_rate,
+                                        "max_downside_mean": max_downside_mean,
+                                        "max_cvar_downside": max_cvar_downside,
+                                        "max_worst_case_loss": max_worst_case_loss,
+                                        "downside_cvar_alpha": float(args.downside_cvar_alpha),
+                                    }
+                                    by_label: Dict[str, Any] = {}
+                                    pass_ok = 0
+                                    fail_ok = 0
+                                    for label, summary in summaries.items():
+                                        rep = evaluate_gate(candidate=summary, baseline=baseline, **profile)
+                                        gate_pass = bool(rep["gate_pass"])
+                                        downside = rep["candidate"].get("downside_stats", {})
+                                        by_label[label] = {
+                                            "gate_pass": gate_pass,
+                                            "f1_diff_mean": float(rep["candidate"]["aggregate"].get("f1_diff_mean", 0.0)),
+                                            "sign_test_pvalue": float(
+                                                rep["candidate"]["sign_stats"].get("sign_test_pvalue", 1.0)
+                                            ),
+                                            "pooled_mcnemar_pvalue": (
+                                                None
+                                                if rep["candidate"]["pooled_mcnemar"] is None
+                                                else float(rep["candidate"]["pooled_mcnemar"].get("pvalue", 1.0))
+                                            ),
+                                            "negative_rate": float(downside.get("negative_rate", 0.0)),
+                                            "downside_mean": float(downside.get("downside_mean", 0.0)),
+                                            "cvar_downside": float(downside.get("cvar_downside", 0.0)),
+                                            "worst_case_loss": float(downside.get("worst_case_loss", 0.0)),
+                                        }
+                                        if label in target_pass and gate_pass:
+                                            pass_ok += 1
+                                        if label in target_fail and not gate_pass:
+                                            fail_ok += 1
 
-                    score = pass_ok + fail_ok
-                    row = {
-                        "score": int(score),
-                        "target_pass_ok": int(pass_ok),
-                        "target_fail_ok": int(fail_ok),
-                        "target_pass_total": int(len(target_pass)),
-                        "target_fail_total": int(len(target_fail)),
-                        "all_constraints_satisfied": bool(pass_ok == len(target_pass) and fail_ok == len(target_fail)),
-                        "profile": profile,
-                        "by_label": by_label,
-                    }
-                    rows.append(row)
+                                    score = pass_ok + fail_ok
+                                    row = {
+                                        "score": int(score),
+                                        "target_pass_ok": int(pass_ok),
+                                        "target_fail_ok": int(fail_ok),
+                                        "target_pass_total": int(len(target_pass)),
+                                        "target_fail_total": int(len(target_fail)),
+                                        "all_constraints_satisfied": bool(
+                                            pass_ok == len(target_pass) and fail_ok == len(target_fail)
+                                        ),
+                                        "profile": profile,
+                                        "by_label": by_label,
+                                    }
+                                    rows.append(row)
 
     ranked = sorted(rows, key=_sort_key, reverse=True)
     best = ranked[0]
@@ -242,6 +306,11 @@ def main() -> None:
             "min_improvement_over_baseline": min_improve_grid,
             "max_sign_test_pvalue": max_sign_grid,
             "max_pooled_mcnemar_pvalue": max_pooled_grid,
+            "max_negative_rate": max_negative_rate_grid,
+            "max_downside_mean": max_downside_mean_grid,
+            "max_cvar_downside": max_cvar_downside_grid,
+            "max_worst_case_loss": max_worst_case_loss_grid,
+            "downside_cvar_alpha": float(args.downside_cvar_alpha),
             "min_runs": int(args.min_runs),
         },
         "search_size": len(rows),

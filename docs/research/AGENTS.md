@@ -5,6 +5,7 @@
 `docs/research/` stores long-form technical and research documents:
 - `DAAC_RESEARCH_PLAN.md`
 - `MAIFS_TECHNICAL_THEORY.md`
+- `PHASE2_LOSS_AVERSE_RUNBOOK.md`
 
 ## Tech Stack & Constraints
 
@@ -14,6 +15,7 @@
 ## Implementation Patterns
 
 - Update research docs when algorithmic logic, feature definitions, thresholds, or experiment procedures change.
+- Keep "Latest vs Historical" labels accurate when newer sections are added.
 - Keep terminology aligned with runtime enums and module names.
 - Distinguish clearly between validated results and future plans.
 

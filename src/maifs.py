@@ -22,6 +22,7 @@ from .agents.base_agent import AgentResponse
 from .consensus.cobra import COBRAConsensus, ConsensusResult
 from .debate.debate_chamber import DebateChamber, DebateResult
 from .tools.base_tool import Verdict
+from configs.trust import resolve_trust
 
 
 @dataclass
@@ -122,13 +123,8 @@ class MAIFS:
             "spatial": SpatialAgent(),
         }
 
-        # 에이전트별 신뢰도
-        self.trust_scores: Dict[str, float] = {
-            "frequency": 0.85,
-            "noise": 0.80,
-            "fatformer": 0.85,
-            "spatial": 0.85,
-        }
+        # 에이전트별 신뢰도 (configs/trust.py SSOT)
+        self.trust_scores: Dict[str, float] = resolve_trust()
 
         # 합의 엔진
         self.consensus_engine = COBRAConsensus(

@@ -19,6 +19,7 @@ from __future__ import annotations
 import argparse
 import json
 from datetime import datetime
+from math import ceil
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
@@ -30,6 +31,13 @@ def parse_args() -> argparse.Namespace:
         action="append",
         default=[],
         help="Format: label:path_to_summary_json (repeatable)",
+    )
+    p.add_argument(
+        "--objective",
+        type=str,
+        default="mean_priority",
+        choices=["mean_priority", "loss_averse"],
+        help="Ranking objective: keep legacy mean-first or use downside-risk-first",
     )
     p.add_argument("--out", type=str, default="", help="Optional output report json path")
     return p.parse_args()
@@ -58,6 +66,28 @@ def _extract_metrics(label: str, path: str, summary: Dict[str, Any]) -> Dict[str
     neg = int(agg.get("negative_count", 0))
     zero = int(agg.get("zero_count", 0))
     directional_margin = int(pos - neg)
+    if all(k in agg for k in ("negative_rate", "downside_mean", "cvar_downside", "worst_case_loss")):
+        negative_rate = float(agg.get("negative_rate", 0.0))
+        downside_mean = float(agg.get("downside_mean", 0.0))
+        cvar_downside = float(agg.get("cvar_downside", 0.0))
+        worst_case_loss = float(agg.get("worst_case_loss", 0.0))
+    else:
+        diffs = [float(r.get("f1_diff", 0.0)) for r in summary.get("runs", [])]
+        if diffs:
+            losses = [max(0.0, -d) for d in diffs]
+            sorted_diffs = sorted(diffs)
+            k = max(1, int(ceil(0.1 * len(sorted_diffs))))
+            tail = sorted_diffs[:k]
+            tail_losses = [max(0.0, -d) for d in tail]
+            negative_rate = float(sum(1 for d in diffs if d < 0.0) / len(diffs))
+            downside_mean = float(sum(losses) / len(losses))
+            cvar_downside = float(sum(tail_losses) / len(tail_losses))
+            worst_case_loss = float(max(losses))
+        else:
+            negative_rate = 0.0
+            downside_mean = 0.0
+            cvar_downside = 0.0
+            worst_case_loss = 0.0
     return {
         "label": label,
         "summary_path": path,
@@ -72,10 +102,14 @@ def _extract_metrics(label: str, path: str, summary: Dict[str, Any]) -> Dict[str
         "pooled_mcnemar_pvalue": float(agg.get("pooled_mcnemar_pvalue", 1.0))
         if agg.get("pooled_mcnemar_pvalue") is not None
         else 1.0,
+        "negative_rate": negative_rate,
+        "downside_mean": downside_mean,
+        "cvar_downside": cvar_downside,
+        "worst_case_loss": worst_case_loss,
     }
 
 
-def _rank_key(row: Dict[str, Any]) -> Tuple[float, float, float, float, float]:
+def _rank_key(row: Dict[str, Any], objective: str) -> Tuple[float, ...]:
     """
     우선순위:
         1) f1_diff_mean 높을수록 좋음
@@ -84,6 +118,19 @@ def _rank_key(row: Dict[str, Any]) -> Tuple[float, float, float, float, float]:
         4) f1_diff_std 낮을수록 좋음
         5) pooled_mcnemar_pvalue 낮을수록 좋음
     """
+    if objective == "loss_averse":
+        return (
+            -float(row["downside_mean"]),
+            -float(row["negative_rate"]),
+            -float(row["cvar_downside"]),
+            -float(row["worst_case_loss"]),
+            float(row["f1_diff_mean"]),
+            -float(row["sign_test_pvalue"]),
+            float(row["directional_margin"]),
+            -float(row["f1_diff_std"]),
+            -float(row["pooled_mcnemar_pvalue"]),
+        )
+
     return (
         float(row["f1_diff_mean"]),
         -float(row["sign_test_pvalue"]),
@@ -93,11 +140,32 @@ def _rank_key(row: Dict[str, Any]) -> Tuple[float, float, float, float, float]:
     )
 
 
-def _recommend(candidates: List[Dict[str, Any]]) -> Dict[str, Any]:
+def _recommend(candidates: List[Dict[str, Any]], objective: str = "mean_priority") -> Dict[str, Any]:
     if not candidates:
         raise ValueError("no candidates")
-    ranked = sorted(candidates, key=_rank_key, reverse=True)
+    ranked = sorted(candidates, key=lambda x: _rank_key(x, objective=objective), reverse=True)
     winner = ranked[0]
+    if objective == "loss_averse":
+        decision_order = [
+            "min downside_mean",
+            "min negative_rate",
+            "min cvar_downside",
+            "min worst_case_loss",
+            "max f1_diff_mean",
+            "min sign_test_pvalue",
+            "max directional_margin (positive_count - negative_count)",
+            "min f1_diff_std",
+            "min pooled_mcnemar_pvalue",
+        ]
+    else:
+        decision_order = [
+            "max f1_diff_mean",
+            "min sign_test_pvalue",
+            "max directional_margin (positive_count - negative_count)",
+            "min f1_diff_std",
+            "min pooled_mcnemar_pvalue",
+        ]
+
     return {
         "recommended_label": winner["label"],
         "recommended_summary_path": winner["summary_path"],
@@ -105,13 +173,8 @@ def _recommend(candidates: List[Dict[str, Any]]) -> Dict[str, Any]:
         "winner_metrics": winner,
         "decision_rule": {
             "type": "lexicographic",
-            "order": [
-                "max f1_diff_mean",
-                "min sign_test_pvalue",
-                "max directional_margin (positive_count - negative_count)",
-                "min f1_diff_std",
-                "min pooled_mcnemar_pvalue",
-            ],
+            "objective": objective,
+            "order": decision_order,
         },
     }
 
@@ -130,7 +193,7 @@ def main() -> None:
         summary = _load_json(path)
         rows.append(_extract_metrics(label=label, path=path, summary=summary))
 
-    recommendation = _recommend(rows)
+    recommendation = _recommend(rows, objective=str(args.objective))
     payload = {
         "timestamp": datetime.now().isoformat(),
         "candidates": rows,

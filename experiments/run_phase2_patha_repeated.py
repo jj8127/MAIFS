@@ -21,7 +21,7 @@ import json
 import sys
 from copy import deepcopy
 from datetime import datetime
-from math import comb, erfc, sqrt
+from math import ceil, comb, erfc, sqrt
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -189,6 +189,7 @@ def _load_json(path: str) -> Dict[str, Any]:
 
 
 def _normalize_gate_profile(cfg: Dict[str, Any]) -> Dict[str, Any]:
+    raw_alpha = cfg.get("downside_cvar_alpha", 0.1)
     return {
         "min_runs": int(cfg.get("min_runs", 10)),
         "min_f1_diff_mean": float(cfg.get("min_f1_diff_mean", 0.01)),
@@ -198,6 +199,43 @@ def _normalize_gate_profile(cfg: Dict[str, Any]) -> Dict[str, Any]:
         "max_sign_test_pvalue": cfg.get("max_sign_test_pvalue", None),
         "require_pooled_mcnemar_significant": bool(cfg.get("require_pooled_mcnemar_significant", False)),
         "max_pooled_mcnemar_pvalue": cfg.get("max_pooled_mcnemar_pvalue", None),
+        "max_negative_rate": cfg.get("max_negative_rate", None),
+        "max_downside_mean": cfg.get("max_downside_mean", None),
+        "max_cvar_downside": cfg.get("max_cvar_downside", None),
+        "max_worst_case_loss": cfg.get("max_worst_case_loss", None),
+        "downside_cvar_alpha": float(0.1 if raw_alpha is None else raw_alpha),
+    }
+
+
+def _downside_stats(f1_diffs: np.ndarray, cvar_alpha: float = 0.1) -> Dict[str, float]:
+    alpha = float(cvar_alpha)
+    if alpha <= 0.0 or alpha > 1.0:
+        raise ValueError(f"cvar_alpha must satisfy 0 < alpha <= 1, got {alpha}")
+
+    n = int(f1_diffs.size)
+    if n <= 0:
+        return {
+            "negative_rate": 0.0,
+            "downside_mean": 0.0,
+            "cvar_downside": 0.0,
+            "cvar_f1_diff": 0.0,
+            "worst_case_loss": 0.0,
+            "downside_cvar_alpha": alpha,
+        }
+
+    losses = np.maximum(0.0, -f1_diffs)
+    worst_case = float(np.max(losses))
+    k = min(n, max(1, int(ceil(alpha * n))))
+    tail = np.sort(f1_diffs)[:k]
+    tail_losses = np.maximum(0.0, -tail)
+
+    return {
+        "negative_rate": float(np.mean(f1_diffs < 0.0)),
+        "downside_mean": float(np.mean(losses)),
+        "cvar_downside": float(np.mean(tail_losses)),
+        "cvar_f1_diff": float(np.mean(tail)),
+        "worst_case_loss": worst_case,
+        "downside_cvar_alpha": alpha,
     }
 
 
@@ -408,6 +446,7 @@ def main() -> None:
     zero_count = int(np.sum(f1_diffs == 0.0))
     sign_pvalue = _exact_sign_test_two_sided(pos_count, neg_count)
     pooled = _pooled_mcnemar_from_runs(runs)
+    downside = _downside_stats(f1_diffs, cvar_alpha=0.1)
 
     summary = {
         "timestamp": datetime.now().isoformat(),
@@ -433,6 +472,7 @@ def main() -> None:
             "negative_count": neg_count,
             "zero_count": zero_count,
             "sign_test_pvalue": sign_pvalue,
+            **downside,
         },
     }
 

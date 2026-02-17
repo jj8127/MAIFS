@@ -21,9 +21,9 @@ from __future__ import annotations
 import argparse
 import json
 from datetime import datetime
-from math import comb, erfc, sqrt
+from math import ceil, comb, erfc, sqrt
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 
 
 def _load_json(path: str) -> Dict[str, Any]:
@@ -82,6 +82,36 @@ def parse_args() -> argparse.Namespace:
         type=float,
         default=None,
         help="Optional upper bound for pooled McNemar p-value",
+    )
+    p.add_argument(
+        "--max-negative-rate",
+        type=float,
+        default=None,
+        help="Optional upper bound for negative-rate (#runs with f1_diff<0 / n_runs)",
+    )
+    p.add_argument(
+        "--max-downside-mean",
+        type=float,
+        default=None,
+        help="Optional upper bound for downside mean E[max(0, -f1_diff)]",
+    )
+    p.add_argument(
+        "--max-cvar-downside",
+        type=float,
+        default=None,
+        help="Optional upper bound for downside CVaR_alpha over worst f1_diff tail",
+    )
+    p.add_argument(
+        "--max-worst-case-loss",
+        type=float,
+        default=None,
+        help="Optional upper bound for worst-case loss max(0, -min(f1_diff))",
+    )
+    p.add_argument(
+        "--downside-cvar-alpha",
+        type=float,
+        default=0.1,
+        help="Tail ratio alpha for downside CVaR (0 < alpha <= 1)",
     )
     p.add_argument("--out", type=str, default="", help="Optional output report json path")
     return p.parse_args()
@@ -176,6 +206,79 @@ def _extract_pooled_mcnemar(summary: Dict[str, Any]) -> Optional[Dict[str, Any]]
     }
 
 
+def _collect_f1_diffs(summary: Dict[str, Any]) -> List[float]:
+    runs = summary.get("runs", [])
+    return [float(r.get("f1_diff", 0.0)) for r in runs]
+
+
+def _compute_downside_stats_from_diffs(diffs: List[float], cvar_alpha: float) -> Dict[str, Any]:
+    alpha = float(cvar_alpha)
+    if alpha <= 0.0 or alpha > 1.0:
+        raise ValueError(f"downside_cvar_alpha must satisfy 0 < alpha <= 1, got {alpha}")
+
+    n = len(diffs)
+    if n <= 0:
+        return {
+            "negative_rate": 0.0,
+            "downside_mean": 0.0,
+            "cvar_downside": 0.0,
+            "cvar_f1_diff": 0.0,
+            "worst_case_loss": 0.0,
+            "cvar_alpha": alpha,
+            "source": "empty",
+        }
+
+    negatives = [d for d in diffs if d < 0.0]
+    losses = [max(0.0, -d) for d in diffs]
+    worst_case_loss = max(losses)
+
+    k = max(1, int(ceil(alpha * n)))
+    k = min(k, n)
+    tail = sorted(diffs)[:k]
+    tail_losses = [max(0.0, -d) for d in tail]
+
+    return {
+        "negative_rate": float(len(negatives) / n),
+        "downside_mean": float(sum(losses) / n),
+        "cvar_downside": float(sum(tail_losses) / k),
+        "cvar_f1_diff": float(sum(tail) / k),
+        "worst_case_loss": float(worst_case_loss),
+        "cvar_alpha": alpha,
+        "source": "runs",
+    }
+
+
+def _extract_downside_stats(summary: Dict[str, Any], cvar_alpha: float) -> Dict[str, Any]:
+    agg = summary.get("aggregate", {})
+    alpha = float(cvar_alpha)
+    agg_alpha = agg.get("downside_cvar_alpha")
+    alpha_matches = agg_alpha is not None and abs(float(agg_alpha) - alpha) <= 1e-12
+
+    has_agg_downside = all(
+        k in agg
+        for k in (
+            "negative_rate",
+            "downside_mean",
+            "cvar_downside",
+            "cvar_f1_diff",
+            "worst_case_loss",
+        )
+    )
+    if has_agg_downside and alpha_matches:
+        return {
+            "negative_rate": float(agg.get("negative_rate", 0.0)),
+            "downside_mean": float(agg.get("downside_mean", 0.0)),
+            "cvar_downside": float(agg.get("cvar_downside", 0.0)),
+            "cvar_f1_diff": float(agg.get("cvar_f1_diff", 0.0)),
+            "worst_case_loss": float(agg.get("worst_case_loss", 0.0)),
+            "cvar_alpha": alpha,
+            "source": "aggregate",
+        }
+
+    diffs = _collect_f1_diffs(summary)
+    return _compute_downside_stats_from_diffs(diffs, cvar_alpha=alpha)
+
+
 def evaluate_gate(
     candidate: Dict[str, Any],
     baseline: Optional[Dict[str, Any]] = None,
@@ -188,6 +291,11 @@ def evaluate_gate(
     max_sign_test_pvalue: Optional[float] = None,
     require_pooled_mcnemar_significant: bool = False,
     max_pooled_mcnemar_pvalue: Optional[float] = None,
+    max_negative_rate: Optional[float] = None,
+    max_downside_mean: Optional[float] = None,
+    max_cvar_downside: Optional[float] = None,
+    max_worst_case_loss: Optional[float] = None,
+    downside_cvar_alpha: float = 0.1,
 ) -> Dict[str, Any]:
     """
     candidate/baseline summary dict를 기준으로 게이트 판정을 수행한다.
@@ -200,6 +308,7 @@ def evaluate_gate(
     cand_sig = int(cand_agg.get("significant_count", 0))
     sign_stats = _extract_sign_stats(candidate)
     pooled_mcnemar = _extract_pooled_mcnemar(candidate)
+    downside_stats = _extract_downside_stats(candidate, cvar_alpha=downside_cvar_alpha)
 
     checks = []
     checks.append(
@@ -279,6 +388,42 @@ def evaluate_gate(
                 "required": float(max_pooled_mcnemar_pvalue),
             }
         )
+    if max_negative_rate is not None:
+        checks.append(
+            {
+                "name": "max_negative_rate",
+                "pass": float(downside_stats["negative_rate"]) <= float(max_negative_rate),
+                "actual": float(downside_stats["negative_rate"]),
+                "required": float(max_negative_rate),
+            }
+        )
+    if max_downside_mean is not None:
+        checks.append(
+            {
+                "name": "max_downside_mean",
+                "pass": float(downside_stats["downside_mean"]) <= float(max_downside_mean),
+                "actual": float(downside_stats["downside_mean"]),
+                "required": float(max_downside_mean),
+            }
+        )
+    if max_cvar_downside is not None:
+        checks.append(
+            {
+                "name": "max_cvar_downside",
+                "pass": float(downside_stats["cvar_downside"]) <= float(max_cvar_downside),
+                "actual": float(downside_stats["cvar_downside"]),
+                "required": float(max_cvar_downside),
+            }
+        )
+    if max_worst_case_loss is not None:
+        checks.append(
+            {
+                "name": "max_worst_case_loss",
+                "pass": float(downside_stats["worst_case_loss"]) <= float(max_worst_case_loss),
+                "actual": float(downside_stats["worst_case_loss"]),
+                "required": float(max_worst_case_loss),
+            }
+        )
 
     gate_pass = all(bool(c["pass"]) for c in checks)
     return {
@@ -291,12 +436,18 @@ def evaluate_gate(
             "max_sign_test_pvalue": max_sign_test_pvalue,
             "require_pooled_mcnemar_significant": bool(require_pooled_mcnemar_significant),
             "max_pooled_mcnemar_pvalue": max_pooled_mcnemar_pvalue,
+            "max_negative_rate": max_negative_rate,
+            "max_downside_mean": max_downside_mean,
+            "max_cvar_downside": max_cvar_downside,
+            "max_worst_case_loss": max_worst_case_loss,
+            "downside_cvar_alpha": float(downside_cvar_alpha),
         },
         "candidate": {
             "n_runs": n_runs,
             "aggregate": cand_agg,
             "sign_stats": sign_stats,
             "pooled_mcnemar": pooled_mcnemar,
+            "downside_stats": downside_stats,
         },
         "baseline": {
             "aggregate": base_agg,
@@ -324,6 +475,11 @@ def main() -> None:
         max_sign_test_pvalue=args.max_sign_test_pvalue,
         require_pooled_mcnemar_significant=bool(args.require_pooled_mcnemar_significant),
         max_pooled_mcnemar_pvalue=args.max_pooled_mcnemar_pvalue,
+        max_negative_rate=args.max_negative_rate,
+        max_downside_mean=args.max_downside_mean,
+        max_cvar_downside=args.max_cvar_downside,
+        max_worst_case_loss=args.max_worst_case_loss,
+        downside_cvar_alpha=float(args.downside_cvar_alpha),
     )
     report = {
         "timestamp": datetime.now().isoformat(),

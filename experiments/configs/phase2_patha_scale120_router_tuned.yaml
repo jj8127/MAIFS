@@ -24,6 +24,7 @@ datasets:
       max_samples: 120
 
 split:
+  seed: 300
   train_ratio: 0.6
   val_ratio: 0.2
   test_ratio: 0.2

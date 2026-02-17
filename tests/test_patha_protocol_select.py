@@ -46,3 +46,45 @@ def test_recommend_prefers_higher_f1_then_lower_sign_p():
     rec = _recommend(candidates)
     assert rec["recommended_label"] == "kfold25"
     assert rec["ranking"] == ["kfold25", "random25"]
+
+
+def test_recommend_loss_averse_prefers_lower_downside_risk():
+    candidates = [
+        {
+            "label": "mean_high_risk",
+            "summary_path": "a.json",
+            "n_runs": 25,
+            "f1_diff_mean": 0.004,
+            "f1_diff_std": 0.03,
+            "positive_count": 13,
+            "negative_count": 12,
+            "zero_count": 0,
+            "directional_margin": 1,
+            "sign_test_pvalue": 0.8,
+            "pooled_mcnemar_pvalue": 0.8,
+            "negative_rate": 0.48,
+            "downside_mean": 0.011,
+            "cvar_downside": 0.03,
+            "worst_case_loss": 0.05,
+        },
+        {
+            "label": "mean_mid_safe",
+            "summary_path": "b.json",
+            "n_runs": 25,
+            "f1_diff_mean": 0.001,
+            "f1_diff_std": 0.01,
+            "positive_count": 12,
+            "negative_count": 10,
+            "zero_count": 3,
+            "directional_margin": 2,
+            "sign_test_pvalue": 0.3,
+            "pooled_mcnemar_pvalue": 0.6,
+            "negative_rate": 0.30,
+            "downside_mean": 0.004,
+            "cvar_downside": 0.012,
+            "worst_case_loss": 0.02,
+        },
+    ]
+    rec = _recommend(candidates, objective="loss_averse")
+    assert rec["recommended_label"] == "mean_mid_safe"
+    assert rec["ranking"] == ["mean_mid_safe", "mean_high_risk"]

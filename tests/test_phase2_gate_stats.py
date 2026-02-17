@@ -131,6 +131,72 @@ def test_evaluate_gate_can_require_pooled_mcnemar_significance():
     assert report["gate_pass"] is False
 
 
+def test_evaluate_gate_downside_constraints_fail_when_losses_are_large():
+    candidate = {
+        "n_runs": 4,
+        "aggregate": {
+            "f1_diff_mean": -0.01,
+            "significant_count": 0,
+        },
+        "runs": [
+            {"f1_diff": 0.01},
+            {"f1_diff": -0.02},
+            {"f1_diff": -0.03},
+            {"f1_diff": 0.0},
+        ],
+    }
+    report = evaluate_gate(
+        candidate=candidate,
+        baseline=None,
+        min_runs=4,
+        min_f1_diff_mean=-1.0,
+        min_significant_count=0,
+        max_negative_rate=0.25,
+        max_downside_mean=0.01,
+        max_cvar_downside=0.025,
+        max_worst_case_loss=0.04,
+        downside_cvar_alpha=0.25,
+    )
+    assert report["gate_pass"] is False
+    checks = {c["name"]: c for c in report["checks"]}
+    assert checks["max_negative_rate"]["pass"] is False
+    assert math.isclose(checks["max_negative_rate"]["actual"], 0.5, rel_tol=1e-9, abs_tol=1e-12)
+
+
+def test_evaluate_gate_downside_constraints_can_pass():
+    candidate = {
+        "n_runs": 4,
+        "aggregate": {
+            "f1_diff_mean": 0.01125,
+            "significant_count": 0,
+        },
+        "runs": [
+            {"f1_diff": 0.03},
+            {"f1_diff": 0.02},
+            {"f1_diff": -0.005},
+            {"f1_diff": 0.0},
+        ],
+    }
+    report = evaluate_gate(
+        candidate=candidate,
+        baseline=None,
+        min_runs=4,
+        min_f1_diff_mean=0.0,
+        min_significant_count=0,
+        max_negative_rate=0.4,
+        max_downside_mean=0.002,
+        max_cvar_downside=0.006,
+        max_worst_case_loss=0.01,
+        downside_cvar_alpha=0.25,
+    )
+    assert report["gate_pass"] is True
+    downside = report["candidate"]["downside_stats"]
+    assert math.isclose(downside["negative_rate"], 0.25, rel_tol=1e-9, abs_tol=1e-12)
+    assert math.isclose(downside["downside_mean"], 0.00125, rel_tol=1e-9, abs_tol=1e-12)
+    assert math.isclose(downside["cvar_downside"], 0.005, rel_tol=1e-9, abs_tol=1e-12)
+    assert math.isclose(downside["worst_case_loss"], 0.005, rel_tol=1e-9, abs_tol=1e-12)
+
+
 def test_parse_profiles_success():
     assert _parse_profiles("strict,sign_driven") == ["strict", "sign_driven"]
 

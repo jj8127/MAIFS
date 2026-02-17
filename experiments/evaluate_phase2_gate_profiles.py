@@ -58,6 +58,21 @@ PROFILE_PRESETS: Dict[str, Dict[str, Any]] = {
         "require_pooled_mcnemar_significant": False,
         "max_pooled_mcnemar_pvalue": 0.10,
     },
+    "loss_averse": {
+        "min_runs": 10,
+        "min_f1_diff_mean": 0.0,
+        "min_significant_count": 0,
+        "min_improvement_over_baseline": -0.005,
+        "min_positive_seed_count": 0,
+        "max_sign_test_pvalue": None,
+        "require_pooled_mcnemar_significant": False,
+        "max_pooled_mcnemar_pvalue": 0.8,
+        "max_negative_rate": 0.40,
+        "max_downside_mean": 0.008,
+        "max_cvar_downside": 0.020,
+        "max_worst_case_loss": 0.040,
+        "downside_cvar_alpha": 0.1,
+    },
 }
 
 
@@ -130,6 +145,9 @@ def _profiles_from_config(config: Dict[str, Any]) -> Dict[str, Dict[str, Any]]:
     """
     protocol = config.get("protocol", {})
     presets = protocol.get("gate_profiles")
+    def _alpha(v: Any) -> float:
+        return float(0.1 if v is None else v)
+
     if isinstance(presets, dict) and presets:
         out: Dict[str, Dict[str, Any]] = {}
         for name, cfg in presets.items():
@@ -144,6 +162,11 @@ def _profiles_from_config(config: Dict[str, Any]) -> Dict[str, Dict[str, Any]]:
                 "max_sign_test_pvalue": cfg.get("max_sign_test_pvalue", None),
                 "require_pooled_mcnemar_significant": bool(cfg.get("require_pooled_mcnemar_significant", False)),
                 "max_pooled_mcnemar_pvalue": cfg.get("max_pooled_mcnemar_pvalue", None),
+                "max_negative_rate": cfg.get("max_negative_rate", None),
+                "max_downside_mean": cfg.get("max_downside_mean", None),
+                "max_cvar_downside": cfg.get("max_cvar_downside", None),
+                "max_worst_case_loss": cfg.get("max_worst_case_loss", None),
+                "downside_cvar_alpha": _alpha(cfg.get("downside_cvar_alpha", 0.1)),
             }
         if out:
             return out
@@ -160,6 +183,11 @@ def _profiles_from_config(config: Dict[str, Any]) -> Dict[str, Dict[str, Any]]:
                 "max_sign_test_pvalue": gate.get("max_sign_test_pvalue", None),
                 "require_pooled_mcnemar_significant": bool(gate.get("require_pooled_mcnemar_significant", False)),
                 "max_pooled_mcnemar_pvalue": gate.get("max_pooled_mcnemar_pvalue", None),
+                "max_negative_rate": gate.get("max_negative_rate", None),
+                "max_downside_mean": gate.get("max_downside_mean", None),
+                "max_cvar_downside": gate.get("max_cvar_downside", None),
+                "max_worst_case_loss": gate.get("max_worst_case_loss", None),
+                "downside_cvar_alpha": _alpha(gate.get("downside_cvar_alpha", 0.1)),
             }
         }
 
