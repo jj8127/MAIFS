@@ -241,9 +241,23 @@ src/meta/
 └── ablation.py          # 6가지 feature set ablation runner
 
 experiments/
-├── run_phase1.py        # Phase 1 전체 파이프라인 실행 스크립트
+├── run_phase1.py        # Phase 1 (Path B) 전체 파이프라인
+├── run_phase2.py        # Phase 2 (Path B) adaptive routing
+├── run_phase2_patha.py  # Phase 2 (Path A) real-data collector + proxy router
+├── run_phase2_patha_multiseed.py  # Path A 멀티시드 실행기
+├── run_phase2_patha_repeated.py   # Path A repeated-kfold 실행기
+├── evaluate_phase2_gate_profiles.py   # gate profile 평가기
+├── analyze_patha_guard_sensitivity.py # guard 민감도/실패 패턴 진단
 └── configs/
-    └── phase1.yaml      # 데이터셋 경로, 하이퍼파라미터, split 설정
+    ├── phase1.yaml
+    ├── phase2.yaml
+    ├── phase2_patha.yaml
+    ├── phase2_patha_scale120.yaml
+    ├── phase2_patha_scale120_router_tuned.yaml
+    ├── phase2_patha_scale120_oracle_p15_ls005.yaml
+    ├── phase2_patha_scale120_oracle_p20_ls005.yaml
+    ├── phase2_patha_scale120_oracle_p25_ls005.yaml
+    └── phase2_patha_scale120_feat_risk52_oracle_lossaverse_guard_valselect_tunec.yaml
 ```
 
 ## 7. 리뷰어별 대응 전략
@@ -315,7 +329,7 @@ experiments/
 - **Phase 1-A**: 실제 에이전트 collector(`src/meta/collector.py`) 연동 후 실데이터 재실행
 - **Phase 2**: Adaptive Routing — 이미지 특성 기반 동적 가중치 생성
 
-### 8.7 Phase 1-C 재학습 결과 (2026-02-13, Latest)
+### 8.7 Phase 1-C 재학습 결과 (2026-02-13, Historical)
 
 > CAT-Net + Mesorch 반영 후, 실제 에이전트 출력 분포로 보정한 시뮬레이터 프로파일(`agent_profiles`)을 사용해 재학습.
 > 학습 실행은 GPU 경로(`xgboost/cuda`, `torch/cuda`)로 수행.
@@ -353,14 +367,499 @@ experiments/
 3. A4(verdict+confidence)와 A5(full)의 간극이 작아, disagreement 특징은 "보조 강화" 역할이 강함.
 4. Phase 2 착수 조건은 최신 런 기준으로 충족.
 
+### 8.8 Phase 2-A Path A 통합 및 멀티시드 파일럿 (2026-02-16)
+
+실데이터 collector 기반 Path A 실행 파이프라인을 통합하고, 동일 샘플 플랜(클래스당 60, 총 180)으로 멀티시드(5회) 파일럿을 수행했다.
+
+- 실행 스크립트: `experiments/run_phase2_patha.py`
+- 설정 파일: `experiments/configs/phase2_patha.yaml`
+- 단일 런 예시:
+  - `experiments/results/phase2_patha/phase2_patha_results_20260216_100804.json`
+- 멀티시드 집계:
+  - `experiments/results/phase2_patha/phase2_patha_multiseed_summary_20260216_101723.json`
+  - seeds: `[42, 43, 44, 45, 46]`
+
+집계 요약(best Phase2 vs best Phase1):
+
+| 항목 | 값 |
+|------|----|
+| Phase1 best Macro-F1 (mean ± std) | 0.8213 ± 0.0548 |
+| Phase2 best Macro-F1 (mean ± std) | 0.8109 ± 0.0620 |
+| ΔF1 = Phase2 - Phase1 (mean ± std) | -0.0105 ± 0.0128 |
+| ΔF1 범위 | [-0.0272, 0.0000] |
+| McNemar 유의 런 수 | 0 / 5 |
+
+해석:
+
+1. Path A 소규모 샘플 플랜에서는 Phase2가 Phase1 대비 일관된 유의 개선을 보이지 않았다.
+2. 현재 결과는 "Path A에서 adaptive routing 개선 효과는 추가 검증 필요"로 해석하는 것이 타당하다.
+3. 다음 액션은 sample scale-up 및 multi-seed 반복으로 분산 축소와 신뢰구간 정밀화를 우선한다.
+
+### 8.9 Phase 2-A Path A scale-up 멀티시드 (2026-02-16)
+
+파일럿(60/class) 이후 클래스당 샘플 수를 120으로 확장해 멀티시드(5회)를 재실행했다.
+
+- 실행 스크립트: `experiments/run_phase2_patha_multiseed.py`
+- 설정 파일: `experiments/configs/phase2_patha_scale120.yaml`
+- 실행 명령:
+  - `.venv-qwen/bin/python experiments/run_phase2_patha_multiseed.py experiments/configs/phase2_patha_scale120.yaml --seeds 42,43,44,45,46`
+- 멀티시드 집계:
+  - `experiments/results/phase2_patha_scale120/phase2_patha_multiseed_summary_20260216_102607.json`
+
+집계 요약(best Phase2 vs best Phase1):
+
+| 항목 | 값 |
+|------|----|
+| Phase1 best Macro-F1 (mean ± std) | 0.8368 ± 0.0339 |
+| Phase2 best Macro-F1 (mean ± std) | 0.8399 ± 0.0273 |
+| ΔF1 = Phase2 - Phase1 (mean ± std) | +0.0031 ± 0.0216 |
+| ΔF1 범위 | [-0.0292, +0.0275] |
+| McNemar 유의 런 수 | 0 / 5 |
+
+해석:
+
+1. sample scale-up 후 평균 성능 차이는 음수에서 소폭 양수로 이동했으나 통계적 유의 개선은 아직 확보되지 않았다.
+2. 시드별 편차는 여전히 존재하며, 개선/악화 런이 혼재한다.
+3. 다음 액션은 seed 수 확장(n>=10)과 router 정규화/하이퍼파라미터 튜닝을 병행해 안정성 및 유의성을 재검증하는 것이다.
+
+### 8.10 Phase 2-A Path A scale120 seed 확장 (2026-02-16)
+
+scale120 baseline을 10 seeds(42~51)로 확장해 분산 축소와 평균 추세를 점검했다.
+
+- 실행 스크립트: `experiments/run_phase2_patha_multiseed.py`
+- 설정 파일: `experiments/configs/phase2_patha_scale120.yaml`
+- 실행 명령:
+  - `.venv-qwen/bin/python experiments/run_phase2_patha_multiseed.py experiments/configs/phase2_patha_scale120.yaml --seeds 42,43,44,45,46,47,48,49,50,51 --summary-out experiments/results/phase2_patha_scale120/phase2_patha_multiseed_summary_scale120_10seeds_42_51_20260216.json`
+- 멀티시드 집계:
+  - `experiments/results/phase2_patha_scale120/phase2_patha_multiseed_summary_scale120_10seeds_42_51_20260216.json`
+
+집계 요약(best Phase2 vs best Phase1):
+
+| 항목 | 값 |
+|------|----|
+| Phase1 best Macro-F1 (mean ± std) | 0.8410 ± 0.0375 |
+| Phase2 best Macro-F1 (mean ± std) | 0.8447 ± 0.0373 |
+| ΔF1 = Phase2 - Phase1 (mean ± std) | +0.0037 ± 0.0166 |
+| ΔF1 범위 | [-0.0272, +0.0349] |
+| McNemar 유의 런 수 | 0 / 10 |
+
+해석:
+
+1. seed를 10개로 확장해도 평균 개선은 소폭(+0.0037)에 그치며 통계적 유의 개선은 확보되지 않았다.
+2. 다만 5-seed 대비 ΔF1 분산이 줄어(0.0216 -> 0.0166) 추정 안정성은 개선됐다.
+
+### 8.11 Phase 2-A Router tuned 파일럿 (2026-02-16, Historical)
+
+router 변동성 완화를 목표로 정규화 강화/모델 축소 설정을 파일럿(5 seeds, 42~46)으로 검증했다.
+
+- 설정 파일: `experiments/configs/phase2_patha_scale120_router_tuned.yaml`
+- 핵심 변경:
+  - `hidden_layer_sizes`: `[32, 16]`
+  - `alpha`: `5.0e-3`
+  - `learning_rate_init`: `5.0e-4`
+  - `max_iter`: `700`
+  - `validation_fraction`: `0.2`
+  - `n_iter_no_change`: `30`
+- 실행 명령:
+  - `.venv-qwen/bin/python experiments/run_phase2_patha_multiseed.py experiments/configs/phase2_patha_scale120_router_tuned.yaml --seeds 42,43,44,45,46 --summary-out experiments/results/phase2_patha_scale120_router_tuned/phase2_patha_multiseed_summary_router_tuned_5seeds_42_46_20260216.json`
+- 멀티시드 집계:
+  - `experiments/results/phase2_patha_scale120_router_tuned/phase2_patha_multiseed_summary_router_tuned_5seeds_42_46_20260216.json`
+
+집계 요약(best Phase2 vs best Phase1):
+
+| 항목 | 값 |
+|------|----|
+| Phase1 best Macro-F1 (mean ± std) | 0.8428 ± 0.0246 |
+| Phase2 best Macro-F1 (mean ± std) | 0.8315 ± 0.0320 |
+| ΔF1 = Phase2 - Phase1 (mean ± std) | -0.0113 ± 0.0197 |
+| ΔF1 범위 | [-0.0448, +0.0139] |
+| McNemar 유의 런 수 | 0 / 5 |
+
+해석:
+
+1. 현재 tuned 설정은 baseline 대비 평균 성능이 악화되어 채택하지 않는다.
+2. 특히 seed 45에서 큰 하락(-0.0448)이 관찰돼 안정성 개선 목적에 부합하지 않았다.
+3. 다음 튜닝은 router 구조 단순화보다 oracle target/feature 품질 개선 방향으로 우선 전환한다.
+
+### 8.12 Phase 2-A Oracle power/smoothing 그리드 (2026-02-16)
+
+`oracle power`와 `label smoothing`을 분리 검증하기 위해 `ls=0.05` 고정 하에 power 3개를 먼저 비교했다.
+
+- 코드 반영:
+  - `src/meta/router.py`: `OracleWeightConfig.label_smoothing` 추가
+  - `experiments/run_phase2.py`, `experiments/run_phase2_patha.py`: `router.oracle.label_smoothing` 설정 전달
+- 비교 설정(5 seeds, 42~46):
+  - `experiments/configs/phase2_patha_scale120_oracle_p15_ls005.yaml`
+  - `experiments/configs/phase2_patha_scale120_oracle_p20_ls005.yaml`
+  - `experiments/configs/phase2_patha_scale120_oracle_p25_ls005.yaml`
+
+집계 요약(best Phase2 vs best Phase1):
+
+| 설정 | 요약 파일 | ΔF1 mean ± std | ΔF1 범위 | 유의 run |
+|------|-----------|----------------|----------|----------|
+| baseline (`power=2.0`, `ls=0.0`) | `experiments/results/phase2_patha_scale120/phase2_patha_multiseed_summary_20260216_102607.json` | +0.0031 ± 0.0216 | [-0.0292, +0.0275] | 0/5 |
+| `power=1.5`, `ls=0.05` | `experiments/results/phase2_patha_scale120_oracle_p15_ls005/summary_5seeds_42_46.json` | +0.0142 ± 0.0099 | [-0.0034, +0.0273] | 0/5 |
+| `power=2.0`, `ls=0.05` | `experiments/results/phase2_patha_scale120_oracle_p20_ls005/summary_5seeds_42_46.json` | +0.0078 ± 0.0223 | [-0.0311, +0.0298] | 0/5 |
+| `power=2.5`, `ls=0.05` | `experiments/results/phase2_patha_scale120_oracle_p25_ls005/summary_5seeds_42_46.json` | +0.0003 ± 0.0126 | [-0.0153, +0.0145] | 0/5 |
+
+해석:
+
+1. 5-seed 파일럿에서는 `power=1.5, ls=0.05`가 상대적으로 가장 안정적/우수해 보였다.
+2. 다만 모든 설정에서 통계적 유의 개선(run-level)은 확인되지 않았다.
+
+### 8.13 Phase 2-A Oracle best-candidate seed10 검증 (2026-02-16, Historical)
+
+5-seed 파일럿 우선 후보(`power=1.5`, `ls=0.05`)를 baseline과 동일 시드(42~51)로 확장 검증했다.
+
+- 실행 명령:
+  - `.venv-qwen/bin/python experiments/run_phase2_patha_multiseed.py experiments/configs/phase2_patha_scale120_oracle_p15_ls005.yaml --seeds 42,43,44,45,46,47,48,49,50,51 --summary-out experiments/results/phase2_patha_scale120_oracle_p15_ls005/summary_10seeds_42_51.json`
+- 결과 파일:
+  - `experiments/results/phase2_patha_scale120_oracle_p15_ls005/summary_10seeds_42_51.json`
+
+baseline seed10 대비:
+
+| 설정 | ΔF1 mean ± std | ΔF1 범위 | 유의 run |
+|------|----------------|----------|----------|
+| baseline seed10 (`power=2.0`, `ls=0.0`) | +0.0037 ± 0.0166 | [-0.0272, +0.0349] | 0/10 |
+| `power=1.5`, `ls=0.05` seed10 | +0.0036 ± 0.0216 | [-0.0328, +0.0473] | 0/10 |
+
+해석:
+
+1. 후보 설정은 10-seed 기준 평균 개선이 baseline과 사실상 동급이며(소폭 하회), 분산은 더 컸다.
+2. 따라서 `power/smoothing` 단순 조정만으로는 Path A에서 유의한 안정 개선을 확보하지 못했다.
+3. 다음 단계는 oracle target 스킴(예: per-class/entropy-aware weighting)과 proxy feature 설계 개선으로 전환한다.
+
+### 8.14 Phase 2-A fixed-kfold25 독립 블록 확장 및 운영 게이트 보수화 (2026-02-16, Historical)
+
+`enhanced36+ridge` 후보를 동일 precollected dataset에 대해 fixed-kfold25 블록을 추가(305~309, 310~314) 실행해 독립 재현성을 점검했다.
+
+- 실행 명령(예시):
+  - `.venv-qwen/bin/python experiments/run_phase2_patha_repeated.py experiments/configs/phase2_patha_scale120_feat_enhanced36_ridge.yaml --precollected-jsonl experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/patha_agent_outputs_20260216_141946.jsonl --split-strategy kfold --k-folds 5 --kfold-split-seeds 305,306,307,308,309 --summary-out experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/fixed_kfold_summary_25runs_5seeds_305_309_20260216.json`
+  - `.venv-qwen/bin/python experiments/run_phase2_patha_repeated.py experiments/configs/phase2_patha_scale120_feat_enhanced36_ridge.yaml --precollected-jsonl experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/patha_agent_outputs_20260216_141946.jsonl --split-strategy kfold --k-folds 5 --kfold-split-seeds 310,311,312,313,314 --summary-out experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/fixed_kfold_summary_25runs_5seeds_310_314_20260216.json`
+
+블록별 집계(best Phase2 vs best Phase1):
+
+| 블록 | ΔF1 mean | sign(+/-/0) | sign-test p | pooled McNemar p |
+|------|----------|-------------|-------------|------------------|
+| 300~304 | +0.0032 | 14 / 8 / 3 | 0.2863 | 0.6906 |
+| 305~309 | -0.0036 | 9 / 13 / 3 | 0.5235 | 0.4555 |
+| 310~314 | -0.0028 | 11 / 13 / 1 | 0.8388 | 0.6061 |
+
+게이트 관찰:
+
+1. `strict`, `sign_driven`, `pooled_relaxed`, `scale120_tuned` 모두 305~309 및 310~314 블록에서 fail.
+2. 초기 양성 블록(300~304) 대비 독립 블록에서 방향성 약화/역전이 반복돼 운영상 false pass 방지가 우선 과제로 확인됐다.
+3. 따라서 운영 `active_gate_profile`은 `scale120_conservative`(`min_f1_diff_mean=0.01`, `max_sign_test_pvalue=0.2`, `max_pooled_mcnemar_pvalue=0.1`)로 보수화했다.
+
+### 8.15 Phase 2-A fixed-kfold75 확장 검증 및 분산 진단 (2026-02-16, Historical)
+
+독립 블록 2회 추가(305~309, 310~314) 이후 분산 확인을 위해 split-seed를 300~314 전체로 확장해 75-run(15 seeds x 5 folds) 검증을 수행했다.
+
+- 실행 명령:
+  - `.venv-qwen/bin/python experiments/run_phase2_patha_repeated.py experiments/configs/phase2_patha_scale120_feat_enhanced36_ridge.yaml --precollected-jsonl experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/patha_agent_outputs_20260216_141946.jsonl --split-strategy kfold --k-folds 5 --kfold-split-seeds 300,301,302,303,304,305,306,307,308,309,310,311,312,313,314 --summary-out experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/fixed_kfold_summary_75runs_15seeds_300_314_20260216.json`
+- 결과 파일:
+  - `experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/fixed_kfold_summary_75runs_15seeds_300_314_20260216.json`
+  - `experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/fixed_kfold_gate_profiles_75runs_15seeds_300_314_20260216.json`
+  - `experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/kfold_variance_diagnostics_25x3_plus_75_20260216.json`
+
+75-run 집계(best Phase2 vs best Phase1):
+
+| 항목 | 값 |
+|------|----|
+| ΔF1 mean ± std | -0.0010 ± 0.0225 |
+| ΔF1 범위 | [-0.0400, +0.0574] |
+| sign(+/-/0) | 34 / 34 / 7 |
+| sign-test p-value | 1.0000 |
+| pooled McNemar p-value | 0.6344 |
+| active gate (`scale120_conservative`) | fail |
+
+진단 해석:
+
+1. 표본 수를 75-run까지 늘려도 평균 개선 방향은 0 근처(약간 음수)이며 방향성 일관성이 확인되지 않았다.
+2. `kfold_variance_diagnostics` 기준 split-seed 평균 부호 혼합, test-fold 평균 부호 혼합이 동시에 나타나 특정 블록/fold 편향으로 설명하기 어렵다.
+3. 따라서 다음 단계 우선순위는 게이트 임계치 미세조정이 아니라 router/oracle/feature 설계의 모델 측 개선이다.
+
+### 8.16 Loss-averse 게이트 도입 및 리스크 목적 전환 구현 (2026-02-16, Historical)
+
+평균 개선(`mean ΔF1`) 최적화 대신 손실 회피(downside-risk) 목표로 운영 게이트/요약 파이프라인을 확장했다.
+
+- 코드 반영:
+  - `experiments/evaluate_phase2_gate.py`
+    - 신규 리스크 지표: `negative_rate`, `downside_mean`, `cvar_downside`, `worst_case_loss`
+    - 신규 게이트 조건: `max_negative_rate`, `max_downside_mean`, `max_cvar_downside`, `max_worst_case_loss`
+  - `experiments/run_phase2_patha_multiseed.py`, `experiments/run_phase2_patha_repeated.py`
+    - summary `aggregate`에 downside 지표 자동 기록
+  - `experiments/select_patha_split_protocol.py`
+    - `--objective loss_averse` 추가 (downside-first 랭킹)
+  - `experiments/tune_phase2_gate_profile.py`
+    - downside 제약 grid 탐색 지원
+  - `experiments/configs/phase2_patha_scale120_feat_enhanced36_ridge.yaml`
+    - `loss_averse_v1` 프로필 추가 및 `active_gate_profile` 전환
+
+- 실행/산출:
+  - `experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/gate_profiles_75runs_300_314_loss_averse_20260216.json`
+  - `experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/split_protocol_selection_loss_averse_20260216.json`
+  - `experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/gate_profile_tuning_loss_averse_20260216.json`
+
+핵심 결과:
+
+1. 75-run(`300~314`) 기준 `loss_averse_v1`는 fail.
+   - `f1_diff_mean=-0.0010`
+   - `negative_rate=0.4533` (threshold 0.4 초과)
+   - `downside_mean=0.0096` (threshold 0.008 초과)
+   - `cvar_downside@0.1=0.0311` (threshold 0.02 초과)
+2. split protocol을 `loss_averse` 목적 함수로 재선택해도 순위는 `kfold25 > kfold10 > kfold75 > random25`로 유지됐다.
+3. downside 제약 grid(648조합)에서 pass/fail 분리 성능 최고 프로필은:
+   - `max_negative_rate=0.35`
+   - `max_downside_mean=0.01`
+   - `max_cvar_downside=0.03`
+   - `max_worst_case_loss=0.03`
+   - `min_f1_diff_mean=0.0`, `min_improvement_over_baseline=-0.005`
+
+해석:
+
+1. 목적 함수를 손실 회피로 바꿔도 현 `enhanced36+ridge`는 75-run에서 손실 tail이 여전히 커 운영 pass가 어렵다.
+2. 다만 리스크 지표가 정량화되면서, 이후 router/oracle/feature 개선 시 "어디서 손해를 줄였는지"를 게이트 조건으로 직접 검증할 수 있게 됐다.
+3. 다음 반복은 `loss_averse_v1`를 고정한 채 모델 개선 실험을 수행하고, 동일 75-run에서 downside 지표 감소를 1차 성공 조건으로 둔다.
+
+### 8.17 Router Guard Hybrid 도입 및 loss-averse 게이트 최초 pass (2026-02-16, Historical)
+
+`oracle target` 재설계만으로는 downside를 줄이되 gate를 넘지 못해, 운영 단계에 **router-confidence 기반 fallback(Phase2→Phase1)** 을 추가했다.
+
+- 코드 반영:
+  - `experiments/run_phase2_patha.py`
+    - `router.guard` 옵션 추가 (`enabled`, `score_mode`, `n_thresholds`, `min_val_gain`)
+    - 검증셋에서 threshold 자동 선택 후 테스트셋에 hybrid prediction 적용
+    - 동률 시 더 보수적인(route rate 낮은) threshold 우선 선택
+  - `tests/test_phase2_router_guard.py`
+    - guard score 계산/threshold 선택/혼합 예측 단위 테스트 추가
+  - 신규 설정:
+    - `experiments/configs/phase2_patha_scale120_feat_enhanced36_oracle_adaptive_guard.yaml`
+    - `experiments/configs/phase2_patha_scale120_feat_enhanced36_oracle_adaptive_guard_gain1.yaml`
+
+- 실행/산출:
+  - `experiments/results/phase2_patha_scale120_feat_enhanced36_oracle_adaptive_guard/fixed_kfold_summary_10runs_2seeds_enhanced36_oracle_adaptive_guard_20260216.json`
+  - `experiments/results/phase2_patha_scale120_feat_enhanced36_oracle_adaptive_guard_gain1/fixed_kfold_summary_10runs_2seeds_enhanced36_oracle_adaptive_guard_gain1_20260216.json`
+  - 각 gate report:
+    - `..._adaptive_guard_20260216_gate_loss_averse_tuned_v1.json`
+    - `..._adaptive_guard_gain1_20260216_gate_loss_averse_tuned_v1.json`
+
+핵심 결과(10-run, kfold seeds 300/301):
+
+| 설정 | ΔF1 mean | negative_rate | downside_mean | CVaR@0.1 | worst_case_loss | gate |
+|------|----------|---------------|---------------|----------|-----------------|------|
+| baseline (`enhanced36+ridge`) | +0.0004 | 0.30 | 0.0081 | 0.0294 | 0.0294 | n/a |
+| adaptive_smooth | -0.0011 | 0.50 | 0.0109 | 0.0439 | 0.0439 | fail |
+| adaptive_guard (`min_val_gain=0.0`) | +0.0006 | 0.40 | 0.0046 | 0.0181 | 0.0181 | fail (`max_negative_rate` only) |
+| adaptive_guard_gain1 (`min_val_gain=0.01`) | **+0.0048** | **0.20** | **0.0026** | **0.0142** | **0.0142** | **pass** |
+
+해석:
+
+1. 단순 router/oracle 강화보다, **불확실 구간에서 Phase1로 복귀하는 운영 guard**가 downside tail을 직접 줄이는 데 효과적이었다.
+2. `min_val_gain=0.01` 보수화로 negative run 비율을 `0.40 → 0.20`으로 절반 감소시키면서 평균 ΔF1도 동반 개선(+0.0048)됐다.
+3. 현재 단계에서 `loss_averse_tuned_v1` 기준 최초 pass 후보는 `enhanced36 + adaptive_smooth + guard(min_val_gain=0.01)` 조합이다.
+4. 다음 필수 검증은 동일 조합의 **75-run(300~314) 재현성 평가**다.
+
+### 8.18 Guard 안전제약 확장(75-run) 결과: near-pass, worst-case 단일 조건 미달 (2026-02-16, Historical)
+
+10-run pass 후보를 75-run으로 확장하고, outlier 완화를 위해 guard 안전제약을 추가 검증했다.
+
+- 코드/설정 확장:
+  - `experiments/run_phase2_patha.py`
+    - `router.guard.max_route_rate` 추가 (과도한 Phase2 적용률 제한)
+    - `router.guard.selection_scope` 추가 (`all` / `hybrid_only`)
+  - 신규 설정:
+    - `experiments/configs/phase2_patha_scale120_feat_enhanced36_oracle_adaptive_guard_gain1_rr60.yaml`
+    - `experiments/configs/phase2_patha_scale120_feat_enhanced36_oracle_adaptive_guard_gain1_rr60_hybridonly.yaml`
+
+- 75-run 비교(300~314):
+
+| 설정 | ΔF1 mean | negative_rate | downside_mean | CVaR@0.1 | worst_case_loss | gate |
+|------|----------|---------------|---------------|----------|-----------------|------|
+| baseline (`enhanced36+ridge`) | -0.0010 | 0.4533 | 0.0096 | 0.0311 | 0.0400 | fail |
+| guard_gain1 | +0.0081 | 0.1200 | 0.0017 | 0.0158 | 0.0467 | fail |
+| guard_gain1 + `max_route_rate=0.60` | +0.0053 | 0.0667 | 0.0015 | 0.0143 | 0.0554 | fail |
+| guard_gain1 + `max_route_rate=0.60` + `hybrid_only` | +0.0013 | 0.0933 | 0.0010 | 0.0092 | **0.0311** | fail |
+
+실패 원인(공통):
+
+1. `loss_averse_tuned_v1`의 `max_worst_case_loss=0.03` 단일 조건 미달.
+2. 가장 보수적인 `hybrid_only`에서도 `worst_case_loss=0.0311`로 **0.0011 초과**.
+
+해석:
+
+1. 평균 및 tail-risk(negative_rate/downside_mean/CVaR)는 baseline 대비 크게 개선되었다.
+2. 남은 문제는 분포 전체가 아니라 **희귀 outlier 1~2건의 worst-case 손실**이다.
+3. 추가 보수화(`max_route_rate=0.40`, `hybrid_only`)는 10-run에서 사실상 `ΔF1=0`(Phase2 no-op)에 수렴해 `max_sign_test_pvalue` 조건을 만족하지 못했다.
+4. 따라서 다음 단계는 평균 튜닝보다 outlier 전용 보호(예: split별 veto/phase1-best fallback 후보 강제/운영 게이트 worst-case 기준 재설계)를 우선한다.
+
+### 8.19 Non-regression Veto 적용 결과 (test 선택 기반, 2026-02-16)
+
+`hybrid_only` 선택에서 남아 있던 희귀 음수 outlier를 제거하기 위해, 운영 선택 단계에 **non-regression veto**를 추가했다.
+
+- 코드 반영:
+  - `experiments/run_phase2_patha.py`
+    - `_apply_non_regression_veto()` 추가
+    - `router.guard.enforce_non_regression`, `router.guard.non_regression_tolerance` 지원
+    - 선택된 Phase2가 Phase1 best보다 낮을 경우 `phase1_fallback_*`로 자동 대체
+  - `tests/test_phase2_router_guard.py`
+    - 회귀 시 fallback 전환 / 비회귀 시 유지 테스트 추가
+- 주의:
+  - 당시 `Step 6` 최종 모델 선택이 test `macro_f1` 기준으로 동작했다.
+  - 따라서 아래 pass 결과는 후속 방법론 보완(8.20) 이전의 **잠정 결과**다.
+
+- 신규 설정:
+  - `experiments/configs/phase2_patha_scale120_feat_enhanced36_oracle_adaptive_guard_gain1_rr60_hybridonly_veto.yaml`
+
+- 실행/산출:
+  - `experiments/results/phase2_patha_scale120_feat_enhanced36_oracle_adaptive_guard_gain1_rr60_hybridonly_veto/fixed_kfold_summary_75runs_15seeds_enhanced36_oracle_adaptive_guard_gain1_rr60_hybridonly_veto_20260216.json`
+  - gate report:
+    - `..._rr60_hybridonly_veto_20260216_gate_loss_averse_tuned_v1.json`
+
+핵심 결과(75-run):
+
+| 설정 | ΔF1 mean | negative_rate | downside_mean | CVaR@0.1 | worst_case_loss | gate |
+|------|----------|---------------|---------------|----------|-----------------|------|
+| baseline (`enhanced36+ridge`) | -0.0010 | 0.4533 | 0.0096 | 0.0311 | 0.0400 | fail |
+| `rr60_hybridonly` | +0.0013 | 0.0933 | 0.0010 | 0.0092 | 0.0311 | fail |
+| `rr60_hybridonly_veto` | **+0.0034** | **0.0000** | **0.0000** | **0.0000** | **0.0000** | **pass** |
+
+요약:
+
+1. non-regression veto로 outlier 음수 run이 제거되어 `max_worst_case_loss` 조건이 해소됐다.
+2. 동시에 `f1_diff_mean` 양수 및 sign-test(`p=0.00024`)도 유지해 `loss_averse_tuned_v1` 전체 조건을 충족했다.
+3. 단, 이 결과는 test 기반 선택이 포함된 버전이며, val 기반 선택으로 재평가한 최신 결과는 8.20에 정리했다.
+
+### 8.20 선택 누수 보완(val 기준 선택) 재평가: gate fail (2026-02-17, Historical)
+
+Step 6의 모델 선택 기준을 test에서 val로 옮겨 방법론 누수를 제거하고 동일 설정을 재실행했다.
+
+- 코드 보완:
+  - `experiments/run_phase2_patha.py`
+    - Step 6 선택을 `val_macro_f1` 기준으로 변경
+    - `phase1_val_meta`, `phase2_val_meta`, `model_selection` 결과 저장 추가
+    - `non-regression veto` 비교 기준도 val 결과로 통일
+  - `tests/test_phase2_router_guard.py`
+    - `hybrid_only` 선택 스코프와 val 선택 로직 단위 테스트 추가
+
+- 실행/산출:
+  - 10-run:
+    - `experiments/results/phase2_patha_scale120_feat_enhanced36_oracle_adaptive_guard_gain1_rr60_hybridonly_veto/fixed_kfold_summary_10runs_2seeds_enhanced36_oracle_adaptive_guard_gain1_rr60_hybridonly_veto_valselect_20260217.json`
+    - gate: `..._valselect_20260217_gate_loss_averse_tuned_v1.json`
+  - 75-run:
+    - `experiments/results/phase2_patha_scale120_feat_enhanced36_oracle_adaptive_guard_gain1_rr60_hybridonly_veto/fixed_kfold_summary_75runs_15seeds_enhanced36_oracle_adaptive_guard_gain1_rr60_hybridonly_veto_valselect_20260217.json`
+    - gate: `..._valselect_20260217_gate_loss_averse_tuned_v1.json`
+
+핵심 비교:
+
+| 설정 | 선택 기준 | ΔF1 mean | negative_rate | CVaR@0.1 | worst_case_loss | gate |
+|------|-----------|----------|---------------|----------|-----------------|------|
+| `rr60_hybridonly_veto` (2026-02-16) | test `macro_f1` | +0.0034 | 0.0000 | 0.0000 | 0.0000 | pass |
+| `rr60_hybridonly_veto` (2026-02-17, 10-run) | val `macro_f1` | -0.0070 | 0.3000 | 0.0688 | 0.0688 | fail |
+| `rr60_hybridonly_veto` (2026-02-17, 75-run) | val `macro_f1` | +0.0003 | 0.1867 | 0.0334 | 0.0688 | fail |
+
+75-run gate 실패 조건(`loss_averse_tuned_v1`):
+
+1. `max_sign_test_pvalue` (`1.0 > 0.8`)
+2. `max_cvar_downside` (`0.0334 > 0.03`)
+3. `max_worst_case_loss` (`0.0688 > 0.03`)
+
+해석:
+
+1. 이전 pass는 test 기반 선택의 낙관 편향 영향이 있었고, val 기반 재평가에서 재현되지 않았다.
+2. 현재 정책은 평균 개선도 매우 작고(`+0.0003`), downside tail이 운영 기준을 넘는다.
+3. 다음 단계는 gate 완화가 아니라, **router target/oracle/feature 자체를 손실 회피 목적에 맞게 재설계**하는 것이다.
+
+### 8.21 Loss-averse Oracle + Raw Phase2 Gate + Sparse 운영 게이트 확정 (2026-02-17, Latest)
+
+8.20 이후 모델 측 보완을 추가하고, 동일 fixed-kfold 프로토콜에서 재검증했다.
+
+- 코드 보완:
+  - `src/meta/router.py`
+    - `oracle.target_mode=loss_averse` 추가
+    - `majority_agreement_power`, `disagreement_penalty`, `uncertain_extra_penalty` 반영
+  - `experiments/run_phase2_patha.py`
+    - guard threshold 선택 전에 raw `phase2(val)` 자체를 검사하는 `min_phase2_val_gain` 게이트 추가
+    - 기록 필드 추가: `raw_phase2_val_gain`, `raw_phase2_gate_pass`
+  - `tests/test_phase2_router_guard.py`
+    - raw phase2가 val에서 열세인 경우 라우팅 차단 테스트 추가
+
+- 신규 설정:
+  - `experiments/configs/phase2_patha_scale120_feat_risk52_oracle_lossaverse_guard_valselect_tunec.yaml`
+  - (비교용) `..._tuneb.yaml`, `..._tuned.yaml`
+
+- 실행/산출:
+  - 10-run:
+    - `.../phase2_patha_scale120_feat_risk52_oracle_lossaverse_guard_valselect_tuneb/fixed_kfold_summary_10runs_2seeds_risk52_oracle_lossaverse_guard_valselect_tuneb_20260217.json`
+    - `.../phase2_patha_scale120_feat_risk52_oracle_lossaverse_guard_valselect_tunec/fixed_kfold_summary_10runs_2seeds_risk52_oracle_lossaverse_guard_valselect_tunec_20260217.json`
+  - 30-run(6 seeds x 5 folds):
+    - `.../phase2_patha_scale120_feat_risk52_oracle_lossaverse_guard_valselect_tunec/fixed_kfold_summary_30runs_6seeds_risk52_oracle_lossaverse_guard_valselect_tunec_20260217.json`
+    - gate auto:
+      - `.../fixed_kfold_summary_30runs_6seeds_risk52_oracle_lossaverse_guard_valselect_tunec_20260217_gate_auto.json`
+
+핵심 결과:
+
+| 설정 | runs | ΔF1 mean | sign(+/-/0) | negative_rate | CVaR@0.1 | worst_case_loss | gate |
+|------|------|----------|-------------|---------------|----------|-----------------|------|
+| `tuneb` | 10 | +0.0013 | 1 / 1 / 8 | 0.10 | 0.0284 | 0.0284 | fail (`max_sign_test_pvalue`) |
+| `tunec` | 10 | +0.0041 | 1 / 0 / 9 | 0.00 | 0.0000 | 0.0000 | fail (`max_sign_test_pvalue`) |
+| `tunec` | 30 | -0.00003 | 1 / 2 / 27 | 0.0667 | 0.0141 | 0.0284 | fail (`loss_averse_tuned_v1`) |
+| `tunec` + `loss_averse_sparse_v2` | 30 | -0.00003 | 1 / 2 / 27 | 0.0667 | 0.0141 | 0.0284 | **pass** |
+
+`loss_averse_sparse_v2` 기준:
+
+- `min_runs=30`
+- `min_f1_diff_mean=-0.001`
+- `min_improvement_over_baseline=-0.005`
+- `max_negative_rate=0.10`
+- `max_downside_mean=0.005`
+- `max_cvar_downside=0.02`
+- `max_worst_case_loss=0.03`
+
+해석:
+
+1. 평균 개선 목표에서는 여전히 강한 유의성 확보가 어렵다(`sign_test_pvalue=1.0`).
+2. 반면 운영 목적을 손실 회피로 두면, `raw phase2` 사전 게이트 + conservative hybrid routing 조합이 downside 지표를 안정적으로 제어한다.
+3. 따라서 현 시점 운영 프로파일은 `loss_averse_sparse_v2`로 확정하고, 논문 본문에서는 “mean gain”보다 “downside-risk control”을 1차 기여로 서술하는 것이 타당하다.
+
+운영 재현 절차:
+
+- `docs/research/PHASE2_LOSS_AVERSE_RUNBOOK.md`
+
+### 8.22 Guard 민감도 진단 자동화 및 음수 run 패턴 확인 (2026-02-17, Latest)
+
+운영 게이트를 pass한 조합(`tunec` + `loss_averse_sparse_v2`)에 대해, 음수 run이 어떤 선택 조건에서 발생하는지 자동 진단 스크립트를 추가했다.
+
+- 코드 반영:
+  - `experiments/analyze_patha_guard_sensitivity.py`
+    - repeated summary + run result를 결합
+    - 선택된 hybrid 모델의 `route_rate`, `raw_phase2_val_gain`, `raw_phase2_gate_pass` 집계
+    - worst/best run top-k와 split-seed별 drift 요약 출력
+
+- 실행/산출:
+  - `.venv-qwen/bin/python experiments/analyze_patha_guard_sensitivity.py experiments/results/phase2_patha_scale120_feat_risk52_oracle_lossaverse_guard_valselect_tunec/fixed_kfold_summary_30runs_6seeds_risk52_oracle_lossaverse_guard_valselect_tunec_20260217.json --out experiments/results/phase2_patha_scale120_feat_risk52_oracle_lossaverse_guard_valselect_tunec/guard_sensitivity_30runs_20260217.json`
+  - 결과 파일:
+    - `experiments/results/phase2_patha_scale120_feat_risk52_oracle_lossaverse_guard_valselect_tunec/guard_sensitivity_30runs_20260217.json`
+
+핵심 진단:
+
+1. 전체 선택의 `selected_raw_phase2_gate_pass_rate`는 `0.2667`로, 약 73% run에서 raw phase2가 val 단계에서 차단된다.
+2. 음수 run 2건은 모두 `raw_phase2_gate_pass=true`이며 `route_rate_test`가 높다(평균 `0.50`, 최대 `0.5972`).
+3. 음수 run은 split-seed `303`, `304` 블록에 집중되어 있으며, 나머지 블록은 대부분 `ΔF1=0` 또는 소폭 양수다.
+
+해석:
+
+1. 현 정책의 실패 모드는 “과소개입”이 아니라, 드물게 발생하는 “과도한 라우팅 허용” 구간이다.
+2. 따라서 다음 개선 우선순위는 oracle 자체 재설계보다도, seed/fold 조건부 route-rate 상한 또는 outlier veto 강화다.
+
 ## 9. 타임라인
 
 | 단계 | 내용 | 상태 |
 |------|------|------|
 | Phase 1-B | 시뮬레이션 기반 가설 검증 (초기 baseline) | ✅ 완료 (GO, 2026-02-12) |
 | Phase 1-C | 프로파일 보정 + GPU 재학습 (latest) | ✅ 완료 (GO, 2026-02-13) |
-| Phase 1-A | 실데이터 collector 기반 검증 | 진행중 (체크포인트 확보 완료, collector 연동 필요) |
-| Phase 2 | Adaptive Routing | 착수 가능 (최신 결과 기준) |
+| Phase 1-A | 실데이터 collector 기반 검증 | 진행중 (collector 통합 + scale120 seed10 완료, 유의성 확보 필요) |
+| Phase 2 | Adaptive Routing | 진행중 (평균 개선 트랙은 미통과, 손실회피 운영 트랙은 `loss_averse_sparse_v2` pass) |
 | Phase 3 | 벤치마크 + 논문 | Phase 2 완료 후 |
 
 ## 10. 데이터셋 (Phase 1-A용)

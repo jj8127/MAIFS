@@ -183,6 +183,11 @@ def _build_router_from_config(config: dict, simulator: AgentSimulator):
         config=OracleWeightConfig(
             power=float(oracle_cfg.get("power", 2.0)),
             eps=float(oracle_cfg.get("eps", 1e-6)),
+            label_smoothing=float(oracle_cfg.get("label_smoothing", 0.0)),
+            confidence_power=float(oracle_cfg.get("confidence_power", 0.0)),
+            uncertain_penalty=float(oracle_cfg.get("uncertain_penalty", 1.0)),
+            entropy_power=float(oracle_cfg.get("entropy_power", 0.0)),
+            verdict_power=float(oracle_cfg.get("verdict_power", 0.0)),
         ),
     )
 
@@ -206,6 +211,12 @@ def _build_router_from_config(config: dict, simulator: AgentSimulator):
             validation_fraction=float(model_cfg.get("validation_fraction", 0.15)),
             n_iter_no_change=int(model_cfg.get("n_iter_no_change", 20)),
             random_state=int(model_cfg.get("random_state", 42)),
+            regressor=str(model_cfg.get("regressor", "mlp")),
+            ridge_alpha=float(model_cfg.get("ridge_alpha", 1.0)),
+            gbr_n_estimators=int(model_cfg.get("gbr_n_estimators", 200)),
+            gbr_learning_rate=float(model_cfg.get("gbr_learning_rate", 0.05)),
+            gbr_max_depth=int(model_cfg.get("gbr_max_depth", 3)),
+            gbr_subsample=float(model_cfg.get("gbr_subsample", 1.0)),
         ),
         eps=float(oracle_cfg.get("eps", 1e-6)),
     )
@@ -441,4 +452,3 @@ if __name__ == "__main__":
         config_path = sys.argv[1]
     config = load_config(config_path)
     run_phase2(config)
-

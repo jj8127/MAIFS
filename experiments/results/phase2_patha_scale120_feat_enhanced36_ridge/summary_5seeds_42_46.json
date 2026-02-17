@@ -1,0 +1,105 @@
+{
+  "timestamp": "2026-02-16T11:46:43.540947",
+  "config": "experiments/configs/phase2_patha_scale120_feat_enhanced36_ridge.yaml",
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "n_runs": 5,
+  "runs": [
+    {
+      "seed": 42,
+      "phase1_best": "logistic_regression",
+      "phase2_best": "gradient_boosting",
+      "phase1_best_f1": 0.8027000124424536,
+      "phase2_best_f1": 0.8450107315653534,
+      "f1_diff": 0.042310719122899854,
+      "mcnemar_pvalue": 0.4496917979688908,
+      "significant": false,
+      "elapsed_seconds": 67.2224485874176,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/patha_agent_outputs_20260216_114237.jsonl",
+        "collector_errors": []
+      },
+      "result_path": "experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/phase2_patha_results_20260216_114237.json"
+    },
+    {
+      "seed": 43,
+      "phase1_best": "gradient_boosting",
+      "phase2_best": "mlp",
+      "phase1_best_f1": 0.8860606060606061,
+      "phase2_best_f1": 0.8729251700680273,
+      "f1_diff": -0.013135435992578826,
+      "mcnemar_pvalue": 1.0,
+      "significant": false,
+      "elapsed_seconds": 61.337482213974,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/patha_agent_outputs_20260216_114339.jsonl",
+        "collector_errors": []
+      },
+      "result_path": "experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/phase2_patha_results_20260216_114339.json"
+    },
+    {
+      "seed": 44,
+      "phase1_best": "logistic_regression",
+      "phase2_best": "logistic_regression",
+      "phase1_best_f1": 0.8193197278911565,
+      "phase2_best_f1": 0.8601622467168686,
+      "f1_diff": 0.040842518825712104,
+      "mcnemar_pvalue": 0.24821307898992026,
+      "significant": false,
+      "elapsed_seconds": 61.1775598526001,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/patha_agent_outputs_20260216_114440.jsonl",
+        "collector_errors": []
+      },
+      "result_path": "experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/phase2_patha_results_20260216_114440.json"
+    },
+    {
+      "seed": 45,
+      "phase1_best": "gradient_boosting",
+      "phase2_best": "gradient_boosting",
+      "phase1_best_f1": 0.8335625030153905,
+      "phase2_best_f1": 0.8757446808510639,
+      "f1_diff": 0.04218217783567346,
+      "mcnemar_pvalue": 0.24821307898992026,
+      "significant": false,
+      "elapsed_seconds": 62.28457307815552,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/patha_agent_outputs_20260216_114542.jsonl",
+        "collector_errors": []
+      },
+      "result_path": "experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/phase2_patha_results_20260216_114542.json"
+    },
+    {
+      "seed": 46,
+      "phase1_best": "logistic_regression",
+      "phase2_best": "mlp",
+      "phase1_best_f1": 0.8132586367880487,
+      "phase2_best_f1": 0.8442424242424242,
+      "f1_diff": 0.030983787454375578,
+      "mcnemar_pvalue": 0.6170750774519739,
+      "significant": false,
+      "elapsed_seconds": 60.78374886512756,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/patha_agent_outputs_20260216_114643.jsonl",
+        "collector_errors": []
+      },
+      "result_path": "experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/phase2_patha_results_20260216_114643.json"
+    }
+  ],
+  "aggregate": {
+    "phase1_best_f1_mean": 0.830980297239531,
+    "phase1_best_f1_std": 0.02929269137987692,
+    "phase2_best_f1_mean": 0.8596170506887475,
+    "phase2_best_f1_std": 0.013320866574462109,
+    "f1_diff_mean": 0.028636753449216436,
+    "f1_diff_std": 0.021306623133959837,
+    "f1_diff_min": -0.013135435992578826,
+    "f1_diff_max": 0.042310719122899854,
+    "significant_count": 0
+  }
+}

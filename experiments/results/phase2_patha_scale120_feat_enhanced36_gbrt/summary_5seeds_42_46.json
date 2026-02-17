@@ -1,0 +1,105 @@
+{
+  "timestamp": "2026-02-16T11:52:15.518254",
+  "config": "experiments/configs/phase2_patha_scale120_feat_enhanced36_gbrt.yaml",
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "n_runs": 5,
+  "runs": [
+    {
+      "seed": 42,
+      "phase1_best": "logistic_regression",
+      "phase2_best": "mlp",
+      "phase1_best_f1": 0.7888888888888889,
+      "phase2_best_f1": 0.7889872930304197,
+      "f1_diff": 9.840414153083898e-05,
+      "mcnemar_pvalue": 0.7236736098317629,
+      "significant": false,
+      "elapsed_seconds": 67.95191144943237,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_feat_enhanced36_gbrt/patha_agent_outputs_20260216_114806.jsonl",
+        "collector_errors": []
+      },
+      "result_path": "experiments/results/phase2_patha_scale120_feat_enhanced36_gbrt/phase2_patha_results_20260216_114806.json"
+    },
+    {
+      "seed": 43,
+      "phase1_best": "gradient_boosting",
+      "phase2_best": "logistic_regression",
+      "phase1_best_f1": 0.9013454270597127,
+      "phase2_best_f1": 0.8595090209997043,
+      "f1_diff": -0.04183640606000838,
+      "mcnemar_pvalue": 0.4496917979688908,
+      "significant": false,
+      "elapsed_seconds": 62.009268283843994,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_feat_enhanced36_gbrt/patha_agent_outputs_20260216_114908.jsonl",
+        "collector_errors": []
+      },
+      "result_path": "experiments/results/phase2_patha_scale120_feat_enhanced36_gbrt/phase2_patha_results_20260216_114908.json"
+    },
+    {
+      "seed": 44,
+      "phase1_best": "mlp",
+      "phase2_best": "mlp",
+      "phase1_best_f1": 0.8619433589038453,
+      "phase2_best_f1": 0.8344490278380855,
+      "f1_diff": -0.027494331065759825,
+      "mcnemar_pvalue": 0.6170750774519739,
+      "significant": false,
+      "elapsed_seconds": 62.871071338653564,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_feat_enhanced36_gbrt/patha_agent_outputs_20260216_115011.jsonl",
+        "collector_errors": []
+      },
+      "result_path": "experiments/results/phase2_patha_scale120_feat_enhanced36_gbrt/phase2_patha_results_20260216_115011.json"
+    },
+    {
+      "seed": 45,
+      "phase1_best": "gradient_boosting",
+      "phase2_best": "logistic_regression",
+      "phase1_best_f1": 0.7899622071050643,
+      "phase2_best_f1": 0.7641062801932367,
+      "f1_diff": -0.025855926911827587,
+      "mcnemar_pvalue": 0.6830913983096086,
+      "significant": false,
+      "elapsed_seconds": 62.776052951812744,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_feat_enhanced36_gbrt/patha_agent_outputs_20260216_115114.jsonl",
+        "collector_errors": []
+      },
+      "result_path": "experiments/results/phase2_patha_scale120_feat_enhanced36_gbrt/phase2_patha_results_20260216_115114.json"
+    },
+    {
+      "seed": 46,
+      "phase1_best": "gradient_boosting",
+      "phase2_best": "gradient_boosting",
+      "phase1_best_f1": 0.814257724556728,
+      "phase2_best_f1": 0.8358473824312332,
+      "f1_diff": 0.021589657874505286,
+      "mcnemar_pvalue": 1.0,
+      "significant": false,
+      "elapsed_seconds": 60.84534764289856,
+      "artifacts": {
+        "agent_outputs_jsonl": "experiments/results/phase2_patha_scale120_feat_enhanced36_gbrt/patha_agent_outputs_20260216_115215.jsonl",
+        "collector_errors": []
+      },
+      "result_path": "experiments/results/phase2_patha_scale120_feat_enhanced36_gbrt/phase2_patha_results_20260216_115215.json"
+    }
+  ],
+  "aggregate": {
+    "phase1_best_f1_mean": 0.8312795213028478,
+    "phase1_best_f1_std": 0.043916579601308174,
+    "phase2_best_f1_mean": 0.8165798008985359,
+    "phase2_best_f1_std": 0.03478012010816623,
+    "f1_diff_mean": -0.014699720404311934,
+    "f1_diff_std": 0.022629477147869843,
+    "f1_diff_min": -0.04183640606000838,
+    "f1_diff_max": 0.021589657874505286,
+    "significant_count": 0
+  }
+}

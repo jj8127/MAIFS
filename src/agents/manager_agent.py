@@ -17,6 +17,7 @@ from .specialist_agents import (
     SpatialAgent
 )
 from ..tools.base_tool import Verdict
+from configs.trust import resolve_trust
 
 # LLM 클라이언트 (선택적)
 try:
@@ -111,13 +112,8 @@ class ManagerAgent(BaseAgent):
             "spatial": SpatialAgent(),
         }
 
-        # 에이전트별 신뢰도 (COBRA용)
-        self.agent_trust: Dict[str, float] = {
-            "frequency": 0.85,
-            "noise": 0.80,
-            "fatformer": 0.85,
-            "spatial": 0.85,
-        }
+        # 에이전트별 신뢰도 (COBRA용, configs/trust.py SSOT)
+        self.agent_trust: Dict[str, float] = resolve_trust()
 
         # LLM 클라이언트 초기화
         self.use_llm = use_llm and LLM_AVAILABLE

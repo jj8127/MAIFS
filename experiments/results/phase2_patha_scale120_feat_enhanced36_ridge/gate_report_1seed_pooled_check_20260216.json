@@ -1,0 +1,87 @@
+{
+  "timestamp": "2026-02-16T12:11:47.466099",
+  "candidate_summary": "experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/summary_1seed_stats_smoke_42.json",
+  "baseline_summary": null,
+  "criteria": {
+    "min_runs": 1,
+    "min_f1_diff_mean": 0.0,
+    "min_significant_count": 0,
+    "min_improvement_over_baseline": 0.0,
+    "min_positive_seed_count": 0,
+    "max_sign_test_pvalue": null,
+    "require_pooled_mcnemar_significant": true,
+    "max_pooled_mcnemar_pvalue": 0.8
+  },
+  "candidate": {
+    "n_runs": 1,
+    "aggregate": {
+      "phase1_best_f1_mean": 0.8027000124424536,
+      "phase1_best_f1_std": 0.0,
+      "phase2_best_f1_mean": 0.8302179548026724,
+      "phase2_best_f1_std": 0.0,
+      "f1_diff_mean": 0.02751794236021876,
+      "f1_diff_std": 0.0,
+      "f1_diff_min": 0.02751794236021876,
+      "f1_diff_max": 0.02751794236021876,
+      "significant_count": 0,
+      "positive_count": 1,
+      "negative_count": 0,
+      "zero_count": 0,
+      "sign_test_pvalue": 1.0,
+      "pooled_mcnemar_b": 2,
+      "pooled_mcnemar_c": 4,
+      "pooled_mcnemar_statistic": 0.16666666666666666,
+      "pooled_mcnemar_pvalue": 0.6830913983096087,
+      "pooled_mcnemar_significant": false
+    },
+    "sign_stats": {
+      "positive_count": 1,
+      "negative_count": 0,
+      "zero_count": 0,
+      "sign_test_pvalue": 1.0
+    },
+    "pooled_mcnemar": {
+      "b": 2,
+      "c": 4,
+      "statistic": 0.16666666666666666,
+      "pvalue": 0.6830913983096087,
+      "significant": false,
+      "source": "aggregate"
+    }
+  },
+  "baseline": null,
+  "baseline_delta_f1_diff_mean": null,
+  "checks": [
+    {
+      "name": "min_runs",
+      "pass": true,
+      "actual": 1,
+      "required": 1
+    },
+    {
+      "name": "min_f1_diff_mean",
+      "pass": true,
+      "actual": 0.02751794236021876,
+      "required": 0.0
+    },
+    {
+      "name": "min_significant_count",
+      "pass": true,
+      "actual": 0,
+      "required": 0
+    },
+    {
+      "name": "require_pooled_mcnemar_significant",
+      "pass": false,
+      "actual": false,
+      "required": true
+    },
+    {
+      "name": "max_pooled_mcnemar_pvalue",
+      "pass": true,
+      "actual": 0.6830913983096087,
+      "required": 0.8
+    }
+  ],
+  "gate_pass": false
+}

@@ -1,0 +1,71 @@
+{
+  "timestamp": "2026-02-17T00:39:54.846935",
+  "mode": "PathA_fixed_dataset_repeated_split",
+  "config": "experiments/configs/phase2_patha_scale120_feat_enhanced36_oracle_adaptive_guard_gain1_rr60_hybridonly_veto.yaml",
+  "precollected_jsonl": "experiments/results/phase2_patha_scale120_feat_enhanced36_oracle_adaptive_guard_gain1_rr60_hybridonly_veto/patha_agent_outputs_fixed_seed42.jsonl",
+  "collection_seed": 42,
+  "split_protocol": {
+    "strategy": "kfold",
+    "k_folds": 5,
+    "test_folds": [
+      0
+    ],
+    "val_fold_offset": 1,
+    "split_seeds": [
+      300
+    ]
+  },
+  "split_seeds": [
+    300
+  ],
+  "n_runs": 1,
+  "runs": [
+    {
+      "split_strategy": "kfold",
+      "split_seed": 300,
+      "seed": 42,
+      "phase1_best": "logistic_regression",
+      "phase2_best": "hybrid_guard_logistic_regression",
+      "phase1_best_f1": 0.781658817373103,
+      "phase2_best_f1": 0.781658817373103,
+      "f1_diff": 0.0,
+      "mcnemar_statistic": 0.0,
+      "mcnemar_pvalue": 1.0,
+      "mcnemar_b": 0,
+      "mcnemar_c": 0,
+      "n_test_samples": 72,
+      "significant": false,
+      "elapsed_seconds": 2.4209461212158203,
+      "result_path": "experiments/results/phase2_patha_scale120_feat_enhanced36_oracle_adaptive_guard_gain1_rr60_hybridonly_veto/phase2_patha_results_20260217_003954.json",
+      "k_folds": 5,
+      "test_fold": 0,
+      "val_fold": 1
+    }
+  ],
+  "aggregate": {
+    "phase1_best_f1_mean": 0.781658817373103,
+    "phase1_best_f1_std": 0.0,
+    "phase2_best_f1_mean": 0.781658817373103,
+    "phase2_best_f1_std": 0.0,
+    "f1_diff_mean": 0.0,
+    "f1_diff_std": 0.0,
+    "f1_diff_min": 0.0,
+    "f1_diff_max": 0.0,
+    "significant_count": 0,
+    "positive_count": 0,
+    "negative_count": 0,
+    "zero_count": 1,
+    "sign_test_pvalue": 1.0,
+    "negative_rate": 0.0,
+    "downside_mean": 0.0,
+    "cvar_downside": 0.0,
+    "cvar_f1_diff": 0.0,
+    "worst_case_loss": -0.0,
+    "downside_cvar_alpha": 0.1,
+    "pooled_mcnemar_b": 0,
+    "pooled_mcnemar_c": 0,
+    "pooled_mcnemar_statistic": 0.0,
+    "pooled_mcnemar_pvalue": 1.0,
+    "pooled_mcnemar_significant": false
+  }
+}

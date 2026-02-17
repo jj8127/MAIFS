@@ -9,6 +9,7 @@ Phase 2: Adaptive Routing (조건부)
 
 모듈 구성:
     simulator  - confusion matrix 기반 합성 에이전트 출력 생성
+    collector  - 실데이터 Path A 에이전트 출력 수집기
     features   - 43-dim 메타 특징 추출
     baselines  - majority vote, COBRA 래퍼 베이스라인
     trainer    - LogReg, XGBoost, MLP 메타 분류기 학습
@@ -21,10 +22,14 @@ from .baselines import MajorityVoteBaseline, COBRABaseline
 from .trainer import MetaTrainer
 from .evaluate import MetaEvaluator
 from .ablation import AblationRunner
+from .collector import AgentOutputCollector, build_proxy_image_features, build_empirical_simulator
 
 __all__ = [
     "MetaFeatureExtractor",
     "AgentSimulator",
+    "AgentOutputCollector",
+    "build_proxy_image_features",
+    "build_empirical_simulator",
     "MajorityVoteBaseline",
     "COBRABaseline",
     "MetaTrainer",

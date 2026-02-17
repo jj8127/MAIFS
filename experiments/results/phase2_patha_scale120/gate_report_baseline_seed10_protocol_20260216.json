@@ -1,0 +1,66 @@
+{
+  "timestamp": "2026-02-16T11:28:35.719327",
+  "candidate_summary": "experiments/results/phase2_patha_scale120/phase2_patha_multiseed_summary_scale120_10seeds_42_51_20260216.json",
+  "baseline_summary": "experiments/results/phase2_patha_scale120/phase2_patha_multiseed_summary_scale120_10seeds_42_51_20260216.json",
+  "criteria": {
+    "min_runs": 10,
+    "min_f1_diff_mean": 0.01,
+    "min_significant_count": 3,
+    "min_improvement_over_baseline": 0.0
+  },
+  "candidate": {
+    "n_runs": 10,
+    "aggregate": {
+      "phase1_best_f1_mean": 0.841005429569545,
+      "phase1_best_f1_std": 0.03749302088683206,
+      "phase2_best_f1_mean": 0.8446708583728816,
+      "phase2_best_f1_std": 0.03727674163654017,
+      "f1_diff_mean": 0.0036654288033364014,
+      "f1_diff_std": 0.016562106114122448,
+      "f1_diff_min": -0.027150230428279798,
+      "f1_diff_max": 0.03486647184126168,
+      "significant_count": 0
+    }
+  },
+  "baseline": {
+    "aggregate": {
+      "phase1_best_f1_mean": 0.841005429569545,
+      "phase1_best_f1_std": 0.03749302088683206,
+      "phase2_best_f1_mean": 0.8446708583728816,
+      "phase2_best_f1_std": 0.03727674163654017,
+      "f1_diff_mean": 0.0036654288033364014,
+      "f1_diff_std": 0.016562106114122448,
+      "f1_diff_min": -0.027150230428279798,
+      "f1_diff_max": 0.03486647184126168,
+      "significant_count": 0
+    }
+  },
+  "baseline_delta_f1_diff_mean": 0.0,
+  "checks": [
+    {
+      "name": "min_runs",
+      "pass": true,
+      "actual": 10,
+      "required": 10
+    },
+    {
+      "name": "min_f1_diff_mean",
+      "pass": false,
+      "actual": 0.0036654288033364014,
+      "required": 0.01
+    },
+    {
+      "name": "min_significant_count",
+      "pass": false,
+      "actual": 0,
+      "required": 3
+    },
+    {
+      "name": "min_improvement_over_baseline",
+      "pass": true,
+      "actual": 0.0,
+      "required": 0.0
+    }
+  ],
+  "gate_pass": false
+}

@@ -245,14 +245,24 @@ class CATNetAnalysisTool(BaseTool):
 
         if self._model is None:
             fallback = self._fallback_tool(image)
+            # AGENTS.md 정책: graceful degradation 유지 + 조용한 성능 저하 차단
+            # - fallback_raw_* : 사후 분석/진단용으로 원본 FFT 판정 보존
+            # - verdict/confidence : UNCERTAIN으로 cap → COBRA에서 가중치 자동 감소
             fallback.evidence = {
                 **fallback.evidence,
                 "backend": "frequency_fallback",
                 "catnet_available": False,
                 "catnet_error": self._load_error or "",
+                "fallback_raw_verdict": fallback.verdict.value,
+                "fallback_raw_confidence": float(fallback.confidence),
+                "fallback_mode": True,
             }
+            fallback.verdict = Verdict.UNCERTAIN
+            fallback.confidence = min(float(fallback.confidence), 0.35)
             fallback.explanation = (
-                "CAT-Net을 사용할 수 없어 기존 Frequency fallback으로 분석했습니다. "
+                "CAT-Net을 사용할 수 없어 Frequency fallback으로 분석했습니다 "
+                "(verdict: UNCERTAIN cap, confidence ≤ 0.35). "
+                "원본 FFT 판정은 evidence.fallback_raw_verdict를 참조하세요. "
                 + fallback.explanation
             )
             fallback.tool_name = self.name

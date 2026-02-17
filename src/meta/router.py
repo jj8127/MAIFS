@@ -19,11 +19,14 @@ from typing import Dict, List, Optional, Tuple
 
 import numpy as np
 
+from sklearn.ensemble import GradientBoostingRegressor
+from sklearn.linear_model import Ridge
 from sklearn.neural_network import MLPRegressor
+from sklearn.multioutput import MultiOutputRegressor
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
-from .simulator import AGENT_NAMES, VERDICT_TO_IDX, AgentSimulator, SimulatedOutput
+from .simulator import AGENT_NAMES, VERDICTS, VERDICT_TO_IDX, AgentSimulator, SimulatedOutput
 
 
 def softmax(x: np.ndarray, axis: int = -1) -> np.ndarray:
@@ -89,6 +92,27 @@ class OracleWeightConfig:
 
     power: float = 2.0
     eps: float = 1e-6
+    # target_mode:
+    # - accuracy: 기존 방식(정답확률 중심)
+    # - loss_averse: 합의/불확실 리스크 패널티를 추가해 downside 회피 성향 강화
+    target_mode: str = "accuracy"
+    label_smoothing: float = 0.0
+    confidence_power: float = 0.0
+    uncertain_penalty: float = 1.0
+    entropy_power: float = 0.0
+    verdict_power: float = 0.0
+    # risk-aware target 옵션:
+    # - margin_power: (p_correct - max_wrong)^margin_power
+    # - wrong_peak_power: (1 - max_wrong)^wrong_peak_power
+    margin_power: float = 0.0
+    wrong_peak_power: float = 0.0
+    # loss_averse mode 전용 옵션
+    majority_agreement_power: float = 0.0
+    disagreement_penalty: float = 1.0
+    uncertain_extra_penalty: float = 1.0
+    # 샘플 난이도(불일치/uncertain/conf 분산) 기반 adaptive label smoothing
+    adaptive_smoothing_scale: float = 0.0
+    adaptive_smoothing_max: float = 0.4
 
 
 class OracleWeightComputer:
@@ -101,20 +125,147 @@ class OracleWeightComputer:
         self.simulator = simulator
         self.config = config or OracleWeightConfig()
 
+    @staticmethod
+    def _row_entropy(row: np.ndarray, eps: float = 1e-12) -> float:
+        """정규화 엔트로피 [0, 1] 계산."""
+        p = np.asarray(row, dtype=np.float64)
+        p = np.clip(p, eps, 1.0)
+        p /= float(p.sum())
+        h = -float(np.sum(p * np.log(p)))
+        h_max = float(np.log(len(p)))
+        if h_max <= 0.0:
+            return 0.0
+        return h / h_max
+
+    @staticmethod
+    def _sample_risk_score(sample: SimulatedOutput) -> float:
+        """
+        샘플 단위 리스크 신호를 [0, 1]로 반환.
+        - pairwise disagreement 비율
+        - uncertain verdict 비율
+        - confidence 표준편차
+        """
+        verdict_idx = [VERDICT_TO_IDX.get(sample.agent_verdicts.get(a, "uncertain"), VERDICT_TO_IDX["uncertain"]) for a in AGENT_NAMES]
+        conf = np.asarray(
+            [float(np.clip(sample.agent_confidences.get(a, 0.5), 0.0, 1.0)) for a in AGENT_NAMES],
+            dtype=np.float64,
+        )
+
+        n = len(verdict_idx)
+        total_pairs = n * (n - 1) // 2
+        disagree = 0
+        if total_pairs > 0:
+            for i in range(n):
+                for j in range(i + 1, n):
+                    if verdict_idx[i] != verdict_idx[j]:
+                        disagree += 1
+        disagree_rate = float(disagree / total_pairs) if total_pairs > 0 else 0.0
+
+        uncertain_ratio = float(sum(1 for v in verdict_idx if v == VERDICT_TO_IDX["uncertain"]) / max(1, n))
+        conf_std_norm = float(min(np.std(conf, ddof=0) / 0.5, 1.0))
+
+        risk = 0.5 * disagree_rate + 0.3 * uncertain_ratio + 0.2 * conf_std_norm
+        return float(np.clip(risk, 0.0, 1.0))
+
     def compute_single(self, sample: SimulatedOutput) -> np.ndarray:
-        # 각 에이전트의 "정답 확률"을 weight로 사용.
-        probs = []
+        # 각 에이전트의 "정답 확률"에 신뢰도/불확실성/엔트로피 보정을 반영.
+        scores = []
+        target_mode = str(self.config.target_mode).strip().lower()
+        if target_mode not in {"accuracy", "loss_averse"}:
+            raise ValueError(f"unsupported oracle target_mode: {self.config.target_mode}")
+        conf_power = float(self.config.confidence_power)
+        uncertain_penalty = float(np.clip(float(self.config.uncertain_penalty), 0.0, 1.0))
+        entropy_power = float(self.config.entropy_power)
+        verdict_power = float(self.config.verdict_power)
+        margin_power = float(self.config.margin_power)
+        wrong_peak_power = float(self.config.wrong_peak_power)
+        agreement_power = float(max(self.config.majority_agreement_power, 0.0))
+        disagreement_penalty = float(np.clip(float(self.config.disagreement_penalty), 0.0, 1.0))
+        uncertain_extra_penalty = float(np.clip(float(self.config.uncertain_extra_penalty), 0.0, 1.0))
+        true_idx = VERDICT_TO_IDX[sample.true_label]
+        eps = float(self.config.eps)
+
+        verdict_idx = [VERDICT_TO_IDX.get(sample.agent_verdicts.get(agent, "uncertain"), VERDICT_TO_IDX["uncertain"]) for agent in AGENT_NAMES]
+        verdict_counts = np.bincount(verdict_idx, minlength=len(VERDICTS)).astype(np.float64)
+        non_uncertain_counts = verdict_counts.copy()
+        non_uncertain_counts[VERDICT_TO_IDX["uncertain"]] = 0.0
+        if float(non_uncertain_counts.sum()) > 0.0:
+            majority_idx = int(np.argmax(non_uncertain_counts))
+            majority_ratio = float(non_uncertain_counts[majority_idx] / len(AGENT_NAMES))
+        else:
+            majority_idx = VERDICT_TO_IDX["uncertain"]
+            majority_ratio = float(verdict_counts[majority_idx] / len(AGENT_NAMES))
+
         for agent in AGENT_NAMES:
             profile = self.simulator.profiles[agent]
             cm_row = self.simulator._get_cm_row(profile, sample.true_label, sample.sub_type)  # noqa: SLF001
-            p_correct = float(cm_row[VERDICT_TO_IDX[sample.true_label]])
-            probs.append(max(p_correct, float(self.config.eps)))
+            p_correct = max(float(cm_row[true_idx]), float(self.config.eps))
+            wrong_probs = [float(cm_row[i]) for i in range(len(cm_row)) if i != true_idx]
+            wrong_peak = max(wrong_probs) if wrong_probs else 0.0
+            margin = max(p_correct - wrong_peak, float(self.config.eps))
 
-        w = np.power(np.array(probs, dtype=np.float64), float(self.config.power))
+            # 기존 동작과 호환: 기본 score는 (p_correct ^ power)
+            score = p_correct ** float(self.config.power)
+
+            if margin_power > 0.0:
+                score *= margin ** margin_power
+            if wrong_peak_power > 0.0:
+                safe_factor = max(1.0 - wrong_peak, float(self.config.eps))
+                score *= safe_factor ** wrong_peak_power
+
+            if entropy_power > 0.0:
+                # confusion row 엔트로피가 높을수록(혼란할수록) 가중치 감쇠
+                norm_entropy = self._row_entropy(cm_row, eps=max(self.config.eps, 1e-12))
+                entropy_factor = max(1.0 - norm_entropy, float(self.config.eps))
+                score *= entropy_factor ** entropy_power
+
+            verdict = sample.agent_verdicts.get(agent, "uncertain")
+            v_idx = VERDICT_TO_IDX.get(verdict, VERDICT_TO_IDX["uncertain"])
+            if verdict_power > 0.0:
+                p_verdict = max(float(cm_row[v_idx]), float(self.config.eps))
+                score *= p_verdict ** verdict_power
+
+            if conf_power > 0.0:
+                conf = float(np.clip(sample.agent_confidences.get(agent, 0.5), self.config.eps, 1.0))
+                score *= conf ** conf_power
+
+            if verdict == "uncertain":
+                score *= uncertain_penalty
+
+            if target_mode == "loss_averse":
+                if agreement_power > 0.0:
+                    if v_idx == majority_idx:
+                        consensus_factor = max(majority_ratio, eps)
+                    else:
+                        # 합의가 약한 샘플에서는 불일치 패널티를 완화한다.
+                        consensus_factor = max(1.0 - majority_ratio, eps)
+                    score *= consensus_factor ** agreement_power
+                if v_idx != majority_idx:
+                    score *= disagreement_penalty
+                if verdict == "uncertain":
+                    score *= uncertain_extra_penalty
+
+            scores.append(max(score, float(self.config.eps)))
+
+        w = np.array(scores, dtype=np.float64)
         s = float(w.sum())
         if s <= 0.0:
             return (np.ones(len(AGENT_NAMES), dtype=np.float64) / len(AGENT_NAMES))
-        return (w / s).astype(np.float64)
+        w = (w / s).astype(np.float64)
+
+        # 라벨 스무딩으로 지나치게 뾰족한 oracle target을 완화한다.
+        smooth = float(np.clip(float(self.config.label_smoothing), 0.0, 1.0))
+        adaptive_scale = float(max(self.config.adaptive_smoothing_scale, 0.0))
+        if adaptive_scale > 0.0:
+            risk = self._sample_risk_score(sample)
+            smooth += adaptive_scale * risk
+            smooth = min(smooth, float(np.clip(self.config.adaptive_smoothing_max, 0.0, 1.0)))
+        if smooth > 0.0:
+            uniform = 1.0 / len(AGENT_NAMES)
+            w = (1.0 - smooth) * w + smooth * uniform
+            w = w / max(float(w.sum()), float(self.config.eps))
+
+        return w
 
     def compute_dataset(self, samples: List[SimulatedOutput]) -> np.ndarray:
         w = [self.compute_single(s) for s in samples]
@@ -139,6 +290,12 @@ class MetaRouterConfig:
     validation_fraction: float = 0.15
     n_iter_no_change: int = 20
     random_state: int = 42
+    regressor: str = "mlp"  # mlp | ridge | gbrt
+    ridge_alpha: float = 1.0
+    gbr_n_estimators: int = 200
+    gbr_learning_rate: float = 0.05
+    gbr_max_depth: int = 3
+    gbr_subsample: float = 1.0
 
 
 @dataclass
@@ -177,22 +334,38 @@ class MetaRouter:
 
         y_logits = self.weights_to_logits(w, eps=max(self.eps, 1e-12))
 
-        mlp = MLPRegressor(
-            hidden_layer_sizes=tuple(int(v) for v in self.config.hidden_layer_sizes),
-            activation=str(self.config.activation),
-            solver=str(self.config.solver),
-            alpha=float(self.config.alpha),
-            learning_rate_init=float(self.config.learning_rate_init),
-            max_iter=int(self.config.max_iter),
-            early_stopping=bool(self.config.early_stopping),
-            validation_fraction=float(self.config.validation_fraction),
-            n_iter_no_change=int(self.config.n_iter_no_change),
-            random_state=int(self.config.random_state),
-        )
+        regressor_name = str(self.config.regressor).lower()
+        if regressor_name == "mlp":
+            regressor = MLPRegressor(
+                hidden_layer_sizes=tuple(int(v) for v in self.config.hidden_layer_sizes),
+                activation=str(self.config.activation),
+                solver=str(self.config.solver),
+                alpha=float(self.config.alpha),
+                learning_rate_init=float(self.config.learning_rate_init),
+                max_iter=int(self.config.max_iter),
+                early_stopping=bool(self.config.early_stopping),
+                validation_fraction=float(self.config.validation_fraction),
+                n_iter_no_change=int(self.config.n_iter_no_change),
+                random_state=int(self.config.random_state),
+            )
+        elif regressor_name == "ridge":
+            regressor = Ridge(alpha=float(self.config.ridge_alpha))
+        elif regressor_name == "gbrt":
+            base = GradientBoostingRegressor(
+                n_estimators=int(self.config.gbr_n_estimators),
+                learning_rate=float(self.config.gbr_learning_rate),
+                max_depth=int(self.config.gbr_max_depth),
+                subsample=float(self.config.gbr_subsample),
+                random_state=int(self.config.random_state),
+            )
+            regressor = MultiOutputRegressor(base)
+        else:
+            raise ValueError(f"unsupported router regressor: {self.config.regressor}")
+
         self.model = Pipeline(
             [
                 ("scaler", StandardScaler()),
-                ("regressor", mlp),
+                ("regressor", regressor),
             ]
         )
         self.model.fit(X_img, y_logits)
@@ -223,4 +396,3 @@ class MetaRouter:
         top1 = float(np.mean(np.argmax(w_pred, axis=1) == np.argmax(w_true, axis=1)))
 
         return RouterMetrics(mse_weights=mse, kl_weights=kl, top1_match=top1)
-

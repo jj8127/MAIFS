@@ -1,0 +1,334 @@
+{
+  "timestamp": "2026-02-16T14:53:29.937800",
+  "candidate_summary": "experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/repeated_split_summary_10runs_300_309_20260216.json",
+  "baseline_summary": "experiments/results/phase2_patha_scale120/phase2_patha_multiseed_summary_scale120_10seeds_42_51_20260216.json",
+  "config": "experiments/configs/phase2_patha_scale120_feat_enhanced36_ridge.yaml",
+  "active_gate_profile": "pooled_relaxed",
+  "profiles": [
+    "strict",
+    "sign_driven",
+    "pooled_relaxed"
+  ],
+  "profile_presets": {
+    "strict": {
+      "min_runs": 10,
+      "min_f1_diff_mean": 0.01,
+      "min_significant_count": 3,
+      "min_improvement_over_baseline": 0.0,
+      "min_positive_seed_count": 0,
+      "max_sign_test_pvalue": null,
+      "require_pooled_mcnemar_significant": false,
+      "max_pooled_mcnemar_pvalue": null
+    },
+    "sign_driven": {
+      "min_runs": 10,
+      "min_f1_diff_mean": 0.01,
+      "min_significant_count": 0,
+      "min_improvement_over_baseline": 0.0,
+      "min_positive_seed_count": 7,
+      "max_sign_test_pvalue": 0.05,
+      "require_pooled_mcnemar_significant": false,
+      "max_pooled_mcnemar_pvalue": null
+    },
+    "pooled_relaxed": {
+      "min_runs": 10,
+      "min_f1_diff_mean": 0.01,
+      "min_significant_count": 0,
+      "min_improvement_over_baseline": 0.0,
+      "min_positive_seed_count": 0,
+      "max_sign_test_pvalue": null,
+      "require_pooled_mcnemar_significant": false,
+      "max_pooled_mcnemar_pvalue": 0.1
+    }
+  },
+  "results": {
+    "strict": {
+      "criteria": {
+        "min_runs": 10,
+        "min_f1_diff_mean": 0.01,
+        "min_significant_count": 3,
+        "min_improvement_over_baseline": 0.0,
+        "min_positive_seed_count": 0,
+        "max_sign_test_pvalue": null,
+        "require_pooled_mcnemar_significant": false,
+        "max_pooled_mcnemar_pvalue": null
+      },
+      "candidate": {
+        "n_runs": 10,
+        "aggregate": {
+          "phase1_best_f1_mean": 0.8793894335169096,
+          "phase1_best_f1_std": 0.027538622675383043,
+          "phase2_best_f1_mean": 0.8818855228091877,
+          "phase2_best_f1_std": 0.03543462562492227,
+          "f1_diff_mean": 0.002496089292278114,
+          "f1_diff_std": 0.01959013231261092,
+          "f1_diff_min": -0.02882567168281447,
+          "f1_diff_max": 0.041429232192414234,
+          "significant_count": 0,
+          "positive_count": 3,
+          "negative_count": 4,
+          "zero_count": 3,
+          "sign_test_pvalue": 1.0,
+          "pooled_mcnemar_b": 14,
+          "pooled_mcnemar_c": 16,
+          "pooled_mcnemar_statistic": 0.03333333333333333,
+          "pooled_mcnemar_pvalue": 0.8551321405847059,
+          "pooled_mcnemar_significant": false
+        },
+        "sign_stats": {
+          "positive_count": 3,
+          "negative_count": 4,
+          "zero_count": 3,
+          "sign_test_pvalue": 1.0
+        },
+        "pooled_mcnemar": {
+          "b": 14,
+          "c": 16,
+          "statistic": 0.03333333333333333,
+          "pvalue": 0.8551321405847059,
+          "significant": false,
+          "source": "aggregate"
+        }
+      },
+      "baseline": {
+        "aggregate": {
+          "phase1_best_f1_mean": 0.841005429569545,
+          "phase1_best_f1_std": 0.03749302088683206,
+          "phase2_best_f1_mean": 0.8446708583728816,
+          "phase2_best_f1_std": 0.03727674163654017,
+          "f1_diff_mean": 0.0036654288033364014,
+          "f1_diff_std": 0.016562106114122448,
+          "f1_diff_min": -0.027150230428279798,
+          "f1_diff_max": 0.03486647184126168,
+          "significant_count": 0
+        }
+      },
+      "baseline_delta_f1_diff_mean": -0.0011693395110582874,
+      "checks": [
+        {
+          "name": "min_runs",
+          "pass": true,
+          "actual": 10,
+          "required": 10
+        },
+        {
+          "name": "min_f1_diff_mean",
+          "pass": false,
+          "actual": 0.002496089292278114,
+          "required": 0.01
+        },
+        {
+          "name": "min_significant_count",
+          "pass": false,
+          "actual": 0,
+          "required": 3
+        },
+        {
+          "name": "min_improvement_over_baseline",
+          "pass": false,
+          "actual": -0.0011693395110582874,
+          "required": 0.0
+        }
+      ],
+      "gate_pass": false
+    },
+    "sign_driven": {
+      "criteria": {
+        "min_runs": 10,
+        "min_f1_diff_mean": 0.01,
+        "min_significant_count": 0,
+        "min_improvement_over_baseline": 0.0,
+        "min_positive_seed_count": 7,
+        "max_sign_test_pvalue": 0.05,
+        "require_pooled_mcnemar_significant": false,
+        "max_pooled_mcnemar_pvalue": null
+      },
+      "candidate": {
+        "n_runs": 10,
+        "aggregate": {
+          "phase1_best_f1_mean": 0.8793894335169096,
+          "phase1_best_f1_std": 0.027538622675383043,
+          "phase2_best_f1_mean": 0.8818855228091877,
+          "phase2_best_f1_std": 0.03543462562492227,
+          "f1_diff_mean": 0.002496089292278114,
+          "f1_diff_std": 0.01959013231261092,
+          "f1_diff_min": -0.02882567168281447,
+          "f1_diff_max": 0.041429232192414234,
+          "significant_count": 0,
+          "positive_count": 3,
+          "negative_count": 4,
+          "zero_count": 3,
+          "sign_test_pvalue": 1.0,
+          "pooled_mcnemar_b": 14,
+          "pooled_mcnemar_c": 16,
+          "pooled_mcnemar_statistic": 0.03333333333333333,
+          "pooled_mcnemar_pvalue": 0.8551321405847059,
+          "pooled_mcnemar_significant": false
+        },
+        "sign_stats": {
+          "positive_count": 3,
+          "negative_count": 4,
+          "zero_count": 3,
+          "sign_test_pvalue": 1.0
+        },
+        "pooled_mcnemar": {
+          "b": 14,
+          "c": 16,
+          "statistic": 0.03333333333333333,
+          "pvalue": 0.8551321405847059,
+          "significant": false,
+          "source": "aggregate"
+        }
+      },
+      "baseline": {
+        "aggregate": {
+          "phase1_best_f1_mean": 0.841005429569545,
+          "phase1_best_f1_std": 0.03749302088683206,
+          "phase2_best_f1_mean": 0.8446708583728816,
+          "phase2_best_f1_std": 0.03727674163654017,
+          "f1_diff_mean": 0.0036654288033364014,
+          "f1_diff_std": 0.016562106114122448,
+          "f1_diff_min": -0.027150230428279798,
+          "f1_diff_max": 0.03486647184126168,
+          "significant_count": 0
+        }
+      },
+      "baseline_delta_f1_diff_mean": -0.0011693395110582874,
+      "checks": [
+        {
+          "name": "min_runs",
+          "pass": true,
+          "actual": 10,
+          "required": 10
+        },
+        {
+          "name": "min_f1_diff_mean",
+          "pass": false,
+          "actual": 0.002496089292278114,
+          "required": 0.01
+        },
+        {
+          "name": "min_significant_count",
+          "pass": true,
+          "actual": 0,
+          "required": 0
+        },
+        {
+          "name": "min_positive_seed_count",
+          "pass": false,
+          "actual": 3,
+          "required": 7
+        },
+        {
+          "name": "max_sign_test_pvalue",
+          "pass": false,
+          "actual": 1.0,
+          "required": 0.05
+        },
+        {
+          "name": "min_improvement_over_baseline",
+          "pass": false,
+          "actual": -0.0011693395110582874,
+          "required": 0.0
+        }
+      ],
+      "gate_pass": false
+    },
+    "pooled_relaxed": {
+      "criteria": {
+        "min_runs": 10,
+        "min_f1_diff_mean": 0.01,
+        "min_significant_count": 0,
+        "min_improvement_over_baseline": 0.0,
+        "min_positive_seed_count": 0,
+        "max_sign_test_pvalue": null,
+        "require_pooled_mcnemar_significant": false,
+        "max_pooled_mcnemar_pvalue": 0.1
+      },
+      "candidate": {
+        "n_runs": 10,
+        "aggregate": {
+          "phase1_best_f1_mean": 0.8793894335169096,
+          "phase1_best_f1_std": 0.027538622675383043,
+          "phase2_best_f1_mean": 0.8818855228091877,
+          "phase2_best_f1_std": 0.03543462562492227,
+          "f1_diff_mean": 0.002496089292278114,
+          "f1_diff_std": 0.01959013231261092,
+          "f1_diff_min": -0.02882567168281447,
+          "f1_diff_max": 0.041429232192414234,
+          "significant_count": 0,
+          "positive_count": 3,
+          "negative_count": 4,
+          "zero_count": 3,
+          "sign_test_pvalue": 1.0,
+          "pooled_mcnemar_b": 14,
+          "pooled_mcnemar_c": 16,
+          "pooled_mcnemar_statistic": 0.03333333333333333,
+          "pooled_mcnemar_pvalue": 0.8551321405847059,
+          "pooled_mcnemar_significant": false
+        },
+        "sign_stats": {
+          "positive_count": 3,
+          "negative_count": 4,
+          "zero_count": 3,
+          "sign_test_pvalue": 1.0
+        },
+        "pooled_mcnemar": {
+          "b": 14,
+          "c": 16,
+          "statistic": 0.03333333333333333,
+          "pvalue": 0.8551321405847059,
+          "significant": false,
+          "source": "aggregate"
+        }
+      },
+      "baseline": {
+        "aggregate": {
+          "phase1_best_f1_mean": 0.841005429569545,
+          "phase1_best_f1_std": 0.03749302088683206,
+          "phase2_best_f1_mean": 0.8446708583728816,
+          "phase2_best_f1_std": 0.03727674163654017,
+          "f1_diff_mean": 0.0036654288033364014,
+          "f1_diff_std": 0.016562106114122448,
+          "f1_diff_min": -0.027150230428279798,
+          "f1_diff_max": 0.03486647184126168,
+          "significant_count": 0
+        }
+      },
+      "baseline_delta_f1_diff_mean": -0.0011693395110582874,
+      "checks": [
+        {
+          "name": "min_runs",
+          "pass": true,
+          "actual": 10,
+          "required": 10
+        },
+        {
+          "name": "min_f1_diff_mean",
+          "pass": false,
+          "actual": 0.002496089292278114,
+          "required": 0.01
+        },
+        {
+          "name": "min_significant_count",
+          "pass": true,
+          "actual": 0,
+          "required": 0
+        },
+        {
+          "name": "min_improvement_over_baseline",
+          "pass": false,
+          "actual": -0.0011693395110582874,
+          "required": 0.0
+        },
+        {
+          "name": "max_pooled_mcnemar_pvalue",
+          "pass": false,
+          "actual": 0.8551321405847059,
+          "required": 0.1
+        }
+      ],
+      "gate_pass": false
+    }
+  }
+}

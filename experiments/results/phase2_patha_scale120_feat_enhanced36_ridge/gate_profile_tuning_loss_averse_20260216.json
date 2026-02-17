@@ -1,0 +1,841 @@
+{
+  "timestamp": "2026-02-16T15:51:08.835630",
+  "config": "experiments/configs/phase2_patha_scale120_feat_enhanced36_ridge.yaml",
+  "baseline_summary": "experiments/results/phase2_patha_scale120/phase2_patha_multiseed_summary_scale120_10seeds_42_51_20260216.json",
+  "summary_paths": {
+    "random25": "experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/repeated_random_summary_25runs_300_324_20260216.json",
+    "kfold10": "experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/fixed_kfold_summary_10runs_2seeds_20260216.json",
+    "kfold25": "experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/fixed_kfold_summary_25runs_5seeds_20260216.json",
+    "kfold75": "experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/fixed_kfold_summary_75runs_15seeds_300_314_20260216.json"
+  },
+  "target_pass": [
+    "kfold10",
+    "kfold25"
+  ],
+  "target_fail": [
+    "kfold75",
+    "random25"
+  ],
+  "grid": {
+    "min_f1_diff_mean": [
+      0.0
+    ],
+    "min_improvement_over_baseline": [
+      -0.01,
+      -0.005
+    ],
+    "max_sign_test_pvalue": [
+      null,
+      0.8
+    ],
+    "max_pooled_mcnemar_pvalue": [
+      0.8,
+      1.0
+    ],
+    "max_negative_rate": [
+      0.35,
+      0.4,
+      0.45
+    ],
+    "max_downside_mean": [
+      0.006,
+      0.008,
+      0.01
+    ],
+    "max_cvar_downside": [
+      0.02,
+      0.025,
+      0.03
+    ],
+    "max_worst_case_loss": [
+      0.03,
+      0.04,
+      0.05
+    ],
+    "downside_cvar_alpha": 0.1,
+    "min_runs": 10
+  },
+  "search_size": 648,
+  "best_overall": {
+    "score": 4,
+    "target_pass_ok": 2,
+    "target_fail_ok": 2,
+    "target_pass_total": 2,
+    "target_fail_total": 2,
+    "all_constraints_satisfied": true,
+    "profile": {
+      "min_runs": 10,
+      "min_f1_diff_mean": 0.0,
+      "min_significant_count": 0,
+      "min_improvement_over_baseline": -0.005,
+      "min_positive_seed_count": 0,
+      "max_sign_test_pvalue": 0.8,
+      "require_pooled_mcnemar_significant": false,
+      "max_pooled_mcnemar_pvalue": 1.0,
+      "max_negative_rate": 0.35,
+      "max_downside_mean": 0.01,
+      "max_cvar_downside": 0.03,
+      "max_worst_case_loss": 0.03,
+      "downside_cvar_alpha": 0.1
+    },
+    "by_label": {
+      "random25": {
+        "gate_pass": false,
+        "f1_diff_mean": -0.00392831443440734,
+        "sign_test_pvalue": 0.5034446716308594,
+        "pooled_mcnemar_pvalue": 0.49964225765235615,
+        "negative_rate": 0.48,
+        "downside_mean": 0.010685376660719332,
+        "cvar_downside": 0.04351432796096163,
+        "worst_case_loss": 0.056671910824150906
+      },
+      "kfold10": {
+        "gate_pass": true,
+        "f1_diff_mean": 0.00043146000626093084,
+        "sign_test_pvalue": 0.5078125,
+        "pooled_mcnemar_pvalue": 0.8711314915971583,
+        "negative_rate": 0.3,
+        "downside_mean": 0.008119637843831129,
+        "cvar_downside": 0.02942707579485704,
+        "worst_case_loss": 0.02942707579485704
+      },
+      "kfold25": {
+        "gate_pass": true,
+        "f1_diff_mean": 0.0032235139835704364,
+        "sign_test_pvalue": 0.28627872467041016,
+        "pooled_mcnemar_pvalue": 0.6906192201976447,
+        "negative_rate": 0.32,
+        "downside_mean": 0.005412900452994047,
+        "cvar_downside": 0.027065459479437098,
+        "worst_case_loss": 0.02942707579485704
+      },
+      "kfold75": {
+        "gate_pass": false,
+        "f1_diff_mean": -0.0010430107939016376,
+        "sign_test_pvalue": 1.0,
+        "pooled_mcnemar_pvalue": 0.6343945488229775,
+        "negative_rate": 0.4533333333333333,
+        "downside_mean": 0.009613701024553707,
+        "cvar_downside": 0.031117856913819825,
+        "worst_case_loss": 0.03995557582514109
+      }
+    }
+  },
+  "best_all_constraints_satisfied": {
+    "score": 4,
+    "target_pass_ok": 2,
+    "target_fail_ok": 2,
+    "target_pass_total": 2,
+    "target_fail_total": 2,
+    "all_constraints_satisfied": true,
+    "profile": {
+      "min_runs": 10,
+      "min_f1_diff_mean": 0.0,
+      "min_significant_count": 0,
+      "min_improvement_over_baseline": -0.005,
+      "min_positive_seed_count": 0,
+      "max_sign_test_pvalue": 0.8,
+      "require_pooled_mcnemar_significant": false,
+      "max_pooled_mcnemar_pvalue": 1.0,
+      "max_negative_rate": 0.35,
+      "max_downside_mean": 0.01,
+      "max_cvar_downside": 0.03,
+      "max_worst_case_loss": 0.03,
+      "downside_cvar_alpha": 0.1
+    },
+    "by_label": {
+      "random25": {
+        "gate_pass": false,
+        "f1_diff_mean": -0.00392831443440734,
+        "sign_test_pvalue": 0.5034446716308594,
+        "pooled_mcnemar_pvalue": 0.49964225765235615,
+        "negative_rate": 0.48,
+        "downside_mean": 0.010685376660719332,
+        "cvar_downside": 0.04351432796096163,
+        "worst_case_loss": 0.056671910824150906
+      },
+      "kfold10": {
+        "gate_pass": true,
+        "f1_diff_mean": 0.00043146000626093084,
+        "sign_test_pvalue": 0.5078125,
+        "pooled_mcnemar_pvalue": 0.8711314915971583,
+        "negative_rate": 0.3,
+        "downside_mean": 0.008119637843831129,
+        "cvar_downside": 0.02942707579485704,
+        "worst_case_loss": 0.02942707579485704
+      },
+      "kfold25": {
+        "gate_pass": true,
+        "f1_diff_mean": 0.0032235139835704364,
+        "sign_test_pvalue": 0.28627872467041016,
+        "pooled_mcnemar_pvalue": 0.6906192201976447,
+        "negative_rate": 0.32,
+        "downside_mean": 0.005412900452994047,
+        "cvar_downside": 0.027065459479437098,
+        "worst_case_loss": 0.02942707579485704
+      },
+      "kfold75": {
+        "gate_pass": false,
+        "f1_diff_mean": -0.0010430107939016376,
+        "sign_test_pvalue": 1.0,
+        "pooled_mcnemar_pvalue": 0.6343945488229775,
+        "negative_rate": 0.4533333333333333,
+        "downside_mean": 0.009613701024553707,
+        "cvar_downside": 0.031117856913819825,
+        "worst_case_loss": 0.03995557582514109
+      }
+    }
+  },
+  "top10": [
+    {
+      "score": 4,
+      "target_pass_ok": 2,
+      "target_fail_ok": 2,
+      "target_pass_total": 2,
+      "target_fail_total": 2,
+      "all_constraints_satisfied": true,
+      "profile": {
+        "min_runs": 10,
+        "min_f1_diff_mean": 0.0,
+        "min_significant_count": 0,
+        "min_improvement_over_baseline": -0.005,
+        "min_positive_seed_count": 0,
+        "max_sign_test_pvalue": 0.8,
+        "require_pooled_mcnemar_significant": false,
+        "max_pooled_mcnemar_pvalue": 1.0,
+        "max_negative_rate": 0.35,
+        "max_downside_mean": 0.01,
+        "max_cvar_downside": 0.03,
+        "max_worst_case_loss": 0.03,
+        "downside_cvar_alpha": 0.1
+      },
+      "by_label": {
+        "random25": {
+          "gate_pass": false,
+          "f1_diff_mean": -0.00392831443440734,
+          "sign_test_pvalue": 0.5034446716308594,
+          "pooled_mcnemar_pvalue": 0.49964225765235615,
+          "negative_rate": 0.48,
+          "downside_mean": 0.010685376660719332,
+          "cvar_downside": 0.04351432796096163,
+          "worst_case_loss": 0.056671910824150906
+        },
+        "kfold10": {
+          "gate_pass": true,
+          "f1_diff_mean": 0.00043146000626093084,
+          "sign_test_pvalue": 0.5078125,
+          "pooled_mcnemar_pvalue": 0.8711314915971583,
+          "negative_rate": 0.3,
+          "downside_mean": 0.008119637843831129,
+          "cvar_downside": 0.02942707579485704,
+          "worst_case_loss": 0.02942707579485704
+        },
+        "kfold25": {
+          "gate_pass": true,
+          "f1_diff_mean": 0.0032235139835704364,
+          "sign_test_pvalue": 0.28627872467041016,
+          "pooled_mcnemar_pvalue": 0.6906192201976447,
+          "negative_rate": 0.32,
+          "downside_mean": 0.005412900452994047,
+          "cvar_downside": 0.027065459479437098,
+          "worst_case_loss": 0.02942707579485704
+        },
+        "kfold75": {
+          "gate_pass": false,
+          "f1_diff_mean": -0.0010430107939016376,
+          "sign_test_pvalue": 1.0,
+          "pooled_mcnemar_pvalue": 0.6343945488229775,
+          "negative_rate": 0.4533333333333333,
+          "downside_mean": 0.009613701024553707,
+          "cvar_downside": 0.031117856913819825,
+          "worst_case_loss": 0.03995557582514109
+        }
+      }
+    },
+    {
+      "score": 4,
+      "target_pass_ok": 2,
+      "target_fail_ok": 2,
+      "target_pass_total": 2,
+      "target_fail_total": 2,
+      "all_constraints_satisfied": true,
+      "profile": {
+        "min_runs": 10,
+        "min_f1_diff_mean": 0.0,
+        "min_significant_count": 0,
+        "min_improvement_over_baseline": -0.01,
+        "min_positive_seed_count": 0,
+        "max_sign_test_pvalue": 0.8,
+        "require_pooled_mcnemar_significant": false,
+        "max_pooled_mcnemar_pvalue": 1.0,
+        "max_negative_rate": 0.35,
+        "max_downside_mean": 0.01,
+        "max_cvar_downside": 0.03,
+        "max_worst_case_loss": 0.03,
+        "downside_cvar_alpha": 0.1
+      },
+      "by_label": {
+        "random25": {
+          "gate_pass": false,
+          "f1_diff_mean": -0.00392831443440734,
+          "sign_test_pvalue": 0.5034446716308594,
+          "pooled_mcnemar_pvalue": 0.49964225765235615,
+          "negative_rate": 0.48,
+          "downside_mean": 0.010685376660719332,
+          "cvar_downside": 0.04351432796096163,
+          "worst_case_loss": 0.056671910824150906
+        },
+        "kfold10": {
+          "gate_pass": true,
+          "f1_diff_mean": 0.00043146000626093084,
+          "sign_test_pvalue": 0.5078125,
+          "pooled_mcnemar_pvalue": 0.8711314915971583,
+          "negative_rate": 0.3,
+          "downside_mean": 0.008119637843831129,
+          "cvar_downside": 0.02942707579485704,
+          "worst_case_loss": 0.02942707579485704
+        },
+        "kfold25": {
+          "gate_pass": true,
+          "f1_diff_mean": 0.0032235139835704364,
+          "sign_test_pvalue": 0.28627872467041016,
+          "pooled_mcnemar_pvalue": 0.6906192201976447,
+          "negative_rate": 0.32,
+          "downside_mean": 0.005412900452994047,
+          "cvar_downside": 0.027065459479437098,
+          "worst_case_loss": 0.02942707579485704
+        },
+        "kfold75": {
+          "gate_pass": false,
+          "f1_diff_mean": -0.0010430107939016376,
+          "sign_test_pvalue": 1.0,
+          "pooled_mcnemar_pvalue": 0.6343945488229775,
+          "negative_rate": 0.4533333333333333,
+          "downside_mean": 0.009613701024553707,
+          "cvar_downside": 0.031117856913819825,
+          "worst_case_loss": 0.03995557582514109
+        }
+      }
+    },
+    {
+      "score": 4,
+      "target_pass_ok": 2,
+      "target_fail_ok": 2,
+      "target_pass_total": 2,
+      "target_fail_total": 2,
+      "all_constraints_satisfied": true,
+      "profile": {
+        "min_runs": 10,
+        "min_f1_diff_mean": 0.0,
+        "min_significant_count": 0,
+        "min_improvement_over_baseline": -0.005,
+        "min_positive_seed_count": 0,
+        "max_sign_test_pvalue": 0.8,
+        "require_pooled_mcnemar_significant": false,
+        "max_pooled_mcnemar_pvalue": 1.0,
+        "max_negative_rate": 0.35,
+        "max_downside_mean": 0.01,
+        "max_cvar_downside": 0.03,
+        "max_worst_case_loss": 0.04,
+        "downside_cvar_alpha": 0.1
+      },
+      "by_label": {
+        "random25": {
+          "gate_pass": false,
+          "f1_diff_mean": -0.00392831443440734,
+          "sign_test_pvalue": 0.5034446716308594,
+          "pooled_mcnemar_pvalue": 0.49964225765235615,
+          "negative_rate": 0.48,
+          "downside_mean": 0.010685376660719332,
+          "cvar_downside": 0.04351432796096163,
+          "worst_case_loss": 0.056671910824150906
+        },
+        "kfold10": {
+          "gate_pass": true,
+          "f1_diff_mean": 0.00043146000626093084,
+          "sign_test_pvalue": 0.5078125,
+          "pooled_mcnemar_pvalue": 0.8711314915971583,
+          "negative_rate": 0.3,
+          "downside_mean": 0.008119637843831129,
+          "cvar_downside": 0.02942707579485704,
+          "worst_case_loss": 0.02942707579485704
+        },
+        "kfold25": {
+          "gate_pass": true,
+          "f1_diff_mean": 0.0032235139835704364,
+          "sign_test_pvalue": 0.28627872467041016,
+          "pooled_mcnemar_pvalue": 0.6906192201976447,
+          "negative_rate": 0.32,
+          "downside_mean": 0.005412900452994047,
+          "cvar_downside": 0.027065459479437098,
+          "worst_case_loss": 0.02942707579485704
+        },
+        "kfold75": {
+          "gate_pass": false,
+          "f1_diff_mean": -0.0010430107939016376,
+          "sign_test_pvalue": 1.0,
+          "pooled_mcnemar_pvalue": 0.6343945488229775,
+          "negative_rate": 0.4533333333333333,
+          "downside_mean": 0.009613701024553707,
+          "cvar_downside": 0.031117856913819825,
+          "worst_case_loss": 0.03995557582514109
+        }
+      }
+    },
+    {
+      "score": 4,
+      "target_pass_ok": 2,
+      "target_fail_ok": 2,
+      "target_pass_total": 2,
+      "target_fail_total": 2,
+      "all_constraints_satisfied": true,
+      "profile": {
+        "min_runs": 10,
+        "min_f1_diff_mean": 0.0,
+        "min_significant_count": 0,
+        "min_improvement_over_baseline": -0.01,
+        "min_positive_seed_count": 0,
+        "max_sign_test_pvalue": 0.8,
+        "require_pooled_mcnemar_significant": false,
+        "max_pooled_mcnemar_pvalue": 1.0,
+        "max_negative_rate": 0.35,
+        "max_downside_mean": 0.01,
+        "max_cvar_downside": 0.03,
+        "max_worst_case_loss": 0.04,
+        "downside_cvar_alpha": 0.1
+      },
+      "by_label": {
+        "random25": {
+          "gate_pass": false,
+          "f1_diff_mean": -0.00392831443440734,
+          "sign_test_pvalue": 0.5034446716308594,
+          "pooled_mcnemar_pvalue": 0.49964225765235615,
+          "negative_rate": 0.48,
+          "downside_mean": 0.010685376660719332,
+          "cvar_downside": 0.04351432796096163,
+          "worst_case_loss": 0.056671910824150906
+        },
+        "kfold10": {
+          "gate_pass": true,
+          "f1_diff_mean": 0.00043146000626093084,
+          "sign_test_pvalue": 0.5078125,
+          "pooled_mcnemar_pvalue": 0.8711314915971583,
+          "negative_rate": 0.3,
+          "downside_mean": 0.008119637843831129,
+          "cvar_downside": 0.02942707579485704,
+          "worst_case_loss": 0.02942707579485704
+        },
+        "kfold25": {
+          "gate_pass": true,
+          "f1_diff_mean": 0.0032235139835704364,
+          "sign_test_pvalue": 0.28627872467041016,
+          "pooled_mcnemar_pvalue": 0.6906192201976447,
+          "negative_rate": 0.32,
+          "downside_mean": 0.005412900452994047,
+          "cvar_downside": 0.027065459479437098,
+          "worst_case_loss": 0.02942707579485704
+        },
+        "kfold75": {
+          "gate_pass": false,
+          "f1_diff_mean": -0.0010430107939016376,
+          "sign_test_pvalue": 1.0,
+          "pooled_mcnemar_pvalue": 0.6343945488229775,
+          "negative_rate": 0.4533333333333333,
+          "downside_mean": 0.009613701024553707,
+          "cvar_downside": 0.031117856913819825,
+          "worst_case_loss": 0.03995557582514109
+        }
+      }
+    },
+    {
+      "score": 4,
+      "target_pass_ok": 2,
+      "target_fail_ok": 2,
+      "target_pass_total": 2,
+      "target_fail_total": 2,
+      "all_constraints_satisfied": true,
+      "profile": {
+        "min_runs": 10,
+        "min_f1_diff_mean": 0.0,
+        "min_significant_count": 0,
+        "min_improvement_over_baseline": -0.005,
+        "min_positive_seed_count": 0,
+        "max_sign_test_pvalue": 0.8,
+        "require_pooled_mcnemar_significant": false,
+        "max_pooled_mcnemar_pvalue": 1.0,
+        "max_negative_rate": 0.35,
+        "max_downside_mean": 0.01,
+        "max_cvar_downside": 0.03,
+        "max_worst_case_loss": 0.05,
+        "downside_cvar_alpha": 0.1
+      },
+      "by_label": {
+        "random25": {
+          "gate_pass": false,
+          "f1_diff_mean": -0.00392831443440734,
+          "sign_test_pvalue": 0.5034446716308594,
+          "pooled_mcnemar_pvalue": 0.49964225765235615,
+          "negative_rate": 0.48,
+          "downside_mean": 0.010685376660719332,
+          "cvar_downside": 0.04351432796096163,
+          "worst_case_loss": 0.056671910824150906
+        },
+        "kfold10": {
+          "gate_pass": true,
+          "f1_diff_mean": 0.00043146000626093084,
+          "sign_test_pvalue": 0.5078125,
+          "pooled_mcnemar_pvalue": 0.8711314915971583,
+          "negative_rate": 0.3,
+          "downside_mean": 0.008119637843831129,
+          "cvar_downside": 0.02942707579485704,
+          "worst_case_loss": 0.02942707579485704
+        },
+        "kfold25": {
+          "gate_pass": true,
+          "f1_diff_mean": 0.0032235139835704364,
+          "sign_test_pvalue": 0.28627872467041016,
+          "pooled_mcnemar_pvalue": 0.6906192201976447,
+          "negative_rate": 0.32,
+          "downside_mean": 0.005412900452994047,
+          "cvar_downside": 0.027065459479437098,
+          "worst_case_loss": 0.02942707579485704
+        },
+        "kfold75": {
+          "gate_pass": false,
+          "f1_diff_mean": -0.0010430107939016376,
+          "sign_test_pvalue": 1.0,
+          "pooled_mcnemar_pvalue": 0.6343945488229775,
+          "negative_rate": 0.4533333333333333,
+          "downside_mean": 0.009613701024553707,
+          "cvar_downside": 0.031117856913819825,
+          "worst_case_loss": 0.03995557582514109
+        }
+      }
+    },
+    {
+      "score": 4,
+      "target_pass_ok": 2,
+      "target_fail_ok": 2,
+      "target_pass_total": 2,
+      "target_fail_total": 2,
+      "all_constraints_satisfied": true,
+      "profile": {
+        "min_runs": 10,
+        "min_f1_diff_mean": 0.0,
+        "min_significant_count": 0,
+        "min_improvement_over_baseline": -0.01,
+        "min_positive_seed_count": 0,
+        "max_sign_test_pvalue": 0.8,
+        "require_pooled_mcnemar_significant": false,
+        "max_pooled_mcnemar_pvalue": 1.0,
+        "max_negative_rate": 0.35,
+        "max_downside_mean": 0.01,
+        "max_cvar_downside": 0.03,
+        "max_worst_case_loss": 0.05,
+        "downside_cvar_alpha": 0.1
+      },
+      "by_label": {
+        "random25": {
+          "gate_pass": false,
+          "f1_diff_mean": -0.00392831443440734,
+          "sign_test_pvalue": 0.5034446716308594,
+          "pooled_mcnemar_pvalue": 0.49964225765235615,
+          "negative_rate": 0.48,
+          "downside_mean": 0.010685376660719332,
+          "cvar_downside": 0.04351432796096163,
+          "worst_case_loss": 0.056671910824150906
+        },
+        "kfold10": {
+          "gate_pass": true,
+          "f1_diff_mean": 0.00043146000626093084,
+          "sign_test_pvalue": 0.5078125,
+          "pooled_mcnemar_pvalue": 0.8711314915971583,
+          "negative_rate": 0.3,
+          "downside_mean": 0.008119637843831129,
+          "cvar_downside": 0.02942707579485704,
+          "worst_case_loss": 0.02942707579485704
+        },
+        "kfold25": {
+          "gate_pass": true,
+          "f1_diff_mean": 0.0032235139835704364,
+          "sign_test_pvalue": 0.28627872467041016,
+          "pooled_mcnemar_pvalue": 0.6906192201976447,
+          "negative_rate": 0.32,
+          "downside_mean": 0.005412900452994047,
+          "cvar_downside": 0.027065459479437098,
+          "worst_case_loss": 0.02942707579485704
+        },
+        "kfold75": {
+          "gate_pass": false,
+          "f1_diff_mean": -0.0010430107939016376,
+          "sign_test_pvalue": 1.0,
+          "pooled_mcnemar_pvalue": 0.6343945488229775,
+          "negative_rate": 0.4533333333333333,
+          "downside_mean": 0.009613701024553707,
+          "cvar_downside": 0.031117856913819825,
+          "worst_case_loss": 0.03995557582514109
+        }
+      }
+    },
+    {
+      "score": 4,
+      "target_pass_ok": 2,
+      "target_fail_ok": 2,
+      "target_pass_total": 2,
+      "target_fail_total": 2,
+      "all_constraints_satisfied": true,
+      "profile": {
+        "min_runs": 10,
+        "min_f1_diff_mean": 0.0,
+        "min_significant_count": 0,
+        "min_improvement_over_baseline": -0.005,
+        "min_positive_seed_count": 0,
+        "max_sign_test_pvalue": 0.8,
+        "require_pooled_mcnemar_significant": false,
+        "max_pooled_mcnemar_pvalue": 1.0,
+        "max_negative_rate": 0.4,
+        "max_downside_mean": 0.01,
+        "max_cvar_downside": 0.03,
+        "max_worst_case_loss": 0.03,
+        "downside_cvar_alpha": 0.1
+      },
+      "by_label": {
+        "random25": {
+          "gate_pass": false,
+          "f1_diff_mean": -0.00392831443440734,
+          "sign_test_pvalue": 0.5034446716308594,
+          "pooled_mcnemar_pvalue": 0.49964225765235615,
+          "negative_rate": 0.48,
+          "downside_mean": 0.010685376660719332,
+          "cvar_downside": 0.04351432796096163,
+          "worst_case_loss": 0.056671910824150906
+        },
+        "kfold10": {
+          "gate_pass": true,
+          "f1_diff_mean": 0.00043146000626093084,
+          "sign_test_pvalue": 0.5078125,
+          "pooled_mcnemar_pvalue": 0.8711314915971583,
+          "negative_rate": 0.3,
+          "downside_mean": 0.008119637843831129,
+          "cvar_downside": 0.02942707579485704,
+          "worst_case_loss": 0.02942707579485704
+        },
+        "kfold25": {
+          "gate_pass": true,
+          "f1_diff_mean": 0.0032235139835704364,
+          "sign_test_pvalue": 0.28627872467041016,
+          "pooled_mcnemar_pvalue": 0.6906192201976447,
+          "negative_rate": 0.32,
+          "downside_mean": 0.005412900452994047,
+          "cvar_downside": 0.027065459479437098,
+          "worst_case_loss": 0.02942707579485704
+        },
+        "kfold75": {
+          "gate_pass": false,
+          "f1_diff_mean": -0.0010430107939016376,
+          "sign_test_pvalue": 1.0,
+          "pooled_mcnemar_pvalue": 0.6343945488229775,
+          "negative_rate": 0.4533333333333333,
+          "downside_mean": 0.009613701024553707,
+          "cvar_downside": 0.031117856913819825,
+          "worst_case_loss": 0.03995557582514109
+        }
+      }
+    },
+    {
+      "score": 4,
+      "target_pass_ok": 2,
+      "target_fail_ok": 2,
+      "target_pass_total": 2,
+      "target_fail_total": 2,
+      "all_constraints_satisfied": true,
+      "profile": {
+        "min_runs": 10,
+        "min_f1_diff_mean": 0.0,
+        "min_significant_count": 0,
+        "min_improvement_over_baseline": -0.01,
+        "min_positive_seed_count": 0,
+        "max_sign_test_pvalue": 0.8,
+        "require_pooled_mcnemar_significant": false,
+        "max_pooled_mcnemar_pvalue": 1.0,
+        "max_negative_rate": 0.4,
+        "max_downside_mean": 0.01,
+        "max_cvar_downside": 0.03,
+        "max_worst_case_loss": 0.03,
+        "downside_cvar_alpha": 0.1
+      },
+      "by_label": {
+        "random25": {
+          "gate_pass": false,
+          "f1_diff_mean": -0.00392831443440734,
+          "sign_test_pvalue": 0.5034446716308594,
+          "pooled_mcnemar_pvalue": 0.49964225765235615,
+          "negative_rate": 0.48,
+          "downside_mean": 0.010685376660719332,
+          "cvar_downside": 0.04351432796096163,
+          "worst_case_loss": 0.056671910824150906
+        },
+        "kfold10": {
+          "gate_pass": true,
+          "f1_diff_mean": 0.00043146000626093084,
+          "sign_test_pvalue": 0.5078125,
+          "pooled_mcnemar_pvalue": 0.8711314915971583,
+          "negative_rate": 0.3,
+          "downside_mean": 0.008119637843831129,
+          "cvar_downside": 0.02942707579485704,
+          "worst_case_loss": 0.02942707579485704
+        },
+        "kfold25": {
+          "gate_pass": true,
+          "f1_diff_mean": 0.0032235139835704364,
+          "sign_test_pvalue": 0.28627872467041016,
+          "pooled_mcnemar_pvalue": 0.6906192201976447,
+          "negative_rate": 0.32,
+          "downside_mean": 0.005412900452994047,
+          "cvar_downside": 0.027065459479437098,
+          "worst_case_loss": 0.02942707579485704
+        },
+        "kfold75": {
+          "gate_pass": false,
+          "f1_diff_mean": -0.0010430107939016376,
+          "sign_test_pvalue": 1.0,
+          "pooled_mcnemar_pvalue": 0.6343945488229775,
+          "negative_rate": 0.4533333333333333,
+          "downside_mean": 0.009613701024553707,
+          "cvar_downside": 0.031117856913819825,
+          "worst_case_loss": 0.03995557582514109
+        }
+      }
+    },
+    {
+      "score": 4,
+      "target_pass_ok": 2,
+      "target_fail_ok": 2,
+      "target_pass_total": 2,
+      "target_fail_total": 2,
+      "all_constraints_satisfied": true,
+      "profile": {
+        "min_runs": 10,
+        "min_f1_diff_mean": 0.0,
+        "min_significant_count": 0,
+        "min_improvement_over_baseline": -0.005,
+        "min_positive_seed_count": 0,
+        "max_sign_test_pvalue": 0.8,
+        "require_pooled_mcnemar_significant": false,
+        "max_pooled_mcnemar_pvalue": 1.0,
+        "max_negative_rate": 0.4,
+        "max_downside_mean": 0.01,
+        "max_cvar_downside": 0.03,
+        "max_worst_case_loss": 0.04,
+        "downside_cvar_alpha": 0.1
+      },
+      "by_label": {
+        "random25": {
+          "gate_pass": false,
+          "f1_diff_mean": -0.00392831443440734,
+          "sign_test_pvalue": 0.5034446716308594,
+          "pooled_mcnemar_pvalue": 0.49964225765235615,
+          "negative_rate": 0.48,
+          "downside_mean": 0.010685376660719332,
+          "cvar_downside": 0.04351432796096163,
+          "worst_case_loss": 0.056671910824150906
+        },
+        "kfold10": {
+          "gate_pass": true,
+          "f1_diff_mean": 0.00043146000626093084,
+          "sign_test_pvalue": 0.5078125,
+          "pooled_mcnemar_pvalue": 0.8711314915971583,
+          "negative_rate": 0.3,
+          "downside_mean": 0.008119637843831129,
+          "cvar_downside": 0.02942707579485704,
+          "worst_case_loss": 0.02942707579485704
+        },
+        "kfold25": {
+          "gate_pass": true,
+          "f1_diff_mean": 0.0032235139835704364,
+          "sign_test_pvalue": 0.28627872467041016,
+          "pooled_mcnemar_pvalue": 0.6906192201976447,
+          "negative_rate": 0.32,
+          "downside_mean": 0.005412900452994047,
+          "cvar_downside": 0.027065459479437098,
+          "worst_case_loss": 0.02942707579485704
+        },
+        "kfold75": {
+          "gate_pass": false,
+          "f1_diff_mean": -0.0010430107939016376,
+          "sign_test_pvalue": 1.0,
+          "pooled_mcnemar_pvalue": 0.6343945488229775,
+          "negative_rate": 0.4533333333333333,
+          "downside_mean": 0.009613701024553707,
+          "cvar_downside": 0.031117856913819825,
+          "worst_case_loss": 0.03995557582514109
+        }
+      }
+    },
+    {
+      "score": 4,
+      "target_pass_ok": 2,
+      "target_fail_ok": 2,
+      "target_pass_total": 2,
+      "target_fail_total": 2,
+      "all_constraints_satisfied": true,
+      "profile": {
+        "min_runs": 10,
+        "min_f1_diff_mean": 0.0,
+        "min_significant_count": 0,
+        "min_improvement_over_baseline": -0.01,
+        "min_positive_seed_count": 0,
+        "max_sign_test_pvalue": 0.8,
+        "require_pooled_mcnemar_significant": false,
+        "max_pooled_mcnemar_pvalue": 1.0,
+        "max_negative_rate": 0.4,
+        "max_downside_mean": 0.01,
+        "max_cvar_downside": 0.03,
+        "max_worst_case_loss": 0.04,
+        "downside_cvar_alpha": 0.1
+      },
+      "by_label": {
+        "random25": {
+          "gate_pass": false,
+          "f1_diff_mean": -0.00392831443440734,
+          "sign_test_pvalue": 0.5034446716308594,
+          "pooled_mcnemar_pvalue": 0.49964225765235615,
+          "negative_rate": 0.48,
+          "downside_mean": 0.010685376660719332,
+          "cvar_downside": 0.04351432796096163,
+          "worst_case_loss": 0.056671910824150906
+        },
+        "kfold10": {
+          "gate_pass": true,
+          "f1_diff_mean": 0.00043146000626093084,
+          "sign_test_pvalue": 0.5078125,
+          "pooled_mcnemar_pvalue": 0.8711314915971583,
+          "negative_rate": 0.3,
+          "downside_mean": 0.008119637843831129,
+          "cvar_downside": 0.02942707579485704,
+          "worst_case_loss": 0.02942707579485704
+        },
+        "kfold25": {
+          "gate_pass": true,
+          "f1_diff_mean": 0.0032235139835704364,
+          "sign_test_pvalue": 0.28627872467041016,
+          "pooled_mcnemar_pvalue": 0.6906192201976447,
+          "negative_rate": 0.32,
+          "downside_mean": 0.005412900452994047,
+          "cvar_downside": 0.027065459479437098,
+          "worst_case_loss": 0.02942707579485704
+        },
+        "kfold75": {
+          "gate_pass": false,
+          "f1_diff_mean": -0.0010430107939016376,
+          "sign_test_pvalue": 1.0,
+          "pooled_mcnemar_pvalue": 0.6343945488229775,
+          "negative_rate": 0.4533333333333333,
+          "downside_mean": 0.009613701024553707,
+          "cvar_downside": 0.031117856913819825,
+          "worst_case_loss": 0.03995557582514109
+        }
+      }
+    }
+  ]
+}
