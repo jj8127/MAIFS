@@ -262,14 +262,15 @@ python experiments/run_phase2_patha_repeated.py \
 - 각 조합 클래스당 300장(총 900장)
 - split-seed 10회 반복(`n=10/조합`)
 - 지표: Macro-F1(mean±std), two-sided exact sign test p-value
+- COBRA-only: val-best selection (`algorithm in {rot, drwa, avga, auto}` x `trust profile in {static, metrics_derived}`)
 
 | Dataset | COBRA only | DAAC only | COBRA+DAAC | p (DAAC vs COBRA) | p (Fusion vs DAAC) |
 |---|---:|---:|---:|---:|---:|
-| DS-A (Au/Tp/BigGAN-ai) | 0.265±0.018 | 0.835±0.027 | 0.764±0.051 | 0.00195 | 0.00195 |
-| DS-B (Nature/Tp/BigGAN-ai) | 0.267±0.017 | 0.867±0.019 | 0.765±0.030 | 0.00195 | 0.00195 |
-| DS-C (Au/IMD/BigGAN-ai) | 0.219±0.014 | 0.898±0.022 | 0.829±0.035 | 0.00195 | 0.00195 |
-| DS-D (Nature/IMD/BigGAN-ai) | 0.217±0.013 | 0.863±0.014 | 0.799±0.026 | 0.00195 | 0.00195 |
-| **Pooled (40 runs)** | **0.242±0.029** | **0.866±0.031** | **0.789±0.045** | **1.82e-12** | **1.82e-12** |
+| DS-A (Au/Tp/BigGAN-ai) | 0.277±0.016 | 0.835±0.027 | 0.801±0.028 | 0.00195 | 0.00195 |
+| DS-B (Nature/Tp/BigGAN-ai) | 0.274±0.017 | 0.867±0.019 | 0.788±0.041 | 0.00195 | 0.00195 |
+| DS-C (Au/IMD/BigGAN-ai) | 0.303±0.019 | 0.898±0.022 | 0.842±0.022 | 0.00195 | 0.00195 |
+| DS-D (Nature/IMD/BigGAN-ai) | 0.300±0.021 | 0.863±0.014 | 0.822±0.016 | 0.00195 | 0.00195 |
+| **Pooled (40 runs)** | **0.288±0.022** | **0.866±0.031** | **0.813±0.035** | **1.82e-12** | **1.82e-12** |
 
 핵심 해석:
 - 4개 조합 모두에서 `DAAC only > COBRA only`가 일관되게 관찰됨.
