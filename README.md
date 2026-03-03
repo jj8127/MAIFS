@@ -4,16 +4,32 @@ Multi-Agent Image Forensic System
 
 MAIFS는 4개 포렌식 에이전트의 결과를 합의(Consensus) 및 토론(Debate)으로 통합해 이미지 진위를 판정하는 프로젝트입니다.
 
-## 1. 현재 기준 아키텍처 (2026-02-13)
+## 1. 현재 기준 아키텍처 (2026-03-03)
+
+코드 기준 단일 기술명세(SSOT):
+- `docs/research/CURRENT_ARCHITECTURE_SPEC.md`
+
+운영 리스크 우선순위:
+- `docs/research/OPERATIONS_RISK_PRIORITIES.md`
+
+Path A 최소 실행 런북:
+- `docs/research/PATHA_MIN_RUNBOOK.md`
+
+논문용 결과 표(평균±표준편차 + p-value):
+- `docs/research/PAPER_TABLE_20260303.md`
 
 | 슬롯 | Agent/Tool | 기본 백엔드 | 역할 |
 |------|------------|-------------|------|
 | Frequency (Compression) | `FrequencyAgent` / `CATNetAnalysisTool` | CAT-Net v2 | JPEG 압축/이중 압축 아티팩트 기반 조작 탐지 |
 | Noise | `NoiseAgent` / `NoiseAnalysisTool` | PRNU/SRM (권장: MVSS) | 센서 노이즈 및 조작 노이즈 불일치 탐지 |
-| Semantic | `FatFormerAgent` / `FatFormerTool` | FatFormer (CLIP+DWT) | AI 생성 이미지 탐지 |
+| FatFormer | `FatFormerAgent` / `FatFormerTool` | FatFormer (CLIP+DWT) | AI 생성 이미지 탐지 |
 | Spatial | `SpatialAgent` / `SpatialAnalysisTool` | Mesorch (default) | 픽셀 단위 조작 영역 분할 |
 
 추가로 DAAC 실험 파이프라인(`src/meta/`, `experiments/run_phase1.py`)에서 메타 분류기를 학습해 COBRA 대비 성능 향상을 검증합니다.
+
+신뢰도(trust) 반영 원칙(현재 구현):
+- Specialist 응답 confidence는 raw tool confidence를 사용
+- trust score는 COBRA 합의 단계에서만 1회 반영
 
 ## 2. 빠른 설치 (처음 사용자 권장)
 
