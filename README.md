@@ -215,28 +215,30 @@ python scripts/evaluate_tools.py \
 python scripts/evaluate_tools.py --max-samples 20 --out outputs/tool_reeval_smoke_20.json
 ```
 
-## 7. DAAC 메타모델 재학습 (GPU)
+## 7. DAAC 메타모델 재학습 및 실험 결과
+
+### 7.1 핵심 실행 커맨드
+
+Phase 1 (Path B):
 
 ```bash
 export MAIFS_META_USE_GPU=1
 python experiments/run_phase1.py experiments/configs/phase1_mesorch_retrain.yaml
 ```
 
-결과는 기본적으로 `experiments/results/phase1_mesorch_retrain/` 아래에 저장됩니다.
-
-Phase 2(Path B) 실행:
+Phase 2 (Path B):
 
 ```bash
 python experiments/run_phase2.py experiments/configs/phase2.yaml
 ```
 
-Phase 2 Path A(실데이터 collector) 실행:
+Phase 2 (Path A, 실데이터 collector):
 
 ```bash
 python experiments/run_phase2_patha.py experiments/configs/phase2_patha.yaml
 ```
 
-Phase 2 Path A 멀티시드 실행 (기본/스케일업 공통):
+Path A 멀티시드:
 
 ```bash
 python experiments/run_phase2_patha_multiseed.py \
@@ -244,46 +246,38 @@ python experiments/run_phase2_patha_multiseed.py \
   --seeds 42,43,44,45,46
 ```
 
-Path A 멀티시드 집계 예시 결과:
+Path A fixed-dataset repeated split:
 
-1. `experiments/results/phase2_patha/phase2_patha_multiseed_summary_20260216_101723.json`
-2. `experiments/results/phase2_patha_scale120/phase2_patha_multiseed_summary_20260216_102607.json`
-3. `experiments/results/phase2_patha_scale120/phase2_patha_multiseed_summary_scale120_10seeds_42_51_20260216.json`
-4. `experiments/results/phase2_patha_scale120_router_tuned/phase2_patha_multiseed_summary_router_tuned_5seeds_42_46_20260216.json`
-5. `experiments/results/phase2_patha_scale120_oracle_p15_ls005/summary_5seeds_42_46.json`
-6. `experiments/results/phase2_patha_scale120_oracle_p20_ls005/summary_5seeds_42_46.json`
-7. `experiments/results/phase2_patha_scale120_oracle_p25_ls005/summary_5seeds_42_46.json`
-8. `experiments/results/phase2_patha_scale120_oracle_p15_ls005/summary_10seeds_42_51.json`
+```bash
+python experiments/run_phase2_patha_repeated.py \
+  experiments/configs/phase2_patha_scale120_feat_enhanced36_ridge.yaml \
+  --precollected-jsonl <JSONL_PATH> \
+  --split-seeds 300,301,302,303,304,305,306,307,308,309
+```
 
-최근 `scale120`(클래스당 120, 10 seeds) baseline 집계:
+### 7.2 최신 결과 요약 (2026-03-03, Path A 4조합 확장)
 
-1. Phase1 best F1 mean: `0.8410`
-2. Phase2 best F1 mean: `0.8447`
-3. 평균 ΔF1(Phase2-Phase1): `+0.0037` (McNemar 유의 run: `0/10`)
+실험 설정:
+- 데이터 조합 4개(DS-A/B/C/D)
+- 각 조합 클래스당 300장(총 900장)
+- split-seed 10회 반복(`n=10/조합`)
+- 지표: Macro-F1(mean±std), two-sided exact sign test p-value
 
-Router tuned 파일럿(5 seeds)은 평균 ΔF1이 `-0.0113`으로 baseline 대비 열세라 현재 비채택 상태입니다.
+| Dataset | COBRA only | DAAC only | COBRA+DAAC | p (DAAC vs COBRA) | p (Fusion vs DAAC) |
+|---|---:|---:|---:|---:|---:|
+| DS-A (Au/Tp/BigGAN-ai) | 0.265±0.018 | 0.835±0.027 | 0.764±0.051 | 0.00195 | 0.00195 |
+| DS-B (Nature/Tp/BigGAN-ai) | 0.267±0.017 | 0.867±0.019 | 0.765±0.030 | 0.00195 | 0.00195 |
+| DS-C (Au/IMD/BigGAN-ai) | 0.219±0.014 | 0.898±0.022 | 0.829±0.035 | 0.00195 | 0.00195 |
+| DS-D (Nature/IMD/BigGAN-ai) | 0.217±0.013 | 0.863±0.014 | 0.799±0.026 | 0.00195 | 0.00195 |
+| **Pooled (40 runs)** | **0.242±0.029** | **0.866±0.031** | **0.789±0.045** | **1.82e-12** | **1.82e-12** |
 
-Oracle power/smoothing 그리드(5 seeds) 결과:
+핵심 해석:
+- 4개 조합 모두에서 `DAAC only > COBRA only`가 일관되게 관찰됨.
+- 고정 가중치 `COBRA+DAAC(0.5)`는 4개 조합 모두에서 `DAAC only`보다 낮음.
 
-1. `power=1.5, ls=0.05`: 평균 ΔF1 `+0.0142`
-2. `power=2.0, ls=0.05`: 평균 ΔF1 `+0.0078`
-3. `power=2.5, ls=0.05`: 평균 ΔF1 `+0.0003`
-
-후보(`power=1.5, ls=0.05`)를 seed10으로 확장하면 평균 ΔF1이 `+0.0036`으로 baseline seed10(`+0.0037`)과 사실상 동급이며 유의 run은 `0/10`입니다.
-
-Path A `enhanced36+ridge` fixed-kfold25 독립 블록 검증(각 25 runs) 요약:
-
-1. `300~304`: ΔF1 mean `+0.0032` (`experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/fixed_kfold_summary_25runs_5seeds_20260216.json`)
-2. `305~309`: ΔF1 mean `-0.0036` (`experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/fixed_kfold_summary_25runs_5seeds_305_309_20260216.json`)
-3. `310~314`: ΔF1 mean `-0.0028` (`experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/fixed_kfold_summary_25runs_5seeds_310_314_20260216.json`)
-4. 확장 `75 runs (300~314)`: ΔF1 mean `-0.0010`, sign `34/34/7` (`experiments/results/phase2_patha_scale120_feat_enhanced36_ridge/fixed_kfold_summary_75runs_15seeds_300_314_20260216.json`)
-
-운영 게이트는 변동성 대응을 위해 `experiments/configs/phase2_patha_scale120_feat_enhanced36_ridge.yaml`의 `protocol.active_gate_profile=scale120_conservative`로 고정했다.
-
-최신 예시 결과:
-
-1. `experiments/results/phase1_mesorch_retrain/phase1_results_20260213_161739.json`
-2. `experiments/results/phase1_mesorch_retrain/ablation_report.txt`
+상세 표와 경로:
+- `docs/research/PAPER_TABLE_20260303.md`
+- `experiments/results/phase2_patha_case3_multidata/multi_dataset_case3_comparison_20260303.json`
 
 ## 8. 자주 쓰는 환경변수
 
