@@ -59,3 +59,4 @@ TruFor-main/TruFor_train_test/datasets/
 TruFor-main/TruFor_weights.zip
 TruFor-main/TruFor_train_test/pretrained_models/
 *.npz
+external/
