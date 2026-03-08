@@ -20,7 +20,7 @@ v_final = Σ w_i · v_i    (가중 투표)
 
 리뷰어 관점에서의 핵심 비판:
 
-> "기존 모델(FFT, PRNU, FatFormer, ViT)을 파이프라인으로 묶고 가중 투표한 것만으로는 학술적 기여로 부족하다."
+> "기존 모델(CAT-Net/FFT, MVSS-Net/PRNU, FatFormer, Mesorch/ViT)을 파이프라인으로 묶고 가중 투표한 것만으로는 학술적 기여로 부족하다."
 
 - 개별 Tool: 기존 기법의 재구현
 - 합의 메커니즘: 단순 가중 평균 (COBRA)
@@ -121,7 +121,7 @@ DAAC (제안):
 
 | Agent | 강점 | 약점 | 참조 |
 |-------|------|------|------|
-| Frequency (FFT) | GAN upsampling 아티팩트 | Diffusion, JPEG 혼동 | Durall et al. 2020 |
+| Frequency (**CAT-Net**) | JPEG 이중 압축 흔적 탐지 | AI-generated 탐지 불가(F1=0.000), JPEG 비압축 이미지 취약 | Kwon et al. 2021 |
 | Noise (PRNU/SRM) | 카메라 진위, 센서 노이즈 부재 탐지 | 고압축, 리사이즈에 취약 | Chen et al. 2008, Fridrich & Kodovsky 2012 |
 | FatFormer (CLIP+DWT) | Diffusion 탐지, 교차 일반화 | 부분 조작 미탐지 | Liu et al. CVPR 2024 |
 | Spatial (ViT) | 부분 조작 영역 탐지 | AI 전체 생성 약함 | Guillaro et al. 2023 |
@@ -320,7 +320,7 @@ experiments/
 
 2. **A3 유의미성**: disagreement만으로 random 대비 +30.7%p 개선. 불일치 패턴 자체가 탐지 신호임을 확인. 다만 verdict 정보 없이는 한계 존재.
 
-3. **특징 중요도**: GBM 기준 `fatformer_verdict_ai_generated`(0.185), `spatial_verdict_manipulated`(0.154), `fatformer_confidence`(0.144) — 각 에이전트의 전문성이 반영됨.
+3. **특징 중요도** (⚠️ **시뮬레이션 Path B 기준** — 실데이터와 다름): GBM 기준 `fatformer_verdict_ai_generated`(0.185), `spatial_verdict_manipulated`(0.154), `fatformer_confidence`(0.144) — 각 에이전트의 전문성이 반영됨. 실데이터(Path A, Section 8.23)에서는 `disagree_frequency_fatformer`(56.5%)가 압도적 1위로, 시뮬레이션이 불일치 특징 강도를 과소평가했음이 확인됨.
 
 4. **에이전트 기여도**: Noise와 Spatial 제거 시 가장 큰 성능 하락 → 독립적 신호 원천의 가치 확인.
 
@@ -824,7 +824,7 @@ Step 6의 모델 선택 기준을 test에서 val로 옮겨 방법론 누수를 �
 
 운영 재현 절차:
 
-- `docs/research/PHASE2_LOSS_AVERSE_RUNBOOK.md`
+- `experiments/results/phase2_patha_scale120_feat_risk52_oracle_lossaverse_guard_valselect_tunec/fixed_kfold_summary_30runs_6seeds_risk52_oracle_lossaverse_guard_valselect_tunec_20260217.json` (결과 아티팩트)
 
 ### 8.22 Guard 민감도 진단 자동화 및 음수 run 패턴 확인 (2026-02-17, Latest)
 
@@ -852,15 +852,63 @@ Step 6의 모델 선택 기준을 test에서 val로 옮겨 방법론 누수를 �
 1. 현 정책의 실패 모드는 “과소개입”이 아니라, 드물게 발생하는 “과도한 라우팅 허용” 구간이다.
 2. 따라서 다음 개선 우선순위는 oracle 자체 재설계보다도, seed/fold 조건부 route-rate 상한 또는 outlier veto 강화다.
 
+### 8.23 DAAC 최종 실험 — paper_final (2026-03-04, Latest)
+
+Phase 1-A 최종 단계로, scale500 JSONL을 10-seed 반복 실험 및 6개 데이터 조합 Protocol-M으로 DAAC 논문 수치를 확정했다.
+
+- 실행 스크립트: `experiments/run_phase2_patha_repeated.py`
+- 입력 데이터: `experiments/results/phase2_patha_scale500_gain_predictor/patha_agent_outputs_20260304_080157.jsonl`
+  - 1,500장 실데이터 (CASIA2 Au/Tp + GenImage BigGAN 각 500장)
+- 결과 위치: `experiments/results/paper_final/`
+
+**Protocol-P** (1,500장, 10 seeds):
+
+| 방법 | Macro-F1 mean ± std | Cohen's κ |
+|------|---------------------|-----------|
+| Majority Vote | 0.2749 ± 0.0082 | — |
+| COBRA (DRWA) | 0.2660 ± 0.0071 | 0.068 |
+| Logistic Stacking (A4+LR) | — | — |
+| **DAAC-GBM (A5, 43-dim)** | **0.8613 ± 0.0156** | **0.796** |
+| DAAC-LR (A5+LR) | — | — |
+| DAAC-MLP (A5+MLP) | — | — |
+
+- Wilcoxon signed-rank test: DAAC-GBM vs COBRA → **p=0.00195**
+
+**Protocol-M** (6개 데이터 조합, 60 runs):
+
+| 항목 | 값 |
+|------|----|
+| sign(+/-/0) | 60 / 0 / 0 |
+| Wilcoxon p | 1.63e-11 |
+| mean delta | +0.493 |
+
+**GBM 특징 중요도 Top-3**:
+
+| 특징 | 중요도 |
+|------|--------|
+| `disagree_frequency_fatformer` | **56.46%** |
+| `disagree_noise_fatformer` | 8.43% |
+| `frequency_confidence` | 5.16% |
+
+> ⚠️ 실데이터 결과는 시뮬레이션 Path B(7.2 참조)와 다름: 시뮬레이션에서는 `fatformer_verdict_ai_generated`가 top 특징이었으나, 실데이터에서는 `disagree_frequency_fatformer`(56.5%)가 압도적 1위. CAT-Net(JPEG 탐지, AI-generated 맹점)↔FatFormer(AI-generated 탐지, Manipulated 맹점)의 구조적 불일치가 핵심 신호임이 실증됨.
+
+**추론 속도 실측** (CASIA2 5장 × 3회):
+
+| 구성 요소 | 시간 |
+|----------|------|
+| 에이전트 inference 합계 | 312.5ms |
+| DAAC-GBM 합의 계층 | 0.069ms |
+| 전체 대비 DAAC 비율 | **0.02% 미만** |
+
 ## 9. 타임라인
 
 | 단계 | 내용 | 상태 |
 |------|------|------|
 | Phase 1-B | 시뮬레이션 기반 가설 검증 (초기 baseline) | ✅ 완료 (GO, 2026-02-12) |
 | Phase 1-C | 프로파일 보정 + GPU 재학습 (latest) | ✅ 완료 (GO, 2026-02-13) |
-| Phase 1-A | 실데이터 collector 기반 검증 | 진행중 (collector 통합 + scale120 seed10 완료, 유의성 확보 필요) |
-| Phase 2 | Adaptive Routing | 진행중 (평균 개선 트랙은 미통과, 손실회피 운영 트랙은 `loss_averse_sparse_v2` pass) |
-| Phase 3 | 벤치마크 + 논문 | Phase 2 완료 후 |
+| Phase 1-A | 실데이터 collector 기반 검증 (scale500, paper_final) | ✅ 완료 (GO, 2026-03-04): DAAC-GBM F1=0.861±0.016 vs COBRA 0.266 (p=0.00195) → Section 8.23 참조 |
+| Phase 2 | Adaptive Routing | 미착수 (실험 8.8~8.22에서 탐색만 진행, 논문 범위 외로 제외) |
+| Phase 3 | 벤치마크 + 논문 | ✅ 완료 (2026-03-06): KIPS 2026 논문 초안 완성 → `docs/research/MAIFS_PAPER_DRAFT2_20260306.md` |
 
 ## 10. 데이터셋 (Phase 1-A용)
 

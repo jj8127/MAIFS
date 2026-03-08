@@ -21,7 +21,7 @@ Path A 최소 실행 런북:
 | 슬롯 | Agent/Tool | 기본 백엔드 | 역할 |
 |------|------------|-------------|------|
 | Frequency (Compression) | `FrequencyAgent` / `CATNetAnalysisTool` | CAT-Net v2 | JPEG 압축/이중 압축 아티팩트 기반 조작 탐지 |
-| Noise | `NoiseAgent` / `NoiseAnalysisTool` | PRNU/SRM (권장: MVSS) | 센서 노이즈 및 조작 노이즈 불일치 탐지 |
+| Noise | `NoiseAgent` / `NoiseAnalysisTool` | MVSS-Net (PRNU/SRM fallback) | 픽셀 수준 조작 마스크 예측 |
 | FatFormer | `FatFormerAgent` / `FatFormerTool` | FatFormer (CLIP+DWT) | AI 생성 이미지 탐지 |
 | Spatial | `SpatialAgent` / `SpatialAnalysisTool` | Mesorch (default) | 픽셀 단위 조작 영역 분할 |
 
@@ -288,7 +288,7 @@ python experiments/run_phase2_patha_repeated.py \
 | `MAIFS_SPATIAL_BACKEND` | Spatial 백엔드 (`mesorch`, `omniguard`, `trufor`) | `mesorch` |
 | `MAIFS_MESORCH_CHECKPOINT` | Mesorch 체크포인트 경로 오버라이드 | `Mesorch-main/mesorch/mesorch-98.pth` |
 | `MAIFS_MVSS_CHECKPOINT` | MVSS 체크포인트 경로 오버라이드 | `MVSS-Net-master/ckpt/mvssnet_casia.pt` |
-| `MAIFS_NOISE_BACKEND` | Noise 백엔드 (`mvss`, `prnu`) | `prnu` |
+| `MAIFS_NOISE_BACKEND` | Noise 백엔드 (`mvss`, `prnu`) | `mvss` (실험 권장; 체크포인트 없으면 자동 `prnu` 전환) |
 | `MAIFS_CATNET_CHECKPOINT` | CAT-Net full 체크포인트 경로 오버라이드 | 코드 기본 경로 |
 | `MAIFS_CATNET_CONFIG` | CAT-Net yaml 경로 오버라이드 | 코드 기본 경로 |
 | `MAIFS_META_USE_GPU` | Phase1 메타학습 GPU 사용 여부 (`1/0`) | `1` |
