@@ -37,6 +37,17 @@ OmniGuard-main/checkpoint/
 *.ckpt
 *.bin
 *.pth.tar
+*.onnx
+*.safetensors
+weights/
+
+# External model repos (third-party, not submodules)
+ForMa-main/
+TinyLaDeDa-main/
+ml-mobileclip/
+
+# Media / podcast
+docs/podcast/
 
 # Notebooks
 .ipynb_checkpoints/
