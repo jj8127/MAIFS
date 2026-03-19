@@ -123,15 +123,15 @@
 
 **Phase 4: Edge Deployment** (진행 중)
 
-| 모델 | ONNX 크기 | 서버 1-thread | RPi5 추정 | 양자화 결과 |
-|------|----------|-------------|---------|-----------|
-| MNV2 | 22.5MB | 14ms | ~57ms | Dynamic ×1.04, Static ×1.05 |
-| SpecM | 30MB | 20.6ms | ~82ms | **Static ×1.25** (cos=1.00 ✓) |
-| SpecG | 141.5MB | 200ms | ~800ms (서버 전용) | 붕괴(cos<0.2) ✗ |
-| CLIP | 141.3MB | 197.7ms | ~791ms (서버 전용) | 붕괴(cos<0.2) ✗ |
+| 모델 | ONNX 크기 | 서버 1-thread | RPi5 추정 | Dynamic INT8 (F1 Δ) | Static INT8 (F1 Δ) |
+|------|----------|-------------|---------|---------------------|-------------------|
+| MNV2 | 22.5MB | 14ms | ~57ms | **+0.02%p** ✓ | **-17.97%p** ✗ |
+| SpecM | 30MB | 20.6ms | ~82ms | **+0.13%p** ✓ | **+0.01%p** ✓ |
+| SpecG | 141.5MB | 200ms | ~800ms (서버 전용) | +0.17%p ✓ | -47.23%p ✗ |
+| CLIP | 141.3MB | 197.7ms | ~791ms (서버 전용) | +0.06%p ✓ | -63.25%p ✗ |
 
-> **RPi5 배포 Scenario A** (추천): MNV2-FP32 + SpecM-INT8-Static → 합계 예상 ~500ms
-> SpecG/CLIP은 FastViT attention 양자화 불가 → **서버 하이브리드 아키텍처**로 전환
+> **RPi5 배포 확정**: MNV2-FP32(76.11%) + **SpecM-Dynamic INT8**(65.54%) → 합계 ~35ms(서버), ~140ms(RPi5 추정)
+> MNV2 Static은 F1 -18%p로 실용 불가. SpecG/CLIP Static은 FastViT attention 양자화 붕괴 → **서버 하이브리드 아키텍처**
 
 ```bash
 # ONNX 변환 + 서버 벤치마크
