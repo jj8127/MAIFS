@@ -1,0 +1,174 @@
+{
+  "timestamp": "20260321_135738",
+  "arch": "MNV2+SpecM-v5b_ft",
+  "best_w": 1.0,
+  "best_avg_macro_recall": 0.9635,
+  "v4_ref": 0.9658,
+  "delta": -0.0023,
+  "runs": {
+    "w0.5": {
+      "avg": 0.9623,
+      "ds": {
+        "base": {
+          "macro_recall": 0.9493,
+          "per_class": {
+            "authentic": 0.958,
+            "manipulated": 0.89,
+            "ai_generated": 1.0
+          },
+          "n": 1500
+        },
+        "dsC": {
+          "macro_recall": 0.9833,
+          "per_class": {
+            "authentic": 0.9633,
+            "manipulated": 0.9867,
+            "ai_generated": 1.0
+          },
+          "n": 900
+        },
+        "opensdi": {
+          "macro_recall": 0.9478,
+          "per_class": {
+            "authentic": 0.92,
+            "manipulated": 0.9667,
+            "ai_generated": 0.9567
+          },
+          "n": 900
+        },
+        "aigenproxy": {
+          "macro_recall": 0.9689,
+          "per_class": {
+            "authentic": 0.9567,
+            "manipulated": 0.9933,
+            "ai_generated": 0.9567
+          },
+          "n": 900
+        }
+      }
+    },
+    "w1.0": {
+      "avg": 0.9635,
+      "ds": {
+        "base": {
+          "macro_recall": 0.9573,
+          "per_class": {
+            "authentic": 0.96,
+            "manipulated": 0.912,
+            "ai_generated": 1.0
+          },
+          "n": 1500
+        },
+        "dsC": {
+          "macro_recall": 0.9878,
+          "per_class": {
+            "authentic": 0.97,
+            "manipulated": 0.9933,
+            "ai_generated": 1.0
+          },
+          "n": 900
+        },
+        "opensdi": {
+          "macro_recall": 0.9367,
+          "per_class": {
+            "authentic": 0.9233,
+            "manipulated": 0.9333,
+            "ai_generated": 0.9533
+          },
+          "n": 900
+        },
+        "aigenproxy": {
+          "macro_recall": 0.9722,
+          "per_class": {
+            "authentic": 0.97,
+            "manipulated": 0.99,
+            "ai_generated": 0.9567
+          },
+          "n": 900
+        }
+      }
+    },
+    "w2.0": {
+      "avg": 0.9418,
+      "ds": {
+        "base": {
+          "macro_recall": 0.9593,
+          "per_class": {
+            "authentic": 0.93,
+            "manipulated": 0.948,
+            "ai_generated": 1.0
+          },
+          "n": 1500
+        },
+        "dsC": {
+          "macro_recall": 0.9756,
+          "per_class": {
+            "authentic": 0.9333,
+            "manipulated": 0.9933,
+            "ai_generated": 1.0
+          },
+          "n": 900
+        },
+        "opensdi": {
+          "macro_recall": 0.8633,
+          "per_class": {
+            "authentic": 0.83,
+            "manipulated": 0.8167,
+            "ai_generated": 0.9433
+          },
+          "n": 900
+        },
+        "aigenproxy": {
+          "macro_recall": 0.9689,
+          "per_class": {
+            "authentic": 0.9733,
+            "manipulated": 0.9867,
+            "ai_generated": 0.9467
+          },
+          "n": 900
+        }
+      }
+    },
+    "w3.0": {
+      "avg": 0.9209,
+      "ds": {
+        "base": {
+          "macro_recall": 0.948,
+          "per_class": {
+            "authentic": 0.88,
+            "manipulated": 0.964,
+            "ai_generated": 1.0
+          },
+          "n": 1500
+        },
+        "dsC": {
+          "macro_recall": 0.9444,
+          "per_class": {
+            "authentic": 0.8467,
+            "manipulated": 0.99,
+            "ai_generated": 0.9967
+          },
+          "n": 900
+        },
+        "opensdi": {
+          "macro_recall": 0.8278,
+          "per_class": {
+            "authentic": 0.7833,
+            "manipulated": 0.7667,
+            "ai_generated": 0.9333
+          },
+          "n": 900
+        },
+        "aigenproxy": {
+          "macro_recall": 0.9633,
+          "per_class": {
+            "authentic": 0.9633,
+            "manipulated": 0.9833,
+            "ai_generated": 0.9433
+          },
+          "n": 900
+        }
+      }
+    }
+  }
+}

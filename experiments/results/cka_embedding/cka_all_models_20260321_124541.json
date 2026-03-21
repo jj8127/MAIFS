@@ -1,0 +1,88 @@
+{
+  "timestamp": "20260321_124541",
+  "device": "cuda",
+  "n_samples": 399,
+  "label_dist": {
+    "authentic": 133,
+    "manipulated": 133,
+    "ai_generated": 133
+  },
+  "method": "unbiased_linear_cka (Nguyen et al. 2021)",
+  "reference_model": "MNV2 (DualStreamMobileNetV2, 2560-dim)",
+  "ranked": [
+    {
+      "rank": 1,
+      "model": "MobileCLIP-S2-ft4",
+      "cka": 0.0281,
+      "dim": 512,
+      "arch": "CLIP ViT (contrastive pretrain + forensics ft4)"
+    },
+    {
+      "rank": 2,
+      "model": "SpecG",
+      "cka": 0.6594,
+      "dim": 576,
+      "arch": "MobileCLIP + PiD residual"
+    },
+    {
+      "rank": 3,
+      "model": "SpecM-v1",
+      "cka": 0.7249,
+      "dim": 3840,
+      "arch": "RGB+SRM+DCT (MNV2 3-branch)"
+    },
+    {
+      "rank": 4,
+      "model": "SpecM-v2",
+      "cka": 0.7249,
+      "dim": 3840,
+      "arch": "RGB+SRM+DCT (MNV2 3-branch)"
+    },
+    {
+      "rank": 5,
+      "model": "SpecM-v3",
+      "cka": 0.7249,
+      "dim": 3840,
+      "arch": "RGB+SRM+DCT (MNV2 3-branch)"
+    },
+    {
+      "rank": 6,
+      "model": "SpecM-v4",
+      "cka": 0.7249,
+      "dim": 3840,
+      "arch": "RGB+SRM+DCT (MNV2 3-branch)"
+    }
+  ],
+  "all_results": {
+    "SpecM-v1": {
+      "cka": 0.7249,
+      "dim": 3840,
+      "arch": "RGB+SRM+DCT (MNV2 3-branch)"
+    },
+    "SpecM-v2": {
+      "cka": 0.7249,
+      "dim": 3840,
+      "arch": "RGB+SRM+DCT (MNV2 3-branch)"
+    },
+    "SpecM-v3": {
+      "cka": 0.7249,
+      "dim": 3840,
+      "arch": "RGB+SRM+DCT (MNV2 3-branch)"
+    },
+    "SpecM-v4": {
+      "cka": 0.7249,
+      "dim": 3840,
+      "arch": "RGB+SRM+DCT (MNV2 3-branch)"
+    },
+    "MobileCLIP-S2-ft4": {
+      "cka": 0.0281,
+      "dim": 512,
+      "arch": "CLIP ViT (contrastive pretrain + forensics ft4)"
+    },
+    "SpecG": {
+      "cka": 0.6594,
+      "dim": 576,
+      "arch": "MobileCLIP + PiD residual"
+    }
+  }
+}

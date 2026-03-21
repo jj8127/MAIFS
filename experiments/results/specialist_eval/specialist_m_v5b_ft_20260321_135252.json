@@ -1,0 +1,491 @@
+{
+  "arch": "SpecialistMv5b_FT_MobileCLIPUnfrozen",
+  "timestamp": "20260321_135252",
+  "args": {
+    "epochs": 20,
+    "lr_clip": 1e-05,
+    "lr_head": 0.0001,
+    "dropout": 0.3,
+    "seed": 42
+  },
+  "total_params_M": 36.03,
+  "trainable_params_M": 36.03,
+  "val_best_manip_f1": 0.7846,
+  "4ds_avg_manip_f1": 0.8347,
+  "datasets": {
+    "base": {
+      "acc": 0.853,
+      "manip_f1": 0.8645,
+      "manip_prec": 0.8017,
+      "manip_rec": 0.938,
+      "macro_recall": 0.853,
+      "per_class": {
+        "authentic": {
+          "recall": 0.768,
+          "n": 500
+        },
+        "manipulated": {
+          "recall": 0.938,
+          "n": 500
+        }
+      },
+      "n_binary": 1000
+    },
+    "dsC": {
+      "acc": 0.8817,
+      "manip_f1": 0.8932,
+      "manip_prec": 0.8137,
+      "manip_rec": 0.99,
+      "macro_recall": 0.8817,
+      "per_class": {
+        "authentic": {
+          "recall": 0.7733,
+          "n": 300
+        },
+        "manipulated": {
+          "recall": 0.99,
+          "n": 300
+        }
+      },
+      "n_binary": 600
+    },
+    "opensdi": {
+      "acc": 0.635,
+      "manip_f1": 0.6205,
+      "manip_prec": 0.6462,
+      "manip_rec": 0.5967,
+      "macro_recall": 0.635,
+      "per_class": {
+        "authentic": {
+          "recall": 0.6733,
+          "n": 300
+        },
+        "manipulated": {
+          "recall": 0.5967,
+          "n": 300
+        }
+      },
+      "n_binary": 600
+    },
+    "aigenproxy": {
+      "acc": 0.96,
+      "manip_f1": 0.9605,
+      "manip_prec": 0.9481,
+      "manip_rec": 0.9733,
+      "macro_recall": 0.96,
+      "per_class": {
+        "authentic": {
+          "recall": 0.9467,
+          "n": 300
+        },
+        "manipulated": {
+          "recall": 0.9733,
+          "n": 300
+        }
+      },
+      "n_binary": 600
+    }
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.0517,
+      "val_loss": 0.0612,
+      "acc": 0.7627,
+      "manip_f1": 0.7543,
+      "manip_prec": 0.6374,
+      "manip_rec": 0.9239,
+      "macro_recall": 0.7908,
+      "per_class": {
+        "authentic": {
+          "recall": 0.6578,
+          "n": 1049
+        },
+        "manipulated": {
+          "recall": 0.9239,
+          "n": 683
+        }
+      }
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.0462,
+      "val_loss": 0.0623,
+      "acc": 0.7708,
+      "manip_f1": 0.7533,
+      "manip_prec": 0.6544,
+      "manip_rec": 0.8873,
+      "macro_recall": 0.7911,
+      "per_class": {
+        "authentic": {
+          "recall": 0.6949,
+          "n": 1049
+        },
+        "manipulated": {
+          "recall": 0.8873,
+          "n": 683
+        }
+      }
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.0437,
+      "val_loss": 0.0582,
+      "acc": 0.7875,
+      "manip_f1": 0.768,
+      "manip_prec": 0.6744,
+      "manip_rec": 0.8917,
+      "macro_recall": 0.8057,
+      "per_class": {
+        "authentic": {
+          "recall": 0.7197,
+          "n": 1049
+        },
+        "manipulated": {
+          "recall": 0.8917,
+          "n": 683
+        }
+      }
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.0404,
+      "val_loss": 0.0572,
+      "acc": 0.7858,
+      "manip_f1": 0.7665,
+      "manip_prec": 0.6722,
+      "manip_rec": 0.8917,
+      "macro_recall": 0.8043,
+      "per_class": {
+        "authentic": {
+          "recall": 0.7169,
+          "n": 1049
+        },
+        "manipulated": {
+          "recall": 0.8917,
+          "n": 683
+        }
+      }
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.0376,
+      "val_loss": 0.0614,
+      "acc": 0.8077,
+      "manip_f1": 0.7784,
+      "manip_prec": 0.7134,
+      "manip_rec": 0.8565,
+      "macro_recall": 0.8162,
+      "per_class": {
+        "authentic": {
+          "recall": 0.776,
+          "n": 1049
+        },
+        "manipulated": {
+          "recall": 0.8565,
+          "n": 683
+        }
+      }
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.0371,
+      "val_loss": 0.0598,
+      "acc": 0.7962,
+      "manip_f1": 0.7742,
+      "manip_prec": 0.6875,
+      "manip_rec": 0.8858,
+      "macro_recall": 0.8118,
+      "per_class": {
+        "authentic": {
+          "recall": 0.7378,
+          "n": 1049
+        },
+        "manipulated": {
+          "recall": 0.8858,
+          "n": 683
+        }
+      }
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.0342,
+      "val_loss": 0.0649,
+      "acc": 0.8152,
+      "manip_f1": 0.7826,
+      "manip_prec": 0.73,
+      "manip_rec": 0.8433,
+      "macro_recall": 0.8201,
+      "per_class": {
+        "authentic": {
+          "recall": 0.7969,
+          "n": 1049
+        },
+        "manipulated": {
+          "recall": 0.8433,
+          "n": 683
+        }
+      }
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.0333,
+      "val_loss": 0.0639,
+      "acc": 0.8077,
+      "manip_f1": 0.7733,
+      "manip_prec": 0.7226,
+      "manip_rec": 0.8316,
+      "macro_recall": 0.8119,
+      "per_class": {
+        "authentic": {
+          "recall": 0.7922,
+          "n": 1049
+        },
+        "manipulated": {
+          "recall": 0.8316,
+          "n": 683
+        }
+      }
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.0317,
+      "val_loss": 0.066,
+      "acc": 0.8129,
+      "manip_f1": 0.779,
+      "manip_prec": 0.7292,
+      "manip_rec": 0.836,
+      "macro_recall": 0.817,
+      "per_class": {
+        "authentic": {
+          "recall": 0.7979,
+          "n": 1049
+        },
+        "manipulated": {
+          "recall": 0.836,
+          "n": 683
+        }
+      }
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.0306,
+      "val_loss": 0.0701,
+      "acc": 0.81,
+      "manip_f1": 0.7717,
+      "manip_prec": 0.7335,
+      "manip_rec": 0.8141,
+      "macro_recall": 0.8107,
+      "per_class": {
+        "authentic": {
+          "recall": 0.8074,
+          "n": 1049
+        },
+        "manipulated": {
+          "recall": 0.8141,
+          "n": 683
+        }
+      }
+    },
+    {
+      "epoch": 11,
+      "train_loss": 0.0293,
+      "val_loss": 0.0743,
+      "acc": 0.8043,
+      "manip_f1": 0.7631,
+      "manip_prec": 0.7299,
+      "manip_rec": 0.7994,
+      "macro_recall": 0.8034,
+      "per_class": {
+        "authentic": {
+          "recall": 0.8074,
+          "n": 1049
+        },
+        "manipulated": {
+          "recall": 0.7994,
+          "n": 683
+        }
+      }
+    },
+    {
+      "epoch": 12,
+      "train_loss": 0.0283,
+      "val_loss": 0.0719,
+      "acc": 0.81,
+      "manip_f1": 0.772,
+      "manip_prec": 0.7329,
+      "manip_rec": 0.8155,
+      "macro_recall": 0.811,
+      "per_class": {
+        "authentic": {
+          "recall": 0.8065,
+          "n": 1049
+        },
+        "manipulated": {
+          "recall": 0.8155,
+          "n": 683
+        }
+      }
+    },
+    {
+      "epoch": 13,
+      "train_loss": 0.0281,
+      "val_loss": 0.0716,
+      "acc": 0.8164,
+      "manip_f1": 0.7846,
+      "manip_prec": 0.7301,
+      "manip_rec": 0.8477,
+      "macro_recall": 0.8219,
+      "per_class": {
+        "authentic": {
+          "recall": 0.796,
+          "n": 1049
+        },
+        "manipulated": {
+          "recall": 0.8477,
+          "n": 683
+        }
+      }
+    },
+    {
+      "epoch": 14,
+      "train_loss": 0.0278,
+      "val_loss": 0.0789,
+      "acc": 0.8135,
+      "manip_f1": 0.7774,
+      "manip_prec": 0.7344,
+      "manip_rec": 0.8258,
+      "macro_recall": 0.8156,
+      "per_class": {
+        "authentic": {
+          "recall": 0.8055,
+          "n": 1049
+        },
+        "manipulated": {
+          "recall": 0.8258,
+          "n": 683
+        }
+      }
+    },
+    {
+      "epoch": 15,
+      "train_loss": 0.0264,
+      "val_loss": 0.0727,
+      "acc": 0.8129,
+      "manip_f1": 0.7766,
+      "manip_prec": 0.734,
+      "manip_rec": 0.8243,
+      "macro_recall": 0.8149,
+      "per_class": {
+        "authentic": {
+          "recall": 0.8055,
+          "n": 1049
+        },
+        "manipulated": {
+          "recall": 0.8243,
+          "n": 683
+        }
+      }
+    },
+    {
+      "epoch": 16,
+      "train_loss": 0.0259,
+      "val_loss": 0.0759,
+      "acc": 0.8112,
+      "manip_f1": 0.774,
+      "manip_prec": 0.733,
+      "manip_rec": 0.8199,
+      "macro_recall": 0.8127,
+      "per_class": {
+        "authentic": {
+          "recall": 0.8055,
+          "n": 1049
+        },
+        "manipulated": {
+          "recall": 0.8199,
+          "n": 683
+        }
+      }
+    },
+    {
+      "epoch": 17,
+      "train_loss": 0.0251,
+      "val_loss": 0.0789,
+      "acc": 0.8025,
+      "manip_f1": 0.7625,
+      "manip_prec": 0.7252,
+      "manip_rec": 0.8038,
+      "macro_recall": 0.8028,
+      "per_class": {
+        "authentic": {
+          "recall": 0.8017,
+          "n": 1049
+        },
+        "manipulated": {
+          "recall": 0.8038,
+          "n": 683
+        }
+      }
+    },
+    {
+      "epoch": 18,
+      "train_loss": 0.026,
+      "val_loss": 0.0778,
+      "acc": 0.8077,
+      "manip_f1": 0.7711,
+      "manip_prec": 0.7267,
+      "manip_rec": 0.8214,
+      "macro_recall": 0.8101,
+      "per_class": {
+        "authentic": {
+          "recall": 0.7989,
+          "n": 1049
+        },
+        "manipulated": {
+          "recall": 0.8214,
+          "n": 683
+        }
+      }
+    },
+    {
+      "epoch": 19,
+      "train_loss": 0.0254,
+      "val_loss": 0.0789,
+      "acc": 0.8089,
+      "manip_f1": 0.7706,
+      "manip_prec": 0.7316,
+      "manip_rec": 0.8141,
+      "macro_recall": 0.8098,
+      "per_class": {
+        "authentic": {
+          "recall": 0.8055,
+          "n": 1049
+        },
+        "manipulated": {
+          "recall": 0.8141,
+          "n": 683
+        }
+      }
+    },
+    {
+      "epoch": 20,
+      "train_loss": 0.0255,
+      "val_loss": 0.0777,
+      "acc": 0.81,
+      "manip_f1": 0.7726,
+      "manip_prec": 0.7317,
+      "manip_rec": 0.8184,
+      "macro_recall": 0.8115,
+      "per_class": {
+        "authentic": {
+          "recall": 0.8046,
+          "n": 1049
+        },
+        "manipulated": {
+          "recall": 0.8184,
+          "n": 683
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,187 @@
+{
+  "meta": {
+    "timestamp": "20260321_033020",
+    "device": "cuda",
+    "n_samples": 4200,
+    "method": "unbiased_linear_cka"
+  },
+  "cka_vs_mnv2_fused": {
+    "specm_fused": {
+      "description": "SpecM-v4 fused (3840d)",
+      "dim": 3840,
+      "cka_vs_mnv2": 0.3919,
+      "per_class": {
+        "authentic": 0.67,
+        "manipulated": 0.7056,
+        "ai_generated": 0.4594
+      }
+    },
+    "specm_rgb": {
+      "description": "SpecM-v4 RGB branch (1280d)",
+      "dim": 1280,
+      "cka_vs_mnv2": 0.3222,
+      "per_class": {
+        "authentic": 0.6627,
+        "manipulated": 0.7019,
+        "ai_generated": 0.381
+      }
+    },
+    "specm_srm": {
+      "description": "SpecM-v4 SRM branch (1280d)",
+      "dim": 1280,
+      "cka_vs_mnv2": 0.5626,
+      "per_class": {
+        "authentic": 0.1936,
+        "manipulated": 0.1307,
+        "ai_generated": 0.5192
+      }
+    },
+    "specm_dct": {
+      "description": "SpecM-v4 DCT branch (1280d)",
+      "dim": 1280,
+      "cka_vs_mnv2": 0.2388,
+      "per_class": {
+        "authentic": 0.1213,
+        "manipulated": 0.122,
+        "ai_generated": 0.3213
+      }
+    },
+    "specm_srm_dct": {
+      "description": "SpecM-v4 SRM+DCT only (2560d)",
+      "dim": 2560,
+      "cka_vs_mnv2": 0.4777,
+      "per_class": {
+        "authentic": 0.1829,
+        "manipulated": 0.1494,
+        "ai_generated": 0.4767
+      }
+    },
+    "specg_fused": {
+      "description": "SpecG fused (576d)",
+      "dim": 576,
+      "cka_vs_mnv2": 0.42,
+      "per_class": {
+        "authentic": 0.5407,
+        "manipulated": 0.5611,
+        "ai_generated": 0.5309
+      }
+    },
+    "specg_clip": {
+      "description": "SpecG CLIP branch (512d)",
+      "dim": 512,
+      "cka_vs_mnv2": 0.42,
+      "per_class": {
+        "authentic": 0.5407,
+        "manipulated": 0.5611,
+        "ai_generated": 0.5309
+      }
+    },
+    "specg_pid": {
+      "description": "SpecG PiD branch (64d)",
+      "dim": 64,
+      "cka_vs_mnv2": 0.0011,
+      "per_class": {
+        "authentic": 0.0,
+        "manipulated": 0.0,
+        "ai_generated": 0.0074
+      }
+    },
+    "mnv2_rgb": {
+      "description": "[ref] MNV2 RGB branch (1280d)",
+      "dim": 1280,
+      "cka_vs_mnv2": 0.413,
+      "per_class": {
+        "authentic": 0.8945,
+        "manipulated": 0.9688,
+        "ai_generated": 0.5457
+      }
+    },
+    "mnv2_noise": {
+      "description": "[ref] MNV2 Noise/SRM branch (1280d)",
+      "dim": 1280,
+      "cka_vs_mnv2": 0.9787,
+      "per_class": {
+        "authentic": 0.7332,
+        "manipulated": 0.5823,
+        "ai_generated": 0.9926
+      }
+    }
+  },
+  "cross_branch_cka": {
+    "mnv2_rgb↔mnv2_noise": 0.2173,
+    "mnv2_rgb↔specm_srm": 0.1734,
+    "mnv2_rgb↔specm_dct": 0.1117,
+    "mnv2_noise↔specm_srm": 0.5639,
+    "mnv2_noise↔specm_dct": 0.2308,
+    "specm_srm↔specm_dct": 0.5352,
+    "mnv2_rgb↔specg_clip": 0.4257,
+    "mnv2_rgb↔specg_pid": 0.0033,
+    "mnv2_noise↔specg_clip": 0.3542,
+    "mnv2_noise↔specg_pid": 0.0005,
+    "specg_clip↔specg_pid": 0.0091,
+    "specm_srm↔specg_pid": 0.0082,
+    "specm_dct↔specg_pid": -0.0185
+  },
+  "ranking": [
+    {
+      "rank": 1,
+      "key": "specg_pid",
+      "cka": 0.0011,
+      "desc": "SpecG PiD branch (64d)"
+    },
+    {
+      "rank": 2,
+      "key": "specm_dct",
+      "cka": 0.2388,
+      "desc": "SpecM-v4 DCT branch (1280d)"
+    },
+    {
+      "rank": 3,
+      "key": "specm_rgb",
+      "cka": 0.3222,
+      "desc": "SpecM-v4 RGB branch (1280d)"
+    },
+    {
+      "rank": 4,
+      "key": "specm_fused",
+      "cka": 0.3919,
+      "desc": "SpecM-v4 fused (3840d)"
+    },
+    {
+      "rank": 5,
+      "key": "mnv2_rgb",
+      "cka": 0.413,
+      "desc": "[ref] MNV2 RGB branch (1280d)"
+    },
+    {
+      "rank": 6,
+      "key": "specg_fused",
+      "cka": 0.42,
+      "desc": "SpecG fused (576d)"
+    },
+    {
+      "rank": 7,
+      "key": "specg_clip",
+      "cka": 0.42,
+      "desc": "SpecG CLIP branch (512d)"
+    },
+    {
+      "rank": 8,
+      "key": "specm_srm_dct",
+      "cka": 0.4777,
+      "desc": "SpecM-v4 SRM+DCT only (2560d)"
+    },
+    {
+      "rank": 9,
+      "key": "specm_srm",
+      "cka": 0.5626,
+      "desc": "SpecM-v4 SRM branch (1280d)"
+    },
+    {
+      "rank": 10,
+      "key": "mnv2_noise",
+      "cka": 0.9787,
+      "desc": "[ref] MNV2 Noise/SRM branch (1280d)"
+    }
+  ]
+}

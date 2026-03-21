@@ -1,0 +1,558 @@
+{
+  "timestamp": "20260321_132333",
+  "arch": "MNV2 + SpecM-v5b (MobileCLIP+SRM_LightCNN)",
+  "best_w_spec": 1.0,
+  "best_avg_macro_recall": 0.9614,
+  "v4_icwmv_avg_reference": 0.9658,
+  "delta_vs_v4": -0.0044,
+  "runs": {
+    "w0.5": {
+      "avg_macro_recall": 0.9612,
+      "datasets": {
+        "base": {
+          "fused": {
+            "acc": 0.9493,
+            "macro_recall": 0.9493,
+            "per_class": {
+              "authentic": 0.958,
+              "manipulated": 0.89,
+              "ai_generated": 1.0
+            },
+            "n": 1500
+          },
+          "mnv2": {
+            "acc": 0.944,
+            "macro_recall": 0.944,
+            "per_class": {
+              "authentic": 0.962,
+              "manipulated": 0.87,
+              "ai_generated": 1.0
+            },
+            "n": 1500
+          },
+          "v5b": {
+            "acc": 0.5347,
+            "macro_recall": 0.5347,
+            "per_class": {
+              "authentic": 0.688,
+              "manipulated": 0.916,
+              "ai_generated": 0.0
+            },
+            "n": 1500
+          },
+          "n": 1500
+        },
+        "dsC": {
+          "fused": {
+            "acc": 0.9811,
+            "macro_recall": 0.9811,
+            "per_class": {
+              "authentic": 0.96,
+              "manipulated": 0.9833,
+              "ai_generated": 1.0
+            },
+            "n": 900
+          },
+          "mnv2": {
+            "acc": 0.9789,
+            "macro_recall": 0.9789,
+            "per_class": {
+              "authentic": 0.96,
+              "manipulated": 0.9767,
+              "ai_generated": 1.0
+            },
+            "n": 900
+          },
+          "v5b": {
+            "acc": 0.5567,
+            "macro_recall": 0.5567,
+            "per_class": {
+              "authentic": 0.6833,
+              "manipulated": 0.9867,
+              "ai_generated": 0.0
+            },
+            "n": 900
+          },
+          "n": 900
+        },
+        "opensdi": {
+          "fused": {
+            "acc": 0.9478,
+            "macro_recall": 0.9478,
+            "per_class": {
+              "authentic": 0.92,
+              "manipulated": 0.9667,
+              "ai_generated": 0.9567
+            },
+            "n": 900
+          },
+          "mnv2": {
+            "acc": 0.9489,
+            "macro_recall": 0.9489,
+            "per_class": {
+              "authentic": 0.9167,
+              "manipulated": 0.97,
+              "ai_generated": 0.96
+            },
+            "n": 900
+          },
+          "v5b": {
+            "acc": 0.4078,
+            "macro_recall": 0.4078,
+            "per_class": {
+              "authentic": 0.51,
+              "manipulated": 0.7133,
+              "ai_generated": 0.0
+            },
+            "n": 900
+          },
+          "n": 900
+        },
+        "aigenproxy": {
+          "fused": {
+            "acc": 0.9667,
+            "macro_recall": 0.9667,
+            "per_class": {
+              "authentic": 0.95,
+              "manipulated": 0.9933,
+              "ai_generated": 0.9567
+            },
+            "n": 900
+          },
+          "mnv2": {
+            "acc": 0.9611,
+            "macro_recall": 0.9611,
+            "per_class": {
+              "authentic": 0.9333,
+              "manipulated": 0.99,
+              "ai_generated": 0.96
+            },
+            "n": 900
+          },
+          "v5b": {
+            "acc": 0.5944,
+            "macro_recall": 0.5944,
+            "per_class": {
+              "authentic": 0.8267,
+              "manipulated": 0.9567,
+              "ai_generated": 0.0
+            },
+            "n": 900
+          },
+          "n": 900
+        }
+      }
+    },
+    "w1.0": {
+      "avg_macro_recall": 0.9614,
+      "datasets": {
+        "base": {
+          "fused": {
+            "acc": 0.9513,
+            "macro_recall": 0.9513,
+            "per_class": {
+              "authentic": 0.956,
+              "manipulated": 0.898,
+              "ai_generated": 1.0
+            },
+            "n": 1500
+          },
+          "mnv2": {
+            "acc": 0.944,
+            "macro_recall": 0.944,
+            "per_class": {
+              "authentic": 0.962,
+              "manipulated": 0.87,
+              "ai_generated": 1.0
+            },
+            "n": 1500
+          },
+          "v5b": {
+            "acc": 0.5347,
+            "macro_recall": 0.5347,
+            "per_class": {
+              "authentic": 0.688,
+              "manipulated": 0.916,
+              "ai_generated": 0.0
+            },
+            "n": 1500
+          },
+          "n": 1500
+        },
+        "dsC": {
+          "fused": {
+            "acc": 0.9811,
+            "macro_recall": 0.9811,
+            "per_class": {
+              "authentic": 0.96,
+              "manipulated": 0.9833,
+              "ai_generated": 1.0
+            },
+            "n": 900
+          },
+          "mnv2": {
+            "acc": 0.9789,
+            "macro_recall": 0.9789,
+            "per_class": {
+              "authentic": 0.96,
+              "manipulated": 0.9767,
+              "ai_generated": 1.0
+            },
+            "n": 900
+          },
+          "v5b": {
+            "acc": 0.5567,
+            "macro_recall": 0.5567,
+            "per_class": {
+              "authentic": 0.6833,
+              "manipulated": 0.9867,
+              "ai_generated": 0.0
+            },
+            "n": 900
+          },
+          "n": 900
+        },
+        "opensdi": {
+          "fused": {
+            "acc": 0.9444,
+            "macro_recall": 0.9444,
+            "per_class": {
+              "authentic": 0.9167,
+              "manipulated": 0.96,
+              "ai_generated": 0.9567
+            },
+            "n": 900
+          },
+          "mnv2": {
+            "acc": 0.9489,
+            "macro_recall": 0.9489,
+            "per_class": {
+              "authentic": 0.9167,
+              "manipulated": 0.97,
+              "ai_generated": 0.96
+            },
+            "n": 900
+          },
+          "v5b": {
+            "acc": 0.4078,
+            "macro_recall": 0.4078,
+            "per_class": {
+              "authentic": 0.51,
+              "manipulated": 0.7133,
+              "ai_generated": 0.0
+            },
+            "n": 900
+          },
+          "n": 900
+        },
+        "aigenproxy": {
+          "fused": {
+            "acc": 0.9689,
+            "macro_recall": 0.9689,
+            "per_class": {
+              "authentic": 0.9567,
+              "manipulated": 0.9933,
+              "ai_generated": 0.9567
+            },
+            "n": 900
+          },
+          "mnv2": {
+            "acc": 0.9611,
+            "macro_recall": 0.9611,
+            "per_class": {
+              "authentic": 0.9333,
+              "manipulated": 0.99,
+              "ai_generated": 0.96
+            },
+            "n": 900
+          },
+          "v5b": {
+            "acc": 0.5944,
+            "macro_recall": 0.5944,
+            "per_class": {
+              "authentic": 0.8267,
+              "manipulated": 0.9567,
+              "ai_generated": 0.0
+            },
+            "n": 900
+          },
+          "n": 900
+        }
+      }
+    },
+    "w2.0": {
+      "avg_macro_recall": 0.9455,
+      "datasets": {
+        "base": {
+          "fused": {
+            "acc": 0.9507,
+            "macro_recall": 0.9507,
+            "per_class": {
+              "authentic": 0.928,
+              "manipulated": 0.924,
+              "ai_generated": 1.0
+            },
+            "n": 1500
+          },
+          "mnv2": {
+            "acc": 0.944,
+            "macro_recall": 0.944,
+            "per_class": {
+              "authentic": 0.962,
+              "manipulated": 0.87,
+              "ai_generated": 1.0
+            },
+            "n": 1500
+          },
+          "v5b": {
+            "acc": 0.5347,
+            "macro_recall": 0.5347,
+            "per_class": {
+              "authentic": 0.688,
+              "manipulated": 0.916,
+              "ai_generated": 0.0
+            },
+            "n": 1500
+          },
+          "n": 1500
+        },
+        "dsC": {
+          "fused": {
+            "acc": 0.9756,
+            "macro_recall": 0.9756,
+            "per_class": {
+              "authentic": 0.9333,
+              "manipulated": 0.9933,
+              "ai_generated": 1.0
+            },
+            "n": 900
+          },
+          "mnv2": {
+            "acc": 0.9789,
+            "macro_recall": 0.9789,
+            "per_class": {
+              "authentic": 0.96,
+              "manipulated": 0.9767,
+              "ai_generated": 1.0
+            },
+            "n": 900
+          },
+          "v5b": {
+            "acc": 0.5567,
+            "macro_recall": 0.5567,
+            "per_class": {
+              "authentic": 0.6833,
+              "manipulated": 0.9867,
+              "ai_generated": 0.0
+            },
+            "n": 900
+          },
+          "n": 900
+        },
+        "opensdi": {
+          "fused": {
+            "acc": 0.8911,
+            "macro_recall": 0.8911,
+            "per_class": {
+              "authentic": 0.83,
+              "manipulated": 0.89,
+              "ai_generated": 0.9533
+            },
+            "n": 900
+          },
+          "mnv2": {
+            "acc": 0.9489,
+            "macro_recall": 0.9489,
+            "per_class": {
+              "authentic": 0.9167,
+              "manipulated": 0.97,
+              "ai_generated": 0.96
+            },
+            "n": 900
+          },
+          "v5b": {
+            "acc": 0.4078,
+            "macro_recall": 0.4078,
+            "per_class": {
+              "authentic": 0.51,
+              "manipulated": 0.7133,
+              "ai_generated": 0.0
+            },
+            "n": 900
+          },
+          "n": 900
+        },
+        "aigenproxy": {
+          "fused": {
+            "acc": 0.9644,
+            "macro_recall": 0.9644,
+            "per_class": {
+              "authentic": 0.95,
+              "manipulated": 0.99,
+              "ai_generated": 0.9533
+            },
+            "n": 900
+          },
+          "mnv2": {
+            "acc": 0.9611,
+            "macro_recall": 0.9611,
+            "per_class": {
+              "authentic": 0.9333,
+              "manipulated": 0.99,
+              "ai_generated": 0.96
+            },
+            "n": 900
+          },
+          "v5b": {
+            "acc": 0.5944,
+            "macro_recall": 0.5944,
+            "per_class": {
+              "authentic": 0.8267,
+              "manipulated": 0.9567,
+              "ai_generated": 0.0
+            },
+            "n": 900
+          },
+          "n": 900
+        }
+      }
+    },
+    "w3.0": {
+      "avg_macro_recall": 0.9246,
+      "datasets": {
+        "base": {
+          "fused": {
+            "acc": 0.9373,
+            "macro_recall": 0.9373,
+            "per_class": {
+              "authentic": 0.866,
+              "manipulated": 0.946,
+              "ai_generated": 1.0
+            },
+            "n": 1500
+          },
+          "mnv2": {
+            "acc": 0.944,
+            "macro_recall": 0.944,
+            "per_class": {
+              "authentic": 0.962,
+              "manipulated": 0.87,
+              "ai_generated": 1.0
+            },
+            "n": 1500
+          },
+          "v5b": {
+            "acc": 0.5347,
+            "macro_recall": 0.5347,
+            "per_class": {
+              "authentic": 0.688,
+              "manipulated": 0.916,
+              "ai_generated": 0.0
+            },
+            "n": 1500
+          },
+          "n": 1500
+        },
+        "dsC": {
+          "fused": {
+            "acc": 0.9589,
+            "macro_recall": 0.9589,
+            "per_class": {
+              "authentic": 0.8833,
+              "manipulated": 0.9933,
+              "ai_generated": 1.0
+            },
+            "n": 900
+          },
+          "mnv2": {
+            "acc": 0.9789,
+            "macro_recall": 0.9789,
+            "per_class": {
+              "authentic": 0.96,
+              "manipulated": 0.9767,
+              "ai_generated": 1.0
+            },
+            "n": 900
+          },
+          "v5b": {
+            "acc": 0.5567,
+            "macro_recall": 0.5567,
+            "per_class": {
+              "authentic": 0.6833,
+              "manipulated": 0.9867,
+              "ai_generated": 0.0
+            },
+            "n": 900
+          },
+          "n": 900
+        },
+        "opensdi": {
+          "fused": {
+            "acc": 0.8444,
+            "macro_recall": 0.8444,
+            "per_class": {
+              "authentic": 0.7433,
+              "manipulated": 0.84,
+              "ai_generated": 0.95
+            },
+            "n": 900
+          },
+          "mnv2": {
+            "acc": 0.9489,
+            "macro_recall": 0.9489,
+            "per_class": {
+              "authentic": 0.9167,
+              "manipulated": 0.97,
+              "ai_generated": 0.96
+            },
+            "n": 900
+          },
+          "v5b": {
+            "acc": 0.4078,
+            "macro_recall": 0.4078,
+            "per_class": {
+              "authentic": 0.51,
+              "manipulated": 0.7133,
+              "ai_generated": 0.0
+            },
+            "n": 900
+          },
+          "n": 900
+        },
+        "aigenproxy": {
+          "fused": {
+            "acc": 0.9578,
+            "macro_recall": 0.9578,
+            "per_class": {
+              "authentic": 0.93,
+              "manipulated": 0.9933,
+              "ai_generated": 0.95
+            },
+            "n": 900
+          },
+          "mnv2": {
+            "acc": 0.9611,
+            "macro_recall": 0.9611,
+            "per_class": {
+              "authentic": 0.9333,
+              "manipulated": 0.99,
+              "ai_generated": 0.96
+            },
+            "n": 900
+          },
+          "v5b": {
+            "acc": 0.5944,
+            "macro_recall": 0.5944,
+            "per_class": {
+              "authentic": 0.8267,
+              "manipulated": 0.9567,
+              "ai_generated": 0.0
+            },
+            "n": 900
+          },
+          "n": 900
+        }
+      }
+    }
+  }
+}
