@@ -1,0 +1,302 @@
+{
+  "variant": "coral_tflite_mnv2_qtpc64",
+  "mnv2_backend": "tflite",
+  "mnv2_path": "/data/jj812_files/MAIFS/weights/tflite_sweep/mnv2_coral_qsweep_qtpc_cal064_ioint8.tflite",
+  "specm_backend": "tflite",
+  "specm_path": "/data/jj812_files/MAIFS/weights/tflite/specm_v4_coral_int8_full.tflite",
+  "datasets": {
+    "base": {
+      "mnv2": {
+        "accuracy": 0.8953333333333333,
+        "macro_f1": 0.8958822335345983,
+        "macro_recall": 0.8953333333333333,
+        "per_class": {
+          "authentic": {
+            "precision": 0.8402255639097744,
+            "recall": 0.894,
+            "f1": 0.8662790697674418,
+            "n": 500
+          },
+          "manipulated": {
+            "precision": 0.9048582995951417,
+            "recall": 0.894,
+            "f1": 0.8993963782696178,
+            "n": 500
+          },
+          "ai_generated": {
+            "precision": 0.9472573839662447,
+            "recall": 0.898,
+            "f1": 0.9219712525667352,
+            "n": 500
+          }
+        }
+      },
+      "specm": {
+        "accuracy": 0.659,
+        "macro_recall": 0.659,
+        "auth_recall": 0.98,
+        "manip_recall": 0.338,
+        "manip_precision": 0.9441340782122905,
+        "manip_f1": 0.49779086892488955,
+        "per_class": {
+          "authentic": {
+            "recall": 0.98,
+            "n": 500
+          },
+          "manipulated": {
+            "recall": 0.338,
+            "n": 500
+          }
+        }
+      },
+      "icwmv": {
+        "accuracy": 0.9013333333333333,
+        "macro_f1": 0.9023506937448533,
+        "macro_recall": 0.9013333333333334,
+        "per_class": {
+          "authentic": {
+            "precision": 0.7964458804523424,
+            "recall": 0.986,
+            "f1": 0.8811438784629133,
+            "n": 500
+          },
+          "manipulated": {
+            "precision": 0.9579439252336449,
+            "recall": 0.82,
+            "f1": 0.8836206896551724,
+            "n": 500
+          },
+          "ai_generated": {
+            "precision": 0.9911699779249448,
+            "recall": 0.898,
+            "f1": 0.9422875131164742,
+            "n": 500
+          }
+        }
+      },
+      "n_total": 1500,
+      "n_binary": 1000
+    },
+    "dsC": {
+      "mnv2": {
+        "accuracy": 0.9322222222222222,
+        "macro_f1": 0.9321438488742274,
+        "macro_recall": 0.9322222222222223,
+        "per_class": {
+          "authentic": {
+            "precision": 0.9375,
+            "recall": 0.9,
+            "f1": 0.9183673469387755,
+            "n": 300
+          },
+          "manipulated": {
+            "precision": 0.9037267080745341,
+            "recall": 0.97,
+            "f1": 0.9356913183279743,
+            "n": 300
+          },
+          "ai_generated": {
+            "precision": 0.9586206896551724,
+            "recall": 0.9266666666666666,
+            "f1": 0.9423728813559322,
+            "n": 300
+          }
+        }
+      },
+      "specm": {
+        "accuracy": 0.78,
+        "macro_recall": 0.78,
+        "auth_recall": 0.9633333333333334,
+        "manip_recall": 0.5966666666666667,
+        "manip_precision": 0.9421052631578948,
+        "manip_f1": 0.7306122448979592,
+        "per_class": {
+          "authentic": {
+            "recall": 0.9633333333333334,
+            "n": 300
+          },
+          "manipulated": {
+            "recall": 0.5966666666666667,
+            "n": 300
+          }
+        }
+      },
+      "icwmv": {
+        "accuracy": 0.9411111111111111,
+        "macro_f1": 0.9414037115573602,
+        "macro_recall": 0.9411111111111111,
+        "per_class": {
+          "authentic": {
+            "precision": 0.8885542168674698,
+            "recall": 0.9833333333333333,
+            "f1": 0.9335443037974682,
+            "n": 300
+          },
+          "manipulated": {
+            "precision": 0.9480968858131488,
+            "recall": 0.9133333333333333,
+            "f1": 0.930390492359932,
+            "n": 300
+          },
+          "ai_generated": {
+            "precision": 0.996415770609319,
+            "recall": 0.9266666666666666,
+            "f1": 0.9602763385146804,
+            "n": 300
+          }
+        }
+      },
+      "n_total": 900,
+      "n_binary": 600
+    },
+    "opensdi": {
+      "mnv2": {
+        "accuracy": 0.9166666666666666,
+        "macro_f1": 0.9157188065597849,
+        "macro_recall": 0.9166666666666666,
+        "per_class": {
+          "authentic": {
+            "precision": 0.9467680608365019,
+            "recall": 0.83,
+            "f1": 0.8845470692717584,
+            "n": 300
+          },
+          "manipulated": {
+            "precision": 0.9163987138263665,
+            "recall": 0.95,
+            "f1": 0.9328968903436988,
+            "n": 300
+          },
+          "ai_generated": {
+            "precision": 0.8926380368098159,
+            "recall": 0.97,
+            "f1": 0.9297124600638977,
+            "n": 300
+          }
+        }
+      },
+      "specm": {
+        "accuracy": 0.56,
+        "macro_recall": 0.5599999999999999,
+        "auth_recall": 0.94,
+        "manip_recall": 0.18,
+        "manip_precision": 0.75,
+        "manip_f1": 0.2903225806451613,
+        "per_class": {
+          "authentic": {
+            "recall": 0.94,
+            "n": 300
+          },
+          "manipulated": {
+            "recall": 0.18,
+            "n": 300
+          }
+        }
+      },
+      "icwmv": {
+        "accuracy": 0.8722222222222222,
+        "macro_f1": 0.8710114558519734,
+        "macro_recall": 0.8722222222222221,
+        "per_class": {
+          "authentic": {
+            "precision": 0.7493403693931399,
+            "recall": 0.9466666666666667,
+            "f1": 0.8365243004418262,
+            "n": 300
+          },
+          "manipulated": {
+            "precision": 0.9333333333333333,
+            "recall": 0.7,
+            "f1": 0.8,
+            "n": 300
+          },
+          "ai_generated": {
+            "precision": 0.9831081081081081,
+            "recall": 0.97,
+            "f1": 0.9765100671140939,
+            "n": 300
+          }
+        }
+      },
+      "n_total": 900,
+      "n_binary": 600
+    },
+    "aigenproxy": {
+      "mnv2": {
+        "accuracy": 0.9255555555555556,
+        "macro_f1": 0.9253983036173737,
+        "macro_recall": 0.9255555555555555,
+        "per_class": {
+          "authentic": {
+            "precision": 0.9238754325259516,
+            "recall": 0.89,
+            "f1": 0.9066213921901528,
+            "n": 300
+          },
+          "manipulated": {
+            "precision": 0.9375,
+            "recall": 0.95,
+            "f1": 0.9437086092715232,
+            "n": 300
+          },
+          "ai_generated": {
+            "precision": 0.9153094462540716,
+            "recall": 0.9366666666666666,
+            "f1": 0.9258649093904447,
+            "n": 300
+          }
+        }
+      },
+      "specm": {
+        "accuracy": 0.8416666666666667,
+        "macro_recall": 0.8416666666666667,
+        "auth_recall": 1.0,
+        "manip_recall": 0.6833333333333333,
+        "manip_precision": 1.0,
+        "manip_f1": 0.8118811881188119,
+        "per_class": {
+          "authentic": {
+            "recall": 1.0,
+            "n": 300
+          },
+          "manipulated": {
+            "recall": 0.6833333333333333,
+            "n": 300
+          }
+        }
+      },
+      "icwmv": {
+        "accuracy": 0.9488888888888889,
+        "macro_f1": 0.949096812721019,
+        "macro_recall": 0.9488888888888889,
+        "per_class": {
+          "authentic": {
+            "precision": 0.9021406727828746,
+            "recall": 0.9833333333333333,
+            "f1": 0.9409888357256778,
+            "n": 300
+          },
+          "manipulated": {
+            "precision": 0.9619377162629758,
+            "recall": 0.9266666666666666,
+            "f1": 0.9439728353140917,
+            "n": 300
+          },
+          "ai_generated": {
+            "precision": 0.9894366197183099,
+            "recall": 0.9366666666666666,
+            "f1": 0.9623287671232876,
+            "n": 300
+          }
+        }
+      },
+      "n_total": 900,
+      "n_binary": 600
+    }
+  },
+  "avg": {
+    "mnv2_macro_f1": 0.9172857981464961,
+    "specm_manip_f1": 0.5826517206467055,
+    "icwmv_macro_f1": 0.9159656684688015
+  }
+}

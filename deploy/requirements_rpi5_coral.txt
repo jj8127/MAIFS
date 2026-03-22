@@ -1,0 +1,8 @@
+# SHIELD RPi5 + Coral USB Accelerator 의존성
+# Python 3.9 전용 venv 권장:
+#   uv venv --python 3.9 --seed .venv-coral39
+#   .venv-coral39/bin/pip install -r deploy/requirements_rpi5_coral.txt
+
+numpy<2
+Pillow>=9.0.0
+tflite-runtime

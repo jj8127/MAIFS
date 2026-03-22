@@ -102,9 +102,9 @@
 
 ---
 
-## RPi5 배포 (즉시 실행 가능)
+## RPi5 배포 (ONNX / Coral 공용)
 
-### 필요 파일 (총 ~45MB)
+### ONNX 경로 필요 파일 (총 ~45MB)
 
 ```
 weights/onnx_quant/mnv2_int8_dynamic.onnx     (19MB)
@@ -112,7 +112,7 @@ weights/onnx_quant/specm_v4_int8_dynamic.onnx (26MB)
 inference_rpi5.py
 ```
 
-### 서버 → RPi5 파일 전송
+### 서버 → RPi5 파일 전송 (ONNX)
 
 ```bash
 scp weights/onnx_quant/mnv2_int8_dynamic.onnx \
@@ -136,22 +136,116 @@ python3 inference_rpi5.py image.jpg --w-spec 1.0    # ICWMV 가중치
 
 ### Coral USB Accelerator (추가 가속)
 
-Coral Edge TPU는 TFLite Static INT8 모델이 필요합니다. 서버에서 변환 후 배포:
+Python 3.13에서는 `tflite-runtime`이 지원되지 않으므로, Coral 경로는 **Python 3.9 전용 venv**를 분리해서 사용합니다.
+Coral Edge TPU는 ONNX가 아니라 **full integer TFLite + Edge TPU compile** 산출물이 필요합니다.
+
+#### 1. 서버에서 ONNX -> TFLite -> Edge TPU 컴파일
 
 ```bash
 # 서버: 변환 도구 설치
-pip install tensorflow-cpu onnx2tf
+pip install pillow numpy tensorflow-cpu onnx2tf
 
 # Edge TPU 컴파일러 (Ubuntu x86_64)
 echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" \
   | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list
 sudo apt update && sudo apt install edgetpu-compiler
 
-# RPi5: pycoral
-pip3 install pycoral
+# 변환 + 컴파일
+python experiments/run_edgetpu_export.py --models mnv2_coral specm_v4_coral
 ```
 
-예상 가속: MNV2 on Edge TPU ~5ms (현재 ~56ms → 약 11×)
+현재 상태(2026-03-21):
+
+- **최종 Coral-friendly 경로 성공**
+- `mnv2_coral`: `weights/onnx/mnv2_coral.onnx` → `weights/tflite/mnv2_coral_int8_full.tflite` → `weights/tflite_edgetpu/mnv2_coral_int8_full_edgetpu.tflite`
+- `specm_v4_coral`: `weights/onnx/specm_v4_coral.onnx` → `weights/tflite/specm_v4_coral_int8_full.tflite` → `weights/tflite_edgetpu/specm_v4_coral_int8_full_edgetpu.tflite`
+- compiler report: **MNV2 151/151 ops**, **SpecM 227/227 ops** 전부 Edge TPU 매핑
+- quick sanity:
+  - `mnv2_coral`: 96샘플 agreement 98.96%, sample acc 72.9% → 71.9%
+  - `specm_v4_coral`: 64샘플 agreement 46.88%, sample acc 75.0% → 71.9%
+
+즉, **Coral용 변환/컴파일 경로는 확보됐지만 `specm_v4_coral`은 정확도 재평가가 아직 필요합니다.**
+
+현재 실제 생성된 파일:
+
+```bash
+weights/tflite/mnv2_coral_int8_full.tflite
+weights/tflite/specm_v4_coral_int8_full.tflite
+weights/tflite/specm_v4_coral_ft_int8_full.tflite
+weights/tflite_edgetpu/mnv2_coral_int8_full_edgetpu.tflite
+weights/tflite_edgetpu/specm_v4_coral_int8_full_edgetpu.tflite
+weights/tflite_edgetpu/specm_v4_coral_ft_int8_full_edgetpu.tflite
+weights/tflite_sweep/mnv2_coral_qsweep_qtpc_cal064_ioint8.tflite
+weights/tflite_edgetpu_sweep/mnv2_coral_qsweep_qtpc_cal064_ioint8_edgetpu.tflite
+```
+
+목표 파일명 규칙:
+
+```bash
+weights/tflite/{model}_int8_full.tflite
+weights/tflite_edgetpu/{model}_int8_full_edgetpu.tflite
+```
+
+#### 2. RPi5에서 Python 3.9 Coral venv 구성
+
+```bash
+# uv 설치 후
+bash deploy/setup_rpi5_coral_env.sh
+```
+
+수동 설치 시:
+
+```bash
+uv python install 3.9
+uv venv --python 3.9 --seed .venv-coral39
+.venv-coral39/bin/pip install -r deploy/requirements_rpi5_coral.txt
+```
+
+#### 3. Coral 추론 실행
+
+```bash
+.venv-coral39/bin/python inference_rpi5.py image.jpg --backend edgetpu
+.venv-coral39/bin/python inference_rpi5.py image.jpg --backend tflite
+```
+
+`inference_rpi5.py`는 `--backend auto|onnx|tflite|edgetpu`를 지원합니다.
+`tflite`/`edgetpu` 경로에서는 검증된 tuned MNV2 후보
+`mnv2_coral_qsweep_qtpc_cal064_ioint8*`가 있으면 먼저 사용하고,
+SpecM은 `specm_v4_coral_ft*`가 있으면 먼저 사용합니다.
+또한 이 조합에서는 `w_spec=0.2`를 기본값으로 사용하고,
+없으면 기존 `*_coral` 산출물과 `w_spec=1.0`으로 fallback합니다.
+다만 `auto`는 정확도 검증이 끝날 때까지 ONNX를 우선 사용합니다.
+
+2026-03-21 재평가:
+- `current_onnx` avg macro-F1: `0.9535`
+- `coral_tflite` avg macro-F1: `0.9051` (`-0.0483`)
+- `mnv2_coral`은 PyTorch avg `0.9530`이지만 full INT8 TFLite에서 `0.9096`까지 하락
+- `specm_v4_coral`은 PyTorch avg manip-F1 `0.6066`, TFLite avg manip-F1 `0.5827`
+
+2026-03-22 MNV2 PTQ sweep:
+- best: `per-channel + calib 64 + int8 IO`
+- `mnv2_coral_qsweep_qtpc_cal064_ioint8.tflite` avg macro-F1: `0.9173`
+  vs baseline `mnv2_coral_int8_full.tflite` `0.9096` (`+0.0077`)
+- same tuned MNV2 + existing `specm_v4_coral` ICWMV avg macro-F1: `0.9160`
+  vs baseline coral pair `0.9051` (`+0.0108`)
+- Edge TPU compile도 유지: **151/151 ops** mapped
+
+2026-03-22 SpecM Coral fine-tune + pair retune:
+- `specm_v4_coral` 구조를 직접 fine-tune한
+  `specm_v4_coral_ft_int8_full.tflite` / `_edgetpu.tflite` 생성 완료
+- TFLite standalone `specm_v4_coral_ft` avg manip-F1: `0.8360`
+  vs old export-only coral `0.5827` (`+0.2533`)
+  vs current ONNX `0.8392` (`-0.0032`)
+- tuned MNV2 + `specm_v4_coral_ft` pair는 `w_spec=1.0`에서 과가중되어
+  avg macro-F1 `0.8891`까지 떨어지지만,
+  `w_spec=0.2`로 재튜닝하면 avg macro-F1 `0.9308`까지 회복
+- 최종 delta:
+  - vs old coral pair `0.9051`: `+0.0257`
+  - vs tuned MNV2 only `0.9173`: `+0.0136`
+  - vs current ONNX `0.9535`: `-0.0226`
+
+즉, **현재 Coral 경로는 이제 실험용 수준을 넘어 실제 배포 후보에 가까워졌지만,
+여전히 current ONNX 대비 약 `2.3%p` 격차가 남아 있습니다.**
 
 ---
 
@@ -199,6 +293,8 @@ pip install -r requirements.txt
 |------|------|------|
 | `weights/onnx_quant/mnv2_int8_dynamic.onnx` | 19MB | MNV2 Dynamic INT8 |
 | `weights/onnx_quant/specm_v4_int8_dynamic.onnx` | 26MB | SpecM-v4 Dynamic INT8 |
+| `weights/tflite/*.tflite` | 생성물 | `run_edgetpu_export.py`가 만드는 full INT8 TFLite |
+| `weights/tflite_edgetpu/*_edgetpu.tflite` | 생성물 | Coral Edge TPU용 컴파일 결과 |
 
 ---
 
@@ -220,7 +316,9 @@ datasets/
 
 | 스크립트 | 설명 |
 |---------|------|
-| `inference_rpi5.py` | **RPi5 배포용** ICWMV 추론 (onnxruntime only) |
+| `inference_rpi5.py` | **RPi5 배포용** ICWMV 추론 (`onnx` / `tflite` / `edgetpu`) |
+| `experiments/run_edgetpu_export.py` | ONNX -> full INT8 TFLite -> Edge TPU compile |
+| `deploy/setup_rpi5_coral_env.sh` | Python 3.9 Coral 전용 venv 부트스트랩 |
 | `experiments/train_specialist_m_v4.py` | SpecM-v4 fine-tuning (v3 resume + LR=3e-5) |
 | `experiments/train_specialist_m_v3.py` | SpecM-v3 학습 (GenImage+RandomErasing) |
 | `experiments/run_onnx_export.py` | PyTorch → ONNX 변환 + CPU 벤치마크 |
@@ -254,4 +352,6 @@ datasets/
 | `docs/research/DAAC_RESEARCH_PLAN.md` | DAAC 1차 연구 계획 (완료) |
 | `docs/SHIELD_Phase4_PTQ_Report_20260320.pdf` | Phase 4 PTQ 시행착오 전체 보고서 |
 | `weights/onnx_quant/` | RPi5 배포용 INT8 ONNX 모델 |
+| `weights/tflite/` | full INT8 TFLite 산출물 |
+| `weights/tflite_edgetpu/` | Coral Edge TPU 컴파일 산출물 |
 | `experiments/results/` | 모든 실험 결과 JSON/JSONL |

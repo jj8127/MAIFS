@@ -1,0 +1,56 @@
+{
+  "timestamp": "2026-03-21T15:21:00Z",
+  "models": {
+    "specm_v4_coral": {
+      "onnx_path": "/data/jj812_files/MAIFS/weights/onnx/specm_v4_coral.onnx",
+      "ckpt_path": "/data/jj812_files/MAIFS/weights/specialist_m_v4/specialist_m_v4_best.pth",
+      "calibration_npy": "/data/jj812_files/MAIFS/weights/tflite_calibration/specm_v4_coral_int8_full_128.npy",
+      "status": "ok",
+      "tflite_path": "/data/jj812_files/MAIFS/weights/tflite/specm_v4_coral_int8_full.tflite",
+      "stdout_tail": [
+        "",
+        "Operator                       Count      Status",
+        "",
+        "ADD                            32         Operation is working on an unsupported data type",
+        "MEAN                           4          Operation is working on an unsupported data type",
+        "QUANTIZE                       4          Operation is otherwise supported, but not mapped due to some unspecified limitation",
+        "CONV_2D                        106        Operation is working on an unsupported data type",
+        "MINIMUM                        1          Operation is working on an unsupported data type",
+        "RESIZE_NEAREST_NEIGHBOR        1          Operation is working on an unsupported data type",
+        "FULLY_CONNECTED                2          Operation is working on an unsupported data type",
+        "CONCATENATION                  1          Operation is working on an unsupported data type",
+        "RESHAPE                        3          Operation is working on an unsupported data type",
+        "MUL                            5          Operation is working on an unsupported data type",
+        "AVERAGE_POOL_2D                1          Operation is working on an unsupported data type",
+        "MAXIMUM                        1          Operation is working on an unsupported data type",
+        "DEPTHWISE_CONV_2D              51         Operation is working on an unsupported data type",
+        "PAD                            15         Operation is working on an unsupported data type",
+        "SUB                            4          Operation is working on an unsupported data type",
+        "Compilation child process completed within timeout period.",
+        "Compilation succeeded!"
+      ],
+      "stderr_tail": [],
+      "edgetpu_path": "/data/jj812_files/MAIFS/weights/tflite_edgetpu/specm_v4_coral_int8_full_edgetpu.tflite"
+    }
+  },
+  "calibration_images": [
+    "datasets/CASIA2_subset/Au/Au_ani_00001.jpg",
+    "datasets/CASIA2_subset/Tp/Tp_D_CND_M_N_ani00018_sec00096_00138.tif",
+    "datasets/OpenSDID_subset/authentic/opensdi__authentic__000000.jpg",
+    "datasets/OpenSDID_subset/manipulated/opensdi__manipulated__000000.jpg",
+    "datasets/OpenSDID_subset/ai_generated/opensdi__ai_generated__000000.jpg",
+    "datasets/GenImage_subset/BigGAN/val/nature/ILSVRC2012_val_00000009.JPEG",
+    "datasets/GenImage_subset/BigGAN/val/ai/000_biggan_00020.png",
+    "datasets/AI-GenBench_proxy/authentic/000000.jpeg",
+    "datasets/AI-GenBench_proxy/manipulated/000000.jpg",
+    "datasets/AI-GenBench_proxy/ai_generated/000000.jpg",
+    "datasets/CASIA2_subset/Au/Au_ani_00002.jpg",
+    "datasets/CASIA2_subset/Tp/Tp_D_CND_M_N_art00076_art00077_10289.tif",
+    "datasets/OpenSDID_subset/authentic/opensdi__authentic__000001.jpg",
+    "datasets/OpenSDID_subset/manipulated/opensdi__manipulated__000001.jpg",
+    "datasets/OpenSDID_subset/ai_generated/opensdi__ai_generated__000001.jpg",
+    "datasets/GenImage_subset/BigGAN/val/nature/ILSVRC2012_val_00000035.JPEG"
+  ],
+  "calibration_count": 128,
+  "quant_type": "per-channel"
+}

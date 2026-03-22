@@ -285,6 +285,54 @@ Tier 3: Mesorch-P (full spatial analysis)
 | Re-MTKD | Multi-teacher KD for forensics | 4-teacher→1-student (대안) |
 | arXiv 2602.08003 | "Don't pick highest-performing" | agent selection 이론 |
 | FIMA-Q | ViT PTQ for forensics | 양자화 참조 |
+| Nguyen et al. (NeurIPS 2021) | Unbiased CKA estimator (대각 제거) | embedding CKA 측정 |
+| Meyen et al. (2021) | Binary specialist theory (uncorrelated → 높은 앙상블 상한) | SpecM 설계 근거 |
+| NCL (Liu & Yao 1999) | Negative Correlation Learning — 앙상블 다양성 직접 학습 | CKA reg 대안 |
+| DeCov (Cogswell 2015) | 활성 공분산 최소화 → 특징 직교성 | 다양성 학습 방법 비교 |
+
+---
+
+## 6.1 현재 실험 상태 (2026-03-21 기준)
+
+### Phase 4 완료 항목
+
+| 항목 | 핵심 결과 | 파일 |
+|------|---------|------|
+| Phase 4.1 ONNX 변환 | MNV2(22.5MB/14ms), SpecM(30MB/21ms), RPi5 추정 ~140ms | `weights/onnx/` |
+| Phase 4.2 PTQ Dynamic INT8 | 전 모델 무손실(Δ≤+0.17%p). Static: FastViT 붕괴 | `weights/onnx_quant/` |
+| Phase 4.2.1 SpecM-v3 | +GenImage_nature, opensdi auth_recall 11%→62%. ICWMV avg 96.19% | `weights/specialist_m_v3/` |
+| Phase 4.2.2 SpecM-v4 | v3 resume+LR=3e-5+RE(value=random). ICWMV avg **96.58%** (서버 4-model 초과) | `weights/specialist_m_v4/` |
+| **Phase 4.6 Embedding CKA 분석** | **PiD=0.001★, DCT=0.239 vs MNV2. RGB/SRM 중복 주범** | `experiments/results/cka_embedding/` |
+
+### Phase 4.6 핵심 발견 — SpecM-v5 설계 근거
+
+**Unbiased Linear CKA (n=4200, 4-DS 통합)**:
+
+| 모델/브랜치 | CKA vs MNV2 | 해석 |
+|------------|------------|------|
+| SpecG PiD branch (64d) | **0.001** | 거의 완전 독립 — 채택 |
+| SpecM DCT branch (1280d) | **0.239** | 높은 독립성 — 채택 |
+| SpecM RGB branch (1280d) | 0.322 | 중간 — 제거 |
+| SpecM fused (3840d) | 0.392 | 중간 |
+| SpecG CLIP branch (512d) | 0.420 | MNV2와 예상보다 중복 |
+| SpecM SRM branch (1280d) | 0.563 | MNV2 noise(SRM)와 중복 — 제거 |
+
+**크로스 브랜치 발견**:
+- `mnv2_rgb ↔ specm_rgb = 0.656` — 동일 ImageNet 사전학습 RGB backbone에서 비롯된 중복
+- `mnv2_noise ↔ specm_srm = 0.564` — 두 모델 모두 SRM 필터 기반 → 자연스러운 중복
+- `mnv2_rgb ↔ specm_dct = 0.112` — DCT 잔차는 RGB와 거의 독립
+- `mnv2_* ↔ specg_pid = 0.001` — PiD(YUV 양자화 잔차)는 MNV2 모든 브랜치와 독립
+
+### 다음 단계: SpecM-v5 설계
+
+**아키텍처**: PiD branch + DCT branch 2-stream (RGB/SRM 완전 제거)
+- PiD branch: CNN 확장 (64d→1280d, 채널 수 증가)
+- DCT branch: 기존 MobileNetV2 (1280d, 유지)
+- fused dim: 2560d (현재 3840d 대비 33% 감소)
+- 예상 CKA vs MNV2: ~0.1 수준
+- 예상 크기: ~18MB (현재 29MB 대비 감소)
+
+**학습 전략**: SpecM-v4 데이터 동일 + CKA regularization 선택적 적용 (λ warm-up 스케줄링)
 
 ---
 
@@ -292,4 +340,5 @@ Tier 3: Mesorch-P (full spatial analysis)
 
 | 날짜 | 변경 |
 |------|------|
+| 2026-03-21 | Phase 4.6 Embedding CKA 분석 결과 추가. SpecM-v5 설계 방향 확정 (PiD+DCT 2-branch). 선행연구 5개 추가 |
 | 2026-03-18 | 초안 생성 (딥리서치 6개 PDF 종합 + 실험 설계 + 논문 구조) |

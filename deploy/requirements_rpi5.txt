@@ -1,4 +1,4 @@
-# SHIELD RPi5 배포 의존성
+# SHIELD RPi5 배포 의존성 (ONNX 경로)
 # 설치: pip install -r requirements_rpi5.txt
 
 # ONNX 추론 (ARM64 지원)

@@ -1,0 +1,106 @@
+{
+  "base": {
+    "n": 1500,
+    "accuracy": 0.9033333333333333,
+    "macro_f1": 0.9024100095820801,
+    "auth_f1": 0.8410596026490067,
+    "manip_f1": 0.869167429094236,
+    "aigen_f1": 0.997002997002997,
+    "residual_by_class": {
+      "authentic": {
+        "mean": 0.010873300954699516,
+        "median": 0.00017541987472213805,
+        "std": 0.04316515102982521
+      },
+      "manipulated": {
+        "mean": 0.011552347801625729,
+        "median": 0.0,
+        "std": 0.032597616314888
+      },
+      "ai_generated": {
+        "mean": 0.9831885099411011,
+        "median": 0.9956251382827759,
+        "std": 0.04267161339521408
+      }
+    },
+    "jsonl": "/data/jj812_files/MAIFS/experiments/results/hema/specm_sigmoid_base_20260322_125358.jsonl"
+  },
+  "dsC": {
+    "n": 900,
+    "accuracy": 0.8933333333333333,
+    "macro_f1": 0.8928145009833499,
+    "auth_f1": 0.8342245989304813,
+    "manip_f1": 0.8508634222919936,
+    "aigen_f1": 0.9933554817275748,
+    "residual_by_class": {
+      "authentic": {
+        "mean": 0.009690510109066963,
+        "median": 0.00016809621592983603,
+        "std": 0.02877403236925602
+      },
+      "manipulated": {
+        "mean": 0.01356392540037632,
+        "median": 0.0,
+        "std": 0.06998594105243683
+      },
+      "ai_generated": {
+        "mean": 0.9828053712844849,
+        "median": 0.995512843132019,
+        "std": 0.04373203590512276
+      }
+    },
+    "jsonl": "/data/jj812_files/MAIFS/experiments/results/hema/specm_sigmoid_dsC_20260322_125358.jsonl"
+  },
+  "opensdi": {
+    "n": 900,
+    "accuracy": 0.44333333333333336,
+    "macro_f1": 0.3662059259133334,
+    "auth_f1": 0.503052503052503,
+    "manip_f1": 0.5637181409295352,
+    "aigen_f1": 0.03184713375796178,
+    "residual_by_class": {
+      "authentic": {
+        "mean": 0.027279848232865334,
+        "median": 0.0002908087626565248,
+        "std": 0.10561102628707886
+      },
+      "manipulated": {
+        "mean": 0.02460048906505108,
+        "median": 0.0,
+        "std": 0.0938098207116127
+      },
+      "ai_generated": {
+        "mean": 0.027296943590044975,
+        "median": 0.0001302735327044502,
+        "std": 0.09994552284479141
+      }
+    },
+    "jsonl": "/data/jj812_files/MAIFS/experiments/results/hema/specm_sigmoid_opensdi_20260322_125358.jsonl"
+  },
+  "aigenproxy": {
+    "n": 900,
+    "accuracy": 0.7333333333333333,
+    "macro_f1": 0.6915972726792509,
+    "auth_f1": 0.7675675675675675,
+    "manip_f1": 0.8695652173913044,
+    "aigen_f1": 0.43765903307888043,
+    "residual_by_class": {
+      "authentic": {
+        "mean": 0.04006047546863556,
+        "median": 0.0012299477821215987,
+        "std": 0.1368042528629303
+      },
+      "manipulated": {
+        "mean": 0.008729768916964531,
+        "median": 0.0,
+        "std": 0.046388301998376846
+      },
+      "ai_generated": {
+        "mean": 0.28857049345970154,
+        "median": 0.05979897081851959,
+        "std": 0.37552109360694885
+      }
+    },
+    "jsonl": "/data/jj812_files/MAIFS/experiments/results/hema/specm_sigmoid_aigenproxy_20260322_125358.jsonl"
+  }
+}

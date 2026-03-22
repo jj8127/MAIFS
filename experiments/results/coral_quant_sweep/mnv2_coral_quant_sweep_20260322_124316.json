@@ -1,0 +1,1481 @@
+{
+  "timestamp": "2026-03-22T12:43:14Z",
+  "model": "mnv2_coral",
+  "baselines": [
+    {
+      "variant": "current_onnx",
+      "backend": "onnx",
+      "model_path": "/data/jj812_files/MAIFS/weights/onnx_quant/mnv2_int8_dynamic.onnx",
+      "datasets": {
+        "base": {
+          "accuracy": 0.9493333333333334,
+          "macro_f1": 0.9492611536680923,
+          "macro_recall": 0.9493333333333333,
+          "per_class": {
+            "authentic": {
+              "precision": 0.9032258064516129,
+              "recall": 0.952,
+              "f1": 0.9269717624148003,
+              "n": 500
+            },
+            "manipulated": {
+              "precision": 0.9491525423728814,
+              "recall": 0.896,
+              "f1": 0.9218106995884775,
+              "n": 500
+            },
+            "ai_generated": {
+              "precision": 0.998003992015968,
+              "recall": 1.0,
+              "f1": 0.9990009990009989,
+              "n": 500
+            }
+          }
+        },
+        "dsC": {
+          "accuracy": 0.9733333333333334,
+          "macro_f1": 0.9733061708607703,
+          "macro_recall": 0.9733333333333333,
+          "per_class": {
+            "authentic": {
+              "precision": 0.9826388888888888,
+              "recall": 0.9433333333333334,
+              "f1": 0.9625850340136054,
+              "n": 300
+            },
+            "manipulated": {
+              "precision": 0.9451612903225807,
+              "recall": 0.9766666666666667,
+              "f1": 0.9606557377049181,
+              "n": 300
+            },
+            "ai_generated": {
+              "precision": 0.9933774834437086,
+              "recall": 1.0,
+              "f1": 0.9966777408637874,
+              "n": 300
+            }
+          }
+        },
+        "opensdi": {
+          "accuracy": 0.9422222222222222,
+          "macro_f1": 0.9421468680346781,
+          "macro_recall": 0.9422222222222222,
+          "per_class": {
+            "authentic": {
+              "precision": 0.9377162629757786,
+              "recall": 0.9033333333333333,
+              "f1": 0.9202037351443124,
+              "n": 300
+            },
+            "manipulated": {
+              "precision": 0.917981072555205,
+              "recall": 0.97,
+              "f1": 0.9432739059967585,
+              "n": 300
+            },
+            "ai_generated": {
+              "precision": 0.9727891156462585,
+              "recall": 0.9533333333333334,
+              "f1": 0.962962962962963,
+              "n": 300
+            }
+          }
+        },
+        "aigenproxy": {
+          "accuracy": 0.95,
+          "macro_f1": 0.9500011043034072,
+          "macro_recall": 0.9499999999999998,
+          "per_class": {
+            "authentic": {
+              "precision": 0.9461279461279462,
+              "recall": 0.9366666666666666,
+              "f1": 0.9413735343383585,
+              "n": 300
+            },
+            "manipulated": {
+              "precision": 0.9274447949526814,
+              "recall": 0.98,
+              "f1": 0.9529983792544571,
+              "n": 300
+            },
+            "ai_generated": {
+              "precision": 0.9790209790209791,
+              "recall": 0.9333333333333333,
+              "f1": 0.9556313993174061,
+              "n": 300
+            }
+          }
+        }
+      },
+      "avg_macro_f1": 0.9536788242167369
+    },
+    {
+      "variant": "baseline_coral_tflite",
+      "backend": "tflite",
+      "model_path": "/data/jj812_files/MAIFS/weights/tflite/mnv2_coral_int8_full.tflite",
+      "datasets": {
+        "base": {
+          "accuracy": 0.8873333333333333,
+          "macro_f1": 0.8879465585108312,
+          "macro_recall": 0.8873333333333333,
+          "per_class": {
+            "authentic": {
+              "precision": 0.8242753623188406,
+              "recall": 0.91,
+              "f1": 0.8650190114068441,
+              "n": 500
+            },
+            "manipulated": {
+              "precision": 0.8932806324110671,
+              "recall": 0.904,
+              "f1": 0.8986083499005963,
+              "n": 500
+            },
+            "ai_generated": {
+              "precision": 0.9592760180995475,
+              "recall": 0.848,
+              "f1": 0.9002123142250531,
+              "n": 500
+            }
+          }
+        },
+        "dsC": {
+          "accuracy": 0.9022222222222223,
+          "macro_f1": 0.9017169580127248,
+          "macro_recall": 0.9022222222222221,
+          "per_class": {
+            "authentic": {
+              "precision": 0.8694267515923567,
+              "recall": 0.91,
+              "f1": 0.8892508143322476,
+              "n": 300
+            },
+            "manipulated": {
+              "precision": 0.8768768768768769,
+              "recall": 0.9733333333333334,
+              "f1": 0.9225908372827805,
+              "n": 300
+            },
+            "ai_generated": {
+              "precision": 0.9762845849802372,
+              "recall": 0.8233333333333334,
+              "f1": 0.8933092224231465,
+              "n": 300
+            }
+          }
+        },
+        "opensdi": {
+          "accuracy": 0.9188888888888889,
+          "macro_f1": 0.9179452039149849,
+          "macro_recall": 0.918888888888889,
+          "per_class": {
+            "authentic": {
+              "precision": 0.946969696969697,
+              "recall": 0.8333333333333334,
+              "f1": 0.8865248226950356,
+              "n": 300
+            },
+            "manipulated": {
+              "precision": 0.9111111111111111,
+              "recall": 0.9566666666666667,
+              "f1": 0.9333333333333333,
+              "n": 300
+            },
+            "ai_generated": {
+              "precision": 0.9034267912772586,
+              "recall": 0.9666666666666667,
+              "f1": 0.9339774557165861,
+              "n": 300
+            }
+          }
+        },
+        "aigenproxy": {
+          "accuracy": 0.9311111111111111,
+          "macro_f1": 0.9308794230528742,
+          "macro_recall": 0.931111111111111,
+          "per_class": {
+            "authentic": {
+              "precision": 0.9403508771929825,
+              "recall": 0.8933333333333333,
+              "f1": 0.9162393162393163,
+              "n": 300
+            },
+            "manipulated": {
+              "precision": 0.9265175718849841,
+              "recall": 0.9666666666666667,
+              "f1": 0.9461663947797717,
+              "n": 300
+            },
+            "ai_generated": {
+              "precision": 0.9271523178807947,
+              "recall": 0.9333333333333333,
+              "f1": 0.9302325581395349,
+              "n": 300
+            }
+          }
+        }
+      },
+      "avg_macro_f1": 0.9096220358728537
+    }
+  ],
+  "candidates": [
+    {
+      "variant": "mnv2_coral_qsweep_qtpc_cal064_ioint8",
+      "quant_type": "per-channel",
+      "calibration_count": 64,
+      "io_dtype": "int8",
+      "calibration_npy": "/data/jj812_files/MAIFS/weights/tflite_calibration/mnv2_coral_int8_full_64.npy",
+      "tflite_path": "/data/jj812_files/MAIFS/weights/tflite_sweep/mnv2_coral_qsweep_qtpc_cal064_ioint8.tflite",
+      "status": "ok",
+      "tflite_file_name": "mnv2_coral_full_integer_quant.tflite",
+      "input_dtype": "int8",
+      "output_dtype": "int8",
+      "input_quant": [
+        0.003921568859368563,
+        -128
+      ],
+      "output_quant": [
+        0.007544218562543392,
+        -21
+      ],
+      "stdout_tail": [
+        "  126944609900976: TensorSpec(shape=(512,), dtype=tf.float32, name=None)",
+        "  126944610373824: TensorSpec(shape=(512, 3), dtype=tf.float32, name=None)",
+        "  126944610375056: TensorSpec(shape=(), dtype=tf.float32, name=None)",
+        "  126944610374000: TensorSpec(shape=(3,), dtype=tf.float32, name=None)",
+        "\u001b[32msaved_model output complete!\u001b[0m",
+        "\u001b[32mFloat32 tflite output complete!\u001b[0m",
+        "\u001b[32mFloat16 tflite output complete!\u001b[0m",
+        "\u001b[32mDynamic Range Quantization tflite output complete!\u001b[0m",
+        "",
+        "\u001b[34mSignature information for quantization\u001b[0m",
+        "\u001b[34msignature_name\u001b[0m: serving_default",
+        "\u001b[34minput_name.0\u001b[0m: image_01 \u001b[34mshape\u001b[0m: (1, 224, 224, 3) \u001b[34mdtype\u001b[0m: <dtype: 'float32'>",
+        "\u001b[34moutput_name.0\u001b[0m: output_0 \u001b[34mshape\u001b[0m: (1, 3) \u001b[34mdtype\u001b[0m: <dtype: 'float32'>",
+        "\u001b[34mquant_norm_mean\u001b[0m: [[[[0.485 0.456 0.406]]]] ",
+        "\u001b[34mquant_norm_std\u001b[0m: [[[[0.229 0.224 0.225]]]] ",
+        "",
+        "\u001b[32mINT8 Quantization tflite output complete!\u001b[0m",
+        "\u001b[32mFull INT8 Quantization tflite output complete!\u001b[0m",
+        "\u001b[32mINT8 Quantization with int16 activations tflite output complete!\u001b[0m",
+        "\u001b[32mFull INT8 Quantization with int16 activations tflite output complete!\u001b[0m"
+      ],
+      "stderr_tail": [
+        "W0000 00:00:1774182534.541053 3469525 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "I0000 00:00:1774182535.182860 3469525 devices.cc:67] Number of eligible GPUs (core count >= 8, compute capability >= 0.0): 0",
+        "I0000 00:00:1774182535.183014 3469525 single_machine.cc:374] Starting new session",
+        "W0000 00:00:1774182535.606618 3469525 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774182535.606650 3469525 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "I0000 00:00:1774182536.288043 3469525 devices.cc:67] Number of eligible GPUs (core count >= 8, compute capability >= 0.0): 0",
+        "I0000 00:00:1774182536.288202 3469525 single_machine.cc:374] Starting new session",
+        "W0000 00:00:1774182536.587695 3469525 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774182536.587727 3469525 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "W0000 00:00:1774182538.501675 3469525 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774182538.501707 3469525 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "I0000 00:00:1774182538.527973 3469525 mlir_graph_optimization_pass.cc:425] MLIR V1 optimization pass is not enabled",
+        "fully_quantize: 0, inference_type: 6, input_inference_type: FLOAT32, output_inference_type: FLOAT32",
+        "W0000 00:00:1774182546.253949 3469525 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774182546.253976 3469525 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "fully_quantize: 0, inference_type: 6, input_inference_type: INT8, output_inference_type: INT8",
+        "W0000 00:00:1774182554.027207 3469525 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774182554.027233 3469525 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "W0000 00:00:1774182568.083968 3469525 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774182568.083996 3469525 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency."
+      ],
+      "metrics": {
+        "variant": "mnv2_coral_qsweep_qtpc_cal064_ioint8",
+        "backend": "tflite",
+        "model_path": "/data/jj812_files/MAIFS/weights/tflite_sweep/mnv2_coral_qsweep_qtpc_cal064_ioint8.tflite",
+        "datasets": {
+          "base": {
+            "accuracy": 0.8953333333333333,
+            "macro_f1": 0.8958822335345983,
+            "macro_recall": 0.8953333333333333,
+            "per_class": {
+              "authentic": {
+                "precision": 0.8402255639097744,
+                "recall": 0.894,
+                "f1": 0.8662790697674418,
+                "n": 500
+              },
+              "manipulated": {
+                "precision": 0.9048582995951417,
+                "recall": 0.894,
+                "f1": 0.8993963782696178,
+                "n": 500
+              },
+              "ai_generated": {
+                "precision": 0.9472573839662447,
+                "recall": 0.898,
+                "f1": 0.9219712525667352,
+                "n": 500
+              }
+            }
+          },
+          "dsC": {
+            "accuracy": 0.9322222222222222,
+            "macro_f1": 0.9321438488742274,
+            "macro_recall": 0.9322222222222223,
+            "per_class": {
+              "authentic": {
+                "precision": 0.9375,
+                "recall": 0.9,
+                "f1": 0.9183673469387755,
+                "n": 300
+              },
+              "manipulated": {
+                "precision": 0.9037267080745341,
+                "recall": 0.97,
+                "f1": 0.9356913183279743,
+                "n": 300
+              },
+              "ai_generated": {
+                "precision": 0.9586206896551724,
+                "recall": 0.9266666666666666,
+                "f1": 0.9423728813559322,
+                "n": 300
+              }
+            }
+          },
+          "opensdi": {
+            "accuracy": 0.9166666666666666,
+            "macro_f1": 0.9157188065597849,
+            "macro_recall": 0.9166666666666666,
+            "per_class": {
+              "authentic": {
+                "precision": 0.9467680608365019,
+                "recall": 0.83,
+                "f1": 0.8845470692717584,
+                "n": 300
+              },
+              "manipulated": {
+                "precision": 0.9163987138263665,
+                "recall": 0.95,
+                "f1": 0.9328968903436988,
+                "n": 300
+              },
+              "ai_generated": {
+                "precision": 0.8926380368098159,
+                "recall": 0.97,
+                "f1": 0.9297124600638977,
+                "n": 300
+              }
+            }
+          },
+          "aigenproxy": {
+            "accuracy": 0.9255555555555556,
+            "macro_f1": 0.9253983036173737,
+            "macro_recall": 0.9255555555555555,
+            "per_class": {
+              "authentic": {
+                "precision": 0.9238754325259516,
+                "recall": 0.89,
+                "f1": 0.9066213921901528,
+                "n": 300
+              },
+              "manipulated": {
+                "precision": 0.9375,
+                "recall": 0.95,
+                "f1": 0.9437086092715232,
+                "n": 300
+              },
+              "ai_generated": {
+                "precision": 0.9153094462540716,
+                "recall": 0.9366666666666666,
+                "f1": 0.9258649093904447,
+                "n": 300
+              }
+            }
+          }
+        },
+        "avg_macro_f1": 0.9172857981464961
+      },
+      "avg_macro_f1": 0.9172857981464961
+    },
+    {
+      "variant": "mnv2_coral_qsweep_qtpc_cal128_ioint8",
+      "quant_type": "per-channel",
+      "calibration_count": 128,
+      "io_dtype": "int8",
+      "calibration_npy": "/data/jj812_files/MAIFS/weights/tflite_calibration/mnv2_coral_int8_full_128.npy",
+      "tflite_path": "/data/jj812_files/MAIFS/weights/tflite_sweep/mnv2_coral_qsweep_qtpc_cal128_ioint8.tflite",
+      "status": "ok",
+      "tflite_file_name": "mnv2_coral_full_integer_quant.tflite",
+      "input_dtype": "int8",
+      "output_dtype": "int8",
+      "input_quant": [
+        0.003921568859368563,
+        -128
+      ],
+      "output_quant": [
+        0.008018159307539463,
+        -27
+      ],
+      "stdout_tail": [
+        "  140188023003568: TensorSpec(shape=(512,), dtype=tf.float32, name=None)",
+        "  140188023492800: TensorSpec(shape=(512, 3), dtype=tf.float32, name=None)",
+        "  140188023494032: TensorSpec(shape=(), dtype=tf.float32, name=None)",
+        "  140188023492976: TensorSpec(shape=(3,), dtype=tf.float32, name=None)",
+        "\u001b[32msaved_model output complete!\u001b[0m",
+        "\u001b[32mFloat32 tflite output complete!\u001b[0m",
+        "\u001b[32mFloat16 tflite output complete!\u001b[0m",
+        "\u001b[32mDynamic Range Quantization tflite output complete!\u001b[0m",
+        "",
+        "\u001b[34mSignature information for quantization\u001b[0m",
+        "\u001b[34msignature_name\u001b[0m: serving_default",
+        "\u001b[34minput_name.0\u001b[0m: image_01 \u001b[34mshape\u001b[0m: (1, 224, 224, 3) \u001b[34mdtype\u001b[0m: <dtype: 'float32'>",
+        "\u001b[34moutput_name.0\u001b[0m: output_0 \u001b[34mshape\u001b[0m: (1, 3) \u001b[34mdtype\u001b[0m: <dtype: 'float32'>",
+        "\u001b[34mquant_norm_mean\u001b[0m: [[[[0.485 0.456 0.406]]]] ",
+        "\u001b[34mquant_norm_std\u001b[0m: [[[[0.229 0.224 0.225]]]] ",
+        "",
+        "\u001b[32mINT8 Quantization tflite output complete!\u001b[0m",
+        "\u001b[32mFull INT8 Quantization tflite output complete!\u001b[0m",
+        "\u001b[32mINT8 Quantization with int16 activations tflite output complete!\u001b[0m",
+        "\u001b[32mFull INT8 Quantization with int16 activations tflite output complete!\u001b[0m"
+      ],
+      "stderr_tail": [
+        "W0000 00:00:1774182629.482789 3470957 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "I0000 00:00:1774182630.124463 3470957 devices.cc:67] Number of eligible GPUs (core count >= 8, compute capability >= 0.0): 0",
+        "I0000 00:00:1774182630.124627 3470957 single_machine.cc:374] Starting new session",
+        "W0000 00:00:1774182630.537505 3470957 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774182630.537540 3470957 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "I0000 00:00:1774182631.191782 3470957 devices.cc:67] Number of eligible GPUs (core count >= 8, compute capability >= 0.0): 0",
+        "I0000 00:00:1774182631.191923 3470957 single_machine.cc:374] Starting new session",
+        "W0000 00:00:1774182631.501836 3470957 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774182631.501883 3470957 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "W0000 00:00:1774182633.670747 3470957 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774182633.670775 3470957 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "I0000 00:00:1774182633.695441 3470957 mlir_graph_optimization_pass.cc:425] MLIR V1 optimization pass is not enabled",
+        "fully_quantize: 0, inference_type: 6, input_inference_type: FLOAT32, output_inference_type: FLOAT32",
+        "W0000 00:00:1774182647.946212 3470957 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774182647.946241 3470957 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "fully_quantize: 0, inference_type: 6, input_inference_type: INT8, output_inference_type: INT8",
+        "W0000 00:00:1774182662.488409 3470957 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774182662.488438 3470957 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "W0000 00:00:1774182688.684629 3470957 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774182688.684666 3470957 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency."
+      ],
+      "metrics": {
+        "variant": "mnv2_coral_qsweep_qtpc_cal128_ioint8",
+        "backend": "tflite",
+        "model_path": "/data/jj812_files/MAIFS/weights/tflite_sweep/mnv2_coral_qsweep_qtpc_cal128_ioint8.tflite",
+        "datasets": {
+          "base": {
+            "accuracy": 0.8873333333333333,
+            "macro_f1": 0.8879465585108312,
+            "macro_recall": 0.8873333333333333,
+            "per_class": {
+              "authentic": {
+                "precision": 0.8242753623188406,
+                "recall": 0.91,
+                "f1": 0.8650190114068441,
+                "n": 500
+              },
+              "manipulated": {
+                "precision": 0.8932806324110671,
+                "recall": 0.904,
+                "f1": 0.8986083499005963,
+                "n": 500
+              },
+              "ai_generated": {
+                "precision": 0.9592760180995475,
+                "recall": 0.848,
+                "f1": 0.9002123142250531,
+                "n": 500
+              }
+            }
+          },
+          "dsC": {
+            "accuracy": 0.9022222222222223,
+            "macro_f1": 0.9017169580127248,
+            "macro_recall": 0.9022222222222221,
+            "per_class": {
+              "authentic": {
+                "precision": 0.8694267515923567,
+                "recall": 0.91,
+                "f1": 0.8892508143322476,
+                "n": 300
+              },
+              "manipulated": {
+                "precision": 0.8768768768768769,
+                "recall": 0.9733333333333334,
+                "f1": 0.9225908372827805,
+                "n": 300
+              },
+              "ai_generated": {
+                "precision": 0.9762845849802372,
+                "recall": 0.8233333333333334,
+                "f1": 0.8933092224231465,
+                "n": 300
+              }
+            }
+          },
+          "opensdi": {
+            "accuracy": 0.9188888888888889,
+            "macro_f1": 0.9179452039149849,
+            "macro_recall": 0.918888888888889,
+            "per_class": {
+              "authentic": {
+                "precision": 0.946969696969697,
+                "recall": 0.8333333333333334,
+                "f1": 0.8865248226950356,
+                "n": 300
+              },
+              "manipulated": {
+                "precision": 0.9111111111111111,
+                "recall": 0.9566666666666667,
+                "f1": 0.9333333333333333,
+                "n": 300
+              },
+              "ai_generated": {
+                "precision": 0.9034267912772586,
+                "recall": 0.9666666666666667,
+                "f1": 0.9339774557165861,
+                "n": 300
+              }
+            }
+          },
+          "aigenproxy": {
+            "accuracy": 0.9311111111111111,
+            "macro_f1": 0.9308794230528742,
+            "macro_recall": 0.931111111111111,
+            "per_class": {
+              "authentic": {
+                "precision": 0.9403508771929825,
+                "recall": 0.8933333333333333,
+                "f1": 0.9162393162393163,
+                "n": 300
+              },
+              "manipulated": {
+                "precision": 0.9265175718849841,
+                "recall": 0.9666666666666667,
+                "f1": 0.9461663947797717,
+                "n": 300
+              },
+              "ai_generated": {
+                "precision": 0.9271523178807947,
+                "recall": 0.9333333333333333,
+                "f1": 0.9302325581395349,
+                "n": 300
+              }
+            }
+          }
+        },
+        "avg_macro_f1": 0.9096220358728537
+      },
+      "avg_macro_f1": 0.9096220358728537
+    },
+    {
+      "variant": "mnv2_coral_qsweep_qtpc_cal256_ioint8",
+      "quant_type": "per-channel",
+      "calibration_count": 256,
+      "io_dtype": "int8",
+      "calibration_npy": "/data/jj812_files/MAIFS/weights/tflite_calibration/mnv2_coral_int8_full_256.npy",
+      "tflite_path": "/data/jj812_files/MAIFS/weights/tflite_sweep/mnv2_coral_qsweep_qtpc_cal256_ioint8.tflite",
+      "status": "ok",
+      "tflite_file_name": "mnv2_coral_full_integer_quant.tflite",
+      "input_dtype": "int8",
+      "output_dtype": "int8",
+      "input_quant": [
+        0.003921568859368563,
+        -128
+      ],
+      "output_quant": [
+        0.00808817707002163,
+        -26
+      ],
+      "stdout_tail": [
+        "  135782477224368: TensorSpec(shape=(512,), dtype=tf.float32, name=None)",
+        "  135782477697216: TensorSpec(shape=(512, 3), dtype=tf.float32, name=None)",
+        "  135782477698448: TensorSpec(shape=(), dtype=tf.float32, name=None)",
+        "  135782477697392: TensorSpec(shape=(3,), dtype=tf.float32, name=None)",
+        "\u001b[32msaved_model output complete!\u001b[0m",
+        "\u001b[32mFloat32 tflite output complete!\u001b[0m",
+        "\u001b[32mFloat16 tflite output complete!\u001b[0m",
+        "\u001b[32mDynamic Range Quantization tflite output complete!\u001b[0m",
+        "",
+        "\u001b[34mSignature information for quantization\u001b[0m",
+        "\u001b[34msignature_name\u001b[0m: serving_default",
+        "\u001b[34minput_name.0\u001b[0m: image_01 \u001b[34mshape\u001b[0m: (1, 224, 224, 3) \u001b[34mdtype\u001b[0m: <dtype: 'float32'>",
+        "\u001b[34moutput_name.0\u001b[0m: output_0 \u001b[34mshape\u001b[0m: (1, 3) \u001b[34mdtype\u001b[0m: <dtype: 'float32'>",
+        "\u001b[34mquant_norm_mean\u001b[0m: [[[[0.485 0.456 0.406]]]] ",
+        "\u001b[34mquant_norm_std\u001b[0m: [[[[0.229 0.224 0.225]]]] ",
+        "",
+        "\u001b[32mINT8 Quantization tflite output complete!\u001b[0m",
+        "\u001b[32mFull INT8 Quantization tflite output complete!\u001b[0m",
+        "\u001b[32mINT8 Quantization with int16 activations tflite output complete!\u001b[0m",
+        "\u001b[32mFull INT8 Quantization with int16 activations tflite output complete!\u001b[0m"
+      ],
+      "stderr_tail": [
+        "W0000 00:00:1774182761.572254 3472934 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "I0000 00:00:1774182762.239033 3472934 devices.cc:67] Number of eligible GPUs (core count >= 8, compute capability >= 0.0): 0",
+        "I0000 00:00:1774182762.239165 3472934 single_machine.cc:374] Starting new session",
+        "W0000 00:00:1774182762.647870 3472934 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774182762.647904 3472934 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "I0000 00:00:1774182763.274472 3472934 devices.cc:67] Number of eligible GPUs (core count >= 8, compute capability >= 0.0): 0",
+        "I0000 00:00:1774182763.274623 3472934 single_machine.cc:374] Starting new session",
+        "W0000 00:00:1774182763.587761 3472934 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774182763.587793 3472934 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "W0000 00:00:1774182772.878809 3472934 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774182772.878842 3472934 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "I0000 00:00:1774182772.904684 3472934 mlir_graph_optimization_pass.cc:425] MLIR V1 optimization pass is not enabled",
+        "fully_quantize: 0, inference_type: 6, input_inference_type: FLOAT32, output_inference_type: FLOAT32",
+        "W0000 00:00:1774182799.861131 3472934 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774182799.861165 3472934 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "fully_quantize: 0, inference_type: 6, input_inference_type: INT8, output_inference_type: INT8",
+        "W0000 00:00:1774182826.257954 3472934 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774182826.257985 3472934 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "W0000 00:00:1774182878.498269 3472934 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774182878.498305 3472934 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency."
+      ],
+      "metrics": {
+        "variant": "mnv2_coral_qsweep_qtpc_cal256_ioint8",
+        "backend": "tflite",
+        "model_path": "/data/jj812_files/MAIFS/weights/tflite_sweep/mnv2_coral_qsweep_qtpc_cal256_ioint8.tflite",
+        "datasets": {
+          "base": {
+            "accuracy": 0.904,
+            "macro_f1": 0.9043341434116062,
+            "macro_recall": 0.904,
+            "per_class": {
+              "authentic": {
+                "precision": 0.8465804066543438,
+                "recall": 0.916,
+                "f1": 0.8799231508165225,
+                "n": 500
+              },
+              "manipulated": {
+                "precision": 0.9393939393939394,
+                "recall": 0.868,
+                "f1": 0.9022869022869023,
+                "n": 500
+              },
+              "ai_generated": {
+                "precision": 0.9336016096579477,
+                "recall": 0.928,
+                "f1": 0.9307923771313942,
+                "n": 500
+              }
+            }
+          },
+          "dsC": {
+            "accuracy": 0.9322222222222222,
+            "macro_f1": 0.9322474608136578,
+            "macro_recall": 0.9322222222222223,
+            "per_class": {
+              "authentic": {
+                "precision": 0.9141914191419142,
+                "recall": 0.9233333333333333,
+                "f1": 0.9187396351575455,
+                "n": 300
+              },
+              "manipulated": {
+                "precision": 0.9342105263157895,
+                "recall": 0.9466666666666667,
+                "f1": 0.9403973509933775,
+                "n": 300
+              },
+              "ai_generated": {
+                "precision": 0.9488054607508533,
+                "recall": 0.9266666666666666,
+                "f1": 0.9376053962900506,
+                "n": 300
+              }
+            }
+          },
+          "opensdi": {
+            "accuracy": 0.9044444444444445,
+            "macro_f1": 0.9038101885939334,
+            "macro_recall": 0.9044444444444445,
+            "per_class": {
+              "authentic": {
+                "precision": 0.9291044776119403,
+                "recall": 0.83,
+                "f1": 0.8767605633802816,
+                "n": 300
+              },
+              "manipulated": {
+                "precision": 0.931740614334471,
+                "recall": 0.91,
+                "f1": 0.9207419898819562,
+                "n": 300
+              },
+              "ai_generated": {
+                "precision": 0.8613569321533924,
+                "recall": 0.9733333333333334,
+                "f1": 0.9139280125195619,
+                "n": 300
+              }
+            }
+          },
+          "aigenproxy": {
+            "accuracy": 0.9255555555555556,
+            "macro_f1": 0.9255320263018646,
+            "macro_recall": 0.9255555555555556,
+            "per_class": {
+              "authentic": {
+                "precision": 0.9246575342465754,
+                "recall": 0.9,
+                "f1": 0.9121621621621622,
+                "n": 300
+              },
+              "manipulated": {
+                "precision": 0.9459459459459459,
+                "recall": 0.9333333333333333,
+                "f1": 0.9395973154362416,
+                "n": 300
+              },
+              "ai_generated": {
+                "precision": 0.907051282051282,
+                "recall": 0.9433333333333334,
+                "f1": 0.9248366013071896,
+                "n": 300
+              }
+            }
+          }
+        },
+        "avg_macro_f1": 0.9164809547802656
+      },
+      "avg_macro_f1": 0.9164809547802656
+    },
+    {
+      "variant": "mnv2_coral_qsweep_qtpt_cal064_ioint8",
+      "quant_type": "per-tensor",
+      "calibration_count": 64,
+      "io_dtype": "int8",
+      "calibration_npy": "/data/jj812_files/MAIFS/weights/tflite_calibration/mnv2_coral_int8_full_64.npy",
+      "tflite_path": "/data/jj812_files/MAIFS/weights/tflite_sweep/mnv2_coral_qsweep_qtpt_cal064_ioint8.tflite",
+      "status": "ok",
+      "tflite_file_name": "mnv2_coral_full_integer_quant.tflite",
+      "input_dtype": "int8",
+      "output_dtype": "int8",
+      "input_quant": [
+        0.003921568859368563,
+        -128
+      ],
+      "output_quant": [
+        0.007544218562543392,
+        -21
+      ],
+      "stdout_tail": [
+        "    return self._convert_from_saved_model(graph_def)",
+        "  File \"/data/jj812_files/MAIFS/.venv-edgetpu-export/lib/python3.10/site-packages/tensorflow/lite/python/lite.py\", line 1445, in _convert_from_saved_model",
+        "    return self._optimize_tflite_model(",
+        "  File \"/data/jj812_files/MAIFS/.venv-edgetpu-export/lib/python3.10/site-packages/tensorflow/lite/python/convert_phase.py\", line 215, in wrapper",
+        "    raise error from None  # Re-throws the exception.",
+        "  File \"/data/jj812_files/MAIFS/.venv-edgetpu-export/lib/python3.10/site-packages/tensorflow/lite/python/convert_phase.py\", line 205, in wrapper",
+        "    return func(*args, **kwargs)",
+        "  File \"/data/jj812_files/MAIFS/.venv-edgetpu-export/lib/python3.10/site-packages/tensorflow/lite/python/lite.py\", line 1146, in _optimize_tflite_model",
+        "    model = self._quantize(",
+        "  File \"/data/jj812_files/MAIFS/.venv-edgetpu-export/lib/python3.10/site-packages/tensorflow/lite/python/lite.py\", line 779, in _quantize",
+        "    return calibrate_quantize.calibrate_and_quantize(",
+        "  File \"/data/jj812_files/MAIFS/.venv-edgetpu-export/lib/python3.10/site-packages/tensorflow/lite/python/convert_phase.py\", line 215, in wrapper",
+        "    raise error from None  # Re-throws the exception.",
+        "  File \"/data/jj812_files/MAIFS/.venv-edgetpu-export/lib/python3.10/site-packages/tensorflow/lite/python/convert_phase.py\", line 205, in wrapper",
+        "    return func(*args, **kwargs)",
+        "  File \"/data/jj812_files/MAIFS/.venv-edgetpu-export/lib/python3.10/site-packages/tensorflow/lite/python/optimize/calibrator.py\", line 197, in calibrate_and_quantize",
+        "    return self._calibrator.QuantizeModel(",
+        "RuntimeError: Quantized dimension for tensor property and quantization parameters do not match. Got 3 and 0 respectively.",
+        "",
+        "\u001b[33mWARNING:\u001b[0m Full INT8 Quantization with int16 activations tflite output failed."
+      ],
+      "stderr_tail": [
+        "W0000 00:00:1774182975.291220 3474784 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "I0000 00:00:1774182975.856479 3474784 devices.cc:67] Number of eligible GPUs (core count >= 8, compute capability >= 0.0): 0",
+        "I0000 00:00:1774182975.856624 3474784 single_machine.cc:374] Starting new session",
+        "W0000 00:00:1774182976.293785 3474784 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774182976.293822 3474784 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "I0000 00:00:1774182977.010580 3474784 devices.cc:67] Number of eligible GPUs (core count >= 8, compute capability >= 0.0): 0",
+        "I0000 00:00:1774182977.010736 3474784 single_machine.cc:374] Starting new session",
+        "W0000 00:00:1774182977.316681 3474784 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774182977.316720 3474784 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "W0000 00:00:1774182978.790961 3474784 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774182978.790991 3474784 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "I0000 00:00:1774182978.815084 3474784 mlir_graph_optimization_pass.cc:425] MLIR V1 optimization pass is not enabled",
+        "fully_quantize: 0, inference_type: 6, input_inference_type: FLOAT32, output_inference_type: FLOAT32",
+        "W0000 00:00:1774182986.693103 3474784 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774182986.693133 3474784 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "fully_quantize: 0, inference_type: 6, input_inference_type: INT8, output_inference_type: INT8",
+        "W0000 00:00:1774182994.601810 3474784 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774182994.601840 3474784 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "W0000 00:00:1774183008.196144 3474784 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774183008.196173 3474784 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency."
+      ],
+      "metrics": {
+        "variant": "mnv2_coral_qsweep_qtpt_cal064_ioint8",
+        "backend": "tflite",
+        "model_path": "/data/jj812_files/MAIFS/weights/tflite_sweep/mnv2_coral_qsweep_qtpt_cal064_ioint8.tflite",
+        "datasets": {
+          "base": {
+            "accuracy": 0.8386666666666667,
+            "macro_f1": 0.8395298585139489,
+            "macro_recall": 0.8386666666666667,
+            "per_class": {
+              "authentic": {
+                "precision": 0.7673992673992674,
+                "recall": 0.838,
+                "f1": 0.8011472275334608,
+                "n": 500
+              },
+              "manipulated": {
+                "precision": 0.86,
+                "recall": 0.86,
+                "f1": 0.8599999999999999,
+                "n": 500
+              },
+              "ai_generated": {
+                "precision": 0.9008810572687225,
+                "recall": 0.818,
+                "f1": 0.8574423480083858,
+                "n": 500
+              }
+            }
+          },
+          "dsC": {
+            "accuracy": 0.8533333333333334,
+            "macro_f1": 0.8528042100610828,
+            "macro_recall": 0.8533333333333334,
+            "per_class": {
+              "authentic": {
+                "precision": 0.8223684210526315,
+                "recall": 0.8333333333333334,
+                "f1": 0.8278145695364237,
+                "n": 300
+              },
+              "manipulated": {
+                "precision": 0.8496932515337423,
+                "recall": 0.9233333333333333,
+                "f1": 0.8849840255591054,
+                "n": 300
+              },
+              "ai_generated": {
+                "precision": 0.8925925925925926,
+                "recall": 0.8033333333333333,
+                "f1": 0.8456140350877193,
+                "n": 300
+              }
+            }
+          },
+          "opensdi": {
+            "accuracy": 0.8922222222222222,
+            "macro_f1": 0.8914913019079685,
+            "macro_recall": 0.8922222222222222,
+            "per_class": {
+              "authentic": {
+                "precision": 0.894927536231884,
+                "recall": 0.8233333333333334,
+                "f1": 0.8576388888888888,
+                "n": 300
+              },
+              "manipulated": {
+                "precision": 0.9149659863945578,
+                "recall": 0.8966666666666666,
+                "f1": 0.9057239057239056,
+                "n": 300
+              },
+              "ai_generated": {
+                "precision": 0.8696969696969697,
+                "recall": 0.9566666666666667,
+                "f1": 0.9111111111111112,
+                "n": 300
+              }
+            }
+          },
+          "aigenproxy": {
+            "accuracy": 0.9088888888888889,
+            "macro_f1": 0.9089275025021563,
+            "macro_recall": 0.9088888888888889,
+            "per_class": {
+              "authentic": {
+                "precision": 0.8811881188118812,
+                "recall": 0.89,
+                "f1": 0.8855721393034827,
+                "n": 300
+              },
+              "manipulated": {
+                "precision": 0.9283276450511946,
+                "recall": 0.9066666666666666,
+                "f1": 0.9173693086003373,
+                "n": 300
+              },
+              "ai_generated": {
+                "precision": 0.9177631578947368,
+                "recall": 0.93,
+                "f1": 0.923841059602649,
+                "n": 300
+              }
+            }
+          }
+        },
+        "avg_macro_f1": 0.8731882182462891
+      },
+      "avg_macro_f1": 0.8731882182462891
+    },
+    {
+      "variant": "mnv2_coral_qsweep_qtpt_cal128_ioint8",
+      "quant_type": "per-tensor",
+      "calibration_count": 128,
+      "io_dtype": "int8",
+      "calibration_npy": "/data/jj812_files/MAIFS/weights/tflite_calibration/mnv2_coral_int8_full_128.npy",
+      "tflite_path": "/data/jj812_files/MAIFS/weights/tflite_sweep/mnv2_coral_qsweep_qtpt_cal128_ioint8.tflite",
+      "status": "ok",
+      "tflite_file_name": "mnv2_coral_full_integer_quant.tflite",
+      "input_dtype": "int8",
+      "output_dtype": "int8",
+      "input_quant": [
+        0.003921568859368563,
+        -128
+      ],
+      "output_quant": [
+        0.008018159307539463,
+        -27
+      ],
+      "stdout_tail": [
+        "    return self._convert_from_saved_model(graph_def)",
+        "  File \"/data/jj812_files/MAIFS/.venv-edgetpu-export/lib/python3.10/site-packages/tensorflow/lite/python/lite.py\", line 1445, in _convert_from_saved_model",
+        "    return self._optimize_tflite_model(",
+        "  File \"/data/jj812_files/MAIFS/.venv-edgetpu-export/lib/python3.10/site-packages/tensorflow/lite/python/convert_phase.py\", line 215, in wrapper",
+        "    raise error from None  # Re-throws the exception.",
+        "  File \"/data/jj812_files/MAIFS/.venv-edgetpu-export/lib/python3.10/site-packages/tensorflow/lite/python/convert_phase.py\", line 205, in wrapper",
+        "    return func(*args, **kwargs)",
+        "  File \"/data/jj812_files/MAIFS/.venv-edgetpu-export/lib/python3.10/site-packages/tensorflow/lite/python/lite.py\", line 1146, in _optimize_tflite_model",
+        "    model = self._quantize(",
+        "  File \"/data/jj812_files/MAIFS/.venv-edgetpu-export/lib/python3.10/site-packages/tensorflow/lite/python/lite.py\", line 779, in _quantize",
+        "    return calibrate_quantize.calibrate_and_quantize(",
+        "  File \"/data/jj812_files/MAIFS/.venv-edgetpu-export/lib/python3.10/site-packages/tensorflow/lite/python/convert_phase.py\", line 215, in wrapper",
+        "    raise error from None  # Re-throws the exception.",
+        "  File \"/data/jj812_files/MAIFS/.venv-edgetpu-export/lib/python3.10/site-packages/tensorflow/lite/python/convert_phase.py\", line 205, in wrapper",
+        "    return func(*args, **kwargs)",
+        "  File \"/data/jj812_files/MAIFS/.venv-edgetpu-export/lib/python3.10/site-packages/tensorflow/lite/python/optimize/calibrator.py\", line 197, in calibrate_and_quantize",
+        "    return self._calibrator.QuantizeModel(",
+        "RuntimeError: Quantized dimension for tensor property and quantization parameters do not match. Got 3 and 0 respectively.",
+        "",
+        "\u001b[33mWARNING:\u001b[0m Full INT8 Quantization with int16 activations tflite output failed."
+      ],
+      "stderr_tail": [
+        "W0000 00:00:1774183071.958234 3476444 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "I0000 00:00:1774183072.524864 3476444 devices.cc:67] Number of eligible GPUs (core count >= 8, compute capability >= 0.0): 0",
+        "I0000 00:00:1774183072.525005 3476444 single_machine.cc:374] Starting new session",
+        "W0000 00:00:1774183072.939801 3476444 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774183072.939835 3476444 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "I0000 00:00:1774183073.655815 3476444 devices.cc:67] Number of eligible GPUs (core count >= 8, compute capability >= 0.0): 0",
+        "I0000 00:00:1774183073.655990 3476444 single_machine.cc:374] Starting new session",
+        "W0000 00:00:1774183073.986089 3476444 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774183073.986120 3476444 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "W0000 00:00:1774183076.767186 3476444 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774183076.767216 3476444 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "I0000 00:00:1774183076.799482 3476444 mlir_graph_optimization_pass.cc:425] MLIR V1 optimization pass is not enabled",
+        "fully_quantize: 0, inference_type: 6, input_inference_type: FLOAT32, output_inference_type: FLOAT32",
+        "W0000 00:00:1774183090.979084 3476444 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774183090.979112 3476444 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "fully_quantize: 0, inference_type: 6, input_inference_type: INT8, output_inference_type: INT8",
+        "W0000 00:00:1774183105.550818 3476444 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774183105.550848 3476444 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "W0000 00:00:1774183131.112141 3476444 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774183131.112171 3476444 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency."
+      ],
+      "metrics": {
+        "variant": "mnv2_coral_qsweep_qtpt_cal128_ioint8",
+        "backend": "tflite",
+        "model_path": "/data/jj812_files/MAIFS/weights/tflite_sweep/mnv2_coral_qsweep_qtpt_cal128_ioint8.tflite",
+        "datasets": {
+          "base": {
+            "accuracy": 0.8273333333333334,
+            "macro_f1": 0.8278977295693126,
+            "macro_recall": 0.8273333333333334,
+            "per_class": {
+              "authentic": {
+                "precision": 0.7398648648648649,
+                "recall": 0.876,
+                "f1": 0.8021978021978023,
+                "n": 500
+              },
+              "manipulated": {
+                "precision": 0.8413926499032882,
+                "recall": 0.87,
+                "f1": 0.8554572271386431,
+                "n": 500
+              },
+              "ai_generated": {
+                "precision": 0.9411764705882353,
+                "recall": 0.736,
+                "f1": 0.8260381593714927,
+                "n": 500
+              }
+            }
+          },
+          "dsC": {
+            "accuracy": 0.8255555555555556,
+            "macro_f1": 0.8237809914533916,
+            "macro_recall": 0.8255555555555555,
+            "per_class": {
+              "authentic": {
+                "precision": 0.7514450867052023,
+                "recall": 0.8666666666666667,
+                "f1": 0.804953560371517,
+                "n": 300
+              },
+              "manipulated": {
+                "precision": 0.8461538461538461,
+                "recall": 0.9166666666666666,
+                "f1": 0.8799999999999999,
+                "n": 300
+              },
+              "ai_generated": {
+                "precision": 0.9082969432314411,
+                "recall": 0.6933333333333334,
+                "f1": 0.7863894139886579,
+                "n": 300
+              }
+            }
+          },
+          "opensdi": {
+            "accuracy": 0.8833333333333333,
+            "macro_f1": 0.8827782566386974,
+            "macro_recall": 0.8833333333333333,
+            "per_class": {
+              "authentic": {
+                "precision": 0.8636363636363636,
+                "recall": 0.8233333333333334,
+                "f1": 0.8430034129692833,
+                "n": 300
+              },
+              "manipulated": {
+                "precision": 0.898989898989899,
+                "recall": 0.89,
+                "f1": 0.8944723618090452,
+                "n": 300
+              },
+              "ai_generated": {
+                "precision": 0.886435331230284,
+                "recall": 0.9366666666666666,
+                "f1": 0.9108589951377634,
+                "n": 300
+              }
+            }
+          },
+          "aigenproxy": {
+            "accuracy": 0.9,
+            "macro_f1": 0.9001919722079003,
+            "macro_recall": 0.9,
+            "per_class": {
+              "authentic": {
+                "precision": 0.864951768488746,
+                "recall": 0.8966666666666666,
+                "f1": 0.8805237315875614,
+                "n": 300
+              },
+              "manipulated": {
+                "precision": 0.9042904290429042,
+                "recall": 0.9133333333333333,
+                "f1": 0.9087893864013268,
+                "n": 300
+              },
+              "ai_generated": {
+                "precision": 0.9335664335664335,
+                "recall": 0.89,
+                "f1": 0.9112627986348124,
+                "n": 300
+              }
+            }
+          }
+        },
+        "avg_macro_f1": 0.8586622374673255
+      },
+      "avg_macro_f1": 0.8586622374673255
+    },
+    {
+      "variant": "mnv2_coral_qsweep_qtpt_cal256_ioint8",
+      "quant_type": "per-tensor",
+      "calibration_count": 256,
+      "io_dtype": "int8",
+      "calibration_npy": "/data/jj812_files/MAIFS/weights/tflite_calibration/mnv2_coral_int8_full_256.npy",
+      "tflite_path": "/data/jj812_files/MAIFS/weights/tflite_sweep/mnv2_coral_qsweep_qtpt_cal256_ioint8.tflite",
+      "status": "ok",
+      "tflite_file_name": "mnv2_coral_full_integer_quant.tflite",
+      "input_dtype": "int8",
+      "output_dtype": "int8",
+      "input_quant": [
+        0.003921568859368563,
+        -128
+      ],
+      "output_quant": [
+        0.00808817707002163,
+        -26
+      ],
+      "stdout_tail": [
+        "    return self._convert_from_saved_model(graph_def)",
+        "  File \"/data/jj812_files/MAIFS/.venv-edgetpu-export/lib/python3.10/site-packages/tensorflow/lite/python/lite.py\", line 1445, in _convert_from_saved_model",
+        "    return self._optimize_tflite_model(",
+        "  File \"/data/jj812_files/MAIFS/.venv-edgetpu-export/lib/python3.10/site-packages/tensorflow/lite/python/convert_phase.py\", line 215, in wrapper",
+        "    raise error from None  # Re-throws the exception.",
+        "  File \"/data/jj812_files/MAIFS/.venv-edgetpu-export/lib/python3.10/site-packages/tensorflow/lite/python/convert_phase.py\", line 205, in wrapper",
+        "    return func(*args, **kwargs)",
+        "  File \"/data/jj812_files/MAIFS/.venv-edgetpu-export/lib/python3.10/site-packages/tensorflow/lite/python/lite.py\", line 1146, in _optimize_tflite_model",
+        "    model = self._quantize(",
+        "  File \"/data/jj812_files/MAIFS/.venv-edgetpu-export/lib/python3.10/site-packages/tensorflow/lite/python/lite.py\", line 779, in _quantize",
+        "    return calibrate_quantize.calibrate_and_quantize(",
+        "  File \"/data/jj812_files/MAIFS/.venv-edgetpu-export/lib/python3.10/site-packages/tensorflow/lite/python/convert_phase.py\", line 215, in wrapper",
+        "    raise error from None  # Re-throws the exception.",
+        "  File \"/data/jj812_files/MAIFS/.venv-edgetpu-export/lib/python3.10/site-packages/tensorflow/lite/python/convert_phase.py\", line 205, in wrapper",
+        "    return func(*args, **kwargs)",
+        "  File \"/data/jj812_files/MAIFS/.venv-edgetpu-export/lib/python3.10/site-packages/tensorflow/lite/python/optimize/calibrator.py\", line 197, in calibrate_and_quantize",
+        "    return self._calibrator.QuantizeModel(",
+        "RuntimeError: Quantized dimension for tensor property and quantization parameters do not match. Got 3 and 0 respectively.",
+        "",
+        "\u001b[33mWARNING:\u001b[0m Full INT8 Quantization with int16 activations tflite output failed."
+      ],
+      "stderr_tail": [
+        "W0000 00:00:1774183197.870939 3478167 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "I0000 00:00:1774183198.431466 3478167 devices.cc:67] Number of eligible GPUs (core count >= 8, compute capability >= 0.0): 0",
+        "I0000 00:00:1774183198.431608 3478167 single_machine.cc:374] Starting new session",
+        "W0000 00:00:1774183198.819891 3478167 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774183198.819928 3478167 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "I0000 00:00:1774183199.436689 3478167 devices.cc:67] Number of eligible GPUs (core count >= 8, compute capability >= 0.0): 0",
+        "I0000 00:00:1774183199.436825 3478167 single_machine.cc:374] Starting new session",
+        "W0000 00:00:1774183199.738576 3478167 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774183199.738612 3478167 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "W0000 00:00:1774183201.592401 3478167 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774183201.592433 3478167 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "I0000 00:00:1774183201.616478 3478167 mlir_graph_optimization_pass.cc:425] MLIR V1 optimization pass is not enabled",
+        "fully_quantize: 0, inference_type: 6, input_inference_type: FLOAT32, output_inference_type: FLOAT32",
+        "W0000 00:00:1774183228.569467 3478167 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774183228.569495 3478167 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "fully_quantize: 0, inference_type: 6, input_inference_type: INT8, output_inference_type: INT8",
+        "W0000 00:00:1774183255.875758 3478167 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774183255.875787 3478167 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+        "W0000 00:00:1774183307.501734 3478167 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+        "W0000 00:00:1774183307.501765 3478167 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency."
+      ],
+      "metrics": {
+        "variant": "mnv2_coral_qsweep_qtpt_cal256_ioint8",
+        "backend": "tflite",
+        "model_path": "/data/jj812_files/MAIFS/weights/tflite_sweep/mnv2_coral_qsweep_qtpt_cal256_ioint8.tflite",
+        "datasets": {
+          "base": {
+            "accuracy": 0.8526666666666667,
+            "macro_f1": 0.8535453295154166,
+            "macro_recall": 0.8526666666666666,
+            "per_class": {
+              "authentic": {
+                "precision": 0.7918968692449355,
+                "recall": 0.86,
+                "f1": 0.8245445829338447,
+                "n": 500
+              },
+              "manipulated": {
+                "precision": 0.8423076923076923,
+                "recall": 0.876,
+                "f1": 0.8588235294117647,
+                "n": 500
+              },
+              "ai_generated": {
+                "precision": 0.9405034324942791,
+                "recall": 0.822,
+                "f1": 0.8772678762006402,
+                "n": 500
+              }
+            }
+          },
+          "dsC": {
+            "accuracy": 0.8688888888888889,
+            "macro_f1": 0.8687994730662346,
+            "macro_recall": 0.8688888888888888,
+            "per_class": {
+              "authentic": {
+                "precision": 0.8453947368421053,
+                "recall": 0.8566666666666667,
+                "f1": 0.8509933774834437,
+                "n": 300
+              },
+              "manipulated": {
+                "precision": 0.8445121951219512,
+                "recall": 0.9233333333333333,
+                "f1": 0.8821656050955414,
+                "n": 300
+              },
+              "ai_generated": {
+                "precision": 0.9253731343283582,
+                "recall": 0.8266666666666667,
+                "f1": 0.8732394366197183,
+                "n": 300
+              }
+            }
+          },
+          "opensdi": {
+            "accuracy": 0.8988888888888888,
+            "macro_f1": 0.8981744156500685,
+            "macro_recall": 0.8988888888888887,
+            "per_class": {
+              "authentic": {
+                "precision": 0.9087591240875912,
+                "recall": 0.83,
+                "f1": 0.8675958188153309,
+                "n": 300
+              },
+              "manipulated": {
+                "precision": 0.9042904290429042,
+                "recall": 0.9133333333333333,
+                "f1": 0.9087893864013268,
+                "n": 300
+              },
+              "ai_generated": {
+                "precision": 0.8854489164086687,
+                "recall": 0.9533333333333334,
+                "f1": 0.9181380417335474,
+                "n": 300
+              }
+            }
+          },
+          "aigenproxy": {
+            "accuracy": 0.91,
+            "macro_f1": 0.9100526065490578,
+            "macro_recall": 0.91,
+            "per_class": {
+              "authentic": {
+                "precision": 0.8841059602649006,
+                "recall": 0.89,
+                "f1": 0.8870431893687708,
+                "n": 300
+              },
+              "manipulated": {
+                "precision": 0.9136212624584718,
+                "recall": 0.9166666666666666,
+                "f1": 0.9151414309484193,
+                "n": 300
+              },
+              "ai_generated": {
+                "precision": 0.9326599326599326,
+                "recall": 0.9233333333333333,
+                "f1": 0.9279731993299833,
+                "n": 300
+              }
+            }
+          }
+        },
+        "avg_macro_f1": 0.8826429561951944
+      },
+      "avg_macro_f1": 0.8826429561951944
+    }
+  ],
+  "best_candidate": {
+    "variant": "mnv2_coral_qsweep_qtpc_cal064_ioint8",
+    "quant_type": "per-channel",
+    "calibration_count": 64,
+    "io_dtype": "int8",
+    "calibration_npy": "/data/jj812_files/MAIFS/weights/tflite_calibration/mnv2_coral_int8_full_64.npy",
+    "tflite_path": "/data/jj812_files/MAIFS/weights/tflite_sweep/mnv2_coral_qsweep_qtpc_cal064_ioint8.tflite",
+    "status": "ok",
+    "tflite_file_name": "mnv2_coral_full_integer_quant.tflite",
+    "input_dtype": "int8",
+    "output_dtype": "int8",
+    "input_quant": [
+      0.003921568859368563,
+      -128
+    ],
+    "output_quant": [
+      0.007544218562543392,
+      -21
+    ],
+    "stdout_tail": [
+      "  126944609900976: TensorSpec(shape=(512,), dtype=tf.float32, name=None)",
+      "  126944610373824: TensorSpec(shape=(512, 3), dtype=tf.float32, name=None)",
+      "  126944610375056: TensorSpec(shape=(), dtype=tf.float32, name=None)",
+      "  126944610374000: TensorSpec(shape=(3,), dtype=tf.float32, name=None)",
+      "\u001b[32msaved_model output complete!\u001b[0m",
+      "\u001b[32mFloat32 tflite output complete!\u001b[0m",
+      "\u001b[32mFloat16 tflite output complete!\u001b[0m",
+      "\u001b[32mDynamic Range Quantization tflite output complete!\u001b[0m",
+      "",
+      "\u001b[34mSignature information for quantization\u001b[0m",
+      "\u001b[34msignature_name\u001b[0m: serving_default",
+      "\u001b[34minput_name.0\u001b[0m: image_01 \u001b[34mshape\u001b[0m: (1, 224, 224, 3) \u001b[34mdtype\u001b[0m: <dtype: 'float32'>",
+      "\u001b[34moutput_name.0\u001b[0m: output_0 \u001b[34mshape\u001b[0m: (1, 3) \u001b[34mdtype\u001b[0m: <dtype: 'float32'>",
+      "\u001b[34mquant_norm_mean\u001b[0m: [[[[0.485 0.456 0.406]]]] ",
+      "\u001b[34mquant_norm_std\u001b[0m: [[[[0.229 0.224 0.225]]]] ",
+      "",
+      "\u001b[32mINT8 Quantization tflite output complete!\u001b[0m",
+      "\u001b[32mFull INT8 Quantization tflite output complete!\u001b[0m",
+      "\u001b[32mINT8 Quantization with int16 activations tflite output complete!\u001b[0m",
+      "\u001b[32mFull INT8 Quantization with int16 activations tflite output complete!\u001b[0m"
+    ],
+    "stderr_tail": [
+      "W0000 00:00:1774182534.541053 3469525 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+      "I0000 00:00:1774182535.182860 3469525 devices.cc:67] Number of eligible GPUs (core count >= 8, compute capability >= 0.0): 0",
+      "I0000 00:00:1774182535.183014 3469525 single_machine.cc:374] Starting new session",
+      "W0000 00:00:1774182535.606618 3469525 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+      "W0000 00:00:1774182535.606650 3469525 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+      "I0000 00:00:1774182536.288043 3469525 devices.cc:67] Number of eligible GPUs (core count >= 8, compute capability >= 0.0): 0",
+      "I0000 00:00:1774182536.288202 3469525 single_machine.cc:374] Starting new session",
+      "W0000 00:00:1774182536.587695 3469525 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+      "W0000 00:00:1774182536.587727 3469525 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+      "W0000 00:00:1774182538.501675 3469525 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+      "W0000 00:00:1774182538.501707 3469525 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+      "I0000 00:00:1774182538.527973 3469525 mlir_graph_optimization_pass.cc:425] MLIR V1 optimization pass is not enabled",
+      "fully_quantize: 0, inference_type: 6, input_inference_type: FLOAT32, output_inference_type: FLOAT32",
+      "W0000 00:00:1774182546.253949 3469525 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+      "W0000 00:00:1774182546.253976 3469525 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+      "fully_quantize: 0, inference_type: 6, input_inference_type: INT8, output_inference_type: INT8",
+      "W0000 00:00:1774182554.027207 3469525 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+      "W0000 00:00:1774182554.027233 3469525 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency.",
+      "W0000 00:00:1774182568.083968 3469525 tf_tfl_flatbuffer_helpers.cc:365] Ignored output_format.",
+      "W0000 00:00:1774182568.083996 3469525 tf_tfl_flatbuffer_helpers.cc:368] Ignored drop_control_dependency."
+    ],
+    "metrics": {
+      "variant": "mnv2_coral_qsweep_qtpc_cal064_ioint8",
+      "backend": "tflite",
+      "model_path": "/data/jj812_files/MAIFS/weights/tflite_sweep/mnv2_coral_qsweep_qtpc_cal064_ioint8.tflite",
+      "datasets": {
+        "base": {
+          "accuracy": 0.8953333333333333,
+          "macro_f1": 0.8958822335345983,
+          "macro_recall": 0.8953333333333333,
+          "per_class": {
+            "authentic": {
+              "precision": 0.8402255639097744,
+              "recall": 0.894,
+              "f1": 0.8662790697674418,
+              "n": 500
+            },
+            "manipulated": {
+              "precision": 0.9048582995951417,
+              "recall": 0.894,
+              "f1": 0.8993963782696178,
+              "n": 500
+            },
+            "ai_generated": {
+              "precision": 0.9472573839662447,
+              "recall": 0.898,
+              "f1": 0.9219712525667352,
+              "n": 500
+            }
+          }
+        },
+        "dsC": {
+          "accuracy": 0.9322222222222222,
+          "macro_f1": 0.9321438488742274,
+          "macro_recall": 0.9322222222222223,
+          "per_class": {
+            "authentic": {
+              "precision": 0.9375,
+              "recall": 0.9,
+              "f1": 0.9183673469387755,
+              "n": 300
+            },
+            "manipulated": {
+              "precision": 0.9037267080745341,
+              "recall": 0.97,
+              "f1": 0.9356913183279743,
+              "n": 300
+            },
+            "ai_generated": {
+              "precision": 0.9586206896551724,
+              "recall": 0.9266666666666666,
+              "f1": 0.9423728813559322,
+              "n": 300
+            }
+          }
+        },
+        "opensdi": {
+          "accuracy": 0.9166666666666666,
+          "macro_f1": 0.9157188065597849,
+          "macro_recall": 0.9166666666666666,
+          "per_class": {
+            "authentic": {
+              "precision": 0.9467680608365019,
+              "recall": 0.83,
+              "f1": 0.8845470692717584,
+              "n": 300
+            },
+            "manipulated": {
+              "precision": 0.9163987138263665,
+              "recall": 0.95,
+              "f1": 0.9328968903436988,
+              "n": 300
+            },
+            "ai_generated": {
+              "precision": 0.8926380368098159,
+              "recall": 0.97,
+              "f1": 0.9297124600638977,
+              "n": 300
+            }
+          }
+        },
+        "aigenproxy": {
+          "accuracy": 0.9255555555555556,
+          "macro_f1": 0.9253983036173737,
+          "macro_recall": 0.9255555555555555,
+          "per_class": {
+            "authentic": {
+              "precision": 0.9238754325259516,
+              "recall": 0.89,
+              "f1": 0.9066213921901528,
+              "n": 300
+            },
+            "manipulated": {
+              "precision": 0.9375,
+              "recall": 0.95,
+              "f1": 0.9437086092715232,
+              "n": 300
+            },
+            "ai_generated": {
+              "precision": 0.9153094462540716,
+              "recall": 0.9366666666666666,
+              "f1": 0.9258649093904447,
+              "n": 300
+            }
+          }
+        }
+      },
+      "avg_macro_f1": 0.9172857981464961
+    },
+    "avg_macro_f1": 0.9172857981464961
+  },
+  "best_delta": {
+    "vs_current_onnx": {
+      "avg_macro_f1": -0.03639302607024075,
+      "per_dataset": {
+        "base": -0.05337892013349399,
+        "dsC": -0.041162321986542905,
+        "opensdi": -0.026428061474893183,
+        "aigenproxy": -0.024602800686033488
+      }
+    },
+    "vs_baseline_coral_tflite": {
+      "avg_macro_f1": 0.007663762273642405,
+      "per_dataset": {
+        "base": 0.00793567502376713,
+        "dsC": 0.03042689086150263,
+        "opensdi": -0.002226397355200027,
+        "aigenproxy": -0.005481119435500448
+      }
+    }
+  },
+  "best_candidate_compile": {
+    "edgetpu_path": "/data/jj812_files/MAIFS/weights/tflite_edgetpu_sweep/mnv2_coral_qsweep_qtpc_cal064_ioint8_edgetpu.tflite",
+    "stdout_tail": [
+      "Number of Edge TPU subgraphs: 1",
+      "Total number of operations: 151",
+      "Operation log: /tmp/mnv2_coral_edgetpu_la4cc_xr/mnv2_coral_qsweep_qtpc_cal064_ioint8_edgetpu.log",
+      "",
+      "Operator                       Count      Status",
+      "",
+      "DEPTHWISE_CONV_2D              34         Mapped to Edge TPU",
+      "MUL                            3          Mapped to Edge TPU",
+      "MEAN                           3          Mapped to Edge TPU",
+      "MINIMUM                        1          Mapped to Edge TPU",
+      "MAXIMUM                        1          Mapped to Edge TPU",
+      "ADD                            21         Mapped to Edge TPU",
+      "PAD                            10         Mapped to Edge TPU",
+      "FULLY_CONNECTED                2          Mapped to Edge TPU",
+      "CONV_2D                        71         Mapped to Edge TPU",
+      "CONCATENATION                  1          Mapped to Edge TPU",
+      "RESHAPE                        2          Mapped to Edge TPU",
+      "SUB                            2          Mapped to Edge TPU",
+      "Compilation child process completed within timeout period.",
+      "Compilation succeeded!"
+    ],
+    "stderr_tail": []
+  }
+}

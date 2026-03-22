@@ -1,0 +1,80 @@
+{
+  "base": {
+    "n_binary": 1000,
+    "accuracy": 0.852,
+    "macro_recall": 0.852,
+    "auth_recall": 0.734,
+    "manip_recall": 0.97,
+    "manip_f1": 0.8676207513416815,
+    "per_class": {
+      "authentic": {
+        "recall": 0.734,
+        "n": 500
+      },
+      "manipulated": {
+        "recall": 0.97,
+        "n": 500
+      }
+    },
+    "jsonl": "/data/jj812_files/MAIFS/experiments/results/specialist_eval/specialist_m_v4_coral_base_20260322_130007.jsonl"
+  },
+  "dsC": {
+    "n_binary": 600,
+    "accuracy": 0.8466666666666667,
+    "macro_recall": 0.8466666666666667,
+    "auth_recall": 0.7533333333333333,
+    "manip_recall": 0.94,
+    "manip_f1": 0.8597560975609757,
+    "per_class": {
+      "authentic": {
+        "recall": 0.7533333333333333,
+        "n": 300
+      },
+      "manipulated": {
+        "recall": 0.94,
+        "n": 300
+      }
+    },
+    "jsonl": "/data/jj812_files/MAIFS/experiments/results/specialist_eval/specialist_m_v4_coral_dsC_20260322_130007.jsonl"
+  },
+  "opensdi": {
+    "n_binary": 600,
+    "accuracy": 0.665,
+    "macro_recall": 0.665,
+    "auth_recall": 0.6266666666666667,
+    "manip_recall": 0.7033333333333334,
+    "manip_f1": 0.6773675762439807,
+    "per_class": {
+      "authentic": {
+        "recall": 0.6266666666666667,
+        "n": 300
+      },
+      "manipulated": {
+        "recall": 0.7033333333333334,
+        "n": 300
+      }
+    },
+    "jsonl": "/data/jj812_files/MAIFS/experiments/results/specialist_eval/specialist_m_v4_coral_opensdi_20260322_130007.jsonl"
+  },
+  "aigenproxy": {
+    "n_binary": 600,
+    "accuracy": 0.9666666666666667,
+    "macro_recall": 0.9666666666666667,
+    "auth_recall": 0.9566666666666667,
+    "manip_recall": 0.9766666666666667,
+    "manip_f1": 0.966996699669967,
+    "per_class": {
+      "authentic": {
+        "recall": 0.9566666666666667,
+        "n": 300
+      },
+      "manipulated": {
+        "recall": 0.9766666666666667,
+        "n": 300
+      }
+    },
+    "jsonl": "/data/jj812_files/MAIFS/experiments/results/specialist_eval/specialist_m_v4_coral_aigenproxy_20260322_130007.jsonl"
+  },
+  "avg_manip_f1": 0.8429352812041513,
+  "checkpoint": "/data/jj812_files/MAIFS/weights/specialist_m_v4_coral/specialist_m_v4_coral_best.pth"
+}
