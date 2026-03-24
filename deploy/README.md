@@ -1,142 +1,195 @@
-# SHIELD RPi5 / Coral 배포 가이드
+# SHIELD RPi5 배포 가이드
 
-## 구성
+> 최종 업데이트: 2026-03-24
+> 이 문서는 **현재 저장소에 포함된 배포 진입점** 기준으로 정리되어 있습니다.
 
-- **모델**:
-  - ONNX 경로: MNV2-Dynamic INT8 + SpecM-v4-Dynamic INT8
-  - Coral 경로: tuned `mnv2_coral_qsweep_qtpc_cal064_ioint8` + `specm_v4_coral_ft`
-    (없으면 기존 `mnv2_coral` / `specm_v4_coral` fallback)
-- **추론 스크립트**: `rpi5_infer.py`
-- **예상 지연**:
-  - ONNX: ~112ms 실측 (RPi5, threads=4)
-  - Coral: MNV2 기준 ~5ms급 기대, 실제는 Edge TPU compiler report 확인 필요
+---
 
-## 설치
+## 1. 배포 개요
 
-### 1. ONNX 경로
+현재 SHIELD의 배포 파이프라인은 다음 조합을 기준으로 합니다.
+
+- **Generalist**: `MNV2`
+- **Specialist**: `SpecM-v4`
+- **Fusion**: `ICWMV` (역신뢰도 가중 다수결)
+
+배포 경로는 두 가지입니다.
+
+| 경로 | 형식 | 정확도 | RPi5 평균 레이턴시 | 상태 |
+|------|------|--------|-------------------|------|
+| ONNX CPU | INT8 ONNX Runtime | **0.9535** | **88.3ms** | 현재 주력 |
+| Coral USB | Edge TPU TFLite | 0.9308 | **63.4ms** | 속도 우위, 정확도 gap 존재 |
+
+현재 연구 결론상 **정확도 우선이면 ONNX CPU**, **속도/전력 우선 실험이면 Coral** 경로를 권장합니다.
+
+---
+
+## 2. 저장소 기준 배포 파일
+
+### 공통
+
+| 파일 | 설명 |
+|------|------|
+| `deploy/rpi5_infer.py` | RPi5 통합 추론 진입점 |
+| `deploy/requirements_rpi5.txt` | CPU 경로 의존성 |
+| `deploy/requirements_rpi5_coral.txt` | Coral 경로 의존성 |
+| `deploy/setup_rpi5_coral_env.sh` | Python 3.9 Coral 전용 venv 부트스트랩 |
+
+### 모델 경로
+
+| 경로 | 설명 |
+|------|------|
+| `weights/onnx_quant/mnv2_int8_dynamic.onnx` | CPU용 MNV2 |
+| `weights/onnx_quant/specm_v4_int8_static.onnx` | CPU용 SpecM-v4 |
+| `weights/tflite_edgetpu_sweep/mnv2_coral_qsweep_qtpc_cal064_ioint8_edgetpu.tflite` | Coral용 tuned MNV2 |
+| `weights/tflite_edgetpu/specm_v4_coral_ft_int8_full_edgetpu.tflite` | Coral용 coral-ft SpecM |
+
+---
+
+## 3. 설치
+
+### 3.1 CPU 경로
 
 ```bash
-# Python 3.11+/3.13+ 가능
-pip install -r requirements_rpi5.txt
-
-# 서버에서 복사
-#   weights/onnx_quant/mnv2_int8_dynamic.onnx
-#   weights/onnx_quant/specm_v4_int8_dynamic.onnx
+pip install -r deploy/requirements_rpi5.txt
 ```
 
-### 2. Coral 경로
+### 3.2 Coral 경로
+
+Coral은 `tflite-runtime` 제약 때문에 **Python 3.9**를 별도로 써야 합니다.
 
 ```bash
-# Python 3.13은 tflite-runtime 미지원 -> Python 3.9 venv 분리
-bash setup_rpi5_coral_env.sh
-
-# 서버에서 먼저 변환
-#   python experiments/run_edgetpu_export.py --models mnv2_coral specm_v4_coral
-
-# RPi5로 복사
-#   weights/tflite/*.tflite
-#   weights/tflite_edgetpu/*_edgetpu.tflite
-#   weights/tflite_sweep/mnv2_coral_qsweep_qtpc_cal064_ioint8.tflite
-#   weights/tflite_edgetpu_sweep/mnv2_coral_qsweep_qtpc_cal064_ioint8_edgetpu.tflite
-#   weights/tflite/specm_v4_coral_ft_int8_full.tflite
-#   weights/tflite_edgetpu/specm_v4_coral_ft_int8_full_edgetpu.tflite
+bash deploy/setup_rpi5_coral_env.sh
 ```
 
-## 사용법
+수동 설치가 필요할 경우:
 
 ```bash
-# 자동 선택 (현재는 정확도 검증된 onnx 우선)
-python rpi5_infer.py photo.jpg
-
-# 백엔드 명시
-python rpi5_infer.py photo.jpg --backend onnx
-python rpi5_infer.py photo.jpg --backend tflite
-python rpi5_infer.py photo.jpg --backend edgetpu
-
-# JSON 출력
-python rpi5_infer.py photo.jpg --json
-
-# RPi5 멀티코어 활용 (onnx/tflite only)
-python rpi5_infer.py photo.jpg --threads 4
-
-# 모델 경로 직접 지정
-python rpi5_infer.py photo.jpg \
-  --backend edgetpu \
-  --mnv2 /home/pi/models/mnv2_coral_int8_full_edgetpu.tflite \
-  --specm /home/pi/models/specm_v4_coral_int8_full_edgetpu.tflite
+python3.9 -m venv .venv-coral
+source .venv-coral/bin/activate
+pip install -r deploy/requirements_rpi5_coral.txt
 ```
 
-## 출력 예시
+추가로 `libedgetpu1-std` 설치가 필요합니다.
 
-```
-백엔드: edgetpu
-판정: 조작 (manipulated, 72.3%)
-  auth=0.214  manip=0.723  aigen=0.063
-MNV2: auth=0.301  manip=0.542  aigen=0.157
-SpecM: auth=0.247  manip=0.753
-추론: 138ms  (모델 로드: 680ms)
+```bash
+echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" \
+  | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+sudo apt update && sudo apt install libedgetpu1-std
 ```
 
-```json
-{
-  "backend": "edgetpu",
-  "verdict": "manipulated",
-  "confidence": 0.7231,
-  "scores": {"authentic": 0.214, "manipulated": 0.723, "ai_generated": 0.063},
-  "mnv2_scores": {"authentic": 0.301, "manipulated": 0.542, "ai_generated": 0.157},
-  "specm_scores": {"authentic": 0.247, "manipulated": 0.753},
-  "latency_ms": 138.4,
-  "load_ms": 682.1
-}
+---
+
+## 4. 사용법
+
+### 4.1 ONNX CPU
+
+```bash
+python deploy/rpi5_infer.py image.jpg --backend onnx
+python deploy/rpi5_infer.py image.jpg --backend onnx --threads 4
+python deploy/rpi5_infer.py image.jpg --backend onnx --json
 ```
 
-## 성능
+### 4.2 Coral USB
 
-| 경로 | 지연 | 비고 |
-|------|------|------|
-| ONNX (MNV2+SpecM-v4) | avg 112ms | 2026-03-21 RPi5 실측 |
-| TFLite CPU (`*_coral`) | 미측정 | tuned MNV2 + `specm_v4_coral_ft` 우선 사용 |
-| Edge TPU (`*_coral`) | 실측 대기 | tuned MNV2 + `specm_v4_coral_ft` compile 완료 |
+```bash
+source .venv-coral/bin/activate
 
-현재 정확도 재평가(2026-03-21):
-- `current_onnx` avg macro-F1: `0.9535`
-- `coral_tflite` avg macro-F1: `0.9051` (`-0.0483`)
-- `specm_v4_coral` avg manip-F1: `0.5827` vs current `0.8392`
-- `mnv2_coral`도 full INT8 TFLite에서 avg macro-F1 `0.9096`까지 하락
-
-2026-03-22 MNV2 PTQ sweep:
-- best MNV2 Coral candidate: `mnv2_coral_qsweep_qtpc_cal064_ioint8(.tflite)`
-- MNV2 avg macro-F1: `0.9173` vs baseline coral `0.9096` (`+0.0077`)
-- tuned MNV2 + existing `specm_v4_coral` pair avg macro-F1: `0.9160`
-  vs baseline coral pair `0.9051` (`+0.0108`)
-- tuned MNV2 Edge TPU compile: **151/151 ops** mapped
-
-2026-03-22 SpecM Coral fine-tune:
-- `specm_v4_coral_ft` TFLite standalone avg manip-F1: `0.8360`
-  vs old coral `0.5827` (`+0.2533`)
-- tuned MNV2 + `specm_v4_coral_ft` pair:
-  - `w_spec=1.0`: avg macro-F1 `0.8891`
-  - `w_spec=0.2`: avg macro-F1 `0.9308` (best)
-- current ONNX `0.9535` 대비 gap: `-0.0226`
-
-## 조합 로직 (ICWMV)
-
-```
-auth  = (MNV2(auth)  + SpecM(auth))  / 2   ← 양쪽 기여
-manip = (MNV2(manip) + SpecM(manip)) / 2   ← 양쪽 기여
-aigen =  MNV2(aigen)                        ← MNV2만 기여 (SpecM은 AI탐지 불가)
-→ renormalize → argmax
+python deploy/rpi5_infer.py image.jpg --backend edgetpu
+python deploy/rpi5_infer.py image.jpg --backend edgetpu --json
+python deploy/rpi5_infer.py image.jpg --backend edgetpu \
+  --delegate-path /usr/lib/aarch64-linux-gnu/libedgetpu.so.1
 ```
 
-## 한계
+### 4.3 자동 선택
 
-- AI 생성 이미지 탐지는 MNV2만 담당 (SpecG 없이 단독)
-- SpecG(AI-gen 전문 모델)는 141MB로 RPi5 지연 예산 초과 → 서버 전용
-- Coral 경로는 Python 3.9 `tflite-runtime`이 필요하며, 서버에서 TFLite/Edge TPU 컴파일을 선행해야 함
-- `inference_rpi5.py`/`rpi5_infer.py`는 explicit `--backend tflite|edgetpu`일 때
-  tuned `mnv2_coral_qsweep_qtpc_cal064_ioint8*` + `specm_v4_coral_ft*`를 먼저 사용함
-- 이 조합에서는 `w_spec=0.2`가 자동 기본값이며, CLI `--w-spec`로 override 가능
-- `auto`는 정확도 검증이 끝날 때까지 ONNX를 우선 사용함
-- 4-DS 재평가 기준 최신 explicit Coral pair best는 avg macro-F1=`0.9308`
-- current ONNX `0.9535` 대비 아직 `-0.0226` 남아 있어,
-  최종 배포 확정 전에는 실제 Coral USB 실측과 추가 미세조정이 권장됨
+```bash
+python deploy/rpi5_infer.py image.jpg
+```
+
+현재 `auto`는 정확도 보수성을 위해 **ONNX를 우선** 사용합니다.
+
+---
+
+## 5. 출력 형식
+
+### 기본 텍스트
+
+```text
+백엔드 : onnx_cpu
+판정   : 조작 (manipulated, 72.3%)
+scores : auth=0.214  manip=0.723  aigen=0.063
+MNV2   : auth=0.301  manip=0.542  aigen=0.157
+SpecM  : auth=0.247  manip=0.753
+레이턴시: MNV2=53.7ms  SpecM=34.6ms  합계=88.3ms
+```
+
+### JSON
+
+```bash
+python deploy/rpi5_infer.py image.jpg --backend onnx --json
+```
+
+---
+
+## 6. 성능 요약
+
+### 6.1 정확도
+
+| 경로 | avg macro-F1 | 기준 |
+|------|-------------|------|
+| 서버 기준 ICWMV + v4 | 0.9652 | strong MNV2, 4-DS LOO-CD |
+| RPi5 ONNX | **0.9535** | deployment path |
+| RPi5 Coral | 0.9308 | tuned MNV2 + coral-ft SpecM |
+
+### 6.2 RPi5 실측 레이턴시
+
+| 단계 | ONNX CPU | Coral Edge TPU | 비고 |
+|------|----------|----------------|------|
+| MNV2 | 53.7ms | **29.0ms** | Coral 1.85x 가속 |
+| SpecM | 34.6ms | 34.4ms | fallback 영향으로 거의 동일 |
+| **Total** | **88.3ms** | **63.4ms** | Coral 1.39x 가속 |
+| 편차 | ±9.5ms | **±0.8ms** | Coral이 더 안정적 |
+
+### 6.3 콜드스타트
+
+| 경로 | 모델 로드 시간 |
+|------|---------------|
+| ONNX CPU | **270ms** |
+| Coral | **2,661ms** |
+
+즉, Coral은 warm latency는 유리하지만 cold start는 훨씬 느립니다.
+
+---
+
+## 7. 현재 권장 해석
+
+- **실험/논문용 주력 경로**: ONNX CPU
+- **속도 실험 / 후속연구용 경로**: Coral USB
+- `w_spec`는 Coral의 coral-ft 조합에서 `0.2`가 best였고, ONNX 주력선은 기본 `v4` 설정을 사용합니다.
+
+---
+
+## 8. 한계 및 주의사항
+
+- `SpecM`은 `ai_generated`를 직접 다루지 못하므로, 해당 클래스는 `MNV2`가 전담합니다.
+- Coral 경로는 속도는 좋지만 현재 정확도 기준으로는 ONNX보다 불리합니다.
+- `tflite-runtime` 제약 때문에 Coral은 Python 3.9 분리 환경이 필요합니다.
+- `auto` 백엔드는 의도적으로 ONNX 우선입니다.
+
+---
+
+## 9. 모델 재생성
+
+```bash
+# ONNX 양자화 export 및 검증
+.venv-qwen/bin/python experiments/run_rpi5_model_export.py
+
+# Coral export + compile
+.venv-qwen/bin/python experiments/run_edgetpu_export.py --models mnv2_coral specm_v4_coral
+
+# Coral용 MNV2 PTQ sweep
+.venv-qwen/bin/python experiments/run_mnv2_coral_quant_sweep.py
+```
+
