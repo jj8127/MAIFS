@@ -1,0 +1,13 @@
+# ARV 실험 의존성 (RPi5 포함 범용)
+# 설치:
+#   pip install -r requirements_arv.txt
+#
+# 주의:
+# - xgboost 는 ARM64 (RPi5) 에서 pip 으로 직접 설치 가능 (v2.0+)
+# - scikit-learn 은 xgboost 내부에서 일부 유틸리티로 사용됨
+# - numpy 는 xgboost + scikit-learn 공통 의존성
+# - run_arv_backbone_transfer.py 는 Pillow 추가 필요하나 RPi5 미지원 스크립트임
+
+xgboost>=1.7
+scikit-learn>=1.1
+numpy<2

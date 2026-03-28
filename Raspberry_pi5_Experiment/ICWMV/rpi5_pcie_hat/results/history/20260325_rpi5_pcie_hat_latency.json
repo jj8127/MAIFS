@@ -1,0 +1,11 @@
+{
+  "experiment": "rpi5_pcie_hat_latency",
+  "date_local": "2026-03-25T18:04:36.394070-09:00",
+  "status": "unmeasured",
+  "reason": "PCIe Coral 장치가 탐지되지 않아 측정 불가",
+  "checks": {
+    "config_txt_pcie_lines": [],
+    "lspci_apex": [],
+    "dev_apex": []
+  }
+}

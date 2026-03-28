@@ -1,0 +1,83 @@
+{
+  "generated_from": {
+    "scalar_result": "Server_Reproduction/ARV/data/experiments/results/hema_icwmv_veto/hema_icwmv_veto_loo_cd_20260323_114321.json",
+    "best_richer_result": "Server_Reproduction/ARV/data/experiments/results/hema_icwmv_veto/comp_nots_richer_veto_20260325_084631.json",
+    "mnv2_label": "strong",
+    "mnv2_ts": "20260319_070725",
+    "model_key": "comp_noTS"
+  },
+  "feature_dim": 46,
+  "model_format": "xgboost_booster_json",
+  "default_model_key": "base",
+  "subtype_vocab": [
+    "casia_au",
+    "casia_tp",
+    "biggan",
+    "imd2020_inpainting",
+    "opensdi_real",
+    "opensdi_partial_fake",
+    "opensdi_entire_fake",
+    "aigen_proxy_real",
+    "aigen_proxy_manipulated",
+    "aigen_proxy_ai_generated"
+  ],
+  "weights": {
+    "reverse_manip_weight": 6.0,
+    "reverse_auth_weight": 2.0,
+    "non_casia_harm_weight": 1.5
+  },
+  "models": {
+    "base": {
+      "path": "arv_comp_nots_base.json",
+      "tau": 0.35,
+      "pos_weight": 4.0,
+      "scalar_model_key": "logreg",
+      "richer_model_key": "xgb_depth2",
+      "train_rows": 56,
+      "beneficial_weighting": {
+        "reverse_manip_weight": 6.0,
+        "reverse_auth_weight": 2.0,
+        "non_casia_harm_weight": 1.5
+      }
+    },
+    "dsC": {
+      "path": "arv_comp_nots_dsC.json",
+      "tau": 0.35,
+      "pos_weight": 4.0,
+      "scalar_model_key": "logreg",
+      "richer_model_key": "xgb_depth2",
+      "train_rows": 88,
+      "beneficial_weighting": {
+        "reverse_manip_weight": 6.0,
+        "reverse_auth_weight": 2.0,
+        "non_casia_harm_weight": 1.5
+      }
+    },
+    "opensdi": {
+      "path": "arv_comp_nots_opensdi.json",
+      "tau": 0.45,
+      "pos_weight": 4.0,
+      "scalar_model_key": "logreg",
+      "richer_model_key": "xgb_depth2",
+      "train_rows": 82,
+      "beneficial_weighting": {
+        "reverse_manip_weight": 6.0,
+        "reverse_auth_weight": 2.0,
+        "non_casia_harm_weight": 1.5
+      }
+    },
+    "aigenproxy": {
+      "path": "arv_comp_nots_aigenproxy.json",
+      "tau": 0.65,
+      "pos_weight": 1.0,
+      "scalar_model_key": "logreg",
+      "richer_model_key": "xgb_depth2",
+      "train_rows": 92,
+      "beneficial_weighting": {
+        "reverse_manip_weight": 6.0,
+        "reverse_auth_weight": 2.0,
+        "non_casia_harm_weight": 1.5
+      }
+    }
+  }
+}

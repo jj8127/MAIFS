@@ -1,0 +1,17 @@
+{
+  "experiment": "rpi5_coral_latency",
+  "date_local": "2026-03-25T18:04:36.416809-09:00",
+  "status": "unmeasured",
+  "reason": "Edge TPU delegate 로드 실패로 1단계 추론 시작 불가",
+  "checks": {
+    "coral_script_error": "오류: Edge TPU delegate 로드 실패 (libedgetpu.so.1): Failed to load delegate from libedgetpu.so.1",
+    "libedgetpu_present": true,
+    "pycoral_installed_in_3_9_env": false,
+    "tflite_runtime_installed_in_3_9_env": true,
+    "lsusb_available_result": "unable to initialize libusb: -99"
+  },
+  "model_paths": {
+    "mnv2": "/home/jj/maifs/temp/artifacts/models/tflite_edgetpu_sweep/mnv2_coral_qsweep_qtpc_cal064_ioint8_edgetpu.tflite",
+    "specm": "/home/jj/maifs/temp/artifacts/models/tflite_edgetpu/specm_v4_coral_ft_int8_full_edgetpu.tflite"
+  }
+}
