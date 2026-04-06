@@ -1,0 +1,275 @@
+{
+  "timestamp": "2026-03-19T03:46:59.602850",
+  "ranking": [
+    {
+      "combo": [
+        "frequency",
+        "noise",
+        "fatformer"
+      ],
+      "size": 3,
+      "f1": 0.8478299615585578,
+      "f1_vs_full": 0.9776677926383992,
+      "cost_ms": 198,
+      "size_mb": 1160,
+      "synergy_preservation": 0.7051626536231009,
+      "unique_preservation": 1.0,
+      "unique_abs": 0.27223221421132393,
+      "score": 0.8009371091983776
+    },
+    {
+      "combo": [
+        "frequency",
+        "noise",
+        "fatformer",
+        "spatial"
+      ],
+      "size": 4,
+      "f1": 0.8671963707329947,
+      "f1_vs_full": 1.0,
+      "cost_ms": 295,
+      "size_mb": 1260,
+      "synergy_preservation": 1.0,
+      "unique_preservation": 1.0,
+      "unique_abs": 0.27223221421132393,
+      "score": 0.8
+    },
+    {
+      "combo": [
+        "frequency",
+        "noise"
+      ],
+      "size": 2,
+      "f1": 0.8237291128450096,
+      "f1_vs_full": 0.9498761072405728,
+      "cost_ms": 141,
+      "size_mb": 270,
+      "synergy_preservation": 0.2515721329446328,
+      "unique_preservation": 0.859638291788183,
+      "unique_abs": 0.2340212355943372,
+      "score": 0.7101734418817223
+    },
+    {
+      "combo": [
+        "frequency",
+        "noise",
+        "spatial"
+      ],
+      "size": 3,
+      "f1": 0.8442683832291529,
+      "f1_vs_full": 0.9735607893694689,
+      "cost_ms": 238,
+      "size_mb": 370,
+      "synergy_preservation": 0.43184847441737406,
+      "unique_preservation": 0.859638291788183,
+      "unique_abs": 0.2340212355943372,
+      "score": 0.6876327489041815
+    },
+    {
+      "combo": [
+        "frequency",
+        "fatformer"
+      ],
+      "size": 2,
+      "f1": 0.8067562159662198,
+      "f1_vs_full": 0.9303039578963089,
+      "cost_ms": 137,
+      "size_mb": 1040,
+      "synergy_preservation": 0.1628837495316717,
+      "unique_preservation": 0.8857947428300257,
+      "unique_abs": 0.24114186417736816,
+      "score": 0.6807831066729747
+    },
+    {
+      "combo": [
+        "frequency",
+        "fatformer",
+        "spatial"
+      ],
+      "size": 3,
+      "f1": 0.8236564253729848,
+      "f1_vs_full": 0.9497922883104227,
+      "cost_ms": 234,
+      "size_mb": 1140,
+      "synergy_preservation": 0.3365846453778533,
+      "unique_preservation": 0.8857947428300257,
+      "unique_abs": 0.24114186417736816,
+      "score": 0.6528670506404304
+    },
+    {
+      "combo": [
+        "frequency"
+      ],
+      "size": 1,
+      "f1": 0.7817377735596781,
+      "f1_vs_full": 0.9014541572618864,
+      "cost_ms": 80,
+      "size_mb": 150,
+      "synergy_preservation": 0.0,
+      "unique_preservation": 0.7454330346182088,
+      "unique_abs": 0.20293088556038144,
+      "score": 0.6471369905296511
+    },
+    {
+      "combo": [
+        "frequency",
+        "spatial"
+      ],
+      "size": 2,
+      "f1": 0.7902100115178405,
+      "f1_vs_full": 0.9112238452404019,
+      "cost_ms": 177,
+      "size_mb": 250,
+      "synergy_preservation": 0.05913989094202395,
+      "unique_preservation": 0.7454330346182088,
+      "unique_abs": 0.20293088556038144,
+      "score": 0.5869052437243567
+    },
+    {
+      "combo": [
+        "noise",
+        "fatformer"
+      ],
+      "size": 2,
+      "f1": 0.7174464453934817,
+      "f1_vs_full": 0.8273171678371561,
+      "cost_ms": 118,
+      "size_mb": 1010,
+      "synergy_preservation": 0.2907067711467965,
+      "unique_preservation": 0.2545669653817913,
+      "unique_abs": 0.06930132865094249,
+      "score": 0.527982759485198
+    },
+    {
+      "combo": [
+        "noise",
+        "fatformer",
+        "spatial"
+      ],
+      "size": 3,
+      "f1": 0.74197299456156,
+      "f1_vs_full": 0.8555997460349262,
+      "cost_ms": 215,
+      "size_mb": 1110,
+      "synergy_preservation": 0.5264042265816715,
+      "unique_preservation": 0.2545669653817913,
+      "unique_abs": 0.06930132865094249,
+      "score": 0.5209750864478822
+    },
+    {
+      "combo": [
+        "fatformer",
+        "spatial"
+      ],
+      "size": 2,
+      "f1": 0.6305735710944956,
+      "f1_vs_full": 0.7271404636547377,
+      "cost_ms": 154,
+      "size_mb": 990,
+      "synergy_preservation": 0.11456100490415769,
+      "unique_preservation": 0.14036170821181704,
+      "unique_abs": 0.03821097861698672,
+      "score": 0.34844250679461697
+    },
+    {
+      "combo": [
+        "fatformer"
+      ],
+      "size": 1,
+      "f1": 0.5749322180061947,
+      "f1_vs_full": 0.6629781182320161,
+      "cost_ms": 57,
+      "size_mb": 890,
+      "synergy_preservation": 0.0,
+      "unique_preservation": 0.14036170821181704,
+      "unique_abs": 0.03821097861698672,
+      "score": 0.34496119890824545
+    },
+    {
+      "combo": [
+        "noise",
+        "spatial"
+      ],
+      "size": 2,
+      "f1": 0.5613430038492406,
+      "f1_vs_full": 0.6473078333743111,
+      "cost_ms": 158,
+      "size_mb": 220,
+      "synergy_preservation": 0.1211364505307173,
+      "unique_preservation": 0.11420525716997426,
+      "unique_abs": 0.03109035003395577,
+      "score": 0.26522893728548974
+    },
+    {
+      "combo": [
+        "noise"
+      ],
+      "size": 1,
+      "f1": 0.4813531168751565,
+      "f1_vs_full": 0.5550681865380669,
+      "cost_ms": 61,
+      "size_mb": 120,
+      "synergy_preservation": 0.0,
+      "unique_preservation": 0.11420525716997426,
+      "unique_abs": 0.03109035003395577,
+      "score": 0.233265719498552
+    },
+    {
+      "combo": [
+        "spatial"
+      ],
+      "size": 1,
+      "f1": 0.4638793856780935,
+      "f1_vs_full": 0.5349185044282427,
+      "cost_ms": 97,
+      "size_mb": 100,
+      "synergy_preservation": 0.0,
+      "unique_preservation": 0.0,
+      "unique_abs": 0.0,
+      "score": 0.16638655462184873
+    }
+  ],
+  "best_per_size": {
+    "2": {
+      "combo": [
+        "frequency",
+        "noise"
+      ],
+      "f1": 0.8237291128450096,
+      "score": 0.7101734418817223
+    },
+    "3": {
+      "combo": [
+        "frequency",
+        "noise",
+        "fatformer"
+      ],
+      "f1": 0.8478299615585578,
+      "score": 0.8009371091983776
+    },
+    "4": {
+      "combo": [
+        "frequency",
+        "noise",
+        "fatformer",
+        "spatial"
+      ],
+      "f1": 0.8671963707329947,
+      "score": 0.8
+    }
+  },
+  "recommendation": {
+    "ondevice_optimal": [
+      "frequency",
+      "noise",
+      "fatformer"
+    ],
+    "f1_drop_pct": 2.23322073616008,
+    "size_reduction_pct": 7.936507936507936,
+    "justification": {
+      "remove_spatial": "Unique=0.0000, φ=+0.0547 (최저)",
+      "keep_frequency": "Unique=0.2029 (61%), φ=+0.2690 (최고)",
+      "keep_noise_fatformer": "시너지 쌍 noise↔fatformer=+0.1093 보존 필수"
+    }
+  }
+}

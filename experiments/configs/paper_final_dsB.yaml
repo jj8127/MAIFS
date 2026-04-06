@@ -1,0 +1,19 @@
+# 교차 데이터셋 dsB: BigGAN-nature(authentic) + CASIA2-Tp + BigGAN-ai
+label: "dsB_ImageNet_CASIA_BigGAN"
+precollected_jsonl: "experiments/results/phase2_patha_case3_scale300_dsB/patha_agent_outputs_20260303_103633.jsonl"
+
+seeds: [300, 301, 302, 303, 304, 305, 306, 307, 308, 309]
+
+trust_scores:
+  frequency: 0.85
+  noise: 0.80
+  fatformer: 0.85
+  spatial: 0.85
+
+split:
+  train_ratio: 0.6
+  val_ratio: 0.2
+  test_ratio: 0.2
+
+output:
+  save_dir: experiments/results/paper_final

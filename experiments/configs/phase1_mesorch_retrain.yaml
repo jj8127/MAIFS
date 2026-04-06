@@ -1,0 +1,186 @@
+simulation:
+  seed: 42
+  n_train: 12000
+  n_val: 1500
+  n_test: 1500
+  label_distribution:
+    authentic: 0.333
+    manipulated: 0.333
+    ai_generated: 0.334
+  sub_type_distribution:
+    ai_generated:
+      gan: 0.5
+      diffusion: 0.5
+    manipulated:
+      splicing: 0.4
+      copy_move: 0.3
+      inpainting: 0.3
+  cross_generator_split: true
+  agent_profiles:
+    frequency:
+      confusion_matrices:
+        authentic:
+        - 0.875
+        - 0.125
+        - 0.0
+        - 0.0
+        manipulated:
+        - 0.2875
+        - 0.7125
+        - 0.0
+        - 0.0
+        ai_generated:
+        - 0.0875
+        - 0.9125
+        - 0.0
+        - 0.0
+      confidence_correct:
+      - 8.0
+      - 2.0
+      confidence_wrong:
+      - 2.0
+      - 5.0
+      confidence_uncertain:
+      - 3.0
+      - 3.0
+    noise:
+      confusion_matrices:
+        authentic:
+        - 0.35625
+        - 0.15
+        - 0.0
+        - 0.49375
+        manipulated:
+        - 0.15
+        - 0.7125
+        - 0.0
+        - 0.1375
+        ai_generated:
+        - 0.6
+        - 0.4
+        - 0.0
+        - 0.0
+      confidence_correct:
+      - 8.0
+      - 2.0
+      confidence_wrong:
+      - 2.0
+      - 5.0
+      confidence_uncertain:
+      - 3.0
+      - 3.0
+    fatformer:
+      confusion_matrices:
+        authentic:
+        - 0.84375
+        - 0.0
+        - 0.15625
+        - 0.0
+        manipulated:
+        - 0.3625
+        - 0.0
+        - 0.6375
+        - 0.0
+        ai_generated:
+        - 0.0625
+        - 0.0
+        - 0.9375
+        - 0.0
+      confidence_correct:
+      - 8.0
+      - 2.0
+      confidence_wrong:
+      - 2.0
+      - 5.0
+      confidence_uncertain:
+      - 3.0
+      - 3.0
+    spatial:
+      confusion_matrices:
+        authentic:
+        - 0.78125
+        - 0.21875
+        - 0.0
+        - 0.0
+        manipulated:
+        - 0.3875
+        - 0.6
+        - 0.0125
+        - 0.0
+        ai_generated:
+        - 0.2875
+        - 0.7125
+        - 0.0
+        - 0.0
+      confidence_correct:
+      - 8.0
+      - 2.0
+      confidence_wrong:
+      - 2.0
+      - 5.0
+      confidence_uncertain:
+      - 3.0
+      - 3.0
+correlation_matrix:
+- - 1.0
+  - 0.1
+  - 0.4
+  - 0.15
+- - 0.1
+  - 1.0
+  - 0.1
+  - 0.15
+- - 0.4
+  - 0.1
+  - 1.0
+  - 0.12
+- - 0.15
+  - 0.15
+  - 0.12
+  - 1.0
+cobra:
+  trust_scores:
+    frequency: 0.85
+    noise: 0.8
+    fatformer: 0.85
+    spatial: 0.85
+  algorithm: drwa
+models:
+  logistic_regression:
+    C: 1.0
+    max_iter: 1000
+    solver: lbfgs
+  gradient_boosting:
+    n_estimators: 200
+    max_depth: 4
+    learning_rate: 0.1
+    subsample: 0.8
+  mlp:
+    backend: torch
+    device: cuda
+    hidden_layer_sizes:
+    - 32
+    - 16
+    activation: relu
+    max_iter: 500
+    early_stopping: true
+    learning_rate_init: 0.001
+evaluation:
+  n_bootstrap: 1000
+  ci_level: 0.95
+  mcnemar_alpha: 0.05
+ablation:
+  run_a6_agent_removal: true
+  models:
+  - logistic_regression
+  - gradient_boosting
+  - mlp
+go_no_go:
+  c1_mcnemar_alpha: 0.05
+  c2_cross_dataset_drop_threshold: 0.05
+  c3_disagreement_margin: 0.05
+output:
+  save_dir: experiments/results/phase1_mesorch_retrain
+  save_predictions: true
+  save_features: true
+  save_plots: true

@@ -1,0 +1,27 @@
+{
+  "description": "DAAC 메타 분류기 재학습 (경량 MNV2+CLIP+SpecM+SpecG 기준)",
+  "n_features": 25,
+  "n_seeds": 10,
+  "baselines": {
+    "majority_vote": 0.9465727827674412,
+    "avg_score": 0.9458955643626042
+  },
+  "original_daac_gbm_base": 0.8613,
+  "original_cobra_base": 0.266,
+  "results": {
+    "GBM": {
+      "base": 0.990999912150226,
+      "dsC": 0.9718615821098326,
+      "opensdi": 0.9310912729009759,
+      "aigenproxy": 0.9535151653159184,
+      "avg": 0.9618669831192384
+    },
+    "LR": {
+      "base": 0.9515793505120863,
+      "dsC": 0.9823250008320924,
+      "opensdi": 0.9490987834115874,
+      "aigenproxy": 0.958776181917518,
+      "avg": 0.960444829168321
+    }
+  }
+}

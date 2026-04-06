@@ -1,0 +1,1412 @@
+{
+  "experiment": "arv_active_e2e_latency",
+  "date_local": "2026-03-31T01:18:26.484103+00:00",
+  "device_model": "x86_64",
+  "mode": "cpu",
+  "protocol": "paper_v2",
+  "manifest": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/rpi5_cpu_only/results/20260331_cpu_arv_active_discovery.json",
+  "w_spec": 1.0,
+  "warmup_runs_discarded": 0,
+  "measured_runs": 10,
+  "case_results": [
+    {
+      "case_id": "cpu_base_keep_change_0001",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__authentic__000142.jpg",
+      "image_name": "opensdi__authentic__000142.jpg",
+      "sub_type": "",
+      "model_key": "base",
+      "expected_action": "keep_change",
+      "warmup_runs_discarded": 0,
+      "measured_runs": 10,
+      "active_run_count": 10,
+      "active_run_rate": 1.0,
+      "observed_action_counts": {
+        "keep_change": 10
+      },
+      "active_real_path_summary_ms": {
+        "stage1_total": {
+          "avg": 44.14,
+          "std": 7.205,
+          "min": 34.9,
+          "max": 56.9
+        },
+        "stage2_feature": {
+          "avg": 0.03,
+          "std": 0.004,
+          "min": 0.027,
+          "max": 0.036
+        },
+        "stage2_predict": {
+          "avg": 109.808,
+          "std": 191.949,
+          "min": 38.309,
+          "max": 685.226
+        },
+        "stage2_total": {
+          "avg": 109.839,
+          "std": 191.947,
+          "min": 38.336,
+          "max": 685.253
+        },
+        "e2e_total": {
+          "avg": 153.979,
+          "std": 189.602,
+          "min": 75.736,
+          "max": 721.853
+        }
+      },
+      "last_decision": {
+        "action": "keep_change",
+        "base_bin_label": "manipulated",
+        "stage1_bin_label": "authentic",
+        "final_label": "authentic",
+        "override_present": true,
+        "keep_prob": 0.879367,
+        "tau": 0.35,
+        "feature_len": 46
+      }
+    },
+    {
+      "case_id": "cpu_dsC_keep_change_0002",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__authentic__000142.jpg",
+      "image_name": "opensdi__authentic__000142.jpg",
+      "sub_type": "",
+      "model_key": "dsC",
+      "expected_action": "keep_change",
+      "warmup_runs_discarded": 0,
+      "measured_runs": 10,
+      "active_run_count": 10,
+      "active_run_rate": 1.0,
+      "observed_action_counts": {
+        "keep_change": 10
+      },
+      "active_real_path_summary_ms": {
+        "stage1_total": {
+          "avg": 40.85,
+          "std": 6.911,
+          "min": 33.6,
+          "max": 50.4
+        },
+        "stage2_feature": {
+          "avg": 0.03,
+          "std": 0.004,
+          "min": 0.026,
+          "max": 0.036
+        },
+        "stage2_predict": {
+          "avg": 43.389,
+          "std": 7.517,
+          "min": 37.633,
+          "max": 65.082
+        },
+        "stage2_total": {
+          "avg": 43.419,
+          "std": 7.518,
+          "min": 37.659,
+          "max": 65.115
+        },
+        "e2e_total": {
+          "avg": 84.269,
+          "std": 11.175,
+          "min": 71.259,
+          "max": 111.315
+        }
+      },
+      "last_decision": {
+        "action": "keep_change",
+        "base_bin_label": "manipulated",
+        "stage1_bin_label": "authentic",
+        "final_label": "authentic",
+        "override_present": true,
+        "keep_prob": 0.911792,
+        "tau": 0.35,
+        "feature_len": 46
+      }
+    },
+    {
+      "case_id": "cpu_opensdi_keep_change_0003",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__authentic__000142.jpg",
+      "image_name": "opensdi__authentic__000142.jpg",
+      "sub_type": "",
+      "model_key": "opensdi",
+      "expected_action": "keep_change",
+      "warmup_runs_discarded": 0,
+      "measured_runs": 10,
+      "active_run_count": 10,
+      "active_run_rate": 1.0,
+      "observed_action_counts": {
+        "keep_change": 10
+      },
+      "active_real_path_summary_ms": {
+        "stage1_total": {
+          "avg": 48.3,
+          "std": 5.582,
+          "min": 38.0,
+          "max": 55.7
+        },
+        "stage2_feature": {
+          "avg": 0.034,
+          "std": 0.005,
+          "min": 0.025,
+          "max": 0.041
+        },
+        "stage2_predict": {
+          "avg": 51.192,
+          "std": 15.042,
+          "min": 38.028,
+          "max": 78.145
+        },
+        "stage2_total": {
+          "avg": 51.227,
+          "std": 15.044,
+          "min": 38.065,
+          "max": 78.179
+        },
+        "e2e_total": {
+          "avg": 99.527,
+          "std": 18.144,
+          "min": 76.626,
+          "max": 129.079
+        }
+      },
+      "last_decision": {
+        "action": "keep_change",
+        "base_bin_label": "manipulated",
+        "stage1_bin_label": "authentic",
+        "final_label": "authentic",
+        "override_present": true,
+        "keep_prob": 0.772799,
+        "tau": 0.45,
+        "feature_len": 46
+      }
+    },
+    {
+      "case_id": "cpu_aigenproxy_revert_to_base_0004",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__authentic__000142.jpg",
+      "image_name": "opensdi__authentic__000142.jpg",
+      "sub_type": "",
+      "model_key": "aigenproxy",
+      "expected_action": "revert_to_base",
+      "warmup_runs_discarded": 0,
+      "measured_runs": 10,
+      "active_run_count": 10,
+      "active_run_rate": 1.0,
+      "observed_action_counts": {
+        "revert_to_base": 10
+      },
+      "active_real_path_summary_ms": {
+        "stage1_total": {
+          "avg": 48.79,
+          "std": 2.318,
+          "min": 45.2,
+          "max": 52.6
+        },
+        "stage2_feature": {
+          "avg": 0.033,
+          "std": 0.007,
+          "min": 0.026,
+          "max": 0.047
+        },
+        "stage2_predict": {
+          "avg": 46.673,
+          "std": 9.261,
+          "min": 35.488,
+          "max": 67.824
+        },
+        "stage2_total": {
+          "avg": 46.705,
+          "std": 9.262,
+          "min": 35.525,
+          "max": 67.85
+        },
+        "e2e_total": {
+          "avg": 95.495,
+          "std": 9.728,
+          "min": 80.725,
+          "max": 114.05
+        }
+      },
+      "last_decision": {
+        "action": "revert_to_base",
+        "base_bin_label": "manipulated",
+        "stage1_bin_label": "authentic",
+        "final_label": "manipulated",
+        "override_present": true,
+        "keep_prob": 0.576348,
+        "tau": 0.65,
+        "feature_len": 46
+      }
+    },
+    {
+      "case_id": "cpu_base_revert_to_base_0005",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__authentic__000276.jpg",
+      "image_name": "opensdi__authentic__000276.jpg",
+      "sub_type": "",
+      "model_key": "base",
+      "expected_action": "revert_to_base",
+      "warmup_runs_discarded": 0,
+      "measured_runs": 10,
+      "active_run_count": 10,
+      "active_run_rate": 1.0,
+      "observed_action_counts": {
+        "revert_to_base": 10
+      },
+      "active_real_path_summary_ms": {
+        "stage1_total": {
+          "avg": 49.55,
+          "std": 2.38,
+          "min": 45.1,
+          "max": 53.5
+        },
+        "stage2_feature": {
+          "avg": 0.029,
+          "std": 0.005,
+          "min": 0.026,
+          "max": 0.04
+        },
+        "stage2_predict": {
+          "avg": 45.722,
+          "std": 8.559,
+          "min": 37.83,
+          "max": 63.34
+        },
+        "stage2_total": {
+          "avg": 45.752,
+          "std": 8.56,
+          "min": 37.857,
+          "max": 63.366
+        },
+        "e2e_total": {
+          "avg": 95.302,
+          "std": 8.973,
+          "min": 84.747,
+          "max": 112.966
+        }
+      },
+      "last_decision": {
+        "action": "revert_to_base",
+        "base_bin_label": "authentic",
+        "stage1_bin_label": "manipulated",
+        "final_label": "authentic",
+        "override_present": true,
+        "keep_prob": 0.068186,
+        "tau": 0.35,
+        "feature_len": 46
+      }
+    },
+    {
+      "case_id": "cpu_dsC_keep_change_0006",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__authentic__000276.jpg",
+      "image_name": "opensdi__authentic__000276.jpg",
+      "sub_type": "",
+      "model_key": "dsC",
+      "expected_action": "keep_change",
+      "warmup_runs_discarded": 0,
+      "measured_runs": 10,
+      "active_run_count": 10,
+      "active_run_rate": 1.0,
+      "observed_action_counts": {
+        "keep_change": 10
+      },
+      "active_real_path_summary_ms": {
+        "stage1_total": {
+          "avg": 51.83,
+          "std": 2.739,
+          "min": 49.3,
+          "max": 59.1
+        },
+        "stage2_feature": {
+          "avg": 0.03,
+          "std": 0.003,
+          "min": 0.027,
+          "max": 0.038
+        },
+        "stage2_predict": {
+          "avg": 43.741,
+          "std": 6.16,
+          "min": 36.408,
+          "max": 55.736
+        },
+        "stage2_total": {
+          "avg": 43.771,
+          "std": 6.162,
+          "min": 36.437,
+          "max": 55.774
+        },
+        "e2e_total": {
+          "avg": 95.601,
+          "std": 7.081,
+          "min": 86.437,
+          "max": 108.174
+        }
+      },
+      "last_decision": {
+        "action": "keep_change",
+        "base_bin_label": "authentic",
+        "stage1_bin_label": "manipulated",
+        "final_label": "manipulated",
+        "override_present": true,
+        "keep_prob": 0.361974,
+        "tau": 0.35,
+        "feature_len": 46
+      }
+    },
+    {
+      "case_id": "cpu_opensdi_revert_to_base_0007",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__authentic__000276.jpg",
+      "image_name": "opensdi__authentic__000276.jpg",
+      "sub_type": "",
+      "model_key": "opensdi",
+      "expected_action": "revert_to_base",
+      "warmup_runs_discarded": 0,
+      "measured_runs": 10,
+      "active_run_count": 10,
+      "active_run_rate": 1.0,
+      "observed_action_counts": {
+        "revert_to_base": 10
+      },
+      "active_real_path_summary_ms": {
+        "stage1_total": {
+          "avg": 51.2,
+          "std": 3.26,
+          "min": 47.4,
+          "max": 56.7
+        },
+        "stage2_feature": {
+          "avg": 0.031,
+          "std": 0.005,
+          "min": 0.025,
+          "max": 0.037
+        },
+        "stage2_predict": {
+          "avg": 44.504,
+          "std": 5.288,
+          "min": 40.633,
+          "max": 55.408
+        },
+        "stage2_total": {
+          "avg": 44.535,
+          "std": 5.29,
+          "min": 40.658,
+          "max": 55.442
+        },
+        "e2e_total": {
+          "avg": 95.735,
+          "std": 7.316,
+          "min": 88.558,
+          "max": 108.442
+        }
+      },
+      "last_decision": {
+        "action": "revert_to_base",
+        "base_bin_label": "authentic",
+        "stage1_bin_label": "manipulated",
+        "final_label": "authentic",
+        "override_present": true,
+        "keep_prob": 0.327786,
+        "tau": 0.45,
+        "feature_len": 46
+      }
+    },
+    {
+      "case_id": "cpu_aigenproxy_revert_to_base_0008",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__authentic__000276.jpg",
+      "image_name": "opensdi__authentic__000276.jpg",
+      "sub_type": "",
+      "model_key": "aigenproxy",
+      "expected_action": "revert_to_base",
+      "warmup_runs_discarded": 0,
+      "measured_runs": 10,
+      "active_run_count": 10,
+      "active_run_rate": 1.0,
+      "observed_action_counts": {
+        "revert_to_base": 10
+      },
+      "active_real_path_summary_ms": {
+        "stage1_total": {
+          "avg": 51.25,
+          "std": 1.737,
+          "min": 47.1,
+          "max": 53.1
+        },
+        "stage2_feature": {
+          "avg": 0.038,
+          "std": 0.002,
+          "min": 0.035,
+          "max": 0.043
+        },
+        "stage2_predict": {
+          "avg": 47.129,
+          "std": 11.165,
+          "min": 38.549,
+          "max": 71.254
+        },
+        "stage2_total": {
+          "avg": 47.167,
+          "std": 11.165,
+          "min": 38.585,
+          "max": 71.291
+        },
+        "e2e_total": {
+          "avg": 98.417,
+          "std": 10.166,
+          "min": 90.985,
+          "max": 118.601
+        }
+      },
+      "last_decision": {
+        "action": "revert_to_base",
+        "base_bin_label": "authentic",
+        "stage1_bin_label": "manipulated",
+        "final_label": "authentic",
+        "override_present": true,
+        "keep_prob": 0.142928,
+        "tau": 0.65,
+        "feature_len": 46
+      }
+    },
+    {
+      "case_id": "cpu_base_revert_to_base_0009",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000219.jpg",
+      "image_name": "opensdi__manipulated__000219.jpg",
+      "sub_type": "",
+      "model_key": "base",
+      "expected_action": "revert_to_base",
+      "warmup_runs_discarded": 0,
+      "measured_runs": 10,
+      "active_run_count": 10,
+      "active_run_rate": 1.0,
+      "observed_action_counts": {
+        "revert_to_base": 10
+      },
+      "active_real_path_summary_ms": {
+        "stage1_total": {
+          "avg": 50.95,
+          "std": 1.844,
+          "min": 47.2,
+          "max": 52.5
+        },
+        "stage2_feature": {
+          "avg": 0.042,
+          "std": 0.017,
+          "min": 0.033,
+          "max": 0.092
+        },
+        "stage2_predict": {
+          "avg": 39.574,
+          "std": 1.58,
+          "min": 36.201,
+          "max": 41.478
+        },
+        "stage2_total": {
+          "avg": 39.616,
+          "std": 1.588,
+          "min": 36.234,
+          "max": 41.57
+        },
+        "e2e_total": {
+          "avg": 90.566,
+          "std": 2.676,
+          "min": 85.419,
+          "max": 93.827
+        }
+      },
+      "last_decision": {
+        "action": "revert_to_base",
+        "base_bin_label": "manipulated",
+        "stage1_bin_label": "authentic",
+        "final_label": "manipulated",
+        "override_present": true,
+        "keep_prob": 0.346413,
+        "tau": 0.35,
+        "feature_len": 46
+      }
+    },
+    {
+      "case_id": "cpu_dsC_revert_to_base_0010",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000219.jpg",
+      "image_name": "opensdi__manipulated__000219.jpg",
+      "sub_type": "",
+      "model_key": "dsC",
+      "expected_action": "revert_to_base",
+      "warmup_runs_discarded": 0,
+      "measured_runs": 10,
+      "active_run_count": 10,
+      "active_run_rate": 1.0,
+      "observed_action_counts": {
+        "revert_to_base": 10
+      },
+      "active_real_path_summary_ms": {
+        "stage1_total": {
+          "avg": 40.19,
+          "std": 2.144,
+          "min": 36.3,
+          "max": 43.3
+        },
+        "stage2_feature": {
+          "avg": 0.027,
+          "std": 0.001,
+          "min": 0.026,
+          "max": 0.029
+        },
+        "stage2_predict": {
+          "avg": 48.02,
+          "std": 8.891,
+          "min": 38.512,
+          "max": 64.115
+        },
+        "stage2_total": {
+          "avg": 48.048,
+          "std": 8.89,
+          "min": 38.54,
+          "max": 64.142
+        },
+        "e2e_total": {
+          "avg": 88.238,
+          "std": 10.064,
+          "min": 76.408,
+          "max": 102.942
+        }
+      },
+      "last_decision": {
+        "action": "revert_to_base",
+        "base_bin_label": "manipulated",
+        "stage1_bin_label": "authentic",
+        "final_label": "manipulated",
+        "override_present": true,
+        "keep_prob": 0.097501,
+        "tau": 0.35,
+        "feature_len": 46
+      }
+    },
+    {
+      "case_id": "cpu_opensdi_revert_to_base_0011",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000219.jpg",
+      "image_name": "opensdi__manipulated__000219.jpg",
+      "sub_type": "",
+      "model_key": "opensdi",
+      "expected_action": "revert_to_base",
+      "warmup_runs_discarded": 0,
+      "measured_runs": 10,
+      "active_run_count": 10,
+      "active_run_rate": 1.0,
+      "observed_action_counts": {
+        "revert_to_base": 10
+      },
+      "active_real_path_summary_ms": {
+        "stage1_total": {
+          "avg": 42.4,
+          "std": 6.436,
+          "min": 33.6,
+          "max": 56.4
+        },
+        "stage2_feature": {
+          "avg": 0.028,
+          "std": 0.002,
+          "min": 0.026,
+          "max": 0.033
+        },
+        "stage2_predict": {
+          "avg": 48.235,
+          "std": 11.648,
+          "min": 38.823,
+          "max": 73.691
+        },
+        "stage2_total": {
+          "avg": 48.263,
+          "std": 11.649,
+          "min": 38.85,
+          "max": 73.722
+        },
+        "e2e_total": {
+          "avg": 90.663,
+          "std": 16.936,
+          "min": 75.358,
+          "max": 120.822
+        }
+      },
+      "last_decision": {
+        "action": "revert_to_base",
+        "base_bin_label": "manipulated",
+        "stage1_bin_label": "authentic",
+        "final_label": "manipulated",
+        "override_present": true,
+        "keep_prob": 0.137756,
+        "tau": 0.45,
+        "feature_len": 46
+      }
+    },
+    {
+      "case_id": "cpu_aigenproxy_revert_to_base_0012",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000219.jpg",
+      "image_name": "opensdi__manipulated__000219.jpg",
+      "sub_type": "",
+      "model_key": "aigenproxy",
+      "expected_action": "revert_to_base",
+      "warmup_runs_discarded": 0,
+      "measured_runs": 10,
+      "active_run_count": 10,
+      "active_run_rate": 1.0,
+      "observed_action_counts": {
+        "revert_to_base": 10
+      },
+      "active_real_path_summary_ms": {
+        "stage1_total": {
+          "avg": 38.75,
+          "std": 2.818,
+          "min": 35.3,
+          "max": 43.6
+        },
+        "stage2_feature": {
+          "avg": 0.027,
+          "std": 0.001,
+          "min": 0.025,
+          "max": 0.028
+        },
+        "stage2_predict": {
+          "avg": 47.395,
+          "std": 12.894,
+          "min": 33.969,
+          "max": 76.479
+        },
+        "stage2_total": {
+          "avg": 47.422,
+          "std": 12.894,
+          "min": 33.994,
+          "max": 76.507
+        },
+        "e2e_total": {
+          "avg": 86.172,
+          "std": 15.029,
+          "min": 70.894,
+          "max": 120.107
+        }
+      },
+      "last_decision": {
+        "action": "revert_to_base",
+        "base_bin_label": "manipulated",
+        "stage1_bin_label": "authentic",
+        "final_label": "manipulated",
+        "override_present": true,
+        "keep_prob": 0.09138,
+        "tau": 0.65,
+        "feature_len": 46
+      }
+    },
+    {
+      "case_id": "cpu_base_keep_change_0013",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000223.jpg",
+      "image_name": "opensdi__manipulated__000223.jpg",
+      "sub_type": "",
+      "model_key": "base",
+      "expected_action": "keep_change",
+      "warmup_runs_discarded": 0,
+      "measured_runs": 10,
+      "active_run_count": 10,
+      "active_run_rate": 1.0,
+      "observed_action_counts": {
+        "keep_change": 10
+      },
+      "active_real_path_summary_ms": {
+        "stage1_total": {
+          "avg": 41.04,
+          "std": 4.617,
+          "min": 35.7,
+          "max": 50.4
+        },
+        "stage2_feature": {
+          "avg": 0.031,
+          "std": 0.004,
+          "min": 0.026,
+          "max": 0.038
+        },
+        "stage2_predict": {
+          "avg": 46.002,
+          "std": 9.067,
+          "min": 38.802,
+          "max": 72.057
+        },
+        "stage2_total": {
+          "avg": 46.032,
+          "std": 9.066,
+          "min": 38.84,
+          "max": 72.087
+        },
+        "e2e_total": {
+          "avg": 87.072,
+          "std": 11.789,
+          "min": 77.823,
+          "max": 120.287
+        }
+      },
+      "last_decision": {
+        "action": "keep_change",
+        "base_bin_label": "manipulated",
+        "stage1_bin_label": "authentic",
+        "final_label": "authentic",
+        "override_present": true,
+        "keep_prob": 0.932668,
+        "tau": 0.35,
+        "feature_len": 46
+      }
+    },
+    {
+      "case_id": "cpu_dsC_keep_change_0014",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000223.jpg",
+      "image_name": "opensdi__manipulated__000223.jpg",
+      "sub_type": "",
+      "model_key": "dsC",
+      "expected_action": "keep_change",
+      "warmup_runs_discarded": 0,
+      "measured_runs": 10,
+      "active_run_count": 10,
+      "active_run_rate": 1.0,
+      "observed_action_counts": {
+        "keep_change": 10
+      },
+      "active_real_path_summary_ms": {
+        "stage1_total": {
+          "avg": 39.91,
+          "std": 2.148,
+          "min": 36.3,
+          "max": 43.3
+        },
+        "stage2_feature": {
+          "avg": 0.028,
+          "std": 0.002,
+          "min": 0.026,
+          "max": 0.033
+        },
+        "stage2_predict": {
+          "avg": 45.5,
+          "std": 9.037,
+          "min": 35.833,
+          "max": 67.042
+        },
+        "stage2_total": {
+          "avg": 45.529,
+          "std": 9.037,
+          "min": 35.861,
+          "max": 67.071
+        },
+        "e2e_total": {
+          "avg": 85.439,
+          "std": 9.556,
+          "min": 75.648,
+          "max": 109.371
+        }
+      },
+      "last_decision": {
+        "action": "keep_change",
+        "base_bin_label": "manipulated",
+        "stage1_bin_label": "authentic",
+        "final_label": "authentic",
+        "override_present": true,
+        "keep_prob": 0.934548,
+        "tau": 0.35,
+        "feature_len": 46
+      }
+    },
+    {
+      "case_id": "cpu_opensdi_keep_change_0015",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000223.jpg",
+      "image_name": "opensdi__manipulated__000223.jpg",
+      "sub_type": "",
+      "model_key": "opensdi",
+      "expected_action": "keep_change",
+      "warmup_runs_discarded": 0,
+      "measured_runs": 10,
+      "active_run_count": 10,
+      "active_run_rate": 1.0,
+      "observed_action_counts": {
+        "keep_change": 10
+      },
+      "active_real_path_summary_ms": {
+        "stage1_total": {
+          "avg": 44.61,
+          "std": 4.828,
+          "min": 36.7,
+          "max": 54.6
+        },
+        "stage2_feature": {
+          "avg": 0.031,
+          "std": 0.004,
+          "min": 0.026,
+          "max": 0.038
+        },
+        "stage2_predict": {
+          "avg": 50.915,
+          "std": 17.137,
+          "min": 37.989,
+          "max": 96.612
+        },
+        "stage2_total": {
+          "avg": 50.946,
+          "std": 17.135,
+          "min": 38.018,
+          "max": 96.639
+        },
+        "e2e_total": {
+          "avg": 95.556,
+          "std": 15.177,
+          "min": 82.413,
+          "max": 136.939
+        }
+      },
+      "last_decision": {
+        "action": "keep_change",
+        "base_bin_label": "manipulated",
+        "stage1_bin_label": "authentic",
+        "final_label": "authentic",
+        "override_present": true,
+        "keep_prob": 0.918621,
+        "tau": 0.45,
+        "feature_len": 46
+      }
+    },
+    {
+      "case_id": "cpu_aigenproxy_keep_change_0016",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000223.jpg",
+      "image_name": "opensdi__manipulated__000223.jpg",
+      "sub_type": "",
+      "model_key": "aigenproxy",
+      "expected_action": "keep_change",
+      "warmup_runs_discarded": 0,
+      "measured_runs": 10,
+      "active_run_count": 10,
+      "active_run_rate": 1.0,
+      "observed_action_counts": {
+        "keep_change": 10
+      },
+      "active_real_path_summary_ms": {
+        "stage1_total": {
+          "avg": 40.16,
+          "std": 5.112,
+          "min": 34.8,
+          "max": 49.3
+        },
+        "stage2_feature": {
+          "avg": 0.028,
+          "std": 0.003,
+          "min": 0.026,
+          "max": 0.034
+        },
+        "stage2_predict": {
+          "avg": 44.889,
+          "std": 8.958,
+          "min": 38.183,
+          "max": 67.425
+        },
+        "stage2_total": {
+          "avg": 44.917,
+          "std": 8.958,
+          "min": 38.214,
+          "max": 67.451
+        },
+        "e2e_total": {
+          "avg": 85.077,
+          "std": 12.246,
+          "min": 75.514,
+          "max": 109.951
+        }
+      },
+      "last_decision": {
+        "action": "keep_change",
+        "base_bin_label": "manipulated",
+        "stage1_bin_label": "authentic",
+        "final_label": "authentic",
+        "override_present": true,
+        "keep_prob": 0.733152,
+        "tau": 0.65,
+        "feature_len": 46
+      }
+    },
+    {
+      "case_id": "cpu_base_keep_change_0017",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000228.jpg",
+      "image_name": "opensdi__manipulated__000228.jpg",
+      "sub_type": "",
+      "model_key": "base",
+      "expected_action": "keep_change",
+      "warmup_runs_discarded": 0,
+      "measured_runs": 10,
+      "active_run_count": 10,
+      "active_run_rate": 1.0,
+      "observed_action_counts": {
+        "keep_change": 10
+      },
+      "active_real_path_summary_ms": {
+        "stage1_total": {
+          "avg": 36.08,
+          "std": 3.255,
+          "min": 31.4,
+          "max": 43.5
+        },
+        "stage2_feature": {
+          "avg": 0.028,
+          "std": 0.002,
+          "min": 0.025,
+          "max": 0.033
+        },
+        "stage2_predict": {
+          "avg": 44.27,
+          "std": 7.654,
+          "min": 35.135,
+          "max": 60.834
+        },
+        "stage2_total": {
+          "avg": 44.297,
+          "std": 7.655,
+          "min": 35.163,
+          "max": 60.867
+        },
+        "e2e_total": {
+          "avg": 80.377,
+          "std": 9.456,
+          "min": 69.763,
+          "max": 99.767
+        }
+      },
+      "last_decision": {
+        "action": "keep_change",
+        "base_bin_label": "manipulated",
+        "stage1_bin_label": "authentic",
+        "final_label": "authentic",
+        "override_present": true,
+        "keep_prob": 0.920121,
+        "tau": 0.35,
+        "feature_len": 46
+      }
+    },
+    {
+      "case_id": "cpu_dsC_keep_change_0018",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000228.jpg",
+      "image_name": "opensdi__manipulated__000228.jpg",
+      "sub_type": "",
+      "model_key": "dsC",
+      "expected_action": "keep_change",
+      "warmup_runs_discarded": 0,
+      "measured_runs": 10,
+      "active_run_count": 10,
+      "active_run_rate": 1.0,
+      "observed_action_counts": {
+        "keep_change": 10
+      },
+      "active_real_path_summary_ms": {
+        "stage1_total": {
+          "avg": 37.27,
+          "std": 2.756,
+          "min": 33.5,
+          "max": 41.8
+        },
+        "stage2_feature": {
+          "avg": 0.027,
+          "std": 0.002,
+          "min": 0.025,
+          "max": 0.031
+        },
+        "stage2_predict": {
+          "avg": 49.28,
+          "std": 11.336,
+          "min": 38.432,
+          "max": 75.193
+        },
+        "stage2_total": {
+          "avg": 49.307,
+          "std": 11.337,
+          "min": 38.458,
+          "max": 75.221
+        },
+        "e2e_total": {
+          "avg": 86.577,
+          "std": 11.573,
+          "min": 72.958,
+          "max": 109.021
+        }
+      },
+      "last_decision": {
+        "action": "keep_change",
+        "base_bin_label": "manipulated",
+        "stage1_bin_label": "authentic",
+        "final_label": "authentic",
+        "override_present": true,
+        "keep_prob": 0.864845,
+        "tau": 0.35,
+        "feature_len": 46
+      }
+    },
+    {
+      "case_id": "cpu_opensdi_keep_change_0019",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000228.jpg",
+      "image_name": "opensdi__manipulated__000228.jpg",
+      "sub_type": "",
+      "model_key": "opensdi",
+      "expected_action": "keep_change",
+      "warmup_runs_discarded": 0,
+      "measured_runs": 10,
+      "active_run_count": 10,
+      "active_run_rate": 1.0,
+      "observed_action_counts": {
+        "keep_change": 10
+      },
+      "active_real_path_summary_ms": {
+        "stage1_total": {
+          "avg": 34.44,
+          "std": 1.017,
+          "min": 31.7,
+          "max": 35.4
+        },
+        "stage2_feature": {
+          "avg": 0.026,
+          "std": 0.001,
+          "min": 0.025,
+          "max": 0.027
+        },
+        "stage2_predict": {
+          "avg": 42.075,
+          "std": 2.898,
+          "min": 38.372,
+          "max": 46.536
+        },
+        "stage2_total": {
+          "avg": 42.101,
+          "std": 2.898,
+          "min": 38.398,
+          "max": 46.562
+        },
+        "e2e_total": {
+          "avg": 76.541,
+          "std": 3.344,
+          "min": 72.498,
+          "max": 81.767
+        }
+      },
+      "last_decision": {
+        "action": "keep_change",
+        "base_bin_label": "manipulated",
+        "stage1_bin_label": "authentic",
+        "final_label": "authentic",
+        "override_present": true,
+        "keep_prob": 0.643275,
+        "tau": 0.45,
+        "feature_len": 46
+      }
+    },
+    {
+      "case_id": "cpu_aigenproxy_revert_to_base_0020",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000228.jpg",
+      "image_name": "opensdi__manipulated__000228.jpg",
+      "sub_type": "",
+      "model_key": "aigenproxy",
+      "expected_action": "revert_to_base",
+      "warmup_runs_discarded": 0,
+      "measured_runs": 10,
+      "active_run_count": 10,
+      "active_run_rate": 1.0,
+      "observed_action_counts": {
+        "revert_to_base": 10
+      },
+      "active_real_path_summary_ms": {
+        "stage1_total": {
+          "avg": 35.82,
+          "std": 1.99,
+          "min": 32.0,
+          "max": 39.8
+        },
+        "stage2_feature": {
+          "avg": 0.027,
+          "std": 0.001,
+          "min": 0.025,
+          "max": 0.028
+        },
+        "stage2_predict": {
+          "avg": 46.555,
+          "std": 10.422,
+          "min": 36.342,
+          "max": 68.297
+        },
+        "stage2_total": {
+          "avg": 46.581,
+          "std": 10.422,
+          "min": 36.371,
+          "max": 68.323
+        },
+        "e2e_total": {
+          "avg": 82.401,
+          "std": 11.484,
+          "min": 68.371,
+          "max": 104.223
+        }
+      },
+      "last_decision": {
+        "action": "revert_to_base",
+        "base_bin_label": "manipulated",
+        "stage1_bin_label": "authentic",
+        "final_label": "manipulated",
+        "override_present": true,
+        "keep_prob": 0.633599,
+        "tau": 0.65,
+        "feature_len": 46
+      }
+    },
+    {
+      "case_id": "cpu_base_keep_change_0021",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000280.jpg",
+      "image_name": "opensdi__manipulated__000280.jpg",
+      "sub_type": "",
+      "model_key": "base",
+      "expected_action": "keep_change",
+      "warmup_runs_discarded": 0,
+      "measured_runs": 10,
+      "active_run_count": 10,
+      "active_run_rate": 1.0,
+      "observed_action_counts": {
+        "keep_change": 10
+      },
+      "active_real_path_summary_ms": {
+        "stage1_total": {
+          "avg": 37.22,
+          "std": 4.69,
+          "min": 31.6,
+          "max": 49.8
+        },
+        "stage2_feature": {
+          "avg": 0.026,
+          "std": 0.001,
+          "min": 0.024,
+          "max": 0.027
+        },
+        "stage2_predict": {
+          "avg": 46.795,
+          "std": 10.245,
+          "min": 38.122,
+          "max": 72.287
+        },
+        "stage2_total": {
+          "avg": 46.821,
+          "std": 10.246,
+          "min": 38.149,
+          "max": 72.314
+        },
+        "e2e_total": {
+          "avg": 84.041,
+          "std": 14.147,
+          "min": 73.849,
+          "max": 122.114
+        }
+      },
+      "last_decision": {
+        "action": "keep_change",
+        "base_bin_label": "authentic",
+        "stage1_bin_label": "manipulated",
+        "final_label": "manipulated",
+        "override_present": true,
+        "keep_prob": 0.453677,
+        "tau": 0.35,
+        "feature_len": 46
+      }
+    },
+    {
+      "case_id": "cpu_dsC_keep_change_0022",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000280.jpg",
+      "image_name": "opensdi__manipulated__000280.jpg",
+      "sub_type": "",
+      "model_key": "dsC",
+      "expected_action": "keep_change",
+      "warmup_runs_discarded": 0,
+      "measured_runs": 10,
+      "active_run_count": 10,
+      "active_run_rate": 1.0,
+      "observed_action_counts": {
+        "keep_change": 10
+      },
+      "active_real_path_summary_ms": {
+        "stage1_total": {
+          "avg": 38.63,
+          "std": 3.898,
+          "min": 31.9,
+          "max": 44.2
+        },
+        "stage2_feature": {
+          "avg": 0.028,
+          "std": 0.002,
+          "min": 0.026,
+          "max": 0.035
+        },
+        "stage2_predict": {
+          "avg": 42.796,
+          "std": 4.708,
+          "min": 37.635,
+          "max": 55.596
+        },
+        "stage2_total": {
+          "avg": 42.824,
+          "std": 4.708,
+          "min": 37.663,
+          "max": 55.624
+        },
+        "e2e_total": {
+          "avg": 81.454,
+          "std": 5.18,
+          "min": 71.872,
+          "max": 91.324
+        }
+      },
+      "last_decision": {
+        "action": "keep_change",
+        "base_bin_label": "authentic",
+        "stage1_bin_label": "manipulated",
+        "final_label": "manipulated",
+        "override_present": true,
+        "keep_prob": 0.875877,
+        "tau": 0.35,
+        "feature_len": 46
+      }
+    },
+    {
+      "case_id": "cpu_opensdi_keep_change_0023",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000280.jpg",
+      "image_name": "opensdi__manipulated__000280.jpg",
+      "sub_type": "",
+      "model_key": "opensdi",
+      "expected_action": "keep_change",
+      "warmup_runs_discarded": 0,
+      "measured_runs": 10,
+      "active_run_count": 10,
+      "active_run_rate": 1.0,
+      "observed_action_counts": {
+        "keep_change": 10
+      },
+      "active_real_path_summary_ms": {
+        "stage1_total": {
+          "avg": 38.71,
+          "std": 5.116,
+          "min": 32.9,
+          "max": 47.1
+        },
+        "stage2_feature": {
+          "avg": 0.027,
+          "std": 0.003,
+          "min": 0.024,
+          "max": 0.034
+        },
+        "stage2_predict": {
+          "avg": 47.481,
+          "std": 10.0,
+          "min": 36.427,
+          "max": 69.677
+        },
+        "stage2_total": {
+          "avg": 47.509,
+          "std": 10.0,
+          "min": 36.453,
+          "max": 69.704
+        },
+        "e2e_total": {
+          "avg": 86.219,
+          "std": 12.163,
+          "min": 72.527,
+          "max": 114.704
+        }
+      },
+      "last_decision": {
+        "action": "keep_change",
+        "base_bin_label": "authentic",
+        "stage1_bin_label": "manipulated",
+        "final_label": "manipulated",
+        "override_present": true,
+        "keep_prob": 0.68443,
+        "tau": 0.45,
+        "feature_len": 46
+      }
+    },
+    {
+      "case_id": "cpu_aigenproxy_keep_change_0024",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000280.jpg",
+      "image_name": "opensdi__manipulated__000280.jpg",
+      "sub_type": "",
+      "model_key": "aigenproxy",
+      "expected_action": "keep_change",
+      "warmup_runs_discarded": 0,
+      "measured_runs": 10,
+      "active_run_count": 10,
+      "active_run_rate": 1.0,
+      "observed_action_counts": {
+        "keep_change": 10
+      },
+      "active_real_path_summary_ms": {
+        "stage1_total": {
+          "avg": 40.75,
+          "std": 3.804,
+          "min": 37.2,
+          "max": 51.1
+        },
+        "stage2_feature": {
+          "avg": 0.027,
+          "std": 0.002,
+          "min": 0.025,
+          "max": 0.032
+        },
+        "stage2_predict": {
+          "avg": 44.392,
+          "std": 5.938,
+          "min": 37.202,
+          "max": 59.82
+        },
+        "stage2_total": {
+          "avg": 44.419,
+          "std": 5.937,
+          "min": 37.234,
+          "max": 59.846
+        },
+        "e2e_total": {
+          "avg": 85.169,
+          "std": 7.066,
+          "min": 75.834,
+          "max": 98.917
+        }
+      },
+      "last_decision": {
+        "action": "keep_change",
+        "base_bin_label": "authentic",
+        "stage1_bin_label": "manipulated",
+        "final_label": "manipulated",
+        "override_present": true,
+        "keep_prob": 0.660966,
+        "tau": 0.65,
+        "feature_len": 46
+      }
+    }
+  ],
+  "aggregate": {
+    "cases_benchmarked": [
+      "cpu_base_keep_change_0001",
+      "cpu_dsC_keep_change_0002",
+      "cpu_opensdi_keep_change_0003",
+      "cpu_aigenproxy_revert_to_base_0004",
+      "cpu_base_revert_to_base_0005",
+      "cpu_dsC_keep_change_0006",
+      "cpu_opensdi_revert_to_base_0007",
+      "cpu_aigenproxy_revert_to_base_0008",
+      "cpu_base_revert_to_base_0009",
+      "cpu_dsC_revert_to_base_0010",
+      "cpu_opensdi_revert_to_base_0011",
+      "cpu_aigenproxy_revert_to_base_0012",
+      "cpu_base_keep_change_0013",
+      "cpu_dsC_keep_change_0014",
+      "cpu_opensdi_keep_change_0015",
+      "cpu_aigenproxy_keep_change_0016",
+      "cpu_base_keep_change_0017",
+      "cpu_dsC_keep_change_0018",
+      "cpu_opensdi_keep_change_0019",
+      "cpu_aigenproxy_revert_to_base_0020",
+      "cpu_base_keep_change_0021",
+      "cpu_dsC_keep_change_0022",
+      "cpu_opensdi_keep_change_0023",
+      "cpu_aigenproxy_keep_change_0024"
+    ],
+    "active_case_count": 24,
+    "avg_active_e2e_ms": 91.245,
+    "avg_active_stage2_ms": 48.627
+  }
+}

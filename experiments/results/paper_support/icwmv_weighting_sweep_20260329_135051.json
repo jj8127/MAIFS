@@ -1,0 +1,3750 @@
+{
+  "timestamp": "2026-03-29T13:50:51.165227",
+  "experiment": "icwmv_weighting_sweep",
+  "mnv2_label": "strong",
+  "mnv2_ts": "20260319_070725",
+  "specm_model": "comp_noTS",
+  "alpha_definition": "w = 1 / confidence^alpha; alpha=0 means equal-weight averaging",
+  "results": [
+    {
+      "alpha": 0.0,
+      "avg_f1": 0.9579,
+      "avg_corr": 0.5313,
+      "avg_net_gain": 1.75,
+      "avg_broken": 16.5,
+      "per_ds": {
+        "base": {
+          "macro_f1": 0.958,
+          "accuracy": 0.958,
+          "n": 1500,
+          "err_corr": {
+            "n_errors": 82,
+            "n_corrected": 41,
+            "rate": 0.5,
+            "n_broken": 20,
+            "net_gain": 21,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 18,
+                "corrected": 6,
+                "broken": 0,
+                "rate": 0.3333
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 15,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 64,
+                "corrected": 35,
+                "broken": 0,
+                "rate": 0.5469
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 5,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.0
+          }
+        },
+        "dsC": {
+          "macro_f1": 0.9722,
+          "accuracy": 0.9722,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 17,
+            "n_corrected": 10,
+            "rate": 0.5882,
+            "n_broken": 16,
+            "net_gain": -6,
+            "patterns": {
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 10,
+                "rate": 0.0
+              },
+              "authentic\u2192manipulated": {
+                "total": 12,
+                "corrected": 7,
+                "broken": 0,
+                "rate": 0.5833
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 6,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 5,
+                "corrected": 3,
+                "broken": 0,
+                "rate": 0.6
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.0
+          }
+        },
+        "opensdi": {
+          "macro_f1": 0.9303,
+          "accuracy": 0.93,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 27,
+            "n_corrected": 10,
+            "rate": 0.3704,
+            "n_broken": 27,
+            "net_gain": -17,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 19,
+                "corrected": 9,
+                "broken": 0,
+                "rate": 0.4737
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 3,
+                "rate": 0.0
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 24,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 8,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.125
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.0
+          }
+        },
+        "aigenproxy": {
+          "macro_f1": 0.9711,
+          "accuracy": 0.9711,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 18,
+            "n_corrected": 12,
+            "rate": 0.6667,
+            "n_broken": 3,
+            "net_gain": 9,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 15,
+                "corrected": 10,
+                "broken": 0,
+                "rate": 0.6667
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 1,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 3,
+                "corrected": 2,
+                "broken": 0,
+                "rate": 0.6667
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.0
+          }
+        }
+      }
+    },
+    {
+      "alpha": 0.1,
+      "avg_f1": 0.9579,
+      "avg_corr": 0.5136,
+      "avg_net_gain": 1.75,
+      "avg_broken": 16.0,
+      "per_ds": {
+        "base": {
+          "macro_f1": 0.958,
+          "accuracy": 0.958,
+          "n": 1500,
+          "err_corr": {
+            "n_errors": 82,
+            "n_corrected": 40,
+            "rate": 0.4878,
+            "n_broken": 19,
+            "net_gain": 21,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 18,
+                "corrected": 5,
+                "broken": 0,
+                "rate": 0.2778
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 14,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 64,
+                "corrected": 35,
+                "broken": 0,
+                "rate": 0.5469
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 5,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.1
+          }
+        },
+        "dsC": {
+          "macro_f1": 0.9722,
+          "accuracy": 0.9722,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 17,
+            "n_corrected": 9,
+            "rate": 0.5294,
+            "n_broken": 15,
+            "net_gain": -6,
+            "patterns": {
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 9,
+                "rate": 0.0
+              },
+              "authentic\u2192manipulated": {
+                "total": 12,
+                "corrected": 6,
+                "broken": 0,
+                "rate": 0.5
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 6,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 5,
+                "corrected": 3,
+                "broken": 0,
+                "rate": 0.6
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.1
+          }
+        },
+        "opensdi": {
+          "macro_f1": 0.9303,
+          "accuracy": 0.93,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 27,
+            "n_corrected": 10,
+            "rate": 0.3704,
+            "n_broken": 27,
+            "net_gain": -17,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 19,
+                "corrected": 9,
+                "broken": 0,
+                "rate": 0.4737
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 3,
+                "rate": 0.0
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 24,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 8,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.125
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.1
+          }
+        },
+        "aigenproxy": {
+          "macro_f1": 0.9711,
+          "accuracy": 0.9711,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 18,
+            "n_corrected": 12,
+            "rate": 0.6667,
+            "n_broken": 3,
+            "net_gain": 9,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 15,
+                "corrected": 10,
+                "broken": 0,
+                "rate": 0.6667
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 1,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 3,
+                "corrected": 2,
+                "broken": 0,
+                "rate": 0.6667
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.1
+          }
+        }
+      }
+    },
+    {
+      "alpha": 0.2,
+      "avg_f1": 0.9579,
+      "avg_corr": 0.5136,
+      "avg_net_gain": 1.75,
+      "avg_broken": 16.0,
+      "per_ds": {
+        "base": {
+          "macro_f1": 0.958,
+          "accuracy": 0.958,
+          "n": 1500,
+          "err_corr": {
+            "n_errors": 82,
+            "n_corrected": 40,
+            "rate": 0.4878,
+            "n_broken": 19,
+            "net_gain": 21,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 18,
+                "corrected": 5,
+                "broken": 0,
+                "rate": 0.2778
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 14,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 64,
+                "corrected": 35,
+                "broken": 0,
+                "rate": 0.5469
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 5,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.2
+          }
+        },
+        "dsC": {
+          "macro_f1": 0.9722,
+          "accuracy": 0.9722,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 17,
+            "n_corrected": 9,
+            "rate": 0.5294,
+            "n_broken": 15,
+            "net_gain": -6,
+            "patterns": {
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 9,
+                "rate": 0.0
+              },
+              "authentic\u2192manipulated": {
+                "total": 12,
+                "corrected": 6,
+                "broken": 0,
+                "rate": 0.5
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 6,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 5,
+                "corrected": 3,
+                "broken": 0,
+                "rate": 0.6
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.2
+          }
+        },
+        "opensdi": {
+          "macro_f1": 0.9303,
+          "accuracy": 0.93,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 27,
+            "n_corrected": 10,
+            "rate": 0.3704,
+            "n_broken": 27,
+            "net_gain": -17,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 19,
+                "corrected": 9,
+                "broken": 0,
+                "rate": 0.4737
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 3,
+                "rate": 0.0
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 24,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 8,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.125
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.2
+          }
+        },
+        "aigenproxy": {
+          "macro_f1": 0.9711,
+          "accuracy": 0.9711,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 18,
+            "n_corrected": 12,
+            "rate": 0.6667,
+            "n_broken": 3,
+            "net_gain": 9,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 15,
+                "corrected": 10,
+                "broken": 0,
+                "rate": 0.6667
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 1,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 3,
+                "corrected": 2,
+                "broken": 0,
+                "rate": 0.6667
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.2
+          }
+        }
+      }
+    },
+    {
+      "alpha": 0.3,
+      "avg_f1": 0.9579,
+      "avg_corr": 0.5136,
+      "avg_net_gain": 1.75,
+      "avg_broken": 16.0,
+      "per_ds": {
+        "base": {
+          "macro_f1": 0.958,
+          "accuracy": 0.958,
+          "n": 1500,
+          "err_corr": {
+            "n_errors": 82,
+            "n_corrected": 40,
+            "rate": 0.4878,
+            "n_broken": 19,
+            "net_gain": 21,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 18,
+                "corrected": 5,
+                "broken": 0,
+                "rate": 0.2778
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 14,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 64,
+                "corrected": 35,
+                "broken": 0,
+                "rate": 0.5469
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 5,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.3
+          }
+        },
+        "dsC": {
+          "macro_f1": 0.9722,
+          "accuracy": 0.9722,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 17,
+            "n_corrected": 9,
+            "rate": 0.5294,
+            "n_broken": 15,
+            "net_gain": -6,
+            "patterns": {
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 9,
+                "rate": 0.0
+              },
+              "authentic\u2192manipulated": {
+                "total": 12,
+                "corrected": 6,
+                "broken": 0,
+                "rate": 0.5
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 6,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 5,
+                "corrected": 3,
+                "broken": 0,
+                "rate": 0.6
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.3
+          }
+        },
+        "opensdi": {
+          "macro_f1": 0.9303,
+          "accuracy": 0.93,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 27,
+            "n_corrected": 10,
+            "rate": 0.3704,
+            "n_broken": 27,
+            "net_gain": -17,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 19,
+                "corrected": 9,
+                "broken": 0,
+                "rate": 0.4737
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 3,
+                "rate": 0.0
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 24,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 8,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.125
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.3
+          }
+        },
+        "aigenproxy": {
+          "macro_f1": 0.9711,
+          "accuracy": 0.9711,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 18,
+            "n_corrected": 12,
+            "rate": 0.6667,
+            "n_broken": 3,
+            "net_gain": 9,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 15,
+                "corrected": 10,
+                "broken": 0,
+                "rate": 0.6667
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 1,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 3,
+                "corrected": 2,
+                "broken": 0,
+                "rate": 0.6667
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.3
+          }
+        }
+      }
+    },
+    {
+      "alpha": 0.4,
+      "avg_f1": 0.9576,
+      "avg_corr": 0.5043,
+      "avg_net_gain": 1.5,
+      "avg_broken": 16.0,
+      "per_ds": {
+        "base": {
+          "macro_f1": 0.958,
+          "accuracy": 0.958,
+          "n": 1500,
+          "err_corr": {
+            "n_errors": 82,
+            "n_corrected": 40,
+            "rate": 0.4878,
+            "n_broken": 19,
+            "net_gain": 21,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 18,
+                "corrected": 5,
+                "broken": 0,
+                "rate": 0.2778
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 14,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 64,
+                "corrected": 35,
+                "broken": 0,
+                "rate": 0.5469
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 5,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.4
+          }
+        },
+        "dsC": {
+          "macro_f1": 0.9722,
+          "accuracy": 0.9722,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 17,
+            "n_corrected": 9,
+            "rate": 0.5294,
+            "n_broken": 15,
+            "net_gain": -6,
+            "patterns": {
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 9,
+                "rate": 0.0
+              },
+              "authentic\u2192manipulated": {
+                "total": 12,
+                "corrected": 6,
+                "broken": 0,
+                "rate": 0.5
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 6,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 5,
+                "corrected": 3,
+                "broken": 0,
+                "rate": 0.6
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.4
+          }
+        },
+        "opensdi": {
+          "macro_f1": 0.9291,
+          "accuracy": 0.9289,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 27,
+            "n_corrected": 9,
+            "rate": 0.3333,
+            "n_broken": 27,
+            "net_gain": -18,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 19,
+                "corrected": 8,
+                "broken": 0,
+                "rate": 0.4211
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 3,
+                "rate": 0.0
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 24,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 8,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.125
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.4
+          }
+        },
+        "aigenproxy": {
+          "macro_f1": 0.9711,
+          "accuracy": 0.9711,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 18,
+            "n_corrected": 12,
+            "rate": 0.6667,
+            "n_broken": 3,
+            "net_gain": 9,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 15,
+                "corrected": 10,
+                "broken": 0,
+                "rate": 0.6667
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 1,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 3,
+                "corrected": 2,
+                "broken": 0,
+                "rate": 0.6667
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.4
+          }
+        }
+      }
+    },
+    {
+      "alpha": 0.5,
+      "avg_f1": 0.9586,
+      "avg_corr": 0.5043,
+      "avg_net_gain": 2.5,
+      "avg_broken": 15.0,
+      "per_ds": {
+        "base": {
+          "macro_f1": 0.9586,
+          "accuracy": 0.9587,
+          "n": 1500,
+          "err_corr": {
+            "n_errors": 82,
+            "n_corrected": 40,
+            "rate": 0.4878,
+            "n_broken": 18,
+            "net_gain": 22,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 18,
+                "corrected": 5,
+                "broken": 0,
+                "rate": 0.2778
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 13,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 64,
+                "corrected": 35,
+                "broken": 0,
+                "rate": 0.5469
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 5,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.5
+          }
+        },
+        "dsC": {
+          "macro_f1": 0.9733,
+          "accuracy": 0.9733,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 17,
+            "n_corrected": 9,
+            "rate": 0.5294,
+            "n_broken": 14,
+            "net_gain": -5,
+            "patterns": {
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 9,
+                "rate": 0.0
+              },
+              "authentic\u2192manipulated": {
+                "total": 12,
+                "corrected": 6,
+                "broken": 0,
+                "rate": 0.5
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 5,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 5,
+                "corrected": 3,
+                "broken": 0,
+                "rate": 0.6
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.5
+          }
+        },
+        "opensdi": {
+          "macro_f1": 0.9314,
+          "accuracy": 0.9311,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 27,
+            "n_corrected": 9,
+            "rate": 0.3333,
+            "n_broken": 25,
+            "net_gain": -16,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 19,
+                "corrected": 8,
+                "broken": 0,
+                "rate": 0.4211
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 23,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 8,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.125
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.5
+          }
+        },
+        "aigenproxy": {
+          "macro_f1": 0.9711,
+          "accuracy": 0.9711,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 18,
+            "n_corrected": 12,
+            "rate": 0.6667,
+            "n_broken": 3,
+            "net_gain": 9,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 15,
+                "corrected": 10,
+                "broken": 0,
+                "rate": 0.6667
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 1,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 3,
+                "corrected": 2,
+                "broken": 0,
+                "rate": 0.6667
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.5
+          }
+        }
+      }
+    },
+    {
+      "alpha": 0.6,
+      "avg_f1": 0.9597,
+      "avg_corr": 0.5043,
+      "avg_net_gain": 3.5,
+      "avg_broken": 14.0,
+      "per_ds": {
+        "base": {
+          "macro_f1": 0.9586,
+          "accuracy": 0.9587,
+          "n": 1500,
+          "err_corr": {
+            "n_errors": 82,
+            "n_corrected": 40,
+            "rate": 0.4878,
+            "n_broken": 18,
+            "net_gain": 22,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 18,
+                "corrected": 5,
+                "broken": 0,
+                "rate": 0.2778
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 13,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 64,
+                "corrected": 35,
+                "broken": 0,
+                "rate": 0.5469
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 5,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.6
+          }
+        },
+        "dsC": {
+          "macro_f1": 0.9744,
+          "accuracy": 0.9744,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 17,
+            "n_corrected": 9,
+            "rate": 0.5294,
+            "n_broken": 13,
+            "net_gain": -4,
+            "patterns": {
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 9,
+                "rate": 0.0
+              },
+              "authentic\u2192manipulated": {
+                "total": 12,
+                "corrected": 6,
+                "broken": 0,
+                "rate": 0.5
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 4,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 5,
+                "corrected": 3,
+                "broken": 0,
+                "rate": 0.6
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.6
+          }
+        },
+        "opensdi": {
+          "macro_f1": 0.9347,
+          "accuracy": 0.9344,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 27,
+            "n_corrected": 9,
+            "rate": 0.3333,
+            "n_broken": 22,
+            "net_gain": -13,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 19,
+                "corrected": 8,
+                "broken": 0,
+                "rate": 0.4211
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 20,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 8,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.125
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.6
+          }
+        },
+        "aigenproxy": {
+          "macro_f1": 0.9711,
+          "accuracy": 0.9711,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 18,
+            "n_corrected": 12,
+            "rate": 0.6667,
+            "n_broken": 3,
+            "net_gain": 9,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 15,
+                "corrected": 10,
+                "broken": 0,
+                "rate": 0.6667
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 1,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 3,
+                "corrected": 2,
+                "broken": 0,
+                "rate": 0.6667
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.6
+          }
+        }
+      }
+    },
+    {
+      "alpha": 0.7,
+      "avg_f1": 0.9607,
+      "avg_corr": 0.5012,
+      "avg_net_gain": 4.25,
+      "avg_broken": 13.0,
+      "per_ds": {
+        "base": {
+          "macro_f1": 0.958,
+          "accuracy": 0.958,
+          "n": 1500,
+          "err_corr": {
+            "n_errors": 82,
+            "n_corrected": 39,
+            "rate": 0.4756,
+            "n_broken": 18,
+            "net_gain": 21,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 18,
+                "corrected": 5,
+                "broken": 0,
+                "rate": 0.2778
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 13,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 64,
+                "corrected": 34,
+                "broken": 0,
+                "rate": 0.5312
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 5,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.7
+          }
+        },
+        "dsC": {
+          "macro_f1": 0.9744,
+          "accuracy": 0.9744,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 17,
+            "n_corrected": 9,
+            "rate": 0.5294,
+            "n_broken": 13,
+            "net_gain": -4,
+            "patterns": {
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 9,
+                "rate": 0.0
+              },
+              "authentic\u2192manipulated": {
+                "total": 12,
+                "corrected": 6,
+                "broken": 0,
+                "rate": 0.5
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 4,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 5,
+                "corrected": 3,
+                "broken": 0,
+                "rate": 0.6
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.7
+          }
+        },
+        "opensdi": {
+          "macro_f1": 0.9391,
+          "accuracy": 0.9389,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 27,
+            "n_corrected": 9,
+            "rate": 0.3333,
+            "n_broken": 18,
+            "net_gain": -9,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 19,
+                "corrected": 8,
+                "broken": 0,
+                "rate": 0.4211
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 16,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 8,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.125
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.7
+          }
+        },
+        "aigenproxy": {
+          "macro_f1": 0.9711,
+          "accuracy": 0.9711,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 18,
+            "n_corrected": 12,
+            "rate": 0.6667,
+            "n_broken": 3,
+            "net_gain": 9,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 15,
+                "corrected": 10,
+                "broken": 0,
+                "rate": 0.6667
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 1,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 3,
+                "corrected": 2,
+                "broken": 0,
+                "rate": 0.6667
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.7
+          }
+        }
+      }
+    },
+    {
+      "alpha": 0.8,
+      "avg_f1": 0.9616,
+      "avg_corr": 0.4951,
+      "avg_net_gain": 5.0,
+      "avg_broken": 11.75,
+      "per_ds": {
+        "base": {
+          "macro_f1": 0.9573,
+          "accuracy": 0.9573,
+          "n": 1500,
+          "err_corr": {
+            "n_errors": 82,
+            "n_corrected": 37,
+            "rate": 0.4512,
+            "n_broken": 17,
+            "net_gain": 20,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 18,
+                "corrected": 5,
+                "broken": 0,
+                "rate": 0.2778
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 13,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 64,
+                "corrected": 32,
+                "broken": 0,
+                "rate": 0.5
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 4,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.8
+          }
+        },
+        "dsC": {
+          "macro_f1": 0.9755,
+          "accuracy": 0.9756,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 17,
+            "n_corrected": 9,
+            "rate": 0.5294,
+            "n_broken": 12,
+            "net_gain": -3,
+            "patterns": {
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 9,
+                "rate": 0.0
+              },
+              "authentic\u2192manipulated": {
+                "total": 12,
+                "corrected": 6,
+                "broken": 0,
+                "rate": 0.5
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 3,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 5,
+                "corrected": 3,
+                "broken": 0,
+                "rate": 0.6
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.8
+          }
+        },
+        "opensdi": {
+          "macro_f1": 0.9413,
+          "accuracy": 0.9411,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 27,
+            "n_corrected": 9,
+            "rate": 0.3333,
+            "n_broken": 16,
+            "net_gain": -7,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 19,
+                "corrected": 8,
+                "broken": 0,
+                "rate": 0.4211
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 14,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 8,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.125
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.8
+          }
+        },
+        "aigenproxy": {
+          "macro_f1": 0.9722,
+          "accuracy": 0.9722,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 18,
+            "n_corrected": 12,
+            "rate": 0.6667,
+            "n_broken": 2,
+            "net_gain": 10,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 15,
+                "corrected": 10,
+                "broken": 0,
+                "rate": 0.6667
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 1,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 3,
+                "corrected": 2,
+                "broken": 0,
+                "rate": 0.6667
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 1,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.8
+          }
+        }
+      }
+    },
+    {
+      "alpha": 0.9,
+      "avg_f1": 0.9627,
+      "avg_corr": 0.4951,
+      "avg_net_gain": 6.0,
+      "avg_broken": 10.75,
+      "per_ds": {
+        "base": {
+          "macro_f1": 0.9573,
+          "accuracy": 0.9573,
+          "n": 1500,
+          "err_corr": {
+            "n_errors": 82,
+            "n_corrected": 37,
+            "rate": 0.4512,
+            "n_broken": 17,
+            "net_gain": 20,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 18,
+                "corrected": 5,
+                "broken": 0,
+                "rate": 0.2778
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 13,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 64,
+                "corrected": 32,
+                "broken": 0,
+                "rate": 0.5
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 4,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.9
+          }
+        },
+        "dsC": {
+          "macro_f1": 0.9789,
+          "accuracy": 0.9789,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 17,
+            "n_corrected": 9,
+            "rate": 0.5294,
+            "n_broken": 9,
+            "net_gain": 0,
+            "patterns": {
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 6,
+                "rate": 0.0
+              },
+              "authentic\u2192manipulated": {
+                "total": 12,
+                "corrected": 6,
+                "broken": 0,
+                "rate": 0.5
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 3,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 5,
+                "corrected": 3,
+                "broken": 0,
+                "rate": 0.6
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.9
+          }
+        },
+        "opensdi": {
+          "macro_f1": 0.9424,
+          "accuracy": 0.9422,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 27,
+            "n_corrected": 9,
+            "rate": 0.3333,
+            "n_broken": 15,
+            "net_gain": -6,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 19,
+                "corrected": 8,
+                "broken": 0,
+                "rate": 0.4211
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 13,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 8,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.125
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.9
+          }
+        },
+        "aigenproxy": {
+          "macro_f1": 0.9722,
+          "accuracy": 0.9722,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 18,
+            "n_corrected": 12,
+            "rate": 0.6667,
+            "n_broken": 2,
+            "net_gain": 10,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 15,
+                "corrected": 10,
+                "broken": 0,
+                "rate": 0.6667
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 1,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 3,
+                "corrected": 2,
+                "broken": 0,
+                "rate": 0.6667
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 1,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 0.9
+          }
+        }
+      }
+    },
+    {
+      "alpha": 1.0,
+      "avg_f1": 0.963,
+      "avg_corr": 0.4921,
+      "avg_net_gain": 6.5,
+      "avg_broken": 10.0,
+      "per_ds": {
+        "base": {
+          "macro_f1": 0.9586,
+          "accuracy": 0.9587,
+          "n": 1500,
+          "err_corr": {
+            "n_errors": 82,
+            "n_corrected": 36,
+            "rate": 0.439,
+            "n_broken": 14,
+            "net_gain": 22,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 18,
+                "corrected": 5,
+                "broken": 0,
+                "rate": 0.2778
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 11,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 64,
+                "corrected": 31,
+                "broken": 0,
+                "rate": 0.4844
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 3,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.0
+          }
+        },
+        "dsC": {
+          "macro_f1": 0.9789,
+          "accuracy": 0.9789,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 17,
+            "n_corrected": 9,
+            "rate": 0.5294,
+            "n_broken": 9,
+            "net_gain": 0,
+            "patterns": {
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 6,
+                "rate": 0.0
+              },
+              "authentic\u2192manipulated": {
+                "total": 12,
+                "corrected": 6,
+                "broken": 0,
+                "rate": 0.5
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 3,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 5,
+                "corrected": 3,
+                "broken": 0,
+                "rate": 0.6
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.0
+          }
+        },
+        "opensdi": {
+          "macro_f1": 0.9424,
+          "accuracy": 0.9422,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 27,
+            "n_corrected": 9,
+            "rate": 0.3333,
+            "n_broken": 15,
+            "net_gain": -6,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 19,
+                "corrected": 8,
+                "broken": 0,
+                "rate": 0.4211
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 13,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 8,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.125
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.0
+          }
+        },
+        "aigenproxy": {
+          "macro_f1": 0.9722,
+          "accuracy": 0.9722,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 18,
+            "n_corrected": 12,
+            "rate": 0.6667,
+            "n_broken": 2,
+            "net_gain": 10,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 15,
+                "corrected": 10,
+                "broken": 0,
+                "rate": 0.6667
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 1,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 3,
+                "corrected": 2,
+                "broken": 0,
+                "rate": 0.6667
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 1,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.0
+          }
+        }
+      }
+    },
+    {
+      "alpha": 1.1,
+      "avg_f1": 0.963,
+      "avg_corr": 0.4829,
+      "avg_net_gain": 6.25,
+      "avg_broken": 9.5,
+      "per_ds": {
+        "base": {
+          "macro_f1": 0.9573,
+          "accuracy": 0.9573,
+          "n": 1500,
+          "err_corr": {
+            "n_errors": 82,
+            "n_corrected": 33,
+            "rate": 0.4024,
+            "n_broken": 13,
+            "net_gain": 20,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 18,
+                "corrected": 5,
+                "broken": 0,
+                "rate": 0.2778
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 10,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 64,
+                "corrected": 28,
+                "broken": 0,
+                "rate": 0.4375
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 3,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.1
+          }
+        },
+        "dsC": {
+          "macro_f1": 0.9789,
+          "accuracy": 0.9789,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 17,
+            "n_corrected": 9,
+            "rate": 0.5294,
+            "n_broken": 9,
+            "net_gain": 0,
+            "patterns": {
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 6,
+                "rate": 0.0
+              },
+              "authentic\u2192manipulated": {
+                "total": 12,
+                "corrected": 6,
+                "broken": 0,
+                "rate": 0.5
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 3,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 5,
+                "corrected": 3,
+                "broken": 0,
+                "rate": 0.6
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.1
+          }
+        },
+        "opensdi": {
+          "macro_f1": 0.9435,
+          "accuracy": 0.9433,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 27,
+            "n_corrected": 9,
+            "rate": 0.3333,
+            "n_broken": 14,
+            "net_gain": -5,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 19,
+                "corrected": 8,
+                "broken": 0,
+                "rate": 0.4211
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 12,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 8,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.125
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.1
+          }
+        },
+        "aigenproxy": {
+          "macro_f1": 0.9722,
+          "accuracy": 0.9722,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 18,
+            "n_corrected": 12,
+            "rate": 0.6667,
+            "n_broken": 2,
+            "net_gain": 10,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 15,
+                "corrected": 10,
+                "broken": 0,
+                "rate": 0.6667
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 1,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 3,
+                "corrected": 2,
+                "broken": 0,
+                "rate": 0.6667
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 1,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.1
+          }
+        }
+      }
+    },
+    {
+      "alpha": 1.2,
+      "avg_f1": 0.9635,
+      "avg_corr": 0.4829,
+      "avg_net_gain": 6.75,
+      "avg_broken": 9.0,
+      "per_ds": {
+        "base": {
+          "macro_f1": 0.9573,
+          "accuracy": 0.9573,
+          "n": 1500,
+          "err_corr": {
+            "n_errors": 82,
+            "n_corrected": 33,
+            "rate": 0.4024,
+            "n_broken": 13,
+            "net_gain": 20,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 18,
+                "corrected": 5,
+                "broken": 0,
+                "rate": 0.2778
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 10,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 64,
+                "corrected": 28,
+                "broken": 0,
+                "rate": 0.4375
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 3,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.2
+          }
+        },
+        "dsC": {
+          "macro_f1": 0.9789,
+          "accuracy": 0.9789,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 17,
+            "n_corrected": 9,
+            "rate": 0.5294,
+            "n_broken": 9,
+            "net_gain": 0,
+            "patterns": {
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 6,
+                "rate": 0.0
+              },
+              "authentic\u2192manipulated": {
+                "total": 12,
+                "corrected": 6,
+                "broken": 0,
+                "rate": 0.5
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 3,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 5,
+                "corrected": 3,
+                "broken": 0,
+                "rate": 0.6
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.2
+          }
+        },
+        "opensdi": {
+          "macro_f1": 0.9457,
+          "accuracy": 0.9456,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 27,
+            "n_corrected": 9,
+            "rate": 0.3333,
+            "n_broken": 12,
+            "net_gain": -3,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 19,
+                "corrected": 8,
+                "broken": 0,
+                "rate": 0.4211
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 10,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 8,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.125
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.2
+          }
+        },
+        "aigenproxy": {
+          "macro_f1": 0.9722,
+          "accuracy": 0.9722,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 18,
+            "n_corrected": 12,
+            "rate": 0.6667,
+            "n_broken": 2,
+            "net_gain": 10,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 15,
+                "corrected": 10,
+                "broken": 0,
+                "rate": 0.6667
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 1,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 3,
+                "corrected": 2,
+                "broken": 0,
+                "rate": 0.6667
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 1,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.2
+          }
+        }
+      }
+    },
+    {
+      "alpha": 1.3,
+      "avg_f1": 0.9636,
+      "avg_corr": 0.4629,
+      "avg_net_gain": 6.75,
+      "avg_broken": 8.25,
+      "per_ds": {
+        "base": {
+          "macro_f1": 0.9566,
+          "accuracy": 0.9567,
+          "n": 1500,
+          "err_corr": {
+            "n_errors": 82,
+            "n_corrected": 31,
+            "rate": 0.378,
+            "n_broken": 12,
+            "net_gain": 19,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 18,
+                "corrected": 5,
+                "broken": 0,
+                "rate": 0.2778
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 10,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 64,
+                "corrected": 26,
+                "broken": 0,
+                "rate": 0.4062
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.3
+          }
+        },
+        "dsC": {
+          "macro_f1": 0.9789,
+          "accuracy": 0.9789,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 17,
+            "n_corrected": 9,
+            "rate": 0.5294,
+            "n_broken": 9,
+            "net_gain": 0,
+            "patterns": {
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 6,
+                "rate": 0.0
+              },
+              "authentic\u2192manipulated": {
+                "total": 12,
+                "corrected": 6,
+                "broken": 0,
+                "rate": 0.5
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 3,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 5,
+                "corrected": 3,
+                "broken": 0,
+                "rate": 0.6
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.3
+          }
+        },
+        "opensdi": {
+          "macro_f1": 0.9479,
+          "accuracy": 0.9478,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 27,
+            "n_corrected": 9,
+            "rate": 0.3333,
+            "n_broken": 10,
+            "net_gain": -1,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 19,
+                "corrected": 8,
+                "broken": 0,
+                "rate": 0.4211
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 8,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 8,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.125
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.3
+          }
+        },
+        "aigenproxy": {
+          "macro_f1": 0.9711,
+          "accuracy": 0.9711,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 18,
+            "n_corrected": 11,
+            "rate": 0.6111,
+            "n_broken": 2,
+            "net_gain": 9,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 15,
+                "corrected": 9,
+                "broken": 0,
+                "rate": 0.6
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 1,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 3,
+                "corrected": 2,
+                "broken": 0,
+                "rate": 0.6667
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 1,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.3
+          }
+        }
+      }
+    },
+    {
+      "alpha": 1.4,
+      "avg_f1": 0.9647,
+      "avg_corr": 0.4599,
+      "avg_net_gain": 7.75,
+      "avg_broken": 7.0,
+      "per_ds": {
+        "base": {
+          "macro_f1": 0.9566,
+          "accuracy": 0.9567,
+          "n": 1500,
+          "err_corr": {
+            "n_errors": 82,
+            "n_corrected": 30,
+            "rate": 0.3659,
+            "n_broken": 11,
+            "net_gain": 19,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 18,
+                "corrected": 5,
+                "broken": 0,
+                "rate": 0.2778
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 9,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 64,
+                "corrected": 25,
+                "broken": 0,
+                "rate": 0.3906
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.4
+          }
+        },
+        "dsC": {
+          "macro_f1": 0.98,
+          "accuracy": 0.98,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 17,
+            "n_corrected": 9,
+            "rate": 0.5294,
+            "n_broken": 8,
+            "net_gain": 1,
+            "patterns": {
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 6,
+                "rate": 0.0
+              },
+              "authentic\u2192manipulated": {
+                "total": 12,
+                "corrected": 6,
+                "broken": 0,
+                "rate": 0.5
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 5,
+                "corrected": 3,
+                "broken": 0,
+                "rate": 0.6
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.4
+          }
+        },
+        "opensdi": {
+          "macro_f1": 0.9512,
+          "accuracy": 0.9511,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 27,
+            "n_corrected": 9,
+            "rate": 0.3333,
+            "n_broken": 7,
+            "net_gain": 2,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 19,
+                "corrected": 8,
+                "broken": 0,
+                "rate": 0.4211
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 5,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 8,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.125
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.4
+          }
+        },
+        "aigenproxy": {
+          "macro_f1": 0.9711,
+          "accuracy": 0.9711,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 18,
+            "n_corrected": 11,
+            "rate": 0.6111,
+            "n_broken": 2,
+            "net_gain": 9,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 15,
+                "corrected": 9,
+                "broken": 0,
+                "rate": 0.6
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 1,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 3,
+                "corrected": 2,
+                "broken": 0,
+                "rate": 0.6667
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 1,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.4
+          }
+        }
+      }
+    },
+    {
+      "alpha": 1.5,
+      "avg_f1": 0.9645,
+      "avg_corr": 0.4338,
+      "avg_net_gain": 7.25,
+      "avg_broken": 6.25,
+      "per_ds": {
+        "base": {
+          "macro_f1": 0.9546,
+          "accuracy": 0.9547,
+          "n": 1500,
+          "err_corr": {
+            "n_errors": 82,
+            "n_corrected": 26,
+            "rate": 0.3171,
+            "n_broken": 10,
+            "net_gain": 16,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 18,
+                "corrected": 5,
+                "broken": 0,
+                "rate": 0.2778
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 8,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 64,
+                "corrected": 21,
+                "broken": 0,
+                "rate": 0.3281
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.5
+          }
+        },
+        "dsC": {
+          "macro_f1": 0.98,
+          "accuracy": 0.98,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 17,
+            "n_corrected": 9,
+            "rate": 0.5294,
+            "n_broken": 8,
+            "net_gain": 1,
+            "patterns": {
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 6,
+                "rate": 0.0
+              },
+              "authentic\u2192manipulated": {
+                "total": 12,
+                "corrected": 6,
+                "broken": 0,
+                "rate": 0.5
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 5,
+                "corrected": 3,
+                "broken": 0,
+                "rate": 0.6
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.5
+          }
+        },
+        "opensdi": {
+          "macro_f1": 0.9523,
+          "accuracy": 0.9522,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 27,
+            "n_corrected": 9,
+            "rate": 0.3333,
+            "n_broken": 6,
+            "net_gain": 3,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 19,
+                "corrected": 8,
+                "broken": 0,
+                "rate": 0.4211
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 4,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 8,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.125
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.5
+          }
+        },
+        "aigenproxy": {
+          "macro_f1": 0.971,
+          "accuracy": 0.9711,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 18,
+            "n_corrected": 10,
+            "rate": 0.5556,
+            "n_broken": 1,
+            "net_gain": 9,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 15,
+                "corrected": 8,
+                "broken": 0,
+                "rate": 0.5333
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 1,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 3,
+                "corrected": 2,
+                "broken": 0,
+                "rate": 0.6667
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.5
+          }
+        }
+      }
+    },
+    {
+      "alpha": 1.6,
+      "avg_f1": 0.964,
+      "avg_corr": 0.403,
+      "avg_net_gain": 6.75,
+      "avg_broken": 6.0,
+      "per_ds": {
+        "base": {
+          "macro_f1": 0.9539,
+          "accuracy": 0.954,
+          "n": 1500,
+          "err_corr": {
+            "n_errors": 82,
+            "n_corrected": 25,
+            "rate": 0.3049,
+            "n_broken": 10,
+            "net_gain": 15,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 18,
+                "corrected": 4,
+                "broken": 0,
+                "rate": 0.2222
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 8,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 64,
+                "corrected": 21,
+                "broken": 0,
+                "rate": 0.3281
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.6
+          }
+        },
+        "dsC": {
+          "macro_f1": 0.98,
+          "accuracy": 0.98,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 17,
+            "n_corrected": 9,
+            "rate": 0.5294,
+            "n_broken": 8,
+            "net_gain": 1,
+            "patterns": {
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 6,
+                "rate": 0.0
+              },
+              "authentic\u2192manipulated": {
+                "total": 12,
+                "corrected": 6,
+                "broken": 0,
+                "rate": 0.5
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 5,
+                "corrected": 3,
+                "broken": 0,
+                "rate": 0.6
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.6
+          }
+        },
+        "opensdi": {
+          "macro_f1": 0.9534,
+          "accuracy": 0.9533,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 27,
+            "n_corrected": 9,
+            "rate": 0.3333,
+            "n_broken": 5,
+            "net_gain": 4,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 19,
+                "corrected": 8,
+                "broken": 0,
+                "rate": 0.4211
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 3,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 8,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.125
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.6
+          }
+        },
+        "aigenproxy": {
+          "macro_f1": 0.9688,
+          "accuracy": 0.9689,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 18,
+            "n_corrected": 8,
+            "rate": 0.4444,
+            "n_broken": 1,
+            "net_gain": 7,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 15,
+                "corrected": 7,
+                "broken": 0,
+                "rate": 0.4667
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 1,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 3,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.3333
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.6
+          }
+        }
+      }
+    },
+    {
+      "alpha": 1.7,
+      "avg_f1": 0.963,
+      "avg_corr": 0.3335,
+      "avg_net_gain": 5.75,
+      "avg_broken": 5.5,
+      "per_ds": {
+        "base": {
+          "macro_f1": 0.9533,
+          "accuracy": 0.9533,
+          "n": 1500,
+          "err_corr": {
+            "n_errors": 82,
+            "n_corrected": 24,
+            "rate": 0.2927,
+            "n_broken": 10,
+            "net_gain": 14,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 18,
+                "corrected": 4,
+                "broken": 0,
+                "rate": 0.2222
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 8,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 64,
+                "corrected": 20,
+                "broken": 0,
+                "rate": 0.3125
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.7
+          }
+        },
+        "dsC": {
+          "macro_f1": 0.9778,
+          "accuracy": 0.9778,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 17,
+            "n_corrected": 7,
+            "rate": 0.4118,
+            "n_broken": 8,
+            "net_gain": -1,
+            "patterns": {
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 6,
+                "rate": 0.0
+              },
+              "authentic\u2192manipulated": {
+                "total": 12,
+                "corrected": 4,
+                "broken": 0,
+                "rate": 0.3333
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 5,
+                "corrected": 3,
+                "broken": 0,
+                "rate": 0.6
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.7
+          }
+        },
+        "opensdi": {
+          "macro_f1": 0.9534,
+          "accuracy": 0.9533,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 27,
+            "n_corrected": 8,
+            "rate": 0.2963,
+            "n_broken": 4,
+            "net_gain": 4,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 19,
+                "corrected": 7,
+                "broken": 0,
+                "rate": 0.3684
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 1,
+                "rate": 0.0
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 3,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 8,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.125
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.7
+          }
+        },
+        "aigenproxy": {
+          "macro_f1": 0.9677,
+          "accuracy": 0.9678,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 18,
+            "n_corrected": 6,
+            "rate": 0.3333,
+            "n_broken": 0,
+            "net_gain": 6,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 15,
+                "corrected": 5,
+                "broken": 0,
+                "rate": 0.3333
+              },
+              "manipulated\u2192authentic": {
+                "total": 3,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.3333
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.7
+          }
+        }
+      }
+    },
+    {
+      "alpha": 1.8,
+      "avg_f1": 0.9622,
+      "avg_corr": 0.3058,
+      "avg_net_gain": 5.0,
+      "avg_broken": 5.5,
+      "per_ds": {
+        "base": {
+          "macro_f1": 0.9533,
+          "accuracy": 0.9533,
+          "n": 1500,
+          "err_corr": {
+            "n_errors": 82,
+            "n_corrected": 24,
+            "rate": 0.2927,
+            "n_broken": 10,
+            "net_gain": 14,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 18,
+                "corrected": 4,
+                "broken": 0,
+                "rate": 0.2222
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 8,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 64,
+                "corrected": 20,
+                "broken": 0,
+                "rate": 0.3125
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.8
+          }
+        },
+        "dsC": {
+          "macro_f1": 0.9778,
+          "accuracy": 0.9778,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 17,
+            "n_corrected": 7,
+            "rate": 0.4118,
+            "n_broken": 8,
+            "net_gain": -1,
+            "patterns": {
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 6,
+                "rate": 0.0
+              },
+              "authentic\u2192manipulated": {
+                "total": 12,
+                "corrected": 4,
+                "broken": 0,
+                "rate": 0.3333
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 5,
+                "corrected": 3,
+                "broken": 0,
+                "rate": 0.6
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.8
+          }
+        },
+        "opensdi": {
+          "macro_f1": 0.95,
+          "accuracy": 0.95,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 27,
+            "n_corrected": 5,
+            "rate": 0.1852,
+            "n_broken": 4,
+            "net_gain": 1,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 19,
+                "corrected": 4,
+                "broken": 0,
+                "rate": 0.2105
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 1,
+                "rate": 0.0
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 3,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 8,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.125
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.8
+          }
+        },
+        "aigenproxy": {
+          "macro_f1": 0.9677,
+          "accuracy": 0.9678,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 18,
+            "n_corrected": 6,
+            "rate": 0.3333,
+            "n_broken": 0,
+            "net_gain": 6,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 15,
+                "corrected": 5,
+                "broken": 0,
+                "rate": 0.3333
+              },
+              "manipulated\u2192authentic": {
+                "total": 3,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.3333
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.8
+          }
+        }
+      }
+    },
+    {
+      "alpha": 1.9,
+      "avg_f1": 0.962,
+      "avg_corr": 0.2888,
+      "avg_net_gain": 4.75,
+      "avg_broken": 5.25,
+      "per_ds": {
+        "base": {
+          "macro_f1": 0.9526,
+          "accuracy": 0.9527,
+          "n": 1500,
+          "err_corr": {
+            "n_errors": 82,
+            "n_corrected": 23,
+            "rate": 0.2805,
+            "n_broken": 10,
+            "net_gain": 13,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 18,
+                "corrected": 4,
+                "broken": 0,
+                "rate": 0.2222
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 8,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 64,
+                "corrected": 19,
+                "broken": 0,
+                "rate": 0.2969
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.9
+          }
+        },
+        "dsC": {
+          "macro_f1": 0.9778,
+          "accuracy": 0.9778,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 17,
+            "n_corrected": 7,
+            "rate": 0.4118,
+            "n_broken": 8,
+            "net_gain": -1,
+            "patterns": {
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 6,
+                "rate": 0.0
+              },
+              "authentic\u2192manipulated": {
+                "total": 12,
+                "corrected": 4,
+                "broken": 0,
+                "rate": 0.3333
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 5,
+                "corrected": 3,
+                "broken": 0,
+                "rate": 0.6
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.9
+          }
+        },
+        "opensdi": {
+          "macro_f1": 0.9511,
+          "accuracy": 0.9511,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 27,
+            "n_corrected": 5,
+            "rate": 0.1852,
+            "n_broken": 3,
+            "net_gain": 2,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 19,
+                "corrected": 4,
+                "broken": 0,
+                "rate": 0.2105
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 1,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 8,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.125
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.9
+          }
+        },
+        "aigenproxy": {
+          "macro_f1": 0.9666,
+          "accuracy": 0.9667,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 18,
+            "n_corrected": 5,
+            "rate": 0.2778,
+            "n_broken": 0,
+            "net_gain": 5,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 15,
+                "corrected": 4,
+                "broken": 0,
+                "rate": 0.2667
+              },
+              "manipulated\u2192authentic": {
+                "total": 3,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.3333
+              }
+            }
+          },
+          "actions": {
+            "alpha": 1.9
+          }
+        }
+      }
+    },
+    {
+      "alpha": 2.0,
+      "avg_f1": 0.9621,
+      "avg_corr": 0.268,
+      "avg_net_gain": 4.75,
+      "avg_broken": 4.5,
+      "per_ds": {
+        "base": {
+          "macro_f1": 0.9519,
+          "accuracy": 0.952,
+          "n": 1500,
+          "err_corr": {
+            "n_errors": 82,
+            "n_corrected": 21,
+            "rate": 0.2561,
+            "n_broken": 9,
+            "net_gain": 12,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 18,
+                "corrected": 4,
+                "broken": 0,
+                "rate": 0.2222
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 7,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 64,
+                "corrected": 17,
+                "broken": 0,
+                "rate": 0.2656
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 2.0
+          }
+        },
+        "dsC": {
+          "macro_f1": 0.9778,
+          "accuracy": 0.9778,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 17,
+            "n_corrected": 6,
+            "rate": 0.3529,
+            "n_broken": 7,
+            "net_gain": -1,
+            "patterns": {
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 5,
+                "rate": 0.0
+              },
+              "authentic\u2192manipulated": {
+                "total": 12,
+                "corrected": 3,
+                "broken": 0,
+                "rate": 0.25
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 5,
+                "corrected": 3,
+                "broken": 0,
+                "rate": 0.6
+              }
+            }
+          },
+          "actions": {
+            "alpha": 2.0
+          }
+        },
+        "opensdi": {
+          "macro_f1": 0.9522,
+          "accuracy": 0.9522,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 27,
+            "n_corrected": 5,
+            "rate": 0.1852,
+            "n_broken": 2,
+            "net_gain": 3,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 19,
+                "corrected": 4,
+                "broken": 0,
+                "rate": 0.2105
+              },
+              "manipulated\u2192authentic": {
+                "total": 8,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.125
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "alpha": 2.0
+          }
+        },
+        "aigenproxy": {
+          "macro_f1": 0.9666,
+          "accuracy": 0.9667,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 18,
+            "n_corrected": 5,
+            "rate": 0.2778,
+            "n_broken": 0,
+            "net_gain": 5,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 15,
+                "corrected": 4,
+                "broken": 0,
+                "rate": 0.2667
+              },
+              "manipulated\u2192authentic": {
+                "total": 3,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.3333
+              }
+            }
+          },
+          "actions": {
+            "alpha": 2.0
+          }
+        }
+      }
+    }
+  ],
+  "best": {
+    "alpha": 1.4,
+    "avg_f1": 0.9647,
+    "avg_corr": 0.4599,
+    "avg_net_gain": 7.75,
+    "avg_broken": 7.0,
+    "per_ds": {
+      "base": {
+        "macro_f1": 0.9566,
+        "accuracy": 0.9567,
+        "n": 1500,
+        "err_corr": {
+          "n_errors": 82,
+          "n_corrected": 30,
+          "rate": 0.3659,
+          "n_broken": 11,
+          "net_gain": 19,
+          "patterns": {
+            "authentic\u2192manipulated": {
+              "total": 18,
+              "corrected": 5,
+              "broken": 0,
+              "rate": 0.2778
+            },
+            "authentic\u2713": {
+              "total": 0,
+              "corrected": 0,
+              "broken": 9,
+              "rate": 0.0
+            },
+            "manipulated\u2192authentic": {
+              "total": 64,
+              "corrected": 25,
+              "broken": 0,
+              "rate": 0.3906
+            },
+            "manipulated\u2713": {
+              "total": 0,
+              "corrected": 0,
+              "broken": 2,
+              "rate": 0.0
+            }
+          }
+        },
+        "actions": {
+          "alpha": 1.4
+        }
+      },
+      "dsC": {
+        "macro_f1": 0.98,
+        "accuracy": 0.98,
+        "n": 900,
+        "err_corr": {
+          "n_errors": 17,
+          "n_corrected": 9,
+          "rate": 0.5294,
+          "n_broken": 8,
+          "net_gain": 1,
+          "patterns": {
+            "authentic\u2713": {
+              "total": 0,
+              "corrected": 0,
+              "broken": 6,
+              "rate": 0.0
+            },
+            "authentic\u2192manipulated": {
+              "total": 12,
+              "corrected": 6,
+              "broken": 0,
+              "rate": 0.5
+            },
+            "manipulated\u2713": {
+              "total": 0,
+              "corrected": 0,
+              "broken": 2,
+              "rate": 0.0
+            },
+            "manipulated\u2192authentic": {
+              "total": 5,
+              "corrected": 3,
+              "broken": 0,
+              "rate": 0.6
+            }
+          }
+        },
+        "actions": {
+          "alpha": 1.4
+        }
+      },
+      "opensdi": {
+        "macro_f1": 0.9512,
+        "accuracy": 0.9511,
+        "n": 900,
+        "err_corr": {
+          "n_errors": 27,
+          "n_corrected": 9,
+          "rate": 0.3333,
+          "n_broken": 7,
+          "net_gain": 2,
+          "patterns": {
+            "authentic\u2192manipulated": {
+              "total": 19,
+              "corrected": 8,
+              "broken": 0,
+              "rate": 0.4211
+            },
+            "authentic\u2713": {
+              "total": 0,
+              "corrected": 0,
+              "broken": 2,
+              "rate": 0.0
+            },
+            "manipulated\u2713": {
+              "total": 0,
+              "corrected": 0,
+              "broken": 5,
+              "rate": 0.0
+            },
+            "manipulated\u2192authentic": {
+              "total": 8,
+              "corrected": 1,
+              "broken": 0,
+              "rate": 0.125
+            }
+          }
+        },
+        "actions": {
+          "alpha": 1.4
+        }
+      },
+      "aigenproxy": {
+        "macro_f1": 0.9711,
+        "accuracy": 0.9711,
+        "n": 900,
+        "err_corr": {
+          "n_errors": 18,
+          "n_corrected": 11,
+          "rate": 0.6111,
+          "n_broken": 2,
+          "net_gain": 9,
+          "patterns": {
+            "authentic\u2192manipulated": {
+              "total": 15,
+              "corrected": 9,
+              "broken": 0,
+              "rate": 0.6
+            },
+            "authentic\u2713": {
+              "total": 0,
+              "corrected": 0,
+              "broken": 1,
+              "rate": 0.0
+            },
+            "manipulated\u2192authentic": {
+              "total": 3,
+              "corrected": 2,
+              "broken": 0,
+              "rate": 0.6667
+            },
+            "manipulated\u2713": {
+              "total": 0,
+              "corrected": 0,
+              "broken": 1,
+              "rate": 0.0
+            }
+          }
+        },
+        "actions": {
+          "alpha": 1.4
+        }
+      }
+    }
+  }
+}

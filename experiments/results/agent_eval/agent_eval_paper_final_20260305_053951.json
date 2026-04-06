@@ -1,0 +1,481 @@
+{
+  "timestamp": "2026-03-05T05:39:51.404384",
+  "label": "paper_final",
+  "config_path": "experiments/configs/paper_final.yaml",
+  "jsonl_path": "experiments/results/phase2_patha_scale500_gain_predictor/patha_agent_outputs_20260304_080157.jsonl",
+  "n_samples": 1500,
+  "seeds": [
+    300,
+    301,
+    302,
+    303,
+    304,
+    305,
+    306,
+    307,
+    308,
+    309
+  ],
+  "results_per_seed": [
+    {
+      "cobra": 0.26127897967697716,
+      "daac_gradient_boosting": 0.8562054234097246,
+      "agent_frequency": 0.4272031573374404,
+      "agent_noise": 0.33629127287593485,
+      "agent_fatformer": 0.3596207713854773,
+      "agent_spatial": 0.2988888888888889
+    },
+    {
+      "cobra": 0.27123472845846425,
+      "daac_gradient_boosting": 0.8470392869438749,
+      "agent_frequency": 0.4101846940251724,
+      "agent_noise": 0.3528614466408115,
+      "agent_fatformer": 0.3063372226035232,
+      "agent_spatial": 0.31274309805521555
+    },
+    {
+      "cobra": 0.25345176873928627,
+      "daac_gradient_boosting": 0.8698722212497811,
+      "agent_frequency": 0.4252727243429639,
+      "agent_noise": 0.3349939379313119,
+      "agent_fatformer": 0.3677369418421545,
+      "agent_spatial": 0.2919693665032224
+    },
+    {
+      "cobra": 0.27051824964710625,
+      "daac_gradient_boosting": 0.8370031871977252,
+      "agent_frequency": 0.4471380471380472,
+      "agent_noise": 0.34069404273252624,
+      "agent_fatformer": 0.334026334026334,
+      "agent_spatial": 0.31312330757545737
+    },
+    {
+      "cobra": 0.2641455195429571,
+      "daac_gradient_boosting": 0.8562458144409094,
+      "agent_frequency": 0.4229446164430685,
+      "agent_noise": 0.31064473435432033,
+      "agent_fatformer": 0.334026334026334,
+      "agent_spatial": 0.31185325577848944
+    },
+    {
+      "cobra": 0.2777102599753345,
+      "daac_gradient_boosting": 0.8672720352799589,
+      "agent_frequency": 0.4139559849704777,
+      "agent_noise": 0.36705276705276707,
+      "agent_fatformer": 0.338429287600764,
+      "agent_spatial": 0.301047191622467
+    },
+    {
+      "cobra": 0.27279492265398936,
+      "daac_gradient_boosting": 0.8937132519222072,
+      "agent_frequency": 0.4302975576195391,
+      "agent_noise": 0.3509120379882657,
+      "agent_fatformer": 0.334026334026334,
+      "agent_spatial": 0.30236782067468493
+    },
+    {
+      "cobra": 0.25938501335872266,
+      "daac_gradient_boosting": 0.8669314232855821,
+      "agent_frequency": 0.4338050593557201,
+      "agent_noise": 0.35317215715818556,
+      "agent_fatformer": 0.338429287600764,
+      "agent_spatial": 0.318083785373505
+    },
+    {
+      "cobra": 0.25506812894649383,
+      "daac_gradient_boosting": 0.8674510931626284,
+      "agent_frequency": 0.4319703722843055,
+      "agent_noise": 0.35895491085024106,
+      "agent_fatformer": 0.32956532035075253,
+      "agent_spatial": 0.300019934879394
+    },
+    {
+      "cobra": 0.27849867083642094,
+      "daac_gradient_boosting": 0.8509799959587796,
+      "agent_frequency": 0.44152046783625726,
+      "agent_noise": 0.3393414052467438,
+      "agent_fatformer": 0.3427755819060167,
+      "agent_spatial": 0.333327927255821
+    }
+  ],
+  "aggregated": {
+    "cobra": {
+      "mean": 0.26640862418357525,
+      "std": 0.008556367519790683
+    },
+    "daac_gradient_boosting": {
+      "mean": 0.8612713732851172,
+      "std": 0.01476825242901154
+    },
+    "agent_frequency": {
+      "mean": 0.42842926813529925,
+      "std": 0.01072481192113072
+    },
+    "agent_noise": {
+      "mean": 0.3444918712831108,
+      "std": 0.014996097022464178
+    },
+    "agent_fatformer": {
+      "mean": 0.33849734153684546,
+      "std": 0.015790788753791033
+    },
+    "agent_spatial": {
+      "mean": 0.3083424576607146,
+      "std": 0.011354931428296581
+    }
+  },
+  "pvalues_vs_daac_gbm": {
+    "cobra": 0.001953125,
+    "daac_gradient_boosting": NaN,
+    "agent_frequency": 0.001953125,
+    "agent_noise": 0.001953125,
+    "agent_fatformer": 0.001953125,
+    "agent_spatial": 0.001953125
+  },
+  "extras_per_seed": [
+    {
+      "perclass": {
+        "cobra": {
+          "authentic": 0.5602240896358543,
+          "manipulated": 0.18439716312056736,
+          "ai_generated": 0.0392156862745098
+        },
+        "daac_gradient_boosting": {
+          "authentic": 0.8240740740740741,
+          "manipulated": 0.7849462365591398,
+          "ai_generated": 0.9595959595959596
+        },
+        "agent_frequency": {
+          "authentic": 0.810126582278481,
+          "manipulated": 0.4714828897338403,
+          "ai_generated": 0.0
+        },
+        "agent_noise": {
+          "authentic": 0.5269461077844312,
+          "manipulated": 0.4819277108433735,
+          "ai_generated": 0.0
+        },
+        "agent_fatformer": {
+          "authentic": 0.5494505494505495,
+          "manipulated": 0.0,
+          "ai_generated": 0.5294117647058824
+        },
+        "agent_spatial": {
+          "authentic": 0.5666666666666667,
+          "manipulated": 0.33,
+          "ai_generated": 0.0
+        }
+      }
+    },
+    {
+      "perclass": {
+        "cobra": {
+          "authentic": 0.5657142857142857,
+          "manipulated": 0.22818791946308725,
+          "ai_generated": 0.019801980198019802
+        },
+        "daac_gradient_boosting": {
+          "authentic": 0.8041237113402062,
+          "manipulated": 0.7922705314009661,
+          "ai_generated": 0.9447236180904522
+        },
+        "agent_frequency": {
+          "authentic": 0.7811158798283262,
+          "manipulated": 0.449438202247191,
+          "ai_generated": 0.0
+        },
+        "agent_noise": {
+          "authentic": 0.5559105431309904,
+          "manipulated": 0.5026737967914439,
+          "ai_generated": 0.0
+        },
+        "agent_fatformer": {
+          "authentic": 0.5319148936170213,
+          "manipulated": 0.0,
+          "ai_generated": 0.3870967741935484
+        },
+        "agent_spatial": {
+          "authentic": 0.5754385964912281,
+          "manipulated": 0.3627906976744186,
+          "ai_generated": 0.0
+        }
+      }
+    },
+    {
+      "perclass": {
+        "cobra": {
+          "authentic": 0.5797101449275363,
+          "manipulated": 0.18064516129032257,
+          "ai_generated": 0.0
+        },
+        "daac_gradient_boosting": {
+          "authentic": 0.8275862068965517,
+          "manipulated": 0.8020304568527918,
+          "ai_generated": 0.98
+        },
+        "agent_frequency": {
+          "authentic": 0.8034934497816594,
+          "manipulated": 0.47232472324723246,
+          "ai_generated": 0.0
+        },
+        "agent_noise": {
+          "authentic": 0.5678233438485805,
+          "manipulated": 0.4371584699453552,
+          "ai_generated": 0.0
+        },
+        "agent_fatformer": {
+          "authentic": 0.5524861878453039,
+          "manipulated": 0.0,
+          "ai_generated": 0.5507246376811594
+        },
+        "agent_spatial": {
+          "authentic": 0.5536332179930796,
+          "manipulated": 0.3222748815165877,
+          "ai_generated": 0.0
+        }
+      }
+    },
+    {
+      "perclass": {
+        "cobra": {
+          "authentic": 0.5747126436781609,
+          "manipulated": 0.23684210526315788,
+          "ai_generated": 0.0
+        },
+        "daac_gradient_boosting": {
+          "authentic": 0.7817258883248731,
+          "manipulated": 0.7745098039215687,
+          "ai_generated": 0.9547738693467337
+        },
+        "agent_frequency": {
+          "authentic": 0.8177777777777778,
+          "manipulated": 0.5236363636363637,
+          "ai_generated": 0.0
+        },
+        "agent_noise": {
+          "authentic": 0.5579937304075235,
+          "manipulated": 0.46408839779005523,
+          "ai_generated": 0.0
+        },
+        "agent_fatformer": {
+          "authentic": 0.5405405405405406,
+          "manipulated": 0.0,
+          "ai_generated": 0.46153846153846156
+        },
+        "agent_spatial": {
+          "authentic": 0.5510204081632653,
+          "manipulated": 0.3883495145631068,
+          "ai_generated": 0.0
+        }
+      }
+    },
+    {
+      "perclass": {
+        "cobra": {
+          "authentic": 0.5698005698005698,
+          "manipulated": 0.1643835616438356,
+          "ai_generated": 0.05825242718446602
+        },
+        "daac_gradient_boosting": {
+          "authentic": 0.8133971291866029,
+          "manipulated": 0.7853403141361257,
+          "ai_generated": 0.97
+        },
+        "agent_frequency": {
+          "authentic": 0.7982456140350878,
+          "manipulated": 0.47058823529411764,
+          "ai_generated": 0.0
+        },
+        "agent_noise": {
+          "authentic": 0.5365853658536586,
+          "manipulated": 0.3953488372093023,
+          "ai_generated": 0.0
+        },
+        "agent_fatformer": {
+          "authentic": 0.5405405405405406,
+          "manipulated": 0.0,
+          "ai_generated": 0.46153846153846156
+        },
+        "agent_spatial": {
+          "authentic": 0.5804195804195804,
+          "manipulated": 0.35514018691588783,
+          "ai_generated": 0.0
+        }
+      }
+    },
+    {
+      "perclass": {
+        "cobra": {
+          "authentic": 0.5780346820809249,
+          "manipulated": 0.23529411764705882,
+          "ai_generated": 0.019801980198019802
+        },
+        "daac_gradient_boosting": {
+          "authentic": 0.8292682926829268,
+          "manipulated": 0.8080808080808081,
+          "ai_generated": 0.9644670050761421
+        },
+        "agent_frequency": {
+          "authentic": 0.782608695652174,
+          "manipulated": 0.45925925925925926,
+          "ai_generated": 0.0
+        },
+        "agent_noise": {
+          "authentic": 0.5714285714285714,
+          "manipulated": 0.5297297297297298,
+          "ai_generated": 0.0
+        },
+        "agent_fatformer": {
+          "authentic": 0.5420054200542005,
+          "manipulated": 0.0,
+          "ai_generated": 0.4732824427480916
+        },
+        "agent_spatial": {
+          "authentic": 0.5403508771929825,
+          "manipulated": 0.3627906976744186,
+          "ai_generated": 0.0
+        }
+      }
+    },
+    {
+      "perclass": {
+        "cobra": {
+          "authentic": 0.5806451612903226,
+          "manipulated": 0.1794871794871795,
+          "ai_generated": 0.05825242718446602
+        },
+        "daac_gradient_boosting": {
+          "authentic": 0.8656716417910447,
+          "manipulated": 0.845771144278607,
+          "ai_generated": 0.9696969696969697
+        },
+        "agent_frequency": {
+          "authentic": 0.7982456140350878,
+          "manipulated": 0.49264705882352944,
+          "ai_generated": 0.0
+        },
+        "agent_noise": {
+          "authentic": 0.5796178343949044,
+          "manipulated": 0.4731182795698925,
+          "ai_generated": 0.0
+        },
+        "agent_fatformer": {
+          "authentic": 0.5405405405405406,
+          "manipulated": 0.0,
+          "ai_generated": 0.46153846153846156
+        },
+        "agent_spatial": {
+          "authentic": 0.5704697986577181,
+          "manipulated": 0.33663366336633666,
+          "ai_generated": 0.0
+        }
+      }
+    },
+    {
+      "perclass": {
+        "cobra": {
+          "authentic": 0.56657223796034,
+          "manipulated": 0.1917808219178082,
+          "ai_generated": 0.019801980198019802
+        },
+        "daac_gradient_boosting": {
+          "authentic": 0.83,
+          "manipulated": 0.8059701492537313,
+          "ai_generated": 0.964824120603015
+        },
+        "agent_frequency": {
+          "authentic": 0.8105726872246696,
+          "manipulated": 0.4908424908424908,
+          "ai_generated": 0.0
+        },
+        "agent_noise": {
+          "authentic": 0.554140127388535,
+          "manipulated": 0.5053763440860215,
+          "ai_generated": 0.0
+        },
+        "agent_fatformer": {
+          "authentic": 0.5420054200542005,
+          "manipulated": 0.0,
+          "ai_generated": 0.4732824427480916
+        },
+        "agent_spatial": {
+          "authentic": 0.5804195804195804,
+          "manipulated": 0.37383177570093457,
+          "ai_generated": 0.0
+        }
+      }
+    },
+    {
+      "perclass": {
+        "cobra": {
+          "authentic": 0.559322033898305,
+          "manipulated": 0.16666666666666666,
+          "ai_generated": 0.0392156862745098
+        },
+        "daac_gradient_boosting": {
+          "authentic": 0.8177339901477833,
+          "manipulated": 0.81,
+          "ai_generated": 0.9746192893401016
+        },
+        "agent_frequency": {
+          "authentic": 0.8141592920353983,
+          "manipulated": 0.48175182481751827,
+          "ai_generated": 0.0
+        },
+        "agent_noise": {
+          "authentic": 0.5741324921135647,
+          "manipulated": 0.5027322404371585,
+          "ai_generated": 0.0
+        },
+        "agent_fatformer": {
+          "authentic": 0.5390835579514824,
+          "manipulated": 0.0,
+          "ai_generated": 0.4496124031007752
+        },
+        "agent_spatial": {
+          "authentic": 0.5436241610738255,
+          "manipulated": 0.3564356435643564,
+          "ai_generated": 0.0
+        }
+      }
+    },
+    {
+      "perclass": {
+        "cobra": {
+          "authentic": 0.5934718100890207,
+          "manipulated": 0.2222222222222222,
+          "ai_generated": 0.019801980198019802
+        },
+        "daac_gradient_boosting": {
+          "authentic": 0.8118811881188119,
+          "manipulated": 0.7920792079207921,
+          "ai_generated": 0.9489795918367347
+        },
+        "agent_frequency": {
+          "authentic": 0.8245614035087719,
+          "manipulated": 0.5,
+          "ai_generated": 0.0
+        },
+        "agent_noise": {
+          "authentic": 0.5506329113924051,
+          "manipulated": 0.4673913043478261,
+          "ai_generated": 0.0
+        },
+        "agent_fatformer": {
+          "authentic": 0.5434782608695652,
+          "manipulated": 0.0,
+          "ai_generated": 0.48484848484848486
+        },
+        "agent_spatial": {
+          "authentic": 0.6379928315412187,
+          "manipulated": 0.36199095022624433,
+          "ai_generated": 0.0
+        }
+      }
+    }
+  ],
+  "tables": {
+    "table1_methods": "\n======================================================================\nTable 1: 개별 에이전트 vs DAAC-GBM (Macro-F1, 10 seeds)\n======================================================================\nMethod                          F1 mean±std   p vs DAAC-GBM\n----------------------------------------------------------------------\nFrequency (단독)               0.428±0.011              0.0020**\nNoise (단독)                   0.344±0.015              0.0020**\nFatFormer (단독)               0.338±0.016              0.0020**\nSpatial (단독)                 0.308±0.011              0.0020**\nCOBRA (앙상블)                  0.266±0.009              0.0020**\nDAAC-GBM (앙상블)               0.861±0.015                     —\n======================================================================",
+    "table2_perclass": "\n======================================================================\nTable 2: Per-class F1 (10 seeds 평균)\n======================================================================\nMethod                  Authentic   Manipulated     AI-Gen\n----------------------------------------------------------------------\nFrequency                   0.804         0.481      0.000\nNoise                       0.558         0.476      0.000\nFatFormer                   0.542         0.000      0.473\nSpatial                     0.570         0.355      0.000\nCOBRA                       0.573         0.199      0.027\nDAAC-GBM                    0.821         0.800      0.963\n======================================================================"
+  }
+}

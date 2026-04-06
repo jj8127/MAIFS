@@ -1,0 +1,116 @@
+{
+  "source_summary": "/data/jj812_files/MAIFS/experiments/results/phase2_patha_case3_scale300/repeated_split_summary_10runs_300_309_20260303.json",
+  "n_runs": 10,
+  "rows": [
+    {
+      "split_seed": 300,
+      "cobra_only_f1": 0.2486772486772487,
+      "daac_only_f1": 0.8149765535005077,
+      "cobra_plus_daac_f1": 0.7141969141969141,
+      "daac_minus_cobra_f1": 0.566299304823259,
+      "fusion_minus_cobra_f1": 0.4655196655196654,
+      "fusion_minus_daac_f1": -0.10077963930359357
+    },
+    {
+      "split_seed": 301,
+      "cobra_only_f1": 0.23524403024178456,
+      "daac_only_f1": 0.8252297565822156,
+      "cobra_plus_daac_f1": 0.683917878528657,
+      "daac_minus_cobra_f1": 0.5899857263404311,
+      "fusion_minus_cobra_f1": 0.4486738482868725,
+      "fusion_minus_daac_f1": -0.1413118780535586
+    },
+    {
+      "split_seed": 302,
+      "cobra_only_f1": 0.25383960915366327,
+      "daac_only_f1": 0.8449048584951222,
+      "cobra_plus_daac_f1": 0.7593823753814344,
+      "daac_minus_cobra_f1": 0.591065249341459,
+      "fusion_minus_cobra_f1": 0.5055427662277712,
+      "fusion_minus_daac_f1": -0.08552248311368782
+    },
+    {
+      "split_seed": 303,
+      "cobra_only_f1": 0.25732162574267836,
+      "daac_only_f1": 0.8399854200838345,
+      "cobra_plus_daac_f1": 0.772842897842898,
+      "daac_minus_cobra_f1": 0.5826637943411561,
+      "fusion_minus_cobra_f1": 0.5155212721002196,
+      "fusion_minus_daac_f1": -0.06714252224093653
+    },
+    {
+      "split_seed": 304,
+      "cobra_only_f1": 0.30718954248366015,
+      "daac_only_f1": 0.8987116733856463,
+      "cobra_plus_daac_f1": 0.8637392606922866,
+      "daac_minus_cobra_f1": 0.5915221309019861,
+      "fusion_minus_cobra_f1": 0.5565497182086264,
+      "fusion_minus_daac_f1": -0.03497241269335971
+    },
+    {
+      "split_seed": 305,
+      "cobra_only_f1": 0.2650967430971562,
+      "daac_only_f1": 0.8406182869935246,
+      "cobra_plus_daac_f1": 0.7625863928022202,
+      "daac_minus_cobra_f1": 0.5755215438963683,
+      "fusion_minus_cobra_f1": 0.497489649705064,
+      "fusion_minus_daac_f1": -0.07803189419130441
+    },
+    {
+      "split_seed": 306,
+      "cobra_only_f1": 0.27656157199178705,
+      "daac_only_f1": 0.8157198551935393,
+      "cobra_plus_daac_f1": 0.7701989237559707,
+      "daac_minus_cobra_f1": 0.5391582832017523,
+      "fusion_minus_cobra_f1": 0.4936373517641836,
+      "fusion_minus_daac_f1": -0.045520931437568635
+    },
+    {
+      "split_seed": 307,
+      "cobra_only_f1": 0.2724673202614379,
+      "daac_only_f1": 0.8441891954989028,
+      "cobra_plus_daac_f1": 0.8038569604086846,
+      "daac_minus_cobra_f1": 0.5717218752374649,
+      "fusion_minus_cobra_f1": 0.5313896401472467,
+      "fusion_minus_daac_f1": -0.040332235090218216
+    },
+    {
+      "split_seed": 308,
+      "cobra_only_f1": 0.26857372427303206,
+      "daac_only_f1": 0.8379032790359169,
+      "cobra_plus_daac_f1": 0.8046361708414467,
+      "daac_minus_cobra_f1": 0.5693295547628848,
+      "fusion_minus_cobra_f1": 0.5360624465684146,
+      "fusion_minus_daac_f1": -0.03326710819447021
+    },
+    {
+      "split_seed": 309,
+      "cobra_only_f1": 0.2691707199903921,
+      "daac_only_f1": 0.7905241501066929,
+      "cobra_plus_daac_f1": 0.7025978372363914,
+      "daac_minus_cobra_f1": 0.5213534301163008,
+      "fusion_minus_cobra_f1": 0.43342711724599925,
+      "fusion_minus_daac_f1": -0.0879263128703015
+    }
+  ],
+  "aggregate_case3": {
+    "cobra_only_f1_mean": 0.26541421359128403,
+    "cobra_only_f1_std": 0.018257080972916086,
+    "daac_only_f1_mean": 0.8352763028875902,
+    "daac_only_f1_std": 0.026743281947870547,
+    "cobra_plus_daac_f1_mean": 0.7637955611686904,
+    "cobra_plus_daac_f1_std": 0.050981409564752264,
+    "daac_minus_cobra_mean": 0.5698620892963063,
+    "daac_minus_cobra_std": 0.021981480383906866,
+    "daac_minus_cobra_positive_count": 10,
+    "daac_minus_cobra_sign_test_pvalue": 0.001953125,
+    "fusion_minus_cobra_mean": 0.49838134757740643,
+    "fusion_minus_cobra_std": 0.037458127507752216,
+    "fusion_minus_cobra_positive_count": 10,
+    "fusion_minus_cobra_sign_test_pvalue": 0.001953125,
+    "fusion_minus_daac_mean": -0.07148074171889993,
+    "fusion_minus_daac_std": 0.032713084768535516,
+    "fusion_minus_daac_positive_count": 0,
+    "fusion_minus_daac_sign_test_pvalue": 0.001953125
+  }
+}

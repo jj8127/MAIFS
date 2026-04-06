@@ -1,0 +1,786 @@
+{
+  "timestamp": "2026-03-25T08:45:16.947916",
+  "experiment": "comp_noTS_richer_veto",
+  "mnv2_label": "strong",
+  "mnv2_ts": "20260319_070725",
+  "weights": {
+    "reverse_manip_weight": 6.0,
+    "reverse_auth_weight": 2.0,
+    "non_casia_harm_weight": 1.5
+  },
+  "references": {
+    "scalar_result": "data/experiments/results/hema_icwmv_veto/hema_icwmv_veto_loo_cd_20260323_114321.json",
+    "meta_warmstart_result": "data/experiments/results/hema_icwmv_veto/hema_icwmv_veto_meta_warmstart_20260325_082654.json"
+  },
+  "baselines": {
+    "icwmv": {
+      "per_ds": {
+        "base": {
+          "macro_f1": 0.9586,
+          "accuracy": 0.9587,
+          "n": 1500,
+          "err_corr": {
+            "n_errors": 82,
+            "n_corrected": 36,
+            "rate": 0.439,
+            "n_broken": 14,
+            "net_gain": 22,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 18,
+                "corrected": 5,
+                "broken": 0,
+                "rate": 0.2778
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 11,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 64,
+                "corrected": 31,
+                "broken": 0,
+                "rate": 0.4844
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 3,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "ai_lock_or_icwmv": 1500
+          }
+        },
+        "dsC": {
+          "macro_f1": 0.9789,
+          "accuracy": 0.9789,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 17,
+            "n_corrected": 9,
+            "rate": 0.5294,
+            "n_broken": 9,
+            "net_gain": 0,
+            "patterns": {
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 6,
+                "rate": 0.0
+              },
+              "authentic\u2192manipulated": {
+                "total": 12,
+                "corrected": 6,
+                "broken": 0,
+                "rate": 0.5
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 3,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 5,
+                "corrected": 3,
+                "broken": 0,
+                "rate": 0.6
+              }
+            }
+          },
+          "actions": {
+            "ai_lock_or_icwmv": 900
+          }
+        },
+        "opensdi": {
+          "macro_f1": 0.9424,
+          "accuracy": 0.9422,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 27,
+            "n_corrected": 9,
+            "rate": 0.3333,
+            "n_broken": 15,
+            "net_gain": -6,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 19,
+                "corrected": 8,
+                "broken": 0,
+                "rate": 0.4211
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 13,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 8,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.125
+              }
+            }
+          },
+          "actions": {
+            "ai_lock_or_icwmv": 900
+          }
+        },
+        "aigenproxy": {
+          "macro_f1": 0.9722,
+          "accuracy": 0.9722,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 18,
+            "n_corrected": 12,
+            "rate": 0.6667,
+            "n_broken": 2,
+            "net_gain": 10,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 15,
+                "corrected": 10,
+                "broken": 0,
+                "rate": 0.6667
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 1,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 3,
+                "corrected": 2,
+                "broken": 0,
+                "rate": 0.6667
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 1,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "ai_lock_or_icwmv": 900
+          }
+        }
+      },
+      "avg_f1": 0.963,
+      "avg_corr": 0.4921,
+      "avg_net_gain": 6.5
+    },
+    "scalar_veto": {
+      "per_ds": {
+        "base": {
+          "macro_f1": 0.9599,
+          "accuracy": 0.96,
+          "n": 1500,
+          "err_corr": {
+            "n_errors": 82,
+            "n_corrected": 33,
+            "rate": 0.4024,
+            "n_broken": 9,
+            "net_gain": 24,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 18,
+                "corrected": 5,
+                "broken": 0,
+                "rate": 0.2778
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 6,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 64,
+                "corrected": 28,
+                "broken": 0,
+                "rate": 0.4375
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 3,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "icwmv_no_override": 948,
+            "keep_icwmv_override": 42,
+            "revert_to_mnv2": 8,
+            "ai_lock": 502
+          },
+          "best_cfg": {
+            "tau": 0.35,
+            "pos_weight": 4.0,
+            "model_key": "logreg",
+            "avg_f1": 0.9641333333333334,
+            "avg_corr": 0.46659999999999996,
+            "avg_net_gain": 1.0,
+            "train_override_candidates": 56,
+            "train_keep_rate": 0.5357
+          }
+        },
+        "dsC": {
+          "macro_f1": 0.9789,
+          "accuracy": 0.9789,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 17,
+            "n_corrected": 9,
+            "rate": 0.5294,
+            "n_broken": 9,
+            "net_gain": 0,
+            "patterns": {
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 6,
+                "rate": 0.0
+              },
+              "authentic\u2192manipulated": {
+                "total": 12,
+                "corrected": 6,
+                "broken": 0,
+                "rate": 0.5
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 3,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 5,
+                "corrected": 3,
+                "broken": 0,
+                "rate": 0.6
+              }
+            }
+          },
+          "actions": {
+            "icwmv_no_override": 580,
+            "keep_icwmv_override": 18,
+            "ai_lock": 302
+          },
+          "best_cfg": {
+            "tau": 0.35,
+            "pos_weight": 4.0,
+            "model_key": "logreg",
+            "avg_f1": 0.9581,
+            "avg_corr": 0.4796666666666667,
+            "avg_net_gain": 9.0,
+            "train_override_candidates": 88,
+            "train_keep_rate": 0.6477
+          }
+        },
+        "opensdi": {
+          "macro_f1": 0.9424,
+          "accuracy": 0.9422,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 27,
+            "n_corrected": 9,
+            "rate": 0.3333,
+            "n_broken": 15,
+            "net_gain": -6,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 19,
+                "corrected": 8,
+                "broken": 0,
+                "rate": 0.4211
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 13,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 8,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.125
+              }
+            }
+          },
+          "actions": {
+            "icwmv_no_override": 580,
+            "keep_icwmv_override": 25,
+            "ai_lock": 295
+          },
+          "best_cfg": {
+            "tau": 0.45,
+            "pos_weight": 4.0,
+            "model_key": "logreg",
+            "avg_f1": 0.9701333333333334,
+            "avg_corr": 0.5206666666666666,
+            "avg_net_gain": 11.0,
+            "train_override_candidates": 82,
+            "train_keep_rate": 0.6951
+          }
+        },
+        "aigenproxy": {
+          "macro_f1": 0.9677,
+          "accuracy": 0.9678,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 18,
+            "n_corrected": 6,
+            "rate": 0.3333,
+            "n_broken": 0,
+            "net_gain": 6,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 15,
+                "corrected": 5,
+                "broken": 0,
+                "rate": 0.3333
+              },
+              "manipulated\u2192authentic": {
+                "total": 3,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.3333
+              }
+            }
+          },
+          "actions": {
+            "icwmv_no_override": 593,
+            "ai_lock": 293,
+            "revert_to_mnv2": 8,
+            "keep_icwmv_override": 6
+          },
+          "best_cfg": {
+            "tau": 0.65,
+            "pos_weight": 1.0,
+            "model_key": "logreg",
+            "avg_f1": 0.9596,
+            "avg_corr": 0.2201666666666667,
+            "avg_net_gain": 2.6666666666666665,
+            "train_override_candidates": 92,
+            "train_keep_rate": 0.587
+          }
+        }
+      },
+      "avg_f1": 0.9622,
+      "avg_corr": 0.3996,
+      "avg_net_gain": 6.0
+    },
+    "meta_warmstart_veto": {
+      "per_ds": {
+        "base": {
+          "macro_f1": 0.9586,
+          "accuracy": 0.9587,
+          "n": 1500,
+          "err_corr": {
+            "n_errors": 82,
+            "n_corrected": 30,
+            "rate": 0.3659,
+            "n_broken": 8,
+            "net_gain": 22,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 18,
+                "corrected": 5,
+                "broken": 0,
+                "rate": 0.2778
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 6,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 64,
+                "corrected": 25,
+                "broken": 0,
+                "rate": 0.3906
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              }
+            }
+          },
+          "actions": {
+            "icwmv_no_override": 948,
+            "keep_icwmv_override": 38,
+            "revert_to_mnv2": 12,
+            "ai_lock": 502
+          },
+          "warmstart_cfg": {
+            "tau": 0.35,
+            "pos_weight": 4.0,
+            "scalar_model_key": "logreg",
+            "meta_model_key": "xgb_meta_depth2"
+          }
+        },
+        "dsC": {
+          "macro_f1": 0.98,
+          "accuracy": 0.98,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 17,
+            "n_corrected": 9,
+            "rate": 0.5294,
+            "n_broken": 8,
+            "net_gain": 1,
+            "patterns": {
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 5,
+                "rate": 0.0
+              },
+              "authentic\u2192manipulated": {
+                "total": 12,
+                "corrected": 6,
+                "broken": 0,
+                "rate": 0.5
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 3,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 5,
+                "corrected": 3,
+                "broken": 0,
+                "rate": 0.6
+              }
+            }
+          },
+          "actions": {
+            "icwmv_no_override": 580,
+            "keep_icwmv_override": 17,
+            "revert_to_mnv2": 1,
+            "ai_lock": 302
+          },
+          "warmstart_cfg": {
+            "tau": 0.35,
+            "pos_weight": 4.0,
+            "scalar_model_key": "logreg",
+            "meta_model_key": "xgb_meta_depth2"
+          }
+        },
+        "opensdi": {
+          "macro_f1": 0.9424,
+          "accuracy": 0.9422,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 27,
+            "n_corrected": 9,
+            "rate": 0.3333,
+            "n_broken": 15,
+            "net_gain": -6,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 19,
+                "corrected": 8,
+                "broken": 0,
+                "rate": 0.4211
+              },
+              "authentic\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 2,
+                "rate": 0.0
+              },
+              "manipulated\u2713": {
+                "total": 0,
+                "corrected": 0,
+                "broken": 13,
+                "rate": 0.0
+              },
+              "manipulated\u2192authentic": {
+                "total": 8,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.125
+              }
+            }
+          },
+          "actions": {
+            "icwmv_no_override": 580,
+            "keep_icwmv_override": 25,
+            "ai_lock": 295
+          },
+          "warmstart_cfg": {
+            "tau": 0.45,
+            "pos_weight": 4.0,
+            "scalar_model_key": "logreg",
+            "meta_model_key": "xgb_meta_depth2"
+          }
+        },
+        "aigenproxy": {
+          "macro_f1": 0.9688,
+          "accuracy": 0.9689,
+          "n": 900,
+          "err_corr": {
+            "n_errors": 18,
+            "n_corrected": 7,
+            "rate": 0.3889,
+            "n_broken": 0,
+            "net_gain": 7,
+            "patterns": {
+              "authentic\u2192manipulated": {
+                "total": 15,
+                "corrected": 6,
+                "broken": 0,
+                "rate": 0.4
+              },
+              "manipulated\u2192authentic": {
+                "total": 3,
+                "corrected": 1,
+                "broken": 0,
+                "rate": 0.3333
+              }
+            }
+          },
+          "actions": {
+            "icwmv_no_override": 593,
+            "ai_lock": 293,
+            "revert_to_mnv2": 7,
+            "keep_icwmv_override": 7
+          },
+          "warmstart_cfg": {
+            "tau": 0.65,
+            "pos_weight": 1.0,
+            "scalar_model_key": "logreg",
+            "meta_model_key": "xgb_meta_depth2"
+          }
+        }
+      },
+      "avg_f1": 0.9625,
+      "avg_corr": 0.4044,
+      "avg_net_gain": 6.0
+    }
+  },
+  "richer_veto": {
+    "per_ds": {
+      "base": {
+        "macro_f1": 0.9586,
+        "accuracy": 0.9587,
+        "n": 1500,
+        "err_corr": {
+          "n_errors": 82,
+          "n_corrected": 29,
+          "rate": 0.3537,
+          "n_broken": 7,
+          "net_gain": 22,
+          "patterns": {
+            "authentic\u2192manipulated": {
+              "total": 18,
+              "corrected": 5,
+              "broken": 0,
+              "rate": 0.2778
+            },
+            "authentic\u2713": {
+              "total": 0,
+              "corrected": 0,
+              "broken": 5,
+              "rate": 0.0
+            },
+            "manipulated\u2192authentic": {
+              "total": 64,
+              "corrected": 24,
+              "broken": 0,
+              "rate": 0.375
+            },
+            "manipulated\u2713": {
+              "total": 0,
+              "corrected": 0,
+              "broken": 2,
+              "rate": 0.0
+            }
+          }
+        },
+        "actions": {
+          "icwmv_no_override": 948,
+          "keep_icwmv_override": 36,
+          "revert_to_mnv2": 14,
+          "ai_lock": 502
+        },
+        "cfg": {
+          "tau": 0.35,
+          "pos_weight": 4.0,
+          "scalar_model_key": "logreg",
+          "richer_model_key": "xgb_depth2"
+        }
+      },
+      "dsC": {
+        "macro_f1": 0.9811,
+        "accuracy": 0.9811,
+        "n": 900,
+        "err_corr": {
+          "n_errors": 17,
+          "n_corrected": 9,
+          "rate": 0.5294,
+          "n_broken": 7,
+          "net_gain": 2,
+          "patterns": {
+            "authentic\u2713": {
+              "total": 0,
+              "corrected": 0,
+              "broken": 5,
+              "rate": 0.0
+            },
+            "authentic\u2192manipulated": {
+              "total": 12,
+              "corrected": 6,
+              "broken": 0,
+              "rate": 0.5
+            },
+            "manipulated\u2713": {
+              "total": 0,
+              "corrected": 0,
+              "broken": 2,
+              "rate": 0.0
+            },
+            "manipulated\u2192authentic": {
+              "total": 5,
+              "corrected": 3,
+              "broken": 0,
+              "rate": 0.6
+            }
+          }
+        },
+        "actions": {
+          "icwmv_no_override": 580,
+          "keep_icwmv_override": 16,
+          "revert_to_mnv2": 2,
+          "ai_lock": 302
+        },
+        "cfg": {
+          "tau": 0.35,
+          "pos_weight": 4.0,
+          "scalar_model_key": "logreg",
+          "richer_model_key": "xgb_depth2"
+        }
+      },
+      "opensdi": {
+        "macro_f1": 0.9545,
+        "accuracy": 0.9544,
+        "n": 900,
+        "err_corr": {
+          "n_errors": 27,
+          "n_corrected": 9,
+          "rate": 0.3333,
+          "n_broken": 4,
+          "net_gain": 5,
+          "patterns": {
+            "authentic\u2192manipulated": {
+              "total": 19,
+              "corrected": 8,
+              "broken": 0,
+              "rate": 0.4211
+            },
+            "authentic\u2713": {
+              "total": 0,
+              "corrected": 0,
+              "broken": 1,
+              "rate": 0.0
+            },
+            "manipulated\u2713": {
+              "total": 0,
+              "corrected": 0,
+              "broken": 3,
+              "rate": 0.0
+            },
+            "manipulated\u2192authentic": {
+              "total": 8,
+              "corrected": 1,
+              "broken": 0,
+              "rate": 0.125
+            }
+          }
+        },
+        "actions": {
+          "icwmv_no_override": 580,
+          "keep_icwmv_override": 14,
+          "ai_lock": 295,
+          "revert_to_mnv2": 11
+        },
+        "cfg": {
+          "tau": 0.45,
+          "pos_weight": 4.0,
+          "scalar_model_key": "logreg",
+          "richer_model_key": "xgb_depth2"
+        }
+      },
+      "aigenproxy": {
+        "macro_f1": 0.9666,
+        "accuracy": 0.9667,
+        "n": 900,
+        "err_corr": {
+          "n_errors": 18,
+          "n_corrected": 5,
+          "rate": 0.2778,
+          "n_broken": 0,
+          "net_gain": 5,
+          "patterns": {
+            "authentic\u2192manipulated": {
+              "total": 15,
+              "corrected": 5,
+              "broken": 0,
+              "rate": 0.3333
+            },
+            "manipulated\u2192authentic": {
+              "total": 3,
+              "corrected": 0,
+              "broken": 0,
+              "rate": 0.0
+            }
+          }
+        },
+        "actions": {
+          "icwmv_no_override": 593,
+          "ai_lock": 293,
+          "keep_icwmv_override": 5,
+          "revert_to_mnv2": 9
+        },
+        "cfg": {
+          "tau": 0.65,
+          "pos_weight": 1.0,
+          "scalar_model_key": "logreg",
+          "richer_model_key": "xgb_depth2"
+        }
+      }
+    },
+    "avg_f1": 0.9652,
+    "avg_corr": 0.3735,
+    "avg_net_gain": 8.5
+  }
+}

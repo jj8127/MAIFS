@@ -1,0 +1,11 @@
+# SHIELD RPi5 배포 의존성 (ONNX 경로)
+# 설치: pip install -r requirements_rpi5.txt
+
+# ONNX 추론 (ARM64 지원)
+onnxruntime>=1.17.0
+
+# 이미지 처리
+Pillow>=9.0.0
+
+# 수치 연산
+numpy>=1.24.0

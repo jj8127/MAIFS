@@ -1,0 +1,194 @@
+{
+  "timestamp": "2026-03-04T16:06:21.374768",
+  "note": "3-case repeated-split(10 seeds x 4 dataset compositions) aggregate",
+  "datasets": [
+    {
+      "dataset": "DS-A_Au_Tp_BigGANai",
+      "summary_path": "experiments/results/phase2_patha_case3_scale300_dsA/repeated_split_summary_10runs_300_309_20260304.json",
+      "n_runs": 10,
+      "cobra_only_f1_mean": 0.2771034012637943,
+      "cobra_only_f1_std": 0.01707360998058616,
+      "daac_only_f1_mean": 0.8352763028875902,
+      "daac_only_f1_std": 0.02818989435444511,
+      "cobra_plus_daac_f1_mean": 0.8011946830059248,
+      "cobra_plus_daac_f1_std": 0.02972911220856881,
+      "daac_vs_cobra": {
+        "mean": 0.558172901623796,
+        "std": 0.0238836904492048,
+        "positive_count": 10,
+        "negative_count": 0,
+        "sign_test_pvalue": 0.001953125,
+        "paired_ttest_pvalue": 7.690237873312317e-14,
+        "wilcoxon_pvalue": 0.001953125
+      },
+      "fusion_vs_cobra": {
+        "mean": 0.5240912817421306,
+        "std": 0.020319146206805493,
+        "positive_count": 10,
+        "negative_count": 0,
+        "sign_test_pvalue": 0.001953125,
+        "paired_ttest_pvalue": 3.1692435536367506e-14,
+        "wilcoxon_pvalue": 0.001953125
+      },
+      "fusion_vs_daac": {
+        "mean": -0.034081619881665484,
+        "std": 0.02077998800067156,
+        "positive_count": 0,
+        "negative_count": 10,
+        "sign_test_pvalue": 0.001953125,
+        "paired_ttest_pvalue": 0.000574325826411311,
+        "wilcoxon_pvalue": 0.001953125
+      }
+    },
+    {
+      "dataset": "DS-B_Nature_Tp_BigGANai",
+      "summary_path": "experiments/results/phase2_patha_case3_scale300_dsB/repeated_split_summary_10runs_300_309_20260304.json",
+      "n_runs": 10,
+      "cobra_only_f1_mean": 0.2737918739011123,
+      "cobra_only_f1_std": 0.01772480038113156,
+      "daac_only_f1_mean": 0.8672477222441385,
+      "daac_only_f1_std": 0.020331500839773635,
+      "cobra_plus_daac_f1_mean": 0.7881547069634461,
+      "cobra_plus_daac_f1_std": 0.043521524654067154,
+      "daac_vs_cobra": {
+        "mean": 0.593455848343026,
+        "std": 0.013462221911052664,
+        "positive_count": 10,
+        "negative_count": 0,
+        "sign_test_pvalue": 0.001953125,
+        "paired_ttest_pvalue": 2.5562491574611574e-16,
+        "wilcoxon_pvalue": 0.001953125
+      },
+      "fusion_vs_cobra": {
+        "mean": 0.5143628330623338,
+        "std": 0.03437483275201161,
+        "positive_count": 10,
+        "negative_count": 0,
+        "sign_test_pvalue": 0.001953125,
+        "paired_ttest_pvalue": 4.211943971854516e-12,
+        "wilcoxon_pvalue": 0.001953125
+      },
+      "fusion_vs_daac": {
+        "mean": -0.0790930152806923,
+        "std": 0.03699097935825288,
+        "positive_count": 0,
+        "negative_count": 10,
+        "sign_test_pvalue": 0.001953125,
+        "paired_ttest_pvalue": 8.25679075765207e-05,
+        "wilcoxon_pvalue": 0.001953125
+      }
+    },
+    {
+      "dataset": "DS-C_Au_IMD_BigGANai",
+      "summary_path": "experiments/results/phase2_patha_case3_scale300_dsC/repeated_split_summary_10runs_300_309_20260304.json",
+      "n_runs": 10,
+      "cobra_only_f1_mean": 0.30272083433110797,
+      "cobra_only_f1_std": 0.01981315895384131,
+      "daac_only_f1_mean": 0.8976226082176785,
+      "daac_only_f1_std": 0.023184640064765522,
+      "cobra_plus_daac_f1_mean": 0.8422974578340963,
+      "cobra_plus_daac_f1_std": 0.02363156239392919,
+      "daac_vs_cobra": {
+        "mean": 0.5949017738865704,
+        "std": 0.025934528354912657,
+        "positive_count": 10,
+        "negative_count": 0,
+        "sign_test_pvalue": 0.001953125,
+        "paired_ttest_pvalue": 9.093526353194717e-14,
+        "wilcoxon_pvalue": 0.001953125
+      },
+      "fusion_vs_cobra": {
+        "mean": 0.5395766235029885,
+        "std": 0.02654642417330835,
+        "positive_count": 10,
+        "negative_count": 0,
+        "sign_test_pvalue": 0.001953125,
+        "paired_ttest_pvalue": 2.6951363573365153e-13,
+        "wilcoxon_pvalue": 0.001953125
+      },
+      "fusion_vs_daac": {
+        "mean": -0.05532515038358208,
+        "std": 0.017393631221212114,
+        "positive_count": 0,
+        "negative_count": 10,
+        "sign_test_pvalue": 0.001953125,
+        "paired_ttest_pvalue": 3.4086448775566822e-06,
+        "wilcoxon_pvalue": 0.001953125
+      }
+    },
+    {
+      "dataset": "DS-D_Nature_IMD_BigGANai",
+      "summary_path": "experiments/results/phase2_patha_case3_scale300_dsD/repeated_split_summary_10runs_300_309_20260304.json",
+      "n_runs": 10,
+      "cobra_only_f1_mean": 0.2995412139504344,
+      "cobra_only_f1_std": 0.022386953192959164,
+      "daac_only_f1_mean": 0.8634269874782726,
+      "daac_only_f1_std": 0.01512396505219828,
+      "cobra_plus_daac_f1_mean": 0.8215249303438558,
+      "cobra_plus_daac_f1_std": 0.016497452753881803,
+      "daac_vs_cobra": {
+        "mean": 0.5638857735278383,
+        "std": 0.030268530356165776,
+        "positive_count": 10,
+        "negative_count": 0,
+        "sign_test_pvalue": 0.001953125,
+        "paired_ttest_pvalue": 5.894828578582666e-13,
+        "wilcoxon_pvalue": 0.001953125
+      },
+      "fusion_vs_cobra": {
+        "mean": 0.5219837163934213,
+        "std": 0.026394077562961752,
+        "positive_count": 10,
+        "negative_count": 0,
+        "sign_test_pvalue": 0.001953125,
+        "paired_ttest_pvalue": 3.4469337451837434e-13,
+        "wilcoxon_pvalue": 0.001953125
+      },
+      "fusion_vs_daac": {
+        "mean": -0.04190205713441678,
+        "std": 0.020330187198590522,
+        "positive_count": 0,
+        "negative_count": 10,
+        "sign_test_pvalue": 0.001953125,
+        "paired_ttest_pvalue": 0.00010918296506453021,
+        "wilcoxon_pvalue": 0.001953125
+      }
+    }
+  ],
+  "overall": {
+    "n_total_runs": 40,
+    "cobra_only_f1_mean": 0.2882893308616123,
+    "cobra_only_f1_std": 0.022756496549484504,
+    "daac_only_f1_mean": 0.8658934052069199,
+    "daac_only_f1_std": 0.030921482038695432,
+    "cobra_plus_daac_f1_mean": 0.8132929445368309,
+    "cobra_plus_daac_f1_std": 0.03557235393271711,
+    "daac_vs_cobra": {
+      "mean": 0.5776040743453077,
+      "std": 0.028745802816032805,
+      "positive_count": 40,
+      "negative_count": 0,
+      "sign_test_pvalue": 1.8189894035458565e-12,
+      "paired_ttest_pvalue": 1.1223017801465707e-52,
+      "wilcoxon_pvalue": 1.8189894035458565e-12
+    },
+    "fusion_vs_cobra": {
+      "mean": 0.5250036136752185,
+      "std": 0.027881719372370876,
+      "positive_count": 40,
+      "negative_count": 0,
+      "sign_test_pvalue": 1.8189894035458565e-12,
+      "paired_ttest_pvalue": 1.4049409513896208e-51,
+      "wilcoxon_pvalue": 1.8189894035458565e-12
+    },
+    "fusion_vs_daac": {
+      "mean": -0.05260046067008915,
+      "std": 0.029660811245504664,
+      "positive_count": 0,
+      "negative_count": 40,
+      "sign_test_pvalue": 1.8189894035458565e-12,
+      "paired_ttest_pvalue": 9.000022824900651e-14,
+      "wilcoxon_pvalue": 1.8189894035458565e-12
+    }
+  }
+}
