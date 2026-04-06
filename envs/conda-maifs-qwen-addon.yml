@@ -1,0 +1,7 @@
+name: maifs
+channels:
+  - defaults
+dependencies:
+  - pip
+  - pip:
+      - -r envs/requirements-qwen-vllm.txt

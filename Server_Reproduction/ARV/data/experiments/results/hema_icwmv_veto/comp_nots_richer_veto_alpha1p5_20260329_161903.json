@@ -29,8 +29,8 @@
     ]
   },
   "references": {
-    "scalar_result": "/data/jj812_files/MAIFS copy/experiments/results/hema_icwmv_veto/hema_icwmv_veto_loo_cd_alpha1p5_20260329_144920.json",
-    "meta_warmstart_result": "/data/jj812_files/MAIFS copy/experiments/results/hema_icwmv_veto/hema_icwmv_veto_meta_warmstart_alpha1p5_20260329_145021.json"
+    "scalar_result": "Server_Reproduction/ARV/data/experiments/results/hema_icwmv_veto/hema_icwmv_veto_loo_cd_alpha1p5_20260329_144920.json",
+    "meta_warmstart_result": "Server_Reproduction/ARV/data/experiments/results/hema_icwmv_veto/hema_icwmv_veto_meta_warmstart_alpha1p5_20260329_145021.json"
   },
   "baselines": {
     "icwmv": {

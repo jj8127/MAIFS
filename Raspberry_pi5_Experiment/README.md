@@ -39,6 +39,6 @@ bash run_arv_e2e_benchmark.sh all
 
 ## 주요 문서
 
-- 상태 문서: [TEMP1_EXPERIMENT_STATUS_20260327.md](docs/TEMP1_EXPERIMENT_STATUS_20260327.md)
-- 결과 요약: [RESULT_SUMMARY_20260326.md](docs/RESULT_SUMMARY_20260326.md)
+- Raspberry Pi 재현 가이드: [RPi5_EXPERIMENT_GUIDE.md](../docs/research/RPi5_EXPERIMENT_GUIDE.md)
+- 종단간 결과 요약: [ARV_E2E_ALL_BACKENDS_EXPERIMENT_SUMMARY_20260329.md](docs/ARV_E2E_ALL_BACKENDS_EXPERIMENT_SUMMARY_20260329.md)
 - 서버 정확도 재현: [Server_Reproduction/ARV](../Server_Reproduction/ARV/README.md)

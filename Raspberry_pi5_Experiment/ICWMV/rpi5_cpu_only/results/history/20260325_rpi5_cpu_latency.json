@@ -5,13 +5,13 @@
   "os": "Linux-6.12.75+rpt-rpi-2712-aarch64-with-glibc2.41",
   "python_version": "3.13.5",
   "backend": "onnx_cpu",
-  "image": "/home/jj/test.jpg",
+  "image": "/path/to/test.jpg",
   "threads": 4,
   "warmup_runs_discarded": 5,
   "measured_runs": 30,
   "model_paths": {
-    "mnv2": "/home/jj/maifs/temp/artifacts/models/onnx_quant/mnv2_int8_dynamic.onnx",
-    "specm": "/home/jj/maifs/temp/artifacts/models/onnx_quant/specm_v4_int8_static.onnx"
+    "mnv2": "Raspberry_pi5_Experiment/common/models/onnx_quant/mnv2_int8_dynamic.onnx",
+    "specm": "Raspberry_pi5_Experiment/common/models/onnx_quant/specm_v4_int8_static.onnx"
   },
   "load_ms": {
     "mnv2_load_ms": 353.8,

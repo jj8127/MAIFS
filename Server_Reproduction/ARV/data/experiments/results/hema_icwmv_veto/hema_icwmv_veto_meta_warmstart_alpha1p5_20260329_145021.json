@@ -1,7 +1,7 @@
 {
   "timestamp": "2026-03-29T14:49:20.469424",
   "experiment": "meta_warmstart_from_scalar_best_cfg",
-  "scalar_result": "/data/jj812_files/MAIFS copy/experiments/results/hema_icwmv_veto/hema_icwmv_veto_loo_cd_alpha1p5_20260329_144920.json",
+  "scalar_result": "Server_Reproduction/ARV/data/experiments/results/hema_icwmv_veto/hema_icwmv_veto_loo_cd_alpha1p5_20260329_144920.json",
   "mnv2_label": "strong",
   "mnv2_ts": "20260319_070725",
   "weighting_mode": "inverse_confidence",

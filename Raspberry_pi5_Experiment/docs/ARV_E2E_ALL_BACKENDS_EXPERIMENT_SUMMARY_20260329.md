@@ -3,8 +3,8 @@
 ## Experiment Overview
 
 * **Bundle:** `ARV_EndToEnd_RPi5`
-* **Bundle path:** `/home/jj/maifs/TEMP_1_zip_bundle/ARV_EndToEnd_RPi5`
-* **Input image:** `/home/jj/maifs/TEMP_1_zip_bundle/ARV_EndToEnd_RPi5/assets/benchmark_input.png`
+* **Bundle path:** `Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5`
+* **Input image:** `Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/benchmark_input.png`
 * **Protocol:** `paper_v2` (`warmup=0`, `measured_runs=10`)
 * **Device model:** `Raspberry Pi 5 Model B Rev 1.0`
 
@@ -74,7 +74,7 @@
 ### Stage-1 Sweep Result
 
 Result source:
-* `/data/jj812_files/MAIFS copy/Server_Reproduction/ARV/data/experiments/results/paper_support/icwmv_weighting_sweep_20260329_135051.json`
+* `Server_Reproduction/ARV/data/experiments/results/paper_support/icwmv_weighting_sweep_20260329_135051.json`
 
 Key points:
 
@@ -97,11 +97,11 @@ Interpretation:
 
 Result sources:
 * Scalar stage:
-  * `/data/jj812_files/MAIFS copy/experiments/results/hema_icwmv_veto/hema_icwmv_veto_loo_cd_alpha1p5_20260329_144920.json`
+  * `Server_Reproduction/ARV/data/experiments/results/hema_icwmv_veto/hema_icwmv_veto_loo_cd_alpha1p5_20260329_144920.json`
 * Meta warmstart stage:
-  * `/data/jj812_files/MAIFS copy/experiments/results/hema_icwmv_veto/hema_icwmv_veto_meta_warmstart_alpha1p5_20260329_145021.json`
+  * `Server_Reproduction/ARV/data/experiments/results/hema_icwmv_veto/hema_icwmv_veto_meta_warmstart_alpha1p5_20260329_145021.json`
 * Final ARV stage:
-  * `/data/jj812_files/MAIFS copy/Server_Reproduction/ARV/data/experiments/results/hema_icwmv_veto/comp_nots_richer_veto_alpha1p5_20260329_161903.json`
+  * `Server_Reproduction/ARV/data/experiments/results/hema_icwmv_veto/comp_nots_richer_veto_alpha1p5_20260329_161903.json`
 
 Comparison against the current paper baseline (`alpha = 1.0`):
 

@@ -11,7 +11,7 @@
     "lsusb_available_result": "unable to initialize libusb: -99"
   },
   "model_paths": {
-    "mnv2": "/home/jj/maifs/temp/artifacts/models/tflite_edgetpu_sweep/mnv2_coral_qsweep_qtpc_cal064_ioint8_edgetpu.tflite",
-    "specm": "/home/jj/maifs/temp/artifacts/models/tflite_edgetpu/specm_v4_coral_ft_int8_full_edgetpu.tflite"
+    "mnv2": "Raspberry_pi5_Experiment/common/models/tflite_edgetpu_sweep/mnv2_coral_qsweep_qtpc_cal064_ioint8_edgetpu.tflite",
+    "specm": "Raspberry_pi5_Experiment/common/models/tflite_edgetpu/specm_v4_coral_ft_int8_full_edgetpu.tflite"
   }
 }
