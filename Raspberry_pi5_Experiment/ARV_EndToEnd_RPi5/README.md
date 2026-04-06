@@ -10,6 +10,13 @@
 - CPU / Coral USB / PCIe HAT 실행 스크립트
 - 기본 벤치마크 입력 이미지
   - `assets/benchmark_input.png`
+- active keep/revert probe 세트
+  - `assets/active_probe_set/`
+- active workflow 스크립트
+  - `run_arv_active_probe_benchmark.sh`
+  - `run_arv_active_workflow.sh`
+  - `common/scripts/discover_arv_active_cases.py`
+  - `common/scripts/benchmark_arv_active_cases.py`
 
 1단계 경량 모델은 상위 공용 경로를 사용합니다.
 
@@ -21,6 +28,7 @@
 
 1. 실제 분기 기준 `real-path` 종단간 지연
 2. stage-2를 강제로 실행한 `forced-stage2` 종단간 지연
+3. 실제 `keep/revert` 분기가 일어나는 active probe 지연
 
 ## 디렉토리 구조
 
@@ -33,7 +41,7 @@
 - `rpi5_pcie_hat/`
   - Raspberry Pi 5 + PCIe 연결 HAT 전용 측정
 - `assets/`
-  - 기본 입력 이미지
+  - 기본 입력 이미지와 active probe 샘플
 
 ## 가장 빠른 실행
 
@@ -51,6 +59,16 @@ bash run_arv_e2e_benchmark.sh all
 bash run_arv_e2e_benchmark.sh coral /home/pi/test.jpg
 ```
 
+active keep/revert benchmark는 아래처럼 실행합니다.
+
+```bash
+bash run_arv_active_workflow.sh cpu
+```
+
+```bash
+bash run_arv_active_probe_benchmark.sh cpu
+```
+
 ## 출력 위치
 
 각 환경 디렉토리 아래에 저장됩니다.
@@ -61,6 +79,11 @@ bash run_arv_e2e_benchmark.sh coral /home/pi/test.jpg
 - `rpi5_coral_usb/logs/`
 - `rpi5_pcie_hat/results/`
 - `rpi5_pcie_hat/logs/`
+
+active workflow를 실행하면 아래도 함께 채워집니다.
+
+- `rpi5_cpu_only/results/*_arv_active_discovery.json`
+- `rpi5_cpu_only/results/*_arv_active_latency.json`
 
 ## 기본 측정 규약
 

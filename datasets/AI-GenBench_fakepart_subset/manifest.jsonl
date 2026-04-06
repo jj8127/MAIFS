@@ -1,0 +1,300 @@
+{"split": "train", "generator": "LaMa", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000000.jpg"}
+{"split": "train", "generator": "BigGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000001.jpg"}
+{"split": "train", "generator": "FLUX 1 Dev", "origin_dataset": "SFHQ-T2I", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000002.jpg"}
+{"split": "train", "generator": "Latent Diffusion", "origin_dataset": "DMimageDetection/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000003.jpg"}
+{"split": "train", "generator": "DeepFloyd IF", "origin_dataset": "ELSA_D3/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000004.jpg"}
+{"split": "train", "generator": "Palette", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000005.jpg"}
+{"split": "train", "generator": "SN-PatchGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000006.jpg"}
+{"split": "train", "generator": "IMLE", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000007.jpg"}
+{"split": "train", "generator": "ProjectedGAN", "origin_dataset": "DDMD", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000008.jpg"}
+{"split": "train", "generator": "CIPS", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000009.jpg"}
+{"split": "train", "generator": "CIPS", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000010.jpg"}
+{"split": "train", "generator": "FLUX 1 Dev", "origin_dataset": "SFHQ-T2I", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000011.jpg"}
+{"split": "train", "generator": "LaMa", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000012.jpg"}
+{"split": "train", "generator": "CycleGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000013.jpg"}
+{"split": "train", "generator": "StarGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000014.jpg"}
+{"split": "train", "generator": "Stable Diffusion 1.5", "origin_dataset": "DRCT", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000015.jpg"}
+{"split": "train", "generator": "CycleGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000016.jpg"}
+{"split": "train", "generator": "VQGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000017.jpg"}
+{"split": "train", "generator": "FLUX 1 Dev", "origin_dataset": "SFHQ-T2I", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000018.jpg"}
+{"split": "train", "generator": "Latent Diffusion", "origin_dataset": "DMimageDetection/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000019.jpg"}
+{"split": "train", "generator": "DALL-E 3", "origin_dataset": "Imaginet", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000020.jpg"}
+{"split": "train", "generator": "ProGAN", "origin_dataset": "Forensynths/valid", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000021.jpg"}
+{"split": "train", "generator": "Stable Diffusion 1.4", "origin_dataset": "ELSA_D3/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000022.jpg"}
+{"split": "train", "generator": "GANformer", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000023.jpg"}
+{"split": "train", "generator": "IMLE", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000024.jpg"}
+{"split": "train", "generator": "StyleGAN1", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000025.jpg"}
+{"split": "train", "generator": "Palette", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000026.jpg"}
+{"split": "train", "generator": "StyleGAN1", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000027.jpg"}
+{"split": "train", "generator": "GauGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000028.jpg"}
+{"split": "train", "generator": "Stable Diffusion 1.4", "origin_dataset": "ELSA_D3/valid", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000029.jpg"}
+{"split": "train", "generator": "CycleGAN", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000030.jpg"}
+{"split": "train", "generator": "Glide", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000031.jpg"}
+{"split": "train", "generator": "DALL-E 3", "origin_dataset": "Imaginet", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000032.jpg"}
+{"split": "train", "generator": "ProGAN", "origin_dataset": "DDMD", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000033.jpg"}
+{"split": "train", "generator": "Stable Diffusion XL 1.0", "origin_dataset": "Synthbuster", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000034.jpg"}
+{"split": "train", "generator": "Stable Diffusion 1.5", "origin_dataset": "DRCT", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000035.jpg"}
+{"split": "train", "generator": "ProjectedGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000036.jpg"}
+{"split": "train", "generator": "SN-PatchGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000037.jpg"}
+{"split": "train", "generator": "FLUX 1 Dev", "origin_dataset": "SFHQ-T2I", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000038.jpg"}
+{"split": "train", "generator": "LaMa", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000039.jpg"}
+{"split": "train", "generator": "StarGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000040.jpg"}
+{"split": "train", "generator": "Cascaded Refinement Networks", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000041.jpg"}
+{"split": "train", "generator": "Stable Diffusion 2.1", "origin_dataset": "Polardiffshield", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000042.jpg"}
+{"split": "train", "generator": "DALL-E 3", "origin_dataset": "Synthbuster", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000043.jpg"}
+{"split": "train", "generator": "Palette", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000044.jpg"}
+{"split": "train", "generator": "Palette", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000045.jpg"}
+{"split": "train", "generator": "FLUX 1 Dev", "origin_dataset": "SFHQ-T2I", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000046.jpg"}
+{"split": "train", "generator": "SN-PatchGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000047.jpg"}
+{"split": "train", "generator": "ADM", "origin_dataset": "GenImage/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000048.jpg"}
+{"split": "train", "generator": "FLUX 1 Dev", "origin_dataset": "SFHQ-T2I", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000049.jpg"}
+{"split": "train", "generator": "Palette", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000050.jpg"}
+{"split": "train", "generator": "CIPS", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000051.jpg"}
+{"split": "train", "generator": "Latent Diffusion", "origin_dataset": "DDMD", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000052.jpg"}
+{"split": "train", "generator": "GANformer", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000053.jpg"}
+{"split": "train", "generator": "Midjourney", "origin_dataset": "GenImage/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000054.jpg"}
+{"split": "train", "generator": "LaMa", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000055.jpg"}
+{"split": "train", "generator": "StarGAN", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000056.jpg"}
+{"split": "train", "generator": "Stable Diffusion XL 1.0", "origin_dataset": "DRCT", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000057.jpg"}
+{"split": "train", "generator": "VQGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000058.jpg"}
+{"split": "train", "generator": "MAT", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000059.jpg"}
+{"split": "train", "generator": "GauGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000060.jpg"}
+{"split": "train", "generator": "Midjourney", "origin_dataset": "GenImage/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000061.jpg"}
+{"split": "train", "generator": "ADM", "origin_dataset": "GenImage/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000062.jpg"}
+{"split": "train", "generator": "Stable Diffusion 2.1", "origin_dataset": "ELSA_D3/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000063.jpg"}
+{"split": "train", "generator": "Palette", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000064.jpg"}
+{"split": "train", "generator": "StarGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000065.jpg"}
+{"split": "train", "generator": "ProjectedGAN", "origin_dataset": "DDMD", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000066.jpg"}
+{"split": "train", "generator": "FLUX 1 Schnell", "origin_dataset": "SFHQ-T2I", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000067.jpg"}
+{"split": "train", "generator": "ProGAN", "origin_dataset": "DMimageDetection/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000068.jpg"}
+{"split": "train", "generator": "FaceSynthetics", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000069.jpg"}
+{"split": "train", "generator": "StarGAN", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000070.jpg"}
+{"split": "train", "generator": "IMLE", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000071.jpg"}
+{"split": "train", "generator": "SN-PatchGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000072.jpg"}
+{"split": "train", "generator": "DeepFloyd IF", "origin_dataset": "ELSA_D3/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000073.jpg"}
+{"split": "train", "generator": "CycleGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000074.jpg"}
+{"split": "train", "generator": "ProGAN", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000075.jpg"}
+{"split": "train", "generator": "DALL-E 3", "origin_dataset": "Imaginet", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000076.jpg"}
+{"split": "train", "generator": "Midjourney", "origin_dataset": "GenImage/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000077.jpg"}
+{"split": "train", "generator": "StyleGAN3", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000078.jpg"}
+{"split": "train", "generator": "StyleGAN3", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000079.jpg"}
+{"split": "train", "generator": "DALL-E 3", "origin_dataset": "Imaginet", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000080.jpg"}
+{"split": "train", "generator": "Stable Diffusion 1.4", "origin_dataset": "DRCT", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000081.jpg"}
+{"split": "train", "generator": "Diffusion GAN (ProjectedGAN)", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000082.jpg"}
+{"split": "train", "generator": "FaceSynthetics", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000083.jpg"}
+{"split": "train", "generator": "MAT", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000084.jpg"}
+{"split": "train", "generator": "Palette", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000085.jpg"}
+{"split": "train", "generator": "FaceSynthetics", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000086.jpg"}
+{"split": "train", "generator": "CIPS", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000087.jpg"}
+{"split": "train", "generator": "Denoising Diffusion GAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000088.jpg"}
+{"split": "train", "generator": "SN-PatchGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000089.jpg"}
+{"split": "train", "generator": "DeepFloyd IF", "origin_dataset": "ELSA_D3/valid", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000090.jpg"}
+{"split": "train", "generator": "StyleGAN2", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000091.jpg"}
+{"split": "train", "generator": "ProjectedGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000092.jpg"}
+{"split": "train", "generator": "FaceSynthetics", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000093.jpg"}
+{"split": "train", "generator": "GauGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000094.jpg"}
+{"split": "train", "generator": "Diffusion GAN (ProjectedGAN)", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000095.jpg"}
+{"split": "train", "generator": "StarGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000096.jpg"}
+{"split": "train", "generator": "FaceSynthetics", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000097.jpg"}
+{"split": "train", "generator": "DeepFloyd IF", "origin_dataset": "ELSA_D3/valid", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000098.jpg"}
+{"split": "train", "generator": "Midjourney", "origin_dataset": "GenImage/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000099.jpg"}
+{"split": "train", "generator": "Denoising Diffusion GAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000100.jpg"}
+{"split": "train", "generator": "Stable Diffusion 2.1", "origin_dataset": "Polardiffshield", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000101.jpg"}
+{"split": "train", "generator": "FaceSynthetics", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000102.jpg"}
+{"split": "train", "generator": "FLUX 1 Dev", "origin_dataset": "SFHQ-T2I", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000103.jpg"}
+{"split": "train", "generator": "Stable Diffusion XL 1.0", "origin_dataset": "ELSA_D3/valid", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000104.jpg"}
+{"split": "train", "generator": "MAT", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000105.jpg"}
+{"split": "train", "generator": "Palette", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000106.jpg"}
+{"split": "train", "generator": "Stable Diffusion 1.5", "origin_dataset": "GenImage/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000107.jpg"}
+{"split": "train", "generator": "CIPS", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000108.jpg"}
+{"split": "train", "generator": "GauGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000109.jpg"}
+{"split": "train", "generator": "DALL-E 3", "origin_dataset": "Imaginet", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000110.jpg"}
+{"split": "train", "generator": "Stable Diffusion 1.5", "origin_dataset": "GenImage/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000111.jpg"}
+{"split": "train", "generator": "GANformer", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000112.jpg"}
+{"split": "train", "generator": "Diffusion GAN (ProjectedGAN)", "origin_dataset": "DDMD", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000113.jpg"}
+{"split": "train", "generator": "ProjectedGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000114.jpg"}
+{"split": "train", "generator": "Midjourney", "origin_dataset": "GenImage/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000115.jpg"}
+{"split": "train", "generator": "Stable Diffusion 1.5", "origin_dataset": "GenImage/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000116.jpg"}
+{"split": "train", "generator": "Stable Diffusion 1.5", "origin_dataset": "GenImage/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000117.jpg"}
+{"split": "train", "generator": "Stable Diffusion 1.4", "origin_dataset": "DRCT", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000118.jpg"}
+{"split": "train", "generator": "DeepFloyd IF", "origin_dataset": "ELSA_D3/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000119.jpg"}
+{"split": "train", "generator": "StarGAN", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000120.jpg"}
+{"split": "train", "generator": "CIPS", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000121.jpg"}
+{"split": "train", "generator": "VQGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000122.jpg"}
+{"split": "train", "generator": "FLUX 1 Dev", "origin_dataset": "SFHQ-T2I", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000123.jpg"}
+{"split": "train", "generator": "StarGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000124.jpg"}
+{"split": "train", "generator": "Palette", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000125.jpg"}
+{"split": "train", "generator": "CycleGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000126.jpg"}
+{"split": "train", "generator": "CIPS", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000127.jpg"}
+{"split": "train", "generator": "StyleGAN3", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000128.jpg"}
+{"split": "train", "generator": "FLUX 1 Schnell", "origin_dataset": "SFHQ-T2I", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000129.jpg"}
+{"split": "train", "generator": "FLUX 1 Dev", "origin_dataset": "SFHQ-T2I", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000130.jpg"}
+{"split": "train", "generator": "FaceSynthetics", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000131.jpg"}
+{"split": "train", "generator": "ProGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000132.jpg"}
+{"split": "train", "generator": "StyleGAN2", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000133.jpg"}
+{"split": "train", "generator": "StarGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000134.jpg"}
+{"split": "train", "generator": "LaMa", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000135.jpg"}
+{"split": "train", "generator": "StarGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000136.jpg"}
+{"split": "train", "generator": "Stable Diffusion 1.4", "origin_dataset": "ELSA_D3/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000137.jpg"}
+{"split": "train", "generator": "VQGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000138.jpg"}
+{"split": "train", "generator": "LaMa", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000139.jpg"}
+{"split": "train", "generator": "SN-PatchGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000140.jpg"}
+{"split": "train", "generator": "VQ-Diffusion", "origin_dataset": "GenImage/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000141.jpg"}
+{"split": "train", "generator": "Cascaded Refinement Networks", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000142.jpg"}
+{"split": "train", "generator": "GANformer", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000143.jpg"}
+{"split": "train", "generator": "SN-PatchGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000144.jpg"}
+{"split": "train", "generator": "SN-PatchGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000145.jpg"}
+{"split": "train", "generator": "Stable Diffusion 1.5", "origin_dataset": "DRCT", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000146.jpg"}
+{"split": "train", "generator": "SN-PatchGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000147.jpg"}
+{"split": "train", "generator": "Palette", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000148.jpg"}
+{"split": "train", "generator": "GauGAN", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000149.jpg"}
+{"split": "train", "generator": "FLUX 1 Dev", "origin_dataset": "SFHQ-T2I", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000150.jpg"}
+{"split": "train", "generator": "ProGAN", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000151.jpg"}
+{"split": "train", "generator": "IMLE", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000152.jpg"}
+{"split": "train", "generator": "Latent Diffusion", "origin_dataset": "DDMD", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000153.jpg"}
+{"split": "train", "generator": "VQGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000154.jpg"}
+{"split": "train", "generator": "VQ-Diffusion", "origin_dataset": "GenImage/val", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000155.jpg"}
+{"split": "train", "generator": "StyleGAN1", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000156.jpg"}
+{"split": "train", "generator": "LaMa", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000157.jpg"}
+{"split": "train", "generator": "FLUX 1 Dev", "origin_dataset": "SFHQ-T2I", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000158.jpg"}
+{"split": "train", "generator": "StyleGAN3", "origin_dataset": "DMimageDetection/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000159.jpg"}
+{"split": "train", "generator": "StyleGAN1", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000160.jpg"}
+{"split": "train", "generator": "VQ-Diffusion", "origin_dataset": "GenImage/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000161.jpg"}
+{"split": "train", "generator": "Diffusion GAN (StyleGAN2)", "origin_dataset": "DDMD", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000162.jpg"}
+{"split": "train", "generator": "FaceSynthetics", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000163.jpg"}
+{"split": "train", "generator": "GauGAN", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000164.jpg"}
+{"split": "train", "generator": "GauGAN", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000165.jpg"}
+{"split": "train", "generator": "GANformer", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000166.jpg"}
+{"split": "train", "generator": "StarGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000167.jpg"}
+{"split": "train", "generator": "Stable Diffusion 1.5", "origin_dataset": "GenImage/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000168.jpg"}
+{"split": "train", "generator": "Stable Diffusion XL 1.0", "origin_dataset": "DRCT", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000169.jpg"}
+{"split": "train", "generator": "SN-PatchGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000170.jpg"}
+{"split": "train", "generator": "FLUX 1 Dev", "origin_dataset": "SFHQ-T2I", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000171.jpg"}
+{"split": "train", "generator": "Stable Diffusion 1.5", "origin_dataset": "GenImage/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000172.jpg"}
+{"split": "train", "generator": "Stable Diffusion 2.1", "origin_dataset": "Imaginet", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000173.jpg"}
+{"split": "train", "generator": "Diffusion GAN (StyleGAN2)", "origin_dataset": "DDMD", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000174.jpg"}
+{"split": "train", "generator": "FaceSynthetics", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000175.jpg"}
+{"split": "train", "generator": "Cascaded Refinement Networks", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000176.jpg"}
+{"split": "train", "generator": "FaceSynthetics", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000177.jpg"}
+{"split": "train", "generator": "Stable Diffusion 1.4", "origin_dataset": "Synthbuster", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000178.jpg"}
+{"split": "train", "generator": "Midjourney", "origin_dataset": "GenImage/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000179.jpg"}
+{"split": "train", "generator": "Diffusion GAN (StyleGAN2)", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000180.jpg"}
+{"split": "train", "generator": "Diffusion GAN (StyleGAN2)", "origin_dataset": "DDMD", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000181.jpg"}
+{"split": "train", "generator": "Midjourney", "origin_dataset": "GenImage/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000182.jpg"}
+{"split": "train", "generator": "MAT", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000183.jpg"}
+{"split": "train", "generator": "Stable Diffusion 1.4", "origin_dataset": "ELSA_D3/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000184.jpg"}
+{"split": "train", "generator": "GauGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000185.jpg"}
+{"split": "train", "generator": "Glide", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000186.jpg"}
+{"split": "train", "generator": "DDPM", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000187.jpg"}
+{"split": "train", "generator": "Diffusion GAN (ProjectedGAN)", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000188.jpg"}
+{"split": "train", "generator": "DDPM", "origin_dataset": "DDMD", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000189.jpg"}
+{"split": "train", "generator": "StarGAN", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000190.jpg"}
+{"split": "train", "generator": "StarGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000191.jpg"}
+{"split": "train", "generator": "Stable Diffusion XL 1.0", "origin_dataset": "ELSA_D3/valid", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000192.jpg"}
+{"split": "train", "generator": "VQGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000193.jpg"}
+{"split": "train", "generator": "ADM", "origin_dataset": "GenImage/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000194.jpg"}
+{"split": "train", "generator": "Stable Diffusion 1.5", "origin_dataset": "DRCT", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000195.jpg"}
+{"split": "train", "generator": "Glide", "origin_dataset": "DMimageDetection/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000196.jpg"}
+{"split": "train", "generator": "Diffusion GAN (StyleGAN2)", "origin_dataset": "DDMD", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000197.jpg"}
+{"split": "train", "generator": "Midjourney", "origin_dataset": "GenImage/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000198.jpg"}
+{"split": "train", "generator": "DeepFloyd IF", "origin_dataset": "ELSA_D3/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000199.jpg"}
+{"split": "train", "generator": "Diffusion GAN (StyleGAN2)", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000200.jpg"}
+{"split": "train", "generator": "Diffusion GAN (StyleGAN2)", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000201.jpg"}
+{"split": "train", "generator": "StyleGAN3", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000202.jpg"}
+{"split": "train", "generator": "Denoising Diffusion GAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000203.jpg"}
+{"split": "train", "generator": "GauGAN", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000204.jpg"}
+{"split": "train", "generator": "Midjourney", "origin_dataset": "GenImage/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000205.jpg"}
+{"split": "train", "generator": "StyleGAN3", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000206.jpg"}
+{"split": "train", "generator": "LaMa", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000207.jpg"}
+{"split": "train", "generator": "SN-PatchGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000208.jpg"}
+{"split": "train", "generator": "Denoising Diffusion GAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000209.jpg"}
+{"split": "train", "generator": "Stable Diffusion 2.1", "origin_dataset": "ELSA_D3/valid", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000210.jpg"}
+{"split": "train", "generator": "DDPM", "origin_dataset": "DDMD", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000211.jpg"}
+{"split": "train", "generator": "IMLE", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000212.jpg"}
+{"split": "train", "generator": "StyleGAN3", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000213.jpg"}
+{"split": "train", "generator": "FLUX 1 Schnell", "origin_dataset": "SFHQ-T2I", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000214.jpg"}
+{"split": "train", "generator": "StarGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000215.jpg"}
+{"split": "train", "generator": "Stable Diffusion 1.4", "origin_dataset": "ELSA_D3/valid", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000216.jpg"}
+{"split": "train", "generator": "BigGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000217.jpg"}
+{"split": "train", "generator": "GauGAN", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000218.jpg"}
+{"split": "train", "generator": "Stable Diffusion 2.1", "origin_dataset": "ELSA_D3/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000219.jpg"}
+{"split": "train", "generator": "Stable Diffusion 2.1", "origin_dataset": "ELSA_D3/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000220.jpg"}
+{"split": "train", "generator": "StarGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000221.jpg"}
+{"split": "train", "generator": "Stable Diffusion XL 1.0", "origin_dataset": "SFHQ-T2I", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000222.jpg"}
+{"split": "train", "generator": "Denoising Diffusion GAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000223.jpg"}
+{"split": "train", "generator": "DeepFloyd IF", "origin_dataset": "ELSA_D3/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000224.jpg"}
+{"split": "train", "generator": "CycleGAN", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000225.jpg"}
+{"split": "train", "generator": "CycleGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000226.jpg"}
+{"split": "train", "generator": "VQGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000227.jpg"}
+{"split": "train", "generator": "Midjourney", "origin_dataset": "GenImage/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000228.jpg"}
+{"split": "train", "generator": "LaMa", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000229.jpg"}
+{"split": "train", "generator": "ADM", "origin_dataset": "GenImage/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000230.jpg"}
+{"split": "train", "generator": "ProjectedGAN", "origin_dataset": "DDMD", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000231.jpg"}
+{"split": "train", "generator": "Denoising Diffusion GAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000232.jpg"}
+{"split": "train", "generator": "Midjourney", "origin_dataset": "GenImage/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000233.jpg"}
+{"split": "train", "generator": "SN-PatchGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000234.jpg"}
+{"split": "train", "generator": "Glide", "origin_dataset": "Synthbuster", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000235.jpg"}
+{"split": "train", "generator": "StarGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000236.jpg"}
+{"split": "train", "generator": "GauGAN", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000237.jpg"}
+{"split": "train", "generator": "Stable Diffusion 2.1", "origin_dataset": "ELSA_D3/valid", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000238.jpg"}
+{"split": "train", "generator": "Diffusion GAN (StyleGAN2)", "origin_dataset": "DDMD", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000239.jpg"}
+{"split": "train", "generator": "ProjectedGAN", "origin_dataset": "DDMD", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000240.jpg"}
+{"split": "train", "generator": "SN-PatchGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000241.jpg"}
+{"split": "train", "generator": "CycleGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000242.jpg"}
+{"split": "train", "generator": "Latent Diffusion", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000243.jpg"}
+{"split": "train", "generator": "SN-PatchGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000244.jpg"}
+{"split": "train", "generator": "LaMa", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000245.jpg"}
+{"split": "train", "generator": "Denoising Diffusion GAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000246.jpg"}
+{"split": "train", "generator": "Midjourney", "origin_dataset": "GenImage/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000247.jpg"}
+{"split": "train", "generator": "VQGAN", "origin_dataset": "DMimageDetection/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000248.jpg"}
+{"split": "train", "generator": "StyleGAN1", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000249.jpg"}
+{"split": "train", "generator": "StyleGAN3", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000250.jpg"}
+{"split": "train", "generator": "DeepFloyd IF", "origin_dataset": "ELSA_D3/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000251.jpg"}
+{"split": "train", "generator": "IMLE", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000252.jpg"}
+{"split": "train", "generator": "IMLE", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000253.jpg"}
+{"split": "train", "generator": "MAT", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000254.jpg"}
+{"split": "train", "generator": "CycleGAN", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000255.jpg"}
+{"split": "train", "generator": "Palette", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000256.jpg"}
+{"split": "train", "generator": "BigGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000257.jpg"}
+{"split": "train", "generator": "DDPM", "origin_dataset": "DDMD", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000258.jpg"}
+{"split": "train", "generator": "StyleGAN2", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000259.jpg"}
+{"split": "train", "generator": "CIPS", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000260.jpg"}
+{"split": "train", "generator": "ADM", "origin_dataset": "GenImage/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000261.jpg"}
+{"split": "train", "generator": "ProGAN", "origin_dataset": "DMimageDetection/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000262.jpg"}
+{"split": "train", "generator": "Diffusion GAN (StyleGAN2)", "origin_dataset": "DDMD", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000263.jpg"}
+{"split": "train", "generator": "VQGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000264.jpg"}
+{"split": "train", "generator": "StyleGAN1", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000265.jpg"}
+{"split": "train", "generator": "DDPM", "origin_dataset": "DDMD", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000266.jpg"}
+{"split": "train", "generator": "StyleGAN1", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000267.jpg"}
+{"split": "train", "generator": "FLUX 1 Schnell", "origin_dataset": "SFHQ-T2I", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000268.jpg"}
+{"split": "train", "generator": "Stable Diffusion XL 1.0", "origin_dataset": "Polardiffshield", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000269.jpg"}
+{"split": "train", "generator": "ProGAN", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000270.jpg"}
+{"split": "train", "generator": "DDPM", "origin_dataset": "DDMD", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000271.jpg"}
+{"split": "train", "generator": "GauGAN", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000272.jpg"}
+{"split": "train", "generator": "CycleGAN", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000273.jpg"}
+{"split": "train", "generator": "DALL-E 3", "origin_dataset": "Imaginet", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000274.jpg"}
+{"split": "train", "generator": "VQGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000275.jpg"}
+{"split": "train", "generator": "BigGAN", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000276.jpg"}
+{"split": "train", "generator": "BigGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000277.jpg"}
+{"split": "train", "generator": "DALL-E 3", "origin_dataset": "Imaginet", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000278.jpg"}
+{"split": "train", "generator": "BigGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000279.jpg"}
+{"split": "train", "generator": "FLUX 1 Schnell", "origin_dataset": "SFHQ-T2I", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000280.jpg"}
+{"split": "train", "generator": "DALL-E 3", "origin_dataset": "Imaginet", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000281.jpg"}
+{"split": "train", "generator": "Diffusion GAN (ProjectedGAN)", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000282.jpg"}
+{"split": "train", "generator": "Stable Diffusion XL 1.0", "origin_dataset": "ELSA_D3/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000283.jpg"}
+{"split": "train", "generator": "VQ-Diffusion", "origin_dataset": "GenImage/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000284.jpg"}
+{"split": "train", "generator": "IMLE", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000285.jpg"}
+{"split": "train", "generator": "ProjectedGAN", "origin_dataset": "DDMD", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000286.jpg"}
+{"split": "train", "generator": "VQGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000287.jpg"}
+{"split": "train", "generator": "StyleGAN2", "origin_dataset": "Forensynths/test", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000288.jpg"}
+{"split": "train", "generator": "Midjourney", "origin_dataset": "GenImage/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000289.jpg"}
+{"split": "train", "generator": "StarGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000290.jpg"}
+{"split": "train", "generator": "SN-PatchGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000291.jpg"}
+{"split": "train", "generator": "BigGAN", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000292.jpg"}
+{"split": "train", "generator": "ADM", "origin_dataset": "GenImage/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000293.jpg"}
+{"split": "train", "generator": "VQ-Diffusion", "origin_dataset": "GenImage/train", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000294.jpg"}
+{"split": "train", "generator": "FaceSynthetics", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000295.jpg"}
+{"split": "train", "generator": "Diffusion GAN (ProjectedGAN)", "origin_dataset": "DDMD", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000296.jpg"}
+{"split": "train", "generator": "StyleGAN2", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000297.jpg"}
+{"split": "train", "generator": "VQ-Diffusion", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000298.jpg"}
+{"split": "train", "generator": "MAT", "origin_dataset": "Artifact", "label": 1, "saved_path": "datasets/AI-GenBench_fakepart_subset/ai_generated/aigenbench_fakepart__train__000299.jpg"}

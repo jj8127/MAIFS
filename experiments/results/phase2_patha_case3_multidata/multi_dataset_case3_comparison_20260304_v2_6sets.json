@@ -1,0 +1,270 @@
+{
+  "timestamp": "2026-03-04T16:57:02.777486",
+  "note": "3-case repeated-split(10 seeds x 4 dataset compositions) aggregate",
+  "datasets": [
+    {
+      "dataset": "DS-A_CASIA+BigGAN",
+      "summary_path": "experiments/results/phase2_patha_case3_scale300_dsA/repeated_split_summary_10runs_300_309_20260304.json",
+      "n_runs": 10,
+      "cobra_only_f1_mean": 0.2771034012637943,
+      "cobra_only_f1_std": 0.01707360998058616,
+      "daac_only_f1_mean": 0.8352763028875902,
+      "daac_only_f1_std": 0.02818989435444511,
+      "cobra_plus_daac_f1_mean": 0.8011946830059248,
+      "cobra_plus_daac_f1_std": 0.02972911220856881,
+      "daac_vs_cobra": {
+        "mean": 0.558172901623796,
+        "std": 0.0238836904492048,
+        "positive_count": 10,
+        "negative_count": 0,
+        "sign_test_pvalue": 0.001953125,
+        "paired_ttest_pvalue": 7.690237873312317e-14,
+        "wilcoxon_pvalue": 0.001953125
+      },
+      "fusion_vs_cobra": {
+        "mean": 0.5240912817421306,
+        "std": 0.020319146206805493,
+        "positive_count": 10,
+        "negative_count": 0,
+        "sign_test_pvalue": 0.001953125,
+        "paired_ttest_pvalue": 3.1692435536367506e-14,
+        "wilcoxon_pvalue": 0.001953125
+      },
+      "fusion_vs_daac": {
+        "mean": -0.034081619881665484,
+        "std": 0.02077998800067156,
+        "positive_count": 0,
+        "negative_count": 10,
+        "sign_test_pvalue": 0.001953125,
+        "paired_ttest_pvalue": 0.000574325826411311,
+        "wilcoxon_pvalue": 0.001953125
+      }
+    },
+    {
+      "dataset": "DS-B_ImageNet+CASIA+BigGAN",
+      "summary_path": "experiments/results/phase2_patha_case3_scale300_dsB/repeated_split_summary_10runs_300_309_20260304.json",
+      "n_runs": 10,
+      "cobra_only_f1_mean": 0.2737918739011123,
+      "cobra_only_f1_std": 0.01772480038113156,
+      "daac_only_f1_mean": 0.8672477222441385,
+      "daac_only_f1_std": 0.020331500839773635,
+      "cobra_plus_daac_f1_mean": 0.7881547069634461,
+      "cobra_plus_daac_f1_std": 0.043521524654067154,
+      "daac_vs_cobra": {
+        "mean": 0.593455848343026,
+        "std": 0.013462221911052664,
+        "positive_count": 10,
+        "negative_count": 0,
+        "sign_test_pvalue": 0.001953125,
+        "paired_ttest_pvalue": 2.5562491574611574e-16,
+        "wilcoxon_pvalue": 0.001953125
+      },
+      "fusion_vs_cobra": {
+        "mean": 0.5143628330623338,
+        "std": 0.03437483275201161,
+        "positive_count": 10,
+        "negative_count": 0,
+        "sign_test_pvalue": 0.001953125,
+        "paired_ttest_pvalue": 4.211943971854516e-12,
+        "wilcoxon_pvalue": 0.001953125
+      },
+      "fusion_vs_daac": {
+        "mean": -0.0790930152806923,
+        "std": 0.03699097935825288,
+        "positive_count": 0,
+        "negative_count": 10,
+        "sign_test_pvalue": 0.001953125,
+        "paired_ttest_pvalue": 8.25679075765207e-05,
+        "wilcoxon_pvalue": 0.001953125
+      }
+    },
+    {
+      "dataset": "DS-C_CASIA+IMD2020+BigGAN",
+      "summary_path": "experiments/results/phase2_patha_case3_scale300_dsC/repeated_split_summary_10runs_300_309_20260304.json",
+      "n_runs": 10,
+      "cobra_only_f1_mean": 0.30272083433110797,
+      "cobra_only_f1_std": 0.01981315895384131,
+      "daac_only_f1_mean": 0.8976226082176785,
+      "daac_only_f1_std": 0.023184640064765522,
+      "cobra_plus_daac_f1_mean": 0.8422974578340963,
+      "cobra_plus_daac_f1_std": 0.02363156239392919,
+      "daac_vs_cobra": {
+        "mean": 0.5949017738865704,
+        "std": 0.025934528354912657,
+        "positive_count": 10,
+        "negative_count": 0,
+        "sign_test_pvalue": 0.001953125,
+        "paired_ttest_pvalue": 9.093526353194717e-14,
+        "wilcoxon_pvalue": 0.001953125
+      },
+      "fusion_vs_cobra": {
+        "mean": 0.5395766235029885,
+        "std": 0.02654642417330835,
+        "positive_count": 10,
+        "negative_count": 0,
+        "sign_test_pvalue": 0.001953125,
+        "paired_ttest_pvalue": 2.6951363573365153e-13,
+        "wilcoxon_pvalue": 0.001953125
+      },
+      "fusion_vs_daac": {
+        "mean": -0.05532515038358208,
+        "std": 0.017393631221212114,
+        "positive_count": 0,
+        "negative_count": 10,
+        "sign_test_pvalue": 0.001953125,
+        "paired_ttest_pvalue": 3.4086448775566822e-06,
+        "wilcoxon_pvalue": 0.001953125
+      }
+    },
+    {
+      "dataset": "DS-D_ImageNet+IMD2020+BigGAN",
+      "summary_path": "experiments/results/phase2_patha_case3_scale300_dsD/repeated_split_summary_10runs_300_309_20260304.json",
+      "n_runs": 10,
+      "cobra_only_f1_mean": 0.2995412139504344,
+      "cobra_only_f1_std": 0.022386953192959164,
+      "daac_only_f1_mean": 0.8634269874782726,
+      "daac_only_f1_std": 0.01512396505219828,
+      "cobra_plus_daac_f1_mean": 0.8215249303438558,
+      "cobra_plus_daac_f1_std": 0.016497452753881803,
+      "daac_vs_cobra": {
+        "mean": 0.5638857735278383,
+        "std": 0.030268530356165776,
+        "positive_count": 10,
+        "negative_count": 0,
+        "sign_test_pvalue": 0.001953125,
+        "paired_ttest_pvalue": 5.894828578582666e-13,
+        "wilcoxon_pvalue": 0.001953125
+      },
+      "fusion_vs_cobra": {
+        "mean": 0.5219837163934213,
+        "std": 0.026394077562961752,
+        "positive_count": 10,
+        "negative_count": 0,
+        "sign_test_pvalue": 0.001953125,
+        "paired_ttest_pvalue": 3.4469337451837434e-13,
+        "wilcoxon_pvalue": 0.001953125
+      },
+      "fusion_vs_daac": {
+        "mean": -0.04190205713441678,
+        "std": 0.020330187198590522,
+        "positive_count": 0,
+        "negative_count": 10,
+        "sign_test_pvalue": 0.001953125,
+        "paired_ttest_pvalue": 0.00010918296506453021,
+        "wilcoxon_pvalue": 0.001953125
+      }
+    },
+    {
+      "dataset": "OpenSDI_subset300",
+      "summary_path": "experiments/results/phase2_patha_case3_opensdi_scale300/repeated_split_summary_10runs_300_309_20260304.json",
+      "n_runs": 10,
+      "cobra_only_f1_mean": 0.17715332133956513,
+      "cobra_only_f1_std": 0.0120801981649689,
+      "daac_only_f1_mean": 0.4094461614902718,
+      "daac_only_f1_std": 0.03624974625519675,
+      "cobra_plus_daac_f1_mean": 0.22065925557385366,
+      "cobra_plus_daac_f1_std": 0.04224503734036305,
+      "daac_vs_cobra": {
+        "mean": 0.23229284015070667,
+        "std": 0.03714015190742178,
+        "positive_count": 10,
+        "negative_count": 0,
+        "sign_test_pvalue": 0.001953125,
+        "paired_ttest_pvalue": 1.001665549943847e-08,
+        "wilcoxon_pvalue": 0.001953125
+      },
+      "fusion_vs_cobra": {
+        "mean": 0.04350593423428858,
+        "std": 0.03893606931348097,
+        "positive_count": 8,
+        "negative_count": 2,
+        "sign_test_pvalue": 0.109375,
+        "paired_ttest_pvalue": 0.0063795231488315,
+        "wilcoxon_pvalue": 0.013671875
+      },
+      "fusion_vs_daac": {
+        "mean": -0.18878690591641809,
+        "std": 0.03720829517296445,
+        "positive_count": 0,
+        "negative_count": 10,
+        "sign_test_pvalue": 0.001953125,
+        "paired_ttest_pvalue": 6.277913433651589e-08,
+        "wilcoxon_pvalue": 0.001953125
+      }
+    },
+    {
+      "dataset": "AI-GenBench_proxy300",
+      "summary_path": "experiments/results/phase2_patha_case3_aigenproxy_scale300/repeated_split_summary_10runs_300_309_20260304.json",
+      "n_runs": 10,
+      "cobra_only_f1_mean": 0.3331819253823159,
+      "cobra_only_f1_std": 0.022489221996317144,
+      "daac_only_f1_mean": 0.7502130238712235,
+      "daac_only_f1_std": 0.019914204303295737,
+      "cobra_plus_daac_f1_mean": 0.616787764867077,
+      "cobra_plus_daac_f1_std": 0.0247545525004039,
+      "daac_vs_cobra": {
+        "mean": 0.4170310984889075,
+        "std": 0.03204466991847972,
+        "positive_count": 10,
+        "negative_count": 0,
+        "sign_test_pvalue": 0.001953125,
+        "paired_ttest_pvalue": 1.47143353107618e-11,
+        "wilcoxon_pvalue": 0.001953125
+      },
+      "fusion_vs_cobra": {
+        "mean": 0.28360583948476104,
+        "std": 0.025246080194006988,
+        "positive_count": 10,
+        "negative_count": 0,
+        "sign_test_pvalue": 0.001953125,
+        "paired_ttest_pvalue": 5.4897613413518514e-11,
+        "wilcoxon_pvalue": 0.001953125
+      },
+      "fusion_vs_daac": {
+        "mean": -0.13342525900414653,
+        "std": 0.030524697727004394,
+        "positive_count": 0,
+        "negative_count": 10,
+        "sign_test_pvalue": 0.001953125,
+        "paired_ttest_pvalue": 2.289736941988767e-07,
+        "wilcoxon_pvalue": 0.001953125
+      }
+    }
+  ],
+  "overall": {
+    "n_total_runs": 60,
+    "cobra_only_f1_mean": 0.2772487616947217,
+    "cobra_only_f1_std": 0.05246688389242921,
+    "daac_only_f1_mean": 0.7705388010315292,
+    "daac_only_f1_std": 0.1709591733260346,
+    "cobra_plus_daac_f1_mean": 0.681769799764709,
+    "cobra_plus_daac_f1_std": 0.2228975851439362,
+    "daac_vs_cobra": {
+      "mean": 0.49329003933680743,
+      "std": 0.13514503773165384,
+      "positive_count": 60,
+      "negative_count": 0,
+      "sign_test_pvalue": 1.734723475976807e-18,
+      "paired_ttest_pvalue": 5.3226998304420855e-36,
+      "wilcoxon_pvalue": 1.6295557943119345e-11
+    },
+    "fusion_vs_cobra": {
+      "mean": 0.4045210380699873,
+      "std": 0.18775500646478088,
+      "positive_count": 58,
+      "negative_count": 2,
+      "sign_test_pvalue": 3.1762786845135338e-15,
+      "paired_ttest_pvalue": 5.132678721528111e-24,
+      "wilcoxon_pvalue": 1.994566564292453e-11
+    },
+    "fusion_vs_daac": {
+      "mean": -0.08876900126682022,
+      "std": 0.06209081294073354,
+      "positive_count": 0,
+      "negative_count": 60,
+      "sign_test_pvalue": 1.734723475976807e-18,
+      "paired_ttest_pvalue": 4.900673259398988e-16,
+      "wilcoxon_pvalue": 1.6295557943119345e-11
+    }
+  }
+}

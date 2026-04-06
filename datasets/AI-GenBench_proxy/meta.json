@@ -1,0 +1,11 @@
+{
+  "authentic_src": "/data/jj812_files/MAIFS/datasets/GenImage_subset/BigGAN/val/nature",
+  "manipulated_src": "/data/jj812_files/MAIFS/datasets/IMD2020_subset/IMD2020_Generative_Image_Inpainting_yu2018_01/images",
+  "aigen_fake_src": "/data/jj812_files/MAIFS/datasets/AI-GenBench_fakepart_subset/ai_generated",
+  "max_per_class": 300,
+  "counts": {
+    "authentic": 300,
+    "manipulated": 300,
+    "ai_generated": 300
+  }
+}

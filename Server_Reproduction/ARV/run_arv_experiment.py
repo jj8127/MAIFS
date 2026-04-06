@@ -88,7 +88,35 @@ def parse_args() -> argparse.Namespace:
         default=[-0.05, 0.0, 0.05],
         help="Small grid around the scalar best tau",
     )
+    parser.add_argument(
+        "--weighting-mode",
+        choices=["inverse_confidence", "equal_weight"],
+        default="inverse_confidence",
+        help="1단계 ICWMV 결합 방식",
+    )
+    parser.add_argument(
+        "--weighting-alpha",
+        type=float,
+        default=1.0,
+        help="w = 1 / confidence^alpha 에서 alpha 값 (equal_weight 모드에서는 무시)",
+    )
+    parser.add_argument(
+        "--specm-model",
+        type=str,
+        default="comp_noTS",
+        help="SpecM-style auxiliary model key to evaluate",
+    )
     return parser.parse_args()
+
+
+def effective_weighting_alpha(weighting_mode: str, weighting_alpha: float) -> float:
+    if weighting_mode == "equal_weight":
+        return 0.0
+    return max(float(weighting_alpha), 0.0)
+
+
+def alpha_tag(weighting_mode: str, weighting_alpha: float) -> str:
+    return f"alpha{effective_weighting_alpha(weighting_mode, weighting_alpha):.1f}".replace(".", "p")
 
 
 def load_hema_module():
@@ -329,6 +357,8 @@ def tune_richer_grid(
 def main() -> None:
     args = parse_args()
     module = load_hema_module()
+    module.WEIGHTING_MODE = args.weighting_mode
+    module.WEIGHTING_ALPHA = float(args.weighting_alpha)
 
     scalar = json.loads(Path(args.scalar_result).read_text(encoding="utf-8"))
     meta = json.loads(Path(args.meta_warmstart_result).read_text(encoding="utf-8"))
@@ -336,7 +366,7 @@ def main() -> None:
     meta_models = meta["models"]
     mnv2_ts = scalar["config"]["mnv2_versions"][args.mnv2_label]
 
-    model_key = "comp_noTS"
+    model_key = str(args.specm_model)
     aligned = {}
     for ds_name in module.DATASETS:
         mnv2_recs = module.load_mnv2(ds_name, mnv2_ts)
@@ -345,9 +375,13 @@ def main() -> None:
 
     final_results = {
         "timestamp": datetime.now().isoformat(),
-        "experiment": "comp_noTS_richer_veto",
+        "experiment": f"{model_key}_richer_veto",
         "mnv2_label": args.mnv2_label,
         "mnv2_ts": mnv2_ts,
+        "specm_model": model_key,
+        "weighting_mode": args.weighting_mode,
+        "weighting_alpha": float(args.weighting_alpha),
+        "effective_weighting_alpha": effective_weighting_alpha(args.weighting_mode, args.weighting_alpha),
         "weights": {
             "reverse_manip_weight": float(args.reverse_manip_weight),
             "reverse_auth_weight": float(args.reverse_auth_weight),
@@ -448,7 +482,7 @@ def main() -> None:
 
     out_dir = ROOT / "experiments" / "results" / "hema_icwmv_veto"
     out_dir.mkdir(parents=True, exist_ok=True)
-    out_path = out_dir / f"comp_nots_richer_veto_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+    out_path = out_dir / f"{model_key}_richer_veto_{alpha_tag(args.weighting_mode, args.weighting_alpha)}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
     out_path.write_text(json.dumps(final_results, indent=2), encoding="utf-8")
     print(f"\n저장: {out_path}")
 

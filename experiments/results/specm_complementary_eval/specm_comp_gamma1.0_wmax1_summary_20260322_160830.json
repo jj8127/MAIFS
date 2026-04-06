@@ -1,0 +1,156 @@
+{
+  "tag": "gamma1.0_wmax1",
+  "config": {
+    "gamma": 1.0,
+    "w_max": 1.0,
+    "temperature": 1.2262871265411377,
+    "no_ts": false,
+    "tag": "gamma1.0_wmax1"
+  },
+  "results": {
+    "base": {
+      "n": 1000,
+      "accuracy": 0.794,
+      "macro_recall": 0.794,
+      "auth_recall": 0.756,
+      "manip_recall": 0.832,
+      "manip_f1": 0.8015414258188823,
+      "per_class": {
+        "authentic": {
+          "recall": 0.756,
+          "n": 500
+        },
+        "manipulated": {
+          "recall": 0.832,
+          "n": 500
+        }
+      },
+      "mnv2_error_corr": {
+        "n_mnv2_errors": 82,
+        "n_corrected": 66,
+        "correction_rate": 0.8049,
+        "patterns": {
+          "authentic→manipulated": {
+            "total": 18,
+            "corrected": 7,
+            "rate": 0.3889
+          },
+          "manipulated→authentic": {
+            "total": 64,
+            "corrected": 59,
+            "rate": 0.9219
+          }
+        }
+      },
+      "jsonl": "data/experiments/results/specm_complementary_eval/specm_comp_gamma1.0_wmax1_base_20260322_160830.jsonl"
+    },
+    "dsC": {
+      "n": 600,
+      "accuracy": 0.8133333333333334,
+      "macro_recall": 0.8133333333333334,
+      "auth_recall": 0.7466666666666667,
+      "manip_recall": 0.88,
+      "manip_f1": 0.825,
+      "per_class": {
+        "authentic": {
+          "recall": 0.7466666666666667,
+          "n": 300
+        },
+        "manipulated": {
+          "recall": 0.88,
+          "n": 300
+        }
+      },
+      "mnv2_error_corr": {
+        "n_mnv2_errors": 17,
+        "n_corrected": 11,
+        "correction_rate": 0.6471,
+        "patterns": {
+          "authentic→manipulated": {
+            "total": 12,
+            "corrected": 7,
+            "rate": 0.5833
+          },
+          "manipulated→authentic": {
+            "total": 5,
+            "corrected": 4,
+            "rate": 0.8
+          }
+        }
+      },
+      "jsonl": "data/experiments/results/specm_complementary_eval/specm_comp_gamma1.0_wmax1_dsC_20260322_160830.jsonl"
+    },
+    "opensdi": {
+      "n": 600,
+      "accuracy": 0.62,
+      "macro_recall": 0.62,
+      "auth_recall": 0.7,
+      "manip_recall": 0.54,
+      "manip_f1": 0.5869565217391305,
+      "per_class": {
+        "authentic": {
+          "recall": 0.7,
+          "n": 300
+        },
+        "manipulated": {
+          "recall": 0.54,
+          "n": 300
+        }
+      },
+      "mnv2_error_corr": {
+        "n_mnv2_errors": 27,
+        "n_corrected": 12,
+        "correction_rate": 0.4444,
+        "patterns": {
+          "authentic→manipulated": {
+            "total": 19,
+            "corrected": 12,
+            "rate": 0.6316
+          },
+          "manipulated→authentic": {
+            "total": 8,
+            "corrected": 0,
+            "rate": 0.0
+          }
+        }
+      },
+      "jsonl": "data/experiments/results/specm_complementary_eval/specm_comp_gamma1.0_wmax1_opensdi_20260322_160830.jsonl"
+    },
+    "aigenproxy": {
+      "n": 600,
+      "accuracy": 0.96,
+      "macro_recall": 0.96,
+      "auth_recall": 0.96,
+      "manip_recall": 0.96,
+      "manip_f1": 0.96,
+      "per_class": {
+        "authentic": {
+          "recall": 0.96,
+          "n": 300
+        },
+        "manipulated": {
+          "recall": 0.96,
+          "n": 300
+        }
+      },
+      "mnv2_error_corr": {
+        "n_mnv2_errors": 18,
+        "n_corrected": 16,
+        "correction_rate": 0.8889,
+        "patterns": {
+          "authentic→manipulated": {
+            "total": 15,
+            "corrected": 13,
+            "rate": 0.8667
+          },
+          "manipulated→authentic": {
+            "total": 3,
+            "corrected": 3,
+            "rate": 1.0
+          }
+        }
+      },
+      "jsonl": "data/experiments/results/specm_complementary_eval/specm_comp_gamma1.0_wmax1_aigenproxy_20260322_160830.jsonl"
+    }
+  }
+}

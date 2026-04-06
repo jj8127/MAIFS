@@ -1,0 +1,657 @@
+{
+  "experiment": "arv_active_case_discovery",
+  "date_local": "2026-03-31T01:18:03.752835+00:00",
+  "device_model": "x86_64",
+  "mode": "cpu",
+  "protocol": "paper_v2",
+  "image_dir": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set",
+  "sub_type": "",
+  "infer_sub_type_from_path": false,
+  "w_spec": 1.0,
+  "model_keys": [
+    "base",
+    "dsC",
+    "opensdi",
+    "aigenproxy"
+  ],
+  "summary": {
+    "images_scanned": 6,
+    "active_case_count": 24,
+    "action_counts": {
+      "keep_change": 15,
+      "revert_to_base": 9
+    },
+    "model_key_counts": {
+      "base": 6,
+      "dsC": 6,
+      "opensdi": 6,
+      "aigenproxy": 6
+    }
+  },
+  "cases": [
+    {
+      "case_id": "cpu_base_keep_change_0001",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__authentic__000142.jpg",
+      "image_name": "opensdi__authentic__000142.jpg",
+      "sub_type": "",
+      "model_key": "base",
+      "action": "keep_change",
+      "base_bin_label": "manipulated",
+      "stage1_bin_label": "authentic",
+      "final_label": "authentic",
+      "override_present": true,
+      "keep_prob": 0.879367,
+      "tau": 0.35,
+      "stage1_latency_ms": 52.8,
+      "base_conf": 0.407,
+      "aux_conf": 0.6702,
+      "base_scores3": {
+        "authentic": 0.3941,
+        "manipulated": 0.407,
+        "ai_generated": 0.1988
+      },
+      "aux_scores2": {
+        "authentic": 0.6702,
+        "manipulated": 0.3298
+      }
+    },
+    {
+      "case_id": "cpu_dsC_keep_change_0002",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__authentic__000142.jpg",
+      "image_name": "opensdi__authentic__000142.jpg",
+      "sub_type": "",
+      "model_key": "dsC",
+      "action": "keep_change",
+      "base_bin_label": "manipulated",
+      "stage1_bin_label": "authentic",
+      "final_label": "authentic",
+      "override_present": true,
+      "keep_prob": 0.911792,
+      "tau": 0.35,
+      "stage1_latency_ms": 52.8,
+      "base_conf": 0.407,
+      "aux_conf": 0.6702,
+      "base_scores3": {
+        "authentic": 0.3941,
+        "manipulated": 0.407,
+        "ai_generated": 0.1988
+      },
+      "aux_scores2": {
+        "authentic": 0.6702,
+        "manipulated": 0.3298
+      }
+    },
+    {
+      "case_id": "cpu_opensdi_keep_change_0003",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__authentic__000142.jpg",
+      "image_name": "opensdi__authentic__000142.jpg",
+      "sub_type": "",
+      "model_key": "opensdi",
+      "action": "keep_change",
+      "base_bin_label": "manipulated",
+      "stage1_bin_label": "authentic",
+      "final_label": "authentic",
+      "override_present": true,
+      "keep_prob": 0.772799,
+      "tau": 0.45,
+      "stage1_latency_ms": 52.8,
+      "base_conf": 0.407,
+      "aux_conf": 0.6702,
+      "base_scores3": {
+        "authentic": 0.3941,
+        "manipulated": 0.407,
+        "ai_generated": 0.1988
+      },
+      "aux_scores2": {
+        "authentic": 0.6702,
+        "manipulated": 0.3298
+      }
+    },
+    {
+      "case_id": "cpu_aigenproxy_revert_to_base_0004",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__authentic__000142.jpg",
+      "image_name": "opensdi__authentic__000142.jpg",
+      "sub_type": "",
+      "model_key": "aigenproxy",
+      "action": "revert_to_base",
+      "base_bin_label": "manipulated",
+      "stage1_bin_label": "authentic",
+      "final_label": "manipulated",
+      "override_present": true,
+      "keep_prob": 0.576348,
+      "tau": 0.65,
+      "stage1_latency_ms": 52.8,
+      "base_conf": 0.407,
+      "aux_conf": 0.6702,
+      "base_scores3": {
+        "authentic": 0.3941,
+        "manipulated": 0.407,
+        "ai_generated": 0.1988
+      },
+      "aux_scores2": {
+        "authentic": 0.6702,
+        "manipulated": 0.3298
+      }
+    },
+    {
+      "case_id": "cpu_base_revert_to_base_0005",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__authentic__000276.jpg",
+      "image_name": "opensdi__authentic__000276.jpg",
+      "sub_type": "",
+      "model_key": "base",
+      "action": "revert_to_base",
+      "base_bin_label": "authentic",
+      "stage1_bin_label": "manipulated",
+      "final_label": "authentic",
+      "override_present": true,
+      "keep_prob": 0.068186,
+      "tau": 0.35,
+      "stage1_latency_ms": 69.0,
+      "base_conf": 0.943,
+      "aux_conf": 0.9674,
+      "base_scores3": {
+        "authentic": 0.943,
+        "manipulated": 0.0528,
+        "ai_generated": 0.0042
+      },
+      "aux_scores2": {
+        "authentic": 0.0326,
+        "manipulated": 0.9674
+      }
+    },
+    {
+      "case_id": "cpu_dsC_keep_change_0006",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__authentic__000276.jpg",
+      "image_name": "opensdi__authentic__000276.jpg",
+      "sub_type": "",
+      "model_key": "dsC",
+      "action": "keep_change",
+      "base_bin_label": "authentic",
+      "stage1_bin_label": "manipulated",
+      "final_label": "manipulated",
+      "override_present": true,
+      "keep_prob": 0.361974,
+      "tau": 0.35,
+      "stage1_latency_ms": 69.0,
+      "base_conf": 0.943,
+      "aux_conf": 0.9674,
+      "base_scores3": {
+        "authentic": 0.943,
+        "manipulated": 0.0528,
+        "ai_generated": 0.0042
+      },
+      "aux_scores2": {
+        "authentic": 0.0326,
+        "manipulated": 0.9674
+      }
+    },
+    {
+      "case_id": "cpu_opensdi_revert_to_base_0007",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__authentic__000276.jpg",
+      "image_name": "opensdi__authentic__000276.jpg",
+      "sub_type": "",
+      "model_key": "opensdi",
+      "action": "revert_to_base",
+      "base_bin_label": "authentic",
+      "stage1_bin_label": "manipulated",
+      "final_label": "authentic",
+      "override_present": true,
+      "keep_prob": 0.327786,
+      "tau": 0.45,
+      "stage1_latency_ms": 69.0,
+      "base_conf": 0.943,
+      "aux_conf": 0.9674,
+      "base_scores3": {
+        "authentic": 0.943,
+        "manipulated": 0.0528,
+        "ai_generated": 0.0042
+      },
+      "aux_scores2": {
+        "authentic": 0.0326,
+        "manipulated": 0.9674
+      }
+    },
+    {
+      "case_id": "cpu_aigenproxy_revert_to_base_0008",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__authentic__000276.jpg",
+      "image_name": "opensdi__authentic__000276.jpg",
+      "sub_type": "",
+      "model_key": "aigenproxy",
+      "action": "revert_to_base",
+      "base_bin_label": "authentic",
+      "stage1_bin_label": "manipulated",
+      "final_label": "authentic",
+      "override_present": true,
+      "keep_prob": 0.142928,
+      "tau": 0.65,
+      "stage1_latency_ms": 69.0,
+      "base_conf": 0.943,
+      "aux_conf": 0.9674,
+      "base_scores3": {
+        "authentic": 0.943,
+        "manipulated": 0.0528,
+        "ai_generated": 0.0042
+      },
+      "aux_scores2": {
+        "authentic": 0.0326,
+        "manipulated": 0.9674
+      }
+    },
+    {
+      "case_id": "cpu_base_revert_to_base_0009",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000219.jpg",
+      "image_name": "opensdi__manipulated__000219.jpg",
+      "sub_type": "",
+      "model_key": "base",
+      "action": "revert_to_base",
+      "base_bin_label": "manipulated",
+      "stage1_bin_label": "authentic",
+      "final_label": "manipulated",
+      "override_present": true,
+      "keep_prob": 0.346413,
+      "tau": 0.35,
+      "stage1_latency_ms": 37.6,
+      "base_conf": 0.9884,
+      "aux_conf": 0.9976,
+      "base_scores3": {
+        "authentic": 0.0079,
+        "manipulated": 0.9884,
+        "ai_generated": 0.0037
+      },
+      "aux_scores2": {
+        "authentic": 0.9976,
+        "manipulated": 0.0024
+      }
+    },
+    {
+      "case_id": "cpu_dsC_revert_to_base_0010",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000219.jpg",
+      "image_name": "opensdi__manipulated__000219.jpg",
+      "sub_type": "",
+      "model_key": "dsC",
+      "action": "revert_to_base",
+      "base_bin_label": "manipulated",
+      "stage1_bin_label": "authentic",
+      "final_label": "manipulated",
+      "override_present": true,
+      "keep_prob": 0.097501,
+      "tau": 0.35,
+      "stage1_latency_ms": 37.6,
+      "base_conf": 0.9884,
+      "aux_conf": 0.9976,
+      "base_scores3": {
+        "authentic": 0.0079,
+        "manipulated": 0.9884,
+        "ai_generated": 0.0037
+      },
+      "aux_scores2": {
+        "authentic": 0.9976,
+        "manipulated": 0.0024
+      }
+    },
+    {
+      "case_id": "cpu_opensdi_revert_to_base_0011",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000219.jpg",
+      "image_name": "opensdi__manipulated__000219.jpg",
+      "sub_type": "",
+      "model_key": "opensdi",
+      "action": "revert_to_base",
+      "base_bin_label": "manipulated",
+      "stage1_bin_label": "authentic",
+      "final_label": "manipulated",
+      "override_present": true,
+      "keep_prob": 0.137756,
+      "tau": 0.45,
+      "stage1_latency_ms": 37.6,
+      "base_conf": 0.9884,
+      "aux_conf": 0.9976,
+      "base_scores3": {
+        "authentic": 0.0079,
+        "manipulated": 0.9884,
+        "ai_generated": 0.0037
+      },
+      "aux_scores2": {
+        "authentic": 0.9976,
+        "manipulated": 0.0024
+      }
+    },
+    {
+      "case_id": "cpu_aigenproxy_revert_to_base_0012",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000219.jpg",
+      "image_name": "opensdi__manipulated__000219.jpg",
+      "sub_type": "",
+      "model_key": "aigenproxy",
+      "action": "revert_to_base",
+      "base_bin_label": "manipulated",
+      "stage1_bin_label": "authentic",
+      "final_label": "manipulated",
+      "override_present": true,
+      "keep_prob": 0.09138,
+      "tau": 0.65,
+      "stage1_latency_ms": 37.6,
+      "base_conf": 0.9884,
+      "aux_conf": 0.9976,
+      "base_scores3": {
+        "authentic": 0.0079,
+        "manipulated": 0.9884,
+        "ai_generated": 0.0037
+      },
+      "aux_scores2": {
+        "authentic": 0.9976,
+        "manipulated": 0.0024
+      }
+    },
+    {
+      "case_id": "cpu_base_keep_change_0013",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000223.jpg",
+      "image_name": "opensdi__manipulated__000223.jpg",
+      "sub_type": "",
+      "model_key": "base",
+      "action": "keep_change",
+      "base_bin_label": "manipulated",
+      "stage1_bin_label": "authentic",
+      "final_label": "authentic",
+      "override_present": true,
+      "keep_prob": 0.932668,
+      "tau": 0.35,
+      "stage1_latency_ms": 46.6,
+      "base_conf": 0.7054,
+      "aux_conf": 0.9622,
+      "base_scores3": {
+        "authentic": 0.1657,
+        "manipulated": 0.7054,
+        "ai_generated": 0.1289
+      },
+      "aux_scores2": {
+        "authentic": 0.9622,
+        "manipulated": 0.0378
+      }
+    },
+    {
+      "case_id": "cpu_dsC_keep_change_0014",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000223.jpg",
+      "image_name": "opensdi__manipulated__000223.jpg",
+      "sub_type": "",
+      "model_key": "dsC",
+      "action": "keep_change",
+      "base_bin_label": "manipulated",
+      "stage1_bin_label": "authentic",
+      "final_label": "authentic",
+      "override_present": true,
+      "keep_prob": 0.934548,
+      "tau": 0.35,
+      "stage1_latency_ms": 46.6,
+      "base_conf": 0.7054,
+      "aux_conf": 0.9622,
+      "base_scores3": {
+        "authentic": 0.1657,
+        "manipulated": 0.7054,
+        "ai_generated": 0.1289
+      },
+      "aux_scores2": {
+        "authentic": 0.9622,
+        "manipulated": 0.0378
+      }
+    },
+    {
+      "case_id": "cpu_opensdi_keep_change_0015",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000223.jpg",
+      "image_name": "opensdi__manipulated__000223.jpg",
+      "sub_type": "",
+      "model_key": "opensdi",
+      "action": "keep_change",
+      "base_bin_label": "manipulated",
+      "stage1_bin_label": "authentic",
+      "final_label": "authentic",
+      "override_present": true,
+      "keep_prob": 0.918621,
+      "tau": 0.45,
+      "stage1_latency_ms": 46.6,
+      "base_conf": 0.7054,
+      "aux_conf": 0.9622,
+      "base_scores3": {
+        "authentic": 0.1657,
+        "manipulated": 0.7054,
+        "ai_generated": 0.1289
+      },
+      "aux_scores2": {
+        "authentic": 0.9622,
+        "manipulated": 0.0378
+      }
+    },
+    {
+      "case_id": "cpu_aigenproxy_keep_change_0016",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000223.jpg",
+      "image_name": "opensdi__manipulated__000223.jpg",
+      "sub_type": "",
+      "model_key": "aigenproxy",
+      "action": "keep_change",
+      "base_bin_label": "manipulated",
+      "stage1_bin_label": "authentic",
+      "final_label": "authentic",
+      "override_present": true,
+      "keep_prob": 0.733152,
+      "tau": 0.65,
+      "stage1_latency_ms": 46.6,
+      "base_conf": 0.7054,
+      "aux_conf": 0.9622,
+      "base_scores3": {
+        "authentic": 0.1657,
+        "manipulated": 0.7054,
+        "ai_generated": 0.1289
+      },
+      "aux_scores2": {
+        "authentic": 0.9622,
+        "manipulated": 0.0378
+      }
+    },
+    {
+      "case_id": "cpu_base_keep_change_0017",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000228.jpg",
+      "image_name": "opensdi__manipulated__000228.jpg",
+      "sub_type": "",
+      "model_key": "base",
+      "action": "keep_change",
+      "base_bin_label": "manipulated",
+      "stage1_bin_label": "authentic",
+      "final_label": "authentic",
+      "override_present": true,
+      "keep_prob": 0.920121,
+      "tau": 0.35,
+      "stage1_latency_ms": 46.6,
+      "base_conf": 0.6252,
+      "aux_conf": 0.8875,
+      "base_scores3": {
+        "authentic": 0.3467,
+        "manipulated": 0.6252,
+        "ai_generated": 0.0281
+      },
+      "aux_scores2": {
+        "authentic": 0.8875,
+        "manipulated": 0.1125
+      }
+    },
+    {
+      "case_id": "cpu_dsC_keep_change_0018",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000228.jpg",
+      "image_name": "opensdi__manipulated__000228.jpg",
+      "sub_type": "",
+      "model_key": "dsC",
+      "action": "keep_change",
+      "base_bin_label": "manipulated",
+      "stage1_bin_label": "authentic",
+      "final_label": "authentic",
+      "override_present": true,
+      "keep_prob": 0.864845,
+      "tau": 0.35,
+      "stage1_latency_ms": 46.6,
+      "base_conf": 0.6252,
+      "aux_conf": 0.8875,
+      "base_scores3": {
+        "authentic": 0.3467,
+        "manipulated": 0.6252,
+        "ai_generated": 0.0281
+      },
+      "aux_scores2": {
+        "authentic": 0.8875,
+        "manipulated": 0.1125
+      }
+    },
+    {
+      "case_id": "cpu_opensdi_keep_change_0019",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000228.jpg",
+      "image_name": "opensdi__manipulated__000228.jpg",
+      "sub_type": "",
+      "model_key": "opensdi",
+      "action": "keep_change",
+      "base_bin_label": "manipulated",
+      "stage1_bin_label": "authentic",
+      "final_label": "authentic",
+      "override_present": true,
+      "keep_prob": 0.643275,
+      "tau": 0.45,
+      "stage1_latency_ms": 46.6,
+      "base_conf": 0.6252,
+      "aux_conf": 0.8875,
+      "base_scores3": {
+        "authentic": 0.3467,
+        "manipulated": 0.6252,
+        "ai_generated": 0.0281
+      },
+      "aux_scores2": {
+        "authentic": 0.8875,
+        "manipulated": 0.1125
+      }
+    },
+    {
+      "case_id": "cpu_aigenproxy_revert_to_base_0020",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000228.jpg",
+      "image_name": "opensdi__manipulated__000228.jpg",
+      "sub_type": "",
+      "model_key": "aigenproxy",
+      "action": "revert_to_base",
+      "base_bin_label": "manipulated",
+      "stage1_bin_label": "authentic",
+      "final_label": "manipulated",
+      "override_present": true,
+      "keep_prob": 0.633599,
+      "tau": 0.65,
+      "stage1_latency_ms": 46.6,
+      "base_conf": 0.6252,
+      "aux_conf": 0.8875,
+      "base_scores3": {
+        "authentic": 0.3467,
+        "manipulated": 0.6252,
+        "ai_generated": 0.0281
+      },
+      "aux_scores2": {
+        "authentic": 0.8875,
+        "manipulated": 0.1125
+      }
+    },
+    {
+      "case_id": "cpu_base_keep_change_0021",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000280.jpg",
+      "image_name": "opensdi__manipulated__000280.jpg",
+      "sub_type": "",
+      "model_key": "base",
+      "action": "keep_change",
+      "base_bin_label": "authentic",
+      "stage1_bin_label": "manipulated",
+      "final_label": "manipulated",
+      "override_present": true,
+      "keep_prob": 0.453677,
+      "tau": 0.35,
+      "stage1_latency_ms": 48.5,
+      "base_conf": 0.5944,
+      "aux_conf": 0.8528,
+      "base_scores3": {
+        "authentic": 0.5944,
+        "manipulated": 0.3745,
+        "ai_generated": 0.0311
+      },
+      "aux_scores2": {
+        "authentic": 0.1472,
+        "manipulated": 0.8528
+      }
+    },
+    {
+      "case_id": "cpu_dsC_keep_change_0022",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000280.jpg",
+      "image_name": "opensdi__manipulated__000280.jpg",
+      "sub_type": "",
+      "model_key": "dsC",
+      "action": "keep_change",
+      "base_bin_label": "authentic",
+      "stage1_bin_label": "manipulated",
+      "final_label": "manipulated",
+      "override_present": true,
+      "keep_prob": 0.875877,
+      "tau": 0.35,
+      "stage1_latency_ms": 48.5,
+      "base_conf": 0.5944,
+      "aux_conf": 0.8528,
+      "base_scores3": {
+        "authentic": 0.5944,
+        "manipulated": 0.3745,
+        "ai_generated": 0.0311
+      },
+      "aux_scores2": {
+        "authentic": 0.1472,
+        "manipulated": 0.8528
+      }
+    },
+    {
+      "case_id": "cpu_opensdi_keep_change_0023",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000280.jpg",
+      "image_name": "opensdi__manipulated__000280.jpg",
+      "sub_type": "",
+      "model_key": "opensdi",
+      "action": "keep_change",
+      "base_bin_label": "authentic",
+      "stage1_bin_label": "manipulated",
+      "final_label": "manipulated",
+      "override_present": true,
+      "keep_prob": 0.68443,
+      "tau": 0.45,
+      "stage1_latency_ms": 48.5,
+      "base_conf": 0.5944,
+      "aux_conf": 0.8528,
+      "base_scores3": {
+        "authentic": 0.5944,
+        "manipulated": 0.3745,
+        "ai_generated": 0.0311
+      },
+      "aux_scores2": {
+        "authentic": 0.1472,
+        "manipulated": 0.8528
+      }
+    },
+    {
+      "case_id": "cpu_aigenproxy_keep_change_0024",
+      "image_path": "/data/jj812_files/MAIFS/Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/assets/active_probe_set/opensdi__manipulated__000280.jpg",
+      "image_name": "opensdi__manipulated__000280.jpg",
+      "sub_type": "",
+      "model_key": "aigenproxy",
+      "action": "keep_change",
+      "base_bin_label": "authentic",
+      "stage1_bin_label": "manipulated",
+      "final_label": "manipulated",
+      "override_present": true,
+      "keep_prob": 0.660966,
+      "tau": 0.65,
+      "stage1_latency_ms": 48.5,
+      "base_conf": 0.5944,
+      "aux_conf": 0.8528,
+      "base_scores3": {
+        "authentic": 0.5944,
+        "manipulated": 0.3745,
+        "ai_generated": 0.0311
+      },
+      "aux_scores2": {
+        "authentic": 0.1472,
+        "manipulated": 0.8528
+      }
+    }
+  ]
+}

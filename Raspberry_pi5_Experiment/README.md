@@ -8,6 +8,7 @@
   - 1단계 경량 2-모델 결합의 Raspberry Pi 5 지연 측정
 - `ARV_EndToEnd_RPi5/`
   - ARV stage-2까지 포함한 종단간 지연 측정
+  - fixed-input benchmark와 active keep/revert probe workflow 포함
 - `docs/`
   - 논문 근거가 되는 상태 문서와 요약 문서
 
@@ -35,6 +36,13 @@ bash run_rpi5_latency_benchmark.sh all /path/to/test_image.jpg
 ```bash
 cd Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5
 bash run_arv_e2e_benchmark.sh all
+```
+
+### ARV active probe 측정
+
+```bash
+cd Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5
+bash run_arv_active_workflow.sh cpu
 ```
 
 ## 주요 문서

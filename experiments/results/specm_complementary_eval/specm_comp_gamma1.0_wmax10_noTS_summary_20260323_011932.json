@@ -1,0 +1,156 @@
+{
+  "tag": "gamma1.0_wmax10_noTS",
+  "config": {
+    "gamma": 1.0,
+    "w_max": 10.0,
+    "temperature": 1.0,
+    "no_ts": true,
+    "tag": "gamma1.0_wmax10_noTS"
+  },
+  "results": {
+    "base": {
+      "n": 1000,
+      "accuracy": 0.715,
+      "macro_recall": 0.715,
+      "auth_recall": 0.734,
+      "manip_recall": 0.696,
+      "manip_f1": 0.709480122324159,
+      "per_class": {
+        "authentic": {
+          "recall": 0.734,
+          "n": 500
+        },
+        "manipulated": {
+          "recall": 0.696,
+          "n": 500
+        }
+      },
+      "mnv2_error_corr": {
+        "n_mnv2_errors": 82,
+        "n_corrected": 72,
+        "correction_rate": 0.878,
+        "patterns": {
+          "authentic→manipulated": {
+            "total": 18,
+            "corrected": 11,
+            "rate": 0.6111
+          },
+          "manipulated→authentic": {
+            "total": 64,
+            "corrected": 61,
+            "rate": 0.9531
+          }
+        }
+      },
+      "jsonl": "data/experiments/results/specm_complementary_eval/specm_comp_gamma1.0_wmax10_noTS_base_20260323_011932.jsonl"
+    },
+    "dsC": {
+      "n": 600,
+      "accuracy": 0.8116666666666666,
+      "macro_recall": 0.8116666666666666,
+      "auth_recall": 0.7333333333333333,
+      "manip_recall": 0.89,
+      "manip_f1": 0.8253477588871715,
+      "per_class": {
+        "authentic": {
+          "recall": 0.7333333333333333,
+          "n": 300
+        },
+        "manipulated": {
+          "recall": 0.89,
+          "n": 300
+        }
+      },
+      "mnv2_error_corr": {
+        "n_mnv2_errors": 17,
+        "n_corrected": 13,
+        "correction_rate": 0.7647,
+        "patterns": {
+          "authentic→manipulated": {
+            "total": 12,
+            "corrected": 9,
+            "rate": 0.75
+          },
+          "manipulated→authentic": {
+            "total": 5,
+            "corrected": 4,
+            "rate": 0.8
+          }
+        }
+      },
+      "jsonl": "data/experiments/results/specm_complementary_eval/specm_comp_gamma1.0_wmax10_noTS_dsC_20260323_011932.jsonl"
+    },
+    "opensdi": {
+      "n": 600,
+      "accuracy": 0.61,
+      "macro_recall": 0.61,
+      "auth_recall": 0.6966666666666667,
+      "manip_recall": 0.5233333333333333,
+      "manip_f1": 0.572992700729927,
+      "per_class": {
+        "authentic": {
+          "recall": 0.6966666666666667,
+          "n": 300
+        },
+        "manipulated": {
+          "recall": 0.5233333333333333,
+          "n": 300
+        }
+      },
+      "mnv2_error_corr": {
+        "n_mnv2_errors": 27,
+        "n_corrected": 15,
+        "correction_rate": 0.5556,
+        "patterns": {
+          "authentic→manipulated": {
+            "total": 19,
+            "corrected": 14,
+            "rate": 0.7368
+          },
+          "manipulated→authentic": {
+            "total": 8,
+            "corrected": 1,
+            "rate": 0.125
+          }
+        }
+      },
+      "jsonl": "data/experiments/results/specm_complementary_eval/specm_comp_gamma1.0_wmax10_noTS_opensdi_20260323_011932.jsonl"
+    },
+    "aigenproxy": {
+      "n": 600,
+      "accuracy": 0.945,
+      "macro_recall": 0.9450000000000001,
+      "auth_recall": 0.9433333333333334,
+      "manip_recall": 0.9466666666666667,
+      "manip_f1": 0.9450915141430948,
+      "per_class": {
+        "authentic": {
+          "recall": 0.9433333333333334,
+          "n": 300
+        },
+        "manipulated": {
+          "recall": 0.9466666666666667,
+          "n": 300
+        }
+      },
+      "mnv2_error_corr": {
+        "n_mnv2_errors": 18,
+        "n_corrected": 16,
+        "correction_rate": 0.8889,
+        "patterns": {
+          "authentic→manipulated": {
+            "total": 15,
+            "corrected": 13,
+            "rate": 0.8667
+          },
+          "manipulated→authentic": {
+            "total": 3,
+            "corrected": 3,
+            "rate": 1.0
+          }
+        }
+      },
+      "jsonl": "data/experiments/results/specm_complementary_eval/specm_comp_gamma1.0_wmax10_noTS_aigenproxy_20260323_011932.jsonl"
+    }
+  }
+}

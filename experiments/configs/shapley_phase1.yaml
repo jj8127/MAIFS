@@ -1,0 +1,26 @@
+# SHIELD Phase 1: Model Shapley + STII 실험 설정
+# 기존 paper_final JSONL 재사용 (에이전트 재실행 불필요)
+
+jsonl_path: "experiments/results/phase2_patha_scale500_gain_predictor/patha_agent_outputs_20260304_080157.jsonl"
+
+# 10 seed 반복으로 split variance 억제
+seeds: [300, 301, 302, 303, 304, 305, 306, 307, 308, 309]
+
+split:
+  train_ratio: 0.6
+  val_ratio: 0.2
+  # test_ratio: 0.2 (자동 계산)
+
+# GBM 하이퍼파라미터 (paper_final과 동일)
+gbm:
+  n_estimators: 200
+  max_depth: 4
+  learning_rate: 0.1
+  subsample: 0.8
+  min_samples_leaf: 5
+
+# CKA 계산 여부 (N=1500이면 1500×1500 행렬 → 약간 느림)
+skip_cka: false
+
+output:
+  save_dir: "experiments/results/shapley_phase1"

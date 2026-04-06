@@ -1,0 +1,331 @@
+{
+  "timestamp": "2026-03-19T04:10:01.491365",
+  "datasets": [
+    "base",
+    "dsC",
+    "opensdi",
+    "aigenproxy"
+  ],
+  "results": [
+    {
+      "name": "base",
+      "desc": "CASIA2 + BigGAN (1500, Phase 1 원본)",
+      "n_samples": 1500,
+      "shapley": {
+        "frequency": 0.17038750912182402,
+        "noise": 0.13663693397059884,
+        "fatformer": 0.08035988443633327,
+        "spatial": 0.05099648536753941
+      },
+      "shapley_ranking": [
+        "frequency",
+        "noise",
+        "fatformer",
+        "spatial"
+      ],
+      "stii": {
+        "frequency__noise": 0.005040951700419875,
+        "frequency__fatformer": -0.03291987753969086,
+        "frequency__spatial": -0.051750661659148704,
+        "noise__fatformer": 0.007458112855158471,
+        "noise__spatial": 0.014680646026294621,
+        "fatformer__spatial": -0.003415380689033935
+      },
+      "stii_top_pair": "frequency__spatial",
+      "unique_summary": {
+        "frequency": 0.20293088556038144,
+        "noise": 0.03109035003395577,
+        "fatformer": 0.03821097861698672,
+        "spatial": 0.0
+      },
+      "synergy_ranking": [
+        {
+          "pair": "noise__fatformer",
+          "synergy": 0.10930312049682331
+        },
+        {
+          "pair": "frequency__noise",
+          "synergy": 0.09458884996870176
+        },
+        {
+          "pair": "frequency__fatformer",
+          "synergy": 0.06124281877508958
+        },
+        {
+          "pair": "noise__spatial",
+          "synergy": 0.04554621138229506
+        },
+        {
+          "pair": "fatformer__spatial",
+          "synergy": 0.04307390321140203
+        },
+        {
+          "pair": "frequency__spatial",
+          "synergy": 0.022236064885261503
+        }
+      ],
+      "cf": {
+        "[]": 0.3333333333333333,
+        "['frequency']": 0.5109183503561809,
+        "['noise']": 0.4092961462508364,
+        "['fatformer']": 0.38090513682453214,
+        "['spatial']": 0.37653513392563487,
+        "['frequency', 'noise']": 0.7215868009349802,
+        "['fatformer', 'frequency']": 0.6556621258778401,
+        "['frequency', 'spatial']": 0.5748935267722778,
+        "['fatformer', 'noise']": 0.637818851909264,
+        "['noise', 'spatial']": 0.5831035700942957,
+        "['fatformer', 'spatial']": 0.5370436975619378,
+        "['fatformer', 'frequency', 'noise']": 0.7689977419592153,
+        "['frequency', 'noise', 'spatial']": 0.7530194881119964,
+        "['fatformer', 'frequency', 'spatial']": 0.6685716227302528,
+        "['fatformer', 'noise', 'spatial']": 0.6737587167052009,
+        "['fatformer', 'frequency', 'noise', 'spatial']": 0.7717141462296289
+      },
+      "f1_full": 0.7717141462296289,
+      "f1_3best": 0.7689977419592153
+    },
+    {
+      "name": "dsC",
+      "desc": "CASIA2 + IMD2020(Inpainting) + BigGAN (900)",
+      "n_samples": 900,
+      "shapley": {
+        "frequency": 0.1482431862333869,
+        "noise": 0.2606085049957421,
+        "fatformer": 0.04483949631280463,
+        "spatial": 0.043869714620391936
+      },
+      "shapley_ranking": [
+        "noise",
+        "frequency",
+        "fatformer",
+        "spatial"
+      ],
+      "stii": {
+        "frequency__noise": 0.07237258704162688,
+        "frequency__fatformer": -0.03907000410054075,
+        "frequency__spatial": -0.07337478864528009,
+        "noise__fatformer": 0.003074060833496305,
+        "noise__spatial": 0.03672827149531208,
+        "fatformer__spatial": 0.030018755066217682
+      },
+      "stii_top_pair": "frequency__spatial",
+      "unique_summary": {
+        "frequency": 0.10306188826356075,
+        "noise": 0.20677262788872477,
+        "fatformer": 0.011026830506160781,
+        "spatial": 0.0
+      },
+      "synergy_ranking": [
+        {
+          "pair": "frequency__noise",
+          "synergy": 0.15536178870165393
+        },
+        {
+          "pair": "noise__fatformer",
+          "synergy": 0.08729764619307277
+        },
+        {
+          "pair": "noise__spatial",
+          "synergy": 0.05912223167754511
+        },
+        {
+          "pair": "frequency__fatformer",
+          "synergy": 0.04862413573368893
+        },
+        {
+          "pair": "fatformer__spatial",
+          "synergy": 0.04082192582949209
+        },
+        {
+          "pair": "frequency__spatial",
+          "synergy": 0.02006950226383735
+        }
+      ],
+      "cf": {
+        "[]": 0.3333333333333333,
+        "['frequency']": 0.48628523415380265,
+        "['noise']": 0.505347813749489,
+        "['fatformer']": 0.34565654351425434,
+        "['spatial']": 0.354245928668946,
+        "['frequency', 'noise']": 0.8136158276348695,
+        "['fatformer', 'frequency']": 0.5514769122712517,
+        "['frequency', 'spatial']": 0.49805987316427636,
+        "['fatformer', 'noise']": 0.664221086689038,
+        "['noise', 'spatial']": 0.6787630427886178,
+        "['fatformer', 'spatial']": 0.5213572021380732,
+        "['fatformer', 'frequency', 'noise']": 0.8166094022437965,
+        "['frequency', 'noise', 'spatial']": 0.8245482135155646,
+        "['fatformer', 'frequency', 'spatial']": 0.5467048357090679,
+        "['fatformer', 'noise', 'spatial']": 0.7180145403793835,
+        "['fatformer', 'frequency', 'noise', 'spatial']": 0.8308942354956589
+      },
+      "f1_full": 0.8308942354956589,
+      "f1_3best": 0.8245482135155646
+    },
+    {
+      "name": "opensdi",
+      "desc": "OpenSDID 전체 (900, 다른 출처)",
+      "n_samples": 900,
+      "shapley": {
+        "frequency": -0.00582545685996088,
+        "noise": 0.08543291774052378,
+        "fatformer": -0.041666666666666664,
+        "spatial": -0.011967815219814448
+      },
+      "shapley_ranking": [
+        "noise",
+        "frequency",
+        "spatial",
+        "fatformer"
+      ],
+      "stii": {
+        "frequency__noise": 0.006608794021122631,
+        "frequency__fatformer": 0.05555555555555555,
+        "frequency__spatial": 0.04296396847233766,
+        "noise__fatformer": 0.05555555555555555,
+        "noise__spatial": -0.019139472557878637,
+        "fatformer__spatial": 0.05555555555555555
+      },
+      "stii_top_pair": "frequency__fatformer",
+      "unique_summary": {
+        "frequency": 0.0,
+        "noise": 0.04702546607816074,
+        "fatformer": 0.0,
+        "spatial": 0.0
+      },
+      "synergy_ranking": [
+        {
+          "pair": "frequency__noise",
+          "synergy": 0.006762866469859557
+        },
+        {
+          "pair": "noise__spatial",
+          "synergy": 0.0027396046479334383
+        },
+        {
+          "pair": "frequency__spatial",
+          "synergy": 0.0019961886417039863
+        },
+        {
+          "pair": "noise__fatformer",
+          "synergy": 1.3877787807814457e-17
+        },
+        {
+          "pair": "frequency__fatformer",
+          "synergy": 0.0
+        },
+        {
+          "pair": "fatformer__spatial",
+          "synergy": 0.0
+        }
+      ],
+      "cf": {
+        "[]": 0.3333333333333333,
+        "['frequency']": 0.23759063823740267,
+        "['noise']": 0.3599007333529955,
+        "['fatformer']": 0.16666666666666666,
+        "['spatial']": 0.24432241316704975,
+        "['frequency', 'noise']": 0.3689371810236841,
+        "['fatformer', 'frequency']": 0.23759063823740267,
+        "['frequency', 'spatial']": 0.2897140352889534,
+        "['fatformer', 'noise']": 0.3599007333529955,
+        "['noise', 'spatial']": 0.3499206893743299,
+        "['fatformer', 'spatial']": 0.24432241316704975,
+        "['fatformer', 'frequency', 'noise']": 0.3689371810236841,
+        "['frequency', 'noise', 'spatial']": 0.3593063123274151,
+        "['fatformer', 'frequency', 'spatial']": 0.2897140352889534,
+        "['fatformer', 'noise', 'spatial']": 0.3499206893743299,
+        "['fatformer', 'frequency', 'noise', 'spatial']": 0.3593063123274151
+      },
+      "f1_full": 0.3593063123274151,
+      "f1_3best": 0.3689371810236841
+    },
+    {
+      "name": "aigenproxy",
+      "desc": "AI-GenBench proxy (900, 다양한 AI 생성기)",
+      "n_samples": 900,
+      "shapley": {
+        "frequency": 0.13220780794862802,
+        "noise": 0.15555663601137215,
+        "fatformer": -0.018886371414575043,
+        "spatial": 0.07394564401033327
+      },
+      "shapley_ranking": [
+        "noise",
+        "frequency",
+        "spatial",
+        "fatformer"
+      ],
+      "stii": {
+        "frequency__noise": -0.0077980074243985745,
+        "frequency__fatformer": 0.029778332494487813,
+        "frequency__spatial": -0.021292537040550015,
+        "noise__fatformer": 0.029325786924628904,
+        "noise__spatial": -0.011404286749931162,
+        "fatformer__spatial": 0.05310319772177286
+      },
+      "stii_top_pair": "fatformer__spatial",
+      "unique_summary": {
+        "frequency": 0.05768212613050336,
+        "noise": 0.06833637684584473,
+        "fatformer": 0.0,
+        "spatial": 0.0
+      },
+      "synergy_ranking": [
+        {
+          "pair": "frequency__noise",
+          "synergy": 0.06733946009636052
+        },
+        {
+          "pair": "noise__spatial",
+          "synergy": 0.0647168616897692
+        },
+        {
+          "pair": "fatformer__spatial",
+          "synergy": 0.024866159138207854
+        },
+        {
+          "pair": "frequency__spatial",
+          "synergy": 0.02452725569259804
+        },
+        {
+          "pair": "frequency__fatformer",
+          "synergy": 0.022846973684737433
+        },
+        {
+          "pair": "noise__fatformer",
+          "synergy": 0.02259643749007649
+        }
+      ],
+      "cf": {
+        "[]": 0.3333333333333333,
+        "['frequency']": 0.420778373875042,
+        "['noise']": 0.43704373116812567,
+        "['fatformer']": 0.21981996818810687,
+        "['spatial']": 0.34519152472563464,
+        "['frequency', 'noise']": 0.6375602557950069,
+        "['fatformer', 'frequency']": 0.43312936281020364,
+        "['frequency', 'spatial']": 0.547512841289232,
+        "['fatformer', 'noise']": 0.45603902976126987,
+        "['noise', 'spatial']": 0.580763304100776,
+        "['fatformer', 'spatial']": 0.40326355566879046,
+        "['fatformer', 'frequency', 'noise']": 0.6438924845654987,
+        "['frequency', 'noise', 'spatial']": 0.6774630978934286,
+        "['fatformer', 'frequency', 'spatial']": 0.5623231593040002,
+        "['fatformer', 'noise', 'spatial']": 0.5880242213178438,
+        "['fatformer', 'frequency', 'noise', 'spatial']": 0.6761570498890918
+      },
+      "f1_full": 0.6761570498890918,
+      "f1_3best": 0.6774630978934286
+    }
+  ],
+  "consistency": {
+    "c1_freq_top": 1,
+    "c2_spatial_last": 2,
+    "c3_spatial_unique_zero": 4,
+    "c4_nf_synergy": 2,
+    "total_datasets": 4,
+    "verdict": "재검토 필요"
+  }
+}
