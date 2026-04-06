@@ -25,30 +25,9 @@
 
 #### DAAC 아키텍처
 
-```mermaid
-flowchart LR
-    I[Input Image]
-    A1[Frequency Agent]
-    A2[Noise Agent]
-    A3[FatFormer Agent]
-    A4[Spatial Agent]
-    M[43-d Meta Features<br/>verdict one-hot 16<br/>confidence 4<br/>pairwise disagreement 18<br/>aggregate 5]
-    C[Meta Classifier<br/>LR / GBM / MLP]
-    O[Final Prediction<br/>authentic / manipulated / ai_generated]
+![DAAC architecture](docs/research/readme_assets/daac_architecture.png)
 
-    I --> A1
-    I --> A2
-    I --> A3
-    I --> A4
-    A1 --> M
-    A2 --> M
-    A3 --> M
-    A4 --> M
-    M --> C
-    C --> O
-```
-
-위 구조에서 중요한 부분은 마지막 합의가 규칙 기반이 아니라 `학습된 메타 분류기`라는 점입니다. README 아래쪽의 결과 표에서 보이듯, 이 메타 계층이 단일 에이전트와 `COBRA`를 크게 앞서는 일반화 성능을 만들었습니다.
+위 그림이 DAAC의 실제 아키텍처입니다. 입력 이미지를 `Frequency`, `Noise`, `FatFormer`, `Spatial` 네 에이전트가 각각 보고 `verdict`와 `confidence`를 내면, 이를 `per-agent feature 20D`, `pairwise disagreement 18D`, `aggregate feature 5D`로 묶어 최종 `43-dimensional meta-feature`를 구성하고, 마지막에 `DAAC meta-classifier`가 최종 클래스를 결정합니다. 즉, DAAC의 핵심은 규칙 기반 합의가 아니라 `불일치 구조를 학습하는 메타 분류기`에 있습니다.
 
 ### PAR 연구 소개
 
@@ -79,6 +58,14 @@ flowchart LR
 ![DAAC macro-F1 comparison](docs/research/readme_assets/daac_macro_f1_comparison.png)
 
 위 비교 그림은 `Majority Vote`, `Weighted Majority Vote`, `COBRA` 대비 `DAAC-LR`, `DAAC-GBM`, `DAAC-MLP`가 얼마나 큰 폭으로 향상되는지를 한눈에 보여줍니다. README의 숫자 표와 함께 보면, DAAC의 핵심 성과가 "개별 전문가의 단순 집계"를 넘어서 메타 합의 계층이 성능을 끌어올렸다는 점임을 더 직관적으로 확인할 수 있습니다.
+
+![DAAC cross-dataset validation](docs/research/readme_assets/daac_cross_dataset_validation.png)
+
+이 그림은 `DS-A`, `DS-B`, `DS-C`, `DS-D`뿐 아니라 `OpenSDI`, `AI-GenBench proxy` 같은 외부 분포에서도 DAAC가 `COBRA`보다 일관되게 높은 성능을 보인다는 점을 요약합니다. 즉, DAAC의 강점은 단순히 한 데이터셋에서 잘 맞는 것이 아니라 `source shift`, `manipulation shift`, `real-world distribution shift`가 생겨도 불일치 기반 메타 특징이 꽤 안정적으로 작동한다는 데 있습니다.
+
+![DAAC feature ablation](docs/research/readme_assets/daac_feature_ablation.png)
+
+이 ablation 그림도 중요합니다. `A1 confidence-only`, `A2 verdict-only`, `A3 disagreement-only`, `A4 verdict+confidence`, `A5 full`을 비교했을 때 최종 `A5 full`이 가장 높게 나오므로, DAAC의 성과는 한 가지 단순 신호만으로 설명되지 않습니다. `개별 판정`, `신뢰도`, `쌍별 불일치`, `집계 특징`이 함께 들어갈 때 가장 좋은 결과가 나온다는 점이 README의 아키텍처 설명과 맞물립니다.
 
 - 대표 결과 파일:
   - [experiments/results/paper_final/paper_final_20260304_141508.json](experiments/results/paper_final/paper_final_20260304_141508.json)
