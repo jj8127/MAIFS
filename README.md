@@ -17,11 +17,46 @@
 - 공유 결과 archive: [docs/research/papers/PAPER_DRAFT_ARV_v3_SHARED_RESULTS.tar.gz](docs/research/papers/PAPER_DRAFT_ARV_v3_SHARED_RESULTS.tar.gz)
 - 실험 재현 안내: [docs/research/EXPERIMENT_REPRO_RUNBOOK.md](docs/research/EXPERIMENT_REPRO_RUNBOOK.md)
 
-## 대표 Figure
+## 연구 소개
+
+### DAAC 연구 소개
+
+`DAAC`는 서버 환경에서 여러 forensic agent의 판단을 단순 다수결로 묶는 대신, `에이전트들 사이의 불일치 패턴` 자체를 학습하는 연구입니다. `frequency`, `noise`, `FatFormer`, `spatial` 네 에이전트가 각각 판정과 신뢰도를 내면, DAAC는 이를 `43-dim 메타 특징`으로 요약한 뒤 `Logistic Regression`, `GBM`, `MLP` 같은 메타 분류기가 최종 클래스를 결정합니다. 핵심 가설은 "정답 신호가 개별 모델 안에만 있는 것이 아니라, 모델들 사이의 충돌 구조에도 있다"는 점입니다.
+
+#### DAAC 아키텍처
+
+```mermaid
+flowchart LR
+    I[Input Image]
+    A1[Frequency Agent]
+    A2[Noise Agent]
+    A3[FatFormer Agent]
+    A4[Spatial Agent]
+    M[43-d Meta Features<br/>verdict one-hot 16<br/>confidence 4<br/>pairwise disagreement 18<br/>aggregate 5]
+    C[Meta Classifier<br/>LR / GBM / MLP]
+    O[Final Prediction<br/>authentic / manipulated / ai_generated]
+
+    I --> A1
+    I --> A2
+    I --> A3
+    I --> A4
+    A1 --> M
+    A2 --> M
+    A3 --> M
+    A4 --> M
+    M --> C
+    C --> O
+```
+
+위 구조에서 중요한 부분은 마지막 합의가 규칙 기반이 아니라 `학습된 메타 분류기`라는 점입니다. README 아래쪽의 결과 표에서 보이듯, 이 메타 계층이 단일 에이전트와 `COBRA`를 크게 앞서는 일반화 성능을 만들었습니다.
+
+### PAR 연구 소개
+
+`PAR`는 DAAC의 통찰을 엣지 환경으로 옮긴 두 번째 연구입니다. 무거운 4-agent 구조를 그대로 쓰기보다, `MobileNetV2` 기반 3-class 기본 분류기와 2-class 보조 모델을 먼저 결합하고, 그 뒤 `ARV`가 판정 변경을 받아들일지 되돌릴지를 선택적으로 결정합니다. 즉 목표는 교정을 무조건 늘리는 것이 아니라, `reverse correction`을 줄이면서 실제 Raspberry Pi 5 같은 장치에도 올릴 수 있는 경량 의사결정 구조를 만드는 것입니다.
 
 ![PAR / ARV 2-stage pipeline](docs/research/papers/figures/그림1.png)
 
-위 그림은 PAR 연구의 핵심 구조를 보여줍니다. `MobileNetV2` 기반 3-class 기본 분류기와 2-class 보조 모델을 먼저 역신뢰도 가중 결합하고, 그 뒤 `ARV`가 변경을 받아들일지 되돌릴지 선택적으로 결정합니다. 즉, 이 연구의 초점은 "더 많이 바꾸는 것"이 아니라 "유익한 수정은 살리고 해로운 수정은 막는 것"입니다.
+위 그림은 PAR 연구의 핵심 구조를 보여줍니다. `Stage 1`은 역신뢰도 가중 결합으로 교정 후보를 만들고, `Stage 2`의 `ARV`는 그 변경이 정말 유익한지 다시 평가합니다. 그래서 PAR의 기여는 단순히 F1을 높이는 데 그치지 않고, "유익한 수정은 살리고 해로운 수정은 막는" 운영 가능한 후단 계층을 만든 데 있습니다.
 
 ## 핵심 성과
 
