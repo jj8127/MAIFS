@@ -31,6 +31,20 @@
 - 대표 결과: paper-style 반복 검증에서 `DAAC-GBM`은 avg macro-F1 `0.8613 ± 0.0148`을 기록했고, 비교 기준 `COBRA`는 `0.2664 ± 0.0086`에 머물렀습니다.
 - 개별 에이전트 대비 이점: 가장 높은 단일 에이전트인 `frequency`도 `0.4284` 수준이어서, 메타 합의 계층의 기여가 뚜렷합니다.
 - 포함된 자산: `dsA / dsB / dsC / dsD / OpenSDI / aigenproxy` 경로의 cache 기반 재현 결과와 paper summary JSON이 포함되어 있습니다.
+
+| DAAC 결과 | avg macro-F1 | 비고 |
+| --- | ---: | --- |
+| `DAAC-GBM` | `0.8613 ± 0.0148` | 10-seed 반복 검증 기준 메인 결과 |
+| `COBRA` | `0.2664 ± 0.0086` | 규칙 기반 비교 기준 |
+| `Frequency` 단일 에이전트 | `0.4284 ± 0.0107` | 가장 높은 단일 에이전트 |
+| `Noise` 단일 에이전트 | `0.3445 ± 0.0150` | 단일 에이전트 비교 |
+| `FatFormer` 단일 에이전트 | `0.3385 ± 0.0158` | 단일 에이전트 비교 |
+| `Spatial` 단일 에이전트 | `0.3083 ± 0.0114` | 단일 에이전트 비교 |
+
+![DAAC macro-F1 comparison](docs/research/readme_assets/daac_macro_f1_comparison.png)
+
+위 비교 그림은 `Majority Vote`, `Weighted Majority Vote`, `COBRA` 대비 `DAAC-LR`, `DAAC-GBM`, `DAAC-MLP`가 얼마나 큰 폭으로 향상되는지를 한눈에 보여줍니다. README의 숫자 표와 함께 보면, DAAC의 핵심 성과가 "개별 전문가의 단순 집계"를 넘어서 메타 합의 계층이 성능을 끌어올렸다는 점임을 더 직관적으로 확인할 수 있습니다.
+
 - 대표 결과 파일:
   - [experiments/results/paper_final/paper_final_20260304_141508.json](experiments/results/paper_final/paper_final_20260304_141508.json)
   - [experiments/results/agent_eval/agent_eval_paper_final_20260305_053951.json](experiments/results/agent_eval/agent_eval_paper_final_20260305_053951.json)
@@ -42,6 +56,29 @@
 - 데이터셋별 의미: `OpenSDI`에서는 F1이 `0.9424 -> 0.9545`로 올라가, 역교정이 많이 발생하는 환경에서 ARV의 가치가 특히 크게 드러났습니다.
 - 추가 검증: strong backbone 두 종류를 합친 반복 실험에서 역교정 총합이 평균 `30.2건`으로 줄어 `63.6%` 감소했습니다.
 - 통계적 뒷받침: pooled 비교에서 macro-F1은 `0.9562 -> 0.9643`, paired bootstrap 95% CI는 `[0.0045, 0.0117]`, exact McNemar test는 `p=5.8×10^-5`였습니다.
+
+| PAR 결과 | 값 | 비고 |
+| --- | ---: | --- |
+| 기본 분류기 avg macro-F1 | `0.9581` | MobileNetV2 3-class base |
+| 최종 ARV avg macro-F1 | `0.9652` | 메인 결과 |
+| 성능 향상 | `+0.0071` | `0.9581 -> 0.9652` |
+| 1단계 결합 역교정 | `40` | ARV 적용 전 |
+| 최종 ARV 역교정 | `18` | ARV 적용 후 |
+| OpenSDI F1 | `0.9424 -> 0.9545` | 데이터셋별 대표 개선 |
+| strong backbone 역교정 감소 | `63.6%` | 두 backbone 합산 반복 검증 |
+
+![PAR main result summary](docs/research/readme_assets/par_main_result_summary.png)
+
+이 표는 README의 PAR 메인 수치를 시각적으로 다시 묶어 둔 요약입니다. 기본 분류기 대비 `PAR`가 평균 F1을 올리면서도, 교정과 역교정의 균형을 더 안전하게 가져간다는 점을 빠르게 전달합니다.
+
+![PAR dataset-level effects](docs/research/readme_assets/par_dataset_effects.png)
+
+데이터셋별 결과 그림에서는 `OpenSDI`처럼 역교정이 특히 많이 발생하던 환경에서 2단계 구조가 더 큰 가치를 보인다는 점이 드러납니다. 즉, PAR의 장점은 모든 환경에서 무조건 공격적으로 수정하는 것이 아니라, 위험한 수정이 많은 조건에서 더 안정적으로 작동한다는 데 있습니다.
+
+![PAR strong-backbone validation](docs/research/readme_assets/par_backbone_validation.png)
+
+이 표는 `MobileNetV2`뿐 아니라 더 강한 기본 분류기 설정에서도 PAR의 방향성이 유지되는지를 보여줍니다. 특히 역교정 감소율이 `49.5%`, `76.6%`로 나타나, PAR가 단순한 단발 개선이 아니라 "이미 강한 기본 분류기를 더 안전하게 만드는 층"이라는 해석을 뒷받침합니다.
+
 - 대표 결과 문서:
   - [docs/research/papers/PAPER_DRAFT_ARV_v3.md](docs/research/papers/PAPER_DRAFT_ARV_v3.md)
   - [Raspberry_pi5_Experiment/docs/ARV_E2E_ALL_BACKENDS_EXPERIMENT_SUMMARY_20260329.md](Raspberry_pi5_Experiment/docs/ARV_E2E_ALL_BACKENDS_EXPERIMENT_SUMMARY_20260329.md)
@@ -51,6 +88,11 @@
 - 1단계 ICWMV 기준 평균 총 지연: `CPU 123.72 ms`, `USB Edge TPU 64.56 ms`, `PCIe HAT 54.17 ms`
 - 고정 benchmark input 기준 전체 ARV bundle real-path 종단간 지연: `CPU 276.995 ms`, `USB 66.102 ms`, `PCIe 51.388 ms`
 - 저장소에는 fixed-input benchmark뿐 아니라 실제 keep/revert 사례를 찾는 active probe workflow도 포함되어 있습니다.
+
+![PAR / ARV Raspberry Pi latency](docs/research/readme_assets/par_rpi_latency.png)
+
+이 지연 그림은 Raspberry Pi 5 배포 관점에서 `CPU`, `USB Edge TPU`, `PCIe 연결 HAT` 경로의 체감 차이를 보여줍니다. 특히 README 본문의 수치와 함께 보면, `PCIe HAT` 경로가 가장 빠르고 엣지 배포 가능성이 가장 높다는 메시지가 훨씬 선명해집니다.
+
 - 관련 자산:
   - [Raspberry_pi5_Experiment/README.md](Raspberry_pi5_Experiment/README.md)
   - [Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/README.md](Raspberry_pi5_Experiment/ARV_EndToEnd_RPi5/README.md)
